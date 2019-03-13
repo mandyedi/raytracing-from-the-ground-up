@@ -5,7 +5,7 @@
             "name": "C++ Debug (gdb)",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/main",
+            "program": "${workspaceFolder}/bin/wxraytracer",
             "preLaunchTask": "Build C++ project",
             "args": [],
             "stopAtEntry": false,
