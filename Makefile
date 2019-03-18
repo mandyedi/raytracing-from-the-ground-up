@@ -62,6 +62,8 @@ SRC		:= src/BRDFs/BRDF.cpp \
 
 all: $(BIN)/$(EXECUTABLE)
 
+build: clean all
+
 run: clean all
 	clear
 	./$(BIN)/$(EXECUTABLE)
