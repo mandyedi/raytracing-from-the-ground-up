@@ -33,3 +33,6 @@ bin/
 *.exe
 *.out
 *.app
+
+# C++ cache files
+ipch/
