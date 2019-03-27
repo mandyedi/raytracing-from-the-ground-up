@@ -1,3 +1,19 @@
+### Dev Guide
+
+The following description is based on some suggestion from the book. Follow them please, even if there is a better solution.
+
+* Floats or Doubles
+
+    Use doubles for all ray-object intersection calculations.
+    List of classes that use double:
+    
+    `GeometricObject` and all descendant. `Matrix, Normal, Point3D, Vector3D, ShadeRec`
+
+    Use floats for shading calculation.
+    List of classes that use float:
+    
+    `BRDF, Camera, Light, Material, Point2D, RGBColor, ViewPlane` 
+
 ### Styleguide
 
 Style guide is based on chapter 1.10 Coding Style. Any other guide that is listed below is based on the already implemented source code. For readability and consistency follow the suggested coding style please.
