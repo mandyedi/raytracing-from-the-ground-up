@@ -14,6 +14,36 @@ The following description is based on some suggestion from the book. Follow them
     
     `BRDF, Camera, Light, Material, Point2D, RGBColor, ViewPlane` 
 
+* Pass by Reference
+
+    Pass all compound objects into functions with references or constant references.
+    ```cpp
+    Triangle::Triangle(const Point3D & v1, const Point3D & v2, const Point3D & v3);
+    ```
+
+* Don't Return by Reference
+
+    Instead return like this:
+    ```cpp
+    Matrix
+    Matrix::operator* (const Matrix& mat) const
+    ```
+
+* Avoid Floating-Point Divides
+
+    Floating-point division requires more machine cycles than a floating multiplication. Define constants such as
+
+    `const double invPI = 0.3183098861837906715;`
+
+    Also good practice to divide values, for example, with 2.0 as below.
+
+    `double x = 128.0 * 0.5`
+
+* Inlining
+
+    Only inline small functions, don't inline constructors, destructors, or virtual functions. Place inline functions in a header file.
+
+
 ### Styleguide
 
 Style guide is based on chapter 1.10 Coding Style. Any other guide that is listed below is based on the already implemented source code. For readability and consistency follow the suggested coding style please.
