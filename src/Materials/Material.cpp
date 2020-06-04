@@ -15,8 +15,9 @@ Material::Material(const Material& m) {}
 
 Material& 
 Material::operator= (const Material& rhs) {
-	if (this == &rhs)
+	if (this == &rhs) {
 		return (*this);
+	}
 
 	return (*this);
 }

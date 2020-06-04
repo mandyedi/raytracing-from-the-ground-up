@@ -114,8 +114,7 @@ void wxraytracerFrame::OnSaveFile( wxCommandEvent& WXUNUSED( event ) )
                         wxFD_SAVE|wxFD_OVERWRITE_PROMPT);
    dialog.SetPath(currentPath);
    
-   if (dialog.ShowModal() == wxID_OK)
-   {
+   if (dialog.ShowModal() == wxID_OK) {
       currentPath = dialog.GetPath();
       
       wxImage theImage = canvas->GetImage();
@@ -139,19 +138,16 @@ void wxraytracerFrame::OnOpenFile( wxCommandEvent& WXUNUSED( event ) )
                         wxFD_OPEN|wxFD_FILE_MUST_EXIST);
    dialog.SetPath(currentPath);
    
-   if (dialog.ShowModal() == wxID_OK)
-   {
+   if (dialog.ShowModal() == wxID_OK) {
       currentPath = dialog.GetPath();
       wxImage* theImage = new wxImage();
       theImage->LoadFile(currentPath);
       
-      if (!theImage->IsOk())
-      {
+      if (!theImage->IsOk()) {
          delete theImage;
          wxMessageBox(wxT("Sorry, could not load file."));
       }
-      else
-      {
+      else {
          canvas->SetImage(*theImage);
          wxMenu* menuFile = GetMenuBar()->GetMenu(0);
          menuFile->Enable(menuFile->FindItem(wxT( "&Save As..."  )) , TRUE);
@@ -225,23 +221,28 @@ RenderCanvas::RenderCanvas(wxWindow *parent)
 
 RenderCanvas::~RenderCanvas(void)
 {
-   if(m_image != NULL)
+   if (m_image != NULL) {
       delete m_image;
+   }
    
-   if(thread != NULL)
+   if (thread != NULL) {
       thread->Delete();
+   }
    
-   if(w != NULL)
+   if (w != NULL) {
       delete w;
+   }
    
-   if(timer != NULL)
+   if (timer != NULL) {
       delete timer;
+   }
 }
 
 void RenderCanvas::SetImage(wxImage& image)
 {
-   if(m_image != NULL)
+   if (m_image != NULL) {
       delete m_image;
+   }
    
    m_image = new wxBitmap(image);
    
@@ -253,30 +254,30 @@ void RenderCanvas::SetImage(wxImage& image)
 
 wxImage RenderCanvas::GetImage(void)
 {
-   if(m_image != NULL)
+   if (m_image != NULL) {
       return m_image->ConvertToImage();
-   
+   }
+
    return wxImage();
 }
 
 void RenderCanvas::OnDraw(wxDC& dc)
 {
-   if(m_image != NULL && m_image->IsOk())
+   if (m_image != NULL && m_image->IsOk()) {
       wxBufferedDC bdc(&dc, *m_image);
+   }
 }
 
 void RenderCanvas::OnRenderCompleted( wxCommandEvent& event )
 {
    thread = NULL;
    
-   if(w != NULL)
-   {
+   if (w != NULL) {
       delete w;
       w = NULL;
    }
    
-   if(timer != NULL)
-   {
+   if (timer != NULL) {
       long interval = timer->Time();
    
       wxTimeSpan timeElapsed(0, 0, 0, interval);
@@ -299,9 +300,7 @@ void RenderCanvas::OnNewPixel( wxCommandEvent& event )
    vector<RenderPixel*> *pixelsUpdate =
                         (vector<RenderPixel*> *)event.GetClientData();
    
-   for(vector<RenderPixel*>::iterator itr = pixelsUpdate->begin();
-                        itr != pixelsUpdate->end(); itr++)
-   {
+   for (vector<RenderPixel*>::iterator itr = pixelsUpdate->begin(); itr != pixelsUpdate->end(); itr++) {
       RenderPixel* pixel = *itr;
       
       wxPen pen(wxColour(pixel->red, pixel->green, pixel->blue));
@@ -318,30 +317,35 @@ void RenderCanvas::OnNewPixel( wxCommandEvent& event )
 
 void RenderCanvas::renderPause(void)
 {
-   if(thread != NULL)
+   if (thread != NULL) {
       thread->Pause();
+   }
    
    updateTimer.Stop();
    
-   if(timer != NULL)
+   if (timer != NULL) {
       timer->Pause();
+   }
 }
 
 void RenderCanvas::renderResume(void)
 {
-   if(thread != NULL)
+   if (thread != NULL) {
       thread->Resume();
+   }
    
    updateTimer.Start();
    
-   if(timer != NULL)
+   if (timer != NULL) {
       timer->Resume();
+   }
 }
 
 void RenderCanvas::OnTimerUpdate( wxTimerEvent& event )
 {
-   if(timer == NULL)
+   if (timer == NULL) {
       return;
+   }
    
    //percent
    float completed = (float)pixelsRendered / (float)pixelsToRender;
@@ -366,10 +370,12 @@ void RenderCanvas::OnTimerUpdate( wxTimerEvent& event )
    wxString timeString = timeElapsed.Format(wxT("Elapsed Time: %H:%M:%S"));
    
    //only display ETA if something has been completed
-   if(msecRemain >= 0)
+   if (msecRemain >= 0) {
       wxGetApp().SetStatusText( timeString + timeRemainString, 1);
-   else
+   }
+   else {
       wxGetApp().SetStatusText( timeString, 1);
+   }
 }
 
 void RenderCanvas::renderStart(void)
@@ -395,10 +401,10 @@ void RenderCanvas::renderStart(void)
    
    wxBitmap tile(bg_xpm);
    
-   for(int x = 0; x < w->vp.hres; x += 16)
-   {
-      for(int y = 0; y < w->vp.vres; y += 16)
+   for (int x = 0; x < w->vp.hres; x += 16) {
+      for (int y = 0; y < w->vp.vres; y += 16) {
          dc.DrawBitmap(tile, x, y, FALSE);
+      }
    }
    
    dc.SelectObject(wxNullBitmap);
@@ -448,8 +454,9 @@ void RenderThread::setPixel(int x, int y, int red, int green, int blue)
    
    pixels.push_back(new RenderPixel(x, y, red, green, blue));
    
-   if(timer->Time() - lastUpdateTime > 40)
+   if (timer->Time() - lastUpdateTime > 40) {
       NotifyCanvas();
+   }
     
    TestDestroy();
 }

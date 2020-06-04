@@ -62,7 +62,7 @@ World::World(void)
 
 World::~World(void) {	
 	
-	if(tracer_ptr) {
+	if (tracer_ptr) {
 		delete tracer_ptr;
 		tracer_ptr = NULL;
 	}
@@ -441,10 +441,12 @@ RGBColor
 World::max_to_one(const RGBColor& c) const  {
 	float max_value = max(c.r, max(c.g, c.b));
 	
-	if (max_value > 1.0)
+	if (max_value > 1.0) {
 		return (c / max_value);
-	else
+	}
+	else {
 		return (c);
+	}
 }
 
 
@@ -478,13 +480,16 @@ void
 World::display_pixel(const int row, const int column, const RGBColor& raw_color) const {
 	RGBColor mapped_color;
 
-	if (vp.show_out_of_gamut)
+	if (vp.show_out_of_gamut) {
 		mapped_color = clamp_to_color(raw_color);
-	else
+	}
+	else {
 		mapped_color = max_to_one(raw_color);
-	
-	if (vp.gamma != 1.0)
+	}
+
+	if (vp.gamma != 1.0) {
 		mapped_color = mapped_color.powc(vp.inv_gamma);
+	}
 	
 	//have to start from max y coordinate to convert to screen coordinates
 	int x = column;
@@ -507,7 +512,7 @@ World::hit_objects(const Ray& ray) {
 	float		tmin 			= kHugeValue;
 	int 		num_objects 	= objects.size();
 	
-	for (int j = 0; j < num_objects; j++)
+	for (int j = 0; j < num_objects; j++) {
 		if (objects[j]->hit(ray, t, sr) && (t < tmin)) {
 			sr.hit_an_object	= true;
 			tmin 				= t;
@@ -516,8 +521,9 @@ World::hit_objects(const Ray& ray) {
 			normal 				= sr.normal;
 			local_hit_point	 	= sr.local_hit_point;
 		}
+	}
   
-	if(sr.hit_an_object) {
+	if (sr.hit_an_object) {
 		sr.t = tmin;
 		sr.normal = normal;
 		sr.local_hit_point = local_hit_point;

@@ -44,8 +44,9 @@ Plane::clone(void) const {
 Plane& 
 Plane::operator= (const Plane& rhs)	{
 	
-	if (this == &rhs)
+	if (this == &rhs) {
 		return (*this);
+	}
 
 	GeometricObject::operator= (rhs);
 

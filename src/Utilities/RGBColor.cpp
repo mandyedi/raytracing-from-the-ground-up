@@ -42,8 +42,9 @@ RGBColor::~RGBColor(void)
 
 RGBColor& 											
 RGBColor::operator= (const RGBColor& rhs) {
-	if (this == &rhs)
+	if (this == &rhs) {
 		return (*this);
+	}
 
 	r = rhs.r; g = rhs.g; b = rhs.b;
 

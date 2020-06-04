@@ -15,13 +15,19 @@ Matte::Matte (void)
 Matte::Matte(const Matte& m)
 	: 	Material(m)
 {
-	if(m.ambient_brdf)
+	if (m.ambient_brdf) {
 		ambient_brdf = m.ambient_brdf->clone(); 
-	else  ambient_brdf = NULL;
+	}
+	else {
+		ambient_brdf = NULL;
+	}
 	
-	if(m.diffuse_brdf)
-		diffuse_brdf = m.diffuse_brdf->clone(); 
-	else  diffuse_brdf = NULL;
+	if (m.diffuse_brdf) {
+		diffuse_brdf = m.diffuse_brdf->clone();
+	}
+	else {
+		diffuse_brdf = NULL;
+	}
 }
 
 
@@ -37,8 +43,9 @@ Matte::clone(void) const {
 
 Matte& 
 Matte::operator= (const Matte& rhs) {
-	if (this == &rhs)
+	if (this == &rhs) {
 		return (*this);
+	}
 		
 	Material::operator=(rhs);
 	
@@ -47,16 +54,18 @@ Matte::operator= (const Matte& rhs) {
 		ambient_brdf = NULL;
 	}
 
-	if (rhs.ambient_brdf)
+	if (rhs.ambient_brdf) {
 		ambient_brdf = rhs.ambient_brdf->clone();
+	}
 		
 	if (diffuse_brdf) {
 		delete diffuse_brdf;
 		diffuse_brdf = NULL;
 	}
 
-	if (rhs.diffuse_brdf)
+	if (rhs.diffuse_brdf) {
 		diffuse_brdf = rhs.diffuse_brdf->clone();
+	}
 
 	return (*this);
 }

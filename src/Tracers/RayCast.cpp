@@ -32,8 +32,9 @@ RayCast::trace_ray(const Ray& ray) const {
 		sr.ray = ray;			// used for specular shading
 		return (sr.material_ptr->shade(sr));
 	}   
-	else
+	else {
 		return (world_ptr->background_color);
+	}
 }
 
 
@@ -48,7 +49,8 @@ RayCast::trace_ray(const Ray ray, const int depth) const {
 		sr.ray = ray;			// used for specular shading
 		return (sr.material_ptr->shade(sr));
 	}   
-	else
+	else {
 		return (world_ptr->background_color);
+	}
 }
 

@@ -46,8 +46,9 @@ Sphere::Sphere (const Sphere& sphere)
 Sphere& 
 Sphere::operator= (const Sphere& rhs)		
 {
-	if (this == &rhs)
+	if (this == &rhs) {
 		return (*this);
+	}
 
 	GeometricObject::operator= (rhs);
 
@@ -74,8 +75,9 @@ Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 	double 		c 		= temp * temp - radius * radius;
 	double 		disc	= b * b - 4.0 * a * c;
 	
-	if (disc < 0.0)
+	if (disc < 0.0) {
 		return(false);
+	}
 	else {	
 		double e = sqrt(disc);
 		double denom = 2.0 * a;

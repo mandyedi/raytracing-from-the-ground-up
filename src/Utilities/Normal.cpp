@@ -52,8 +52,9 @@ Normal::~Normal (void)
 
 Normal& 
 Normal::operator= (const Normal& rhs) {
-	if (this == &rhs)
+	if (this == &rhs) {
 		return (*this);
+	}
 
 	x = rhs.x; y = rhs.y; z = rhs.z;
 

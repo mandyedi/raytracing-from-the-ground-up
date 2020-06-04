@@ -18,8 +18,9 @@ Tracer::Tracer(World* _worldPtr)
 // -------------------------------------------------------------------- destructor
 
 Tracer::~Tracer(void) {
-	if (world_ptr)
+	if (world_ptr) {
 		world_ptr = NULL;
+	}
 }
 
 

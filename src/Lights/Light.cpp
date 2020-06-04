@@ -15,8 +15,9 @@ Light::Light(const Light& ls) {}
 
 Light& 
 Light::operator= (const Light& rhs) {
-	if (this == &rhs)
+	if (this == &rhs) {
 		return (*this);
+	}
 
 	return (*this);
 }

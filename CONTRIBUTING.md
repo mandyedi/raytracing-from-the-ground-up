@@ -150,3 +150,26 @@ Style guide is based on chapter 1.10 Coding Style. Any other guide that is liste
     #endif
     ``` 
 
+* Curly Braces
+
+    Always use curly braces, even if the block contains only one line of code.  
+    Open curly brace on the end of the function declaration or end of the conditional statement.  
+    ```cpp
+    // WRONG
+    if (sr.hit_an_object)
+    {
+		sr.ray = ray;			// used for specular shading
+		return (sr.material_ptr->shade(sr));
+	}   
+	else
+		return (world_ptr->background_color);
+    
+    // RIGHT
+    if (sr.hit_an_object) {
+		sr.ray = ray;			// used for specular shading
+		return (sr.material_ptr->shade(sr));
+	}   
+	else {
+		return (world_ptr->background_color);
+    }
+    ```

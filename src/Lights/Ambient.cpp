@@ -31,8 +31,9 @@ Ambient::clone(void) const {
 
 Ambient& 
 Ambient::operator= (const Ambient& rhs) {
-	if (this == &rhs)
+	if (this == &rhs) {
 		return (*this);
+	}
 			
 	Light::operator= (rhs);
 	
