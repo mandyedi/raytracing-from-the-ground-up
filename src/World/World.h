@@ -26,11 +26,7 @@
 #include "Light.h"
 #include "Ambient.h"
 
-
 using namespace std;
-
-class RenderThread; 	//part of skeleton - wxRaytracer.h
-
 
 class World {	
 	public:
@@ -42,10 +38,7 @@ class World {
 		Camera*						camera_ptr;		
 		Sphere 						sphere;		// for Chapter 3 only
 		vector<GeometricObject*>	objects;		
-		vector<Light*> 				lights;
-		
-		RenderThread* 				paintArea; 	//connection to skeleton - wxRaytracer.h
-			
+		vector<Light*> 				lights;			
 
 	public:
 	
@@ -69,7 +62,7 @@ class World {
 		build(void);
 
 		void 												
-		render_scene(void) const;
+		build_shaded_objects(void);
 						
 		RGBColor
 		max_to_one(const RGBColor& c) const;
@@ -83,9 +76,13 @@ class World {
 		ShadeRec
 		hit_objects(const Ray& ray);
 		
-						
+		void
+		save_to_ppm(void) const;
+
 	private:
 		
+		mutable std::vector<int> pixels;
+
 		void 
 		delete_objects(void);
 		

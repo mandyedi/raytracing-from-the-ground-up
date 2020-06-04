@@ -80,7 +80,7 @@ Pinhole::render_scene(const World& w) {
 	vp.s /= zoom;
 	ray.o = eye;
 		
-	for (int r = 0; r < vp.vres; r++)			// up
+	for (int r = 0; r < vp.vres; r++) {			// up
 		for (int c = 0; c < vp.hres; c++) {		// across 					
 			L = black; 
 			
@@ -95,7 +95,10 @@ Pinhole::render_scene(const World& w) {
 			L /= vp.num_samples;
 			L *= exposure_time;
 			w.display_pixel(r, c, L);
-		} 
+		}
+	}
+	
+	w.save_to_ppm();
 }
 
 

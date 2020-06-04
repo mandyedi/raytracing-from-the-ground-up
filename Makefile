@@ -1,38 +1,23 @@
 CXX		  := g++
-# TODO(fix): add -Wall and fix all warnings
-#CXX_FLAGS := -Wall -Wextra -std=c++17 -ggdb
-CXX_FLAGS := -std=c++17 -ggdb
-WX_FLAGS  := -D_FILE_OFFSET_BITS=64 -D__WXGTK__
+# TODO(fix): add -Wall -Wextra and fix all warnings
+CXX_FLAGS := -std=c++17 -ggdb -O0
 
-BIN		:= bin
-LIB		:= lib
-WX_LIB	:= -lgthread-2.0 -pthread -lX11 -lXxf86vm -lSM -lgtk-3 -lgdk-3 -lpangocairo-1.0 -latk-1.0 -lcairo-gobject -lcairo -lgdk_pixbuf-2.0 -lgio-2.0 -lXtst -lpangoft2-1.0 -lpango-1.0 -lgobject-2.0 -lglib-2.0 -lfontconfig -lfreetype -lwxtiff-3.1 -lwxjpeg-3.1 -lwxregexu-3.1 -lwxscintilla-3.1 -lexpat -lpng -lz -ldl -lm
-WX_STATIC	:= \
-	/usr/local/lib/libwx_gtk3u_xrc-3.1.a \
-	/usr/local/lib/libwx_gtk3u_qa-3.1.a \
-	/usr/local/lib/libwx_baseu_net-3.1.a \
-	/usr/local/lib/libwx_gtk3u_html-3.1.a \
-	/usr/local/lib/libwx_gtk3u_core-3.1.a \
-	/usr/local/lib/libwx_baseu_xml-3.1.a \
-	/usr/local/lib/libwx_baseu-3.1.a
+BIN			:= bin
+LIB			:= lib
+EXECUTABLE	:= raytracer
 
-LIBRARIES	:=
-EXECUTABLE	:= wxraytracer
-
-INCLUDE	:= -I/usr/local/lib/wx/include/gtk3-unicode-static-3.1 \
-			-I/usr/local/include/wx-3.1 \
-			-Isrc \
+INCLUDE	:=	-Isrc \
 			-Isrc/BRDFs \
 			-Isrc/Cameras \
 			-Isrc/GeometricObjects \
 			-Isrc/Lights \
 			-Isrc/Materials \
 			-Isrc/Tracers \
-			-Isrc/UserInterface \
 			-Isrc/Utilities \
 			-Isrc/World
 
-SRC		:= src/BRDFs/BRDF.cpp \
+SRC		:= src/consoleApp.cpp \
+			src/BRDFs/BRDF.cpp \
 			src/BRDFs/Lambertian.cpp \
 			src/Cameras/Camera.cpp \
 			src/Cameras/Pinhole.cpp \
@@ -48,7 +33,6 @@ SRC		:= src/BRDFs/BRDF.cpp \
 			src/Tracers/RayCast.cpp \
 			src/Tracers/SingleSphere.cpp \
 			src/Tracers/Tracer.cpp \
-			src/UserInterface/wxraytracer.cpp \
 			src/Utilities/Matrix.cpp \
 			src/Utilities/Normal.cpp \
 			src/Utilities/Point2D.cpp \
@@ -68,8 +52,8 @@ run: clean all
 	clear
 	./$(BIN)/$(EXECUTABLE)
 
-$(BIN)/$(EXECUTABLE): $(SRC)
-	$(CXX) $(CXX_FLAGS) $(INCLUDE) $(WX_FLAGS) -L$(LIB) $^ -o $@ $(WX_STATIC) $(LIBRARIES) $(WX_LIB)
+$(BIN)/$(EXECUTABLE): $(SRC) | $(BIN)
+	$(CXX) $(CXX_FLAGS) $(INCLUDE) -L$(LIB) $^ -o $(BIN)/$(EXECUTABLE)
 
 clean:
 	-rm -rf $(BIN)/*
