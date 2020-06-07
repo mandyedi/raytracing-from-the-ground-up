@@ -5,6 +5,7 @@ CXX_FLAGS := -std=c++17 -ggdb -O0
 BIN			:= bin
 LIB			:= lib
 EXECUTABLE	:= raytracer
+TEST        := gtest
 
 INCLUDE	:=	-Isrc \
 			-Isrc/BRDFs \
@@ -16,8 +17,7 @@ INCLUDE	:=	-Isrc \
 			-Isrc/Utilities \
 			-Isrc/World
 
-SRC		:= src/consoleApp.cpp \
-			src/BRDFs/BRDF.cpp \
+SRC		:=  src/BRDFs/BRDF.cpp \
 			src/BRDFs/Lambertian.cpp \
 			src/Cameras/Camera.cpp \
 			src/Cameras/Pinhole.cpp \
@@ -44,16 +44,25 @@ SRC		:= src/consoleApp.cpp \
 			src/World/ViewPlane.cpp \
 			src/World/World.cpp
 
-all: $(BIN)/$(EXECUTABLE)
+SRC_GTEST	:= test/main.cpp \
+				test/Utilities/MathsTest.cpp
 
-build: clean all
+# Build and run google test>
 
-run: clean all
-	clear
-	./$(BIN)/$(EXECUTABLE)
+run-test: clean $(BIN)/$(TEST)
+	$(BIN)/$(TEST)
 
-$(BIN)/$(EXECUTABLE): $(SRC) | $(BIN)
+$(BIN)/$(TEST): $(SRC_GTEST) $(SRC) | $(BIN)
+	# works if -lgtest -lpthread are at the end of the line 
+	$(CXX) $(CXX_FLAGS) $(INCLUDE) -Ithirdparty/googletest-v1.10.0/include -Lthirdparty/googletest-v1.10.0/lib $^ -o $(BIN)/$(TEST) -lgtest -lpthread
+
+# Build and run raytracer
+
+build: clean $(BIN)/$(EXECUTABLE)
+
+$(BIN)/$(EXECUTABLE): src/consoleApp.cpp $(SRC) | $(BIN)
 	$(CXX) $(CXX_FLAGS) $(INCLUDE) -L$(LIB) $^ -o $(BIN)/$(EXECUTABLE)
 
+# Common stuff
 clean:
 	-rm -rf $(BIN)/*
