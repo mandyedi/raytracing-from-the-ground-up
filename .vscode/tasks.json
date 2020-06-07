@@ -9,6 +9,9 @@
                 "isDefault": true
             },
             "command": "make",
+            "args": [
+                "build"
+            ]
         },
         {
             "label": "Build & run C++ project",
@@ -19,7 +22,7 @@
             },
             "command": "make",
             "args": [
-                "run"
+                "run-test"
             ]
         }
     ]
