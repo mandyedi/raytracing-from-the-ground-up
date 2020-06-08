@@ -1,11 +1,9 @@
 #ifndef __SPHERE__
 #define __SPHERE__
 
-// This file contains the declaration of the class Sphere
 
 #include "GeometricObject.h"
 
-//-------------------------------------------------------------------------------- class Sphere
 
 class Sphere: public GeometricObject {	
 								  	

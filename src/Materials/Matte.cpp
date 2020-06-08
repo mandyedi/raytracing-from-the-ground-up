@@ -1,6 +1,5 @@
 #include "Matte.h"
 
-// ---------------------------------------------------------------- default constructor
 
 Matte::Matte (void)
 	:	Material(),
@@ -10,7 +9,6 @@ Matte::Matte (void)
 
 
 
-// ---------------------------------------------------------------- copy constructor
 
 Matte::Matte(const Matte& m)
 	: 	Material(m)
@@ -31,7 +29,6 @@ Matte::Matte(const Matte& m)
 }
 
 
-// ---------------------------------------------------------------- clone
 
 Material*										
 Matte::clone(void) const {
@@ -39,7 +36,6 @@ Matte::clone(void) const {
 }	
 
 
-// ---------------------------------------------------------------- assignment operator
 
 Matte& 
 Matte::operator= (const Matte& rhs) {
@@ -71,7 +67,6 @@ Matte::operator= (const Matte& rhs) {
 }
 
 
-// ---------------------------------------------------------------- destructor
 
 Matte::~Matte(void) {
 
@@ -87,7 +82,6 @@ Matte::~Matte(void) {
 }
 
 
-// ---------------------------------------------------------------- shade
 
 RGBColor
 Matte::shade(ShadeRec& sr) {

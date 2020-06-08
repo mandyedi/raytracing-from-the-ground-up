@@ -1,11 +1,8 @@
-// this file contains the definition of the class GeometricObject 
-
 #include "Constants.h"
 #include "Material.h"
 #include "GeometricObject.h"
 
 
-// ---------------------------------------------------------------------- default constructor
 
 
 GeometricObject::GeometricObject(void)
@@ -13,7 +10,6 @@ GeometricObject::GeometricObject(void)
 {}
 
 
-// ---------------------------------------------------------------------- copy constructor
 
 GeometricObject::GeometricObject (const GeometricObject& object) {
 	if (object.material_ptr) {
@@ -25,7 +21,6 @@ GeometricObject::GeometricObject (const GeometricObject& object) {
 }	
 
 
-// ---------------------------------------------------------------------- assignment operator
 
 GeometricObject&														
 GeometricObject::operator= (const GeometricObject& rhs) {
@@ -46,7 +41,6 @@ GeometricObject::operator= (const GeometricObject& rhs) {
 }
 
 
-// ---------------------------------------------------------------------- destructor
 
 GeometricObject::~GeometricObject (void) {	
 	if (material_ptr) {
@@ -56,7 +50,6 @@ GeometricObject::~GeometricObject (void) {
 }
 
 
-// ---------------------------------------------------------------- set_material
 
 void 
 GeometricObject::set_material(Material* mPtr) {

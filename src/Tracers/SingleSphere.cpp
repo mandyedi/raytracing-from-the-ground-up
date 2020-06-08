@@ -2,26 +2,22 @@
 #include "World.h"
 #include "ShadeRec.h"
 
-// -------------------------------------------------------------------- default constructor
 
 SingleSphere::SingleSphere(void)
 	: Tracer()
 {}
 
 
-// -------------------------------------------------------------------- constructor
 		
 SingleSphere::SingleSphere(World* _worldPtr)
 	: Tracer(_worldPtr)
 {}
 
 
-// -------------------------------------------------------------------- destructor
 
 SingleSphere::~SingleSphere(void) {}
 
 
-// -------------------------------------------------------------------- trace_ray
 
 RGBColor	
 SingleSphere::trace_ray(const Ray& ray) const {

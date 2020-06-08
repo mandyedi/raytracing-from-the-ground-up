@@ -57,17 +57,14 @@ class Directional: public Light {
 };
 
 
-// inlined access functions
 
 
-// ------------------------------------------------------------------------------- scale_radiance
 
 inline void
 Directional::scale_radiance(const float b) { 
 	ls = b;
 }
 
-// ------------------------------------------------------------------------------- set_color
 
 inline void
 Directional::set_color(const float c) {
@@ -75,7 +72,6 @@ Directional::set_color(const float c) {
 }
 
 
-// ------------------------------------------------------------------------------- set_color
 
 inline void
 Directional::set_color(const RGBColor& c) {
@@ -83,7 +79,6 @@ Directional::set_color(const RGBColor& c) {
 }
 
 
-// ------------------------------------------------------------------------------- set_color
 
 inline void
 Directional::set_color(const float r, const float g, const float b) {
@@ -91,7 +86,6 @@ Directional::set_color(const float r, const float g, const float b) {
 }
 
 
-// ---------------------------------------------------------------------- set_direction
 
 inline void
 Directional::set_direction(Vector3D d) {
@@ -100,7 +94,6 @@ Directional::set_direction(Vector3D d) {
 }
 
 
-// ---------------------------------------------------------------------- set_direction 
 
 inline void
 Directional::set_direction(float dx, float dy, float dz) {

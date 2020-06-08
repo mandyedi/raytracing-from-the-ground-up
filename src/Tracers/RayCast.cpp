@@ -3,26 +3,22 @@
 #include "ShadeRec.h"
 #include "Material.h"
 
-// -------------------------------------------------------------------- default constructor
 
 RayCast::RayCast(void)
 	: Tracer()
 {}
 
 
-// -------------------------------------------------------------------- constructor
 		
 RayCast::RayCast(World* _worldPtr)
 	: Tracer(_worldPtr)
 {}
 
 
-// -------------------------------------------------------------------- destructor
 
 RayCast::~RayCast(void) {}
 
 
-// -------------------------------------------------------------------- trace_ray
 
 RGBColor	
 RayCast::trace_ray(const Ray& ray) const {
@@ -38,7 +34,6 @@ RayCast::trace_ray(const Ray& ray) const {
 }
 
 
-// -------------------------------------------------------------------- trace_ray
 // this ignores the depth argument
 
 RGBColor	

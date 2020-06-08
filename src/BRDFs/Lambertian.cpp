@@ -1,7 +1,6 @@
 #include "Lambertian.h"
 #include "Constants.h"
 
-// ---------------------------------------------------------------------- default constructor
 
 Lambertian::Lambertian(void) 
 	:   BRDF(),
@@ -10,7 +9,6 @@ Lambertian::Lambertian(void)
 {}
 
 
-// ---------------------------------------------------------------------- copy constructor
 
 Lambertian::Lambertian(const Lambertian& lamb) 
 	:   BRDF(lamb),
@@ -19,7 +17,6 @@ Lambertian::Lambertian(const Lambertian& lamb)
 {}
 
 
-// ---------------------------------------------------------------------- clone
 
 Lambertian* 
 Lambertian::clone(void) const {
@@ -27,12 +24,10 @@ Lambertian::clone(void) const {
 }	
 
 
-// ---------------------------------------------------------------------- destructor
 
 Lambertian::~Lambertian(void) {}
 
 
-// ---------------------------------------------------------------------- assignment operator
 
 Lambertian& 
 Lambertian::operator= (const Lambertian& rhs) {
@@ -49,7 +44,6 @@ Lambertian::operator= (const Lambertian& rhs) {
 }
 
 
-// ---------------------------------------------------------------------- f
 
 RGBColor
 Lambertian::f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const {
@@ -57,7 +51,6 @@ Lambertian::f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const 
 }
 
 
-// ---------------------------------------------------------------------- rho
 
 RGBColor
 Lambertian::rho(const ShadeRec& sr, const Vector3D& wo) const {

@@ -46,14 +46,12 @@ class Ambient: public Light {
 
 
 
-// ------------------------------------------------------------------------------- scale_radiance
 
 inline void
 Ambient::scale_radiance(const float b) { 
 	ls = b;
 }
 
-// ------------------------------------------------------------------------------- set_color
 
 inline void
 Ambient::set_color(const float c) {
@@ -61,7 +59,6 @@ Ambient::set_color(const float c) {
 }
 
 
-// ------------------------------------------------------------------------------- set_color
 
 inline void
 Ambient::set_color(const RGBColor& c) {
@@ -69,7 +66,6 @@ Ambient::set_color(const RGBColor& c) {
 }
 
 
-// ------------------------------------------------------------------------------- set_color
 
 inline void
 Ambient::set_color(const float r, const float g, const float b) {

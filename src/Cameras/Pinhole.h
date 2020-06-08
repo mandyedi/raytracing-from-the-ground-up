@@ -1,12 +1,10 @@
 #ifndef __PINHOLE__
 #define __PINHOLE__
 
-// This file contains the declaration of the class Pinhole
 
 #include "Point2D.h"
-#include "World.h"    // we can #include "World.h" here
+#include "World.h"
 
-//--------------------------------------------------------------------- class Pinhole
 
 class Pinhole: public Camera {
 	public:
@@ -39,14 +37,13 @@ class Pinhole: public Camera {
 	private:
 			
 		float	d;		// view plane distance
-		float	zoom;	// zoom factor
+		float	zoom;
 		
 };
 
 
 
 
-//-------------------------------------------------------------------------- set_vpd
 
 inline void
 Pinhole::set_view_distance(float _d) {
@@ -55,7 +52,6 @@ Pinhole::set_view_distance(float _d) {
 	
 
 
-//-------------------------------------------------------------------------- set_zoom
 
 inline void
 Pinhole::set_zoom(float zoom_factor) {

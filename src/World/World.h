@@ -2,7 +2,6 @@
 #define __WORLD__
 
 
-// This file contains the declaration of the class World
 // The World class does not have a copy constructor or an assignment operator, for the followign reasons:
 
 // 1 	There's no need to copy construct or assign the World
@@ -91,7 +90,6 @@ class World {
 };
 
 
-// ------------------------------------------------------------------ add_object
 
 inline void 
 World::add_object(GeometricObject* object_ptr) {  
@@ -99,7 +97,6 @@ World::add_object(GeometricObject* object_ptr) {
 }
 
 
-// ------------------------------------------------------------------ add_light
 
 inline void 
 World::add_light(Light* light_ptr) {  
@@ -107,7 +104,6 @@ World::add_light(Light* light_ptr) {
 }
 
 
-// ------------------------------------------------------------------ set_ambient_light
 
 inline void
 World::set_ambient_light(Light* light_ptr) {
@@ -115,7 +111,6 @@ World::set_ambient_light(Light* light_ptr) {
 }
 
 
-// ------------------------------------------------------------------ set_camera
 
 inline void
 World::set_camera(Camera* c_ptr) {

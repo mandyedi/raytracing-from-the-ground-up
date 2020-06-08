@@ -8,21 +8,20 @@ class Point2D {
 				
 	public:
 	
-		Point2D (void);										// default constructor
-		Point2D (const float arg);							// constructor
-		Point2D (const float x1, const float y1);			// constructor
-		Point2D (const Point2D& p); 						// copy constructor
-		~Point2D (void) {}									// destructor
+		Point2D (void);
+		Point2D (const float arg);
+		Point2D (const float x1, const float y1);
+		Point2D (const Point2D& p);
+		~Point2D (void) {}
 
-		Point2D& 											// assignment operator
+		Point2D&
 		operator= (const Point2D& rhs);
 		
-		Point2D												// multiplication on right by scalar
+		Point2D
 		operator* (const float a);
 };
 
 
-// scales the point by the float a
 
 inline Point2D
 Point2D::operator* (const float a) {

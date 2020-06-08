@@ -1,6 +1,5 @@
 #include "Directional.h"
 
-// ---------------------------------------------------------------------- default constructor
 
 Directional::Directional(void)
 	: 	Light(),
@@ -10,7 +9,6 @@ Directional::Directional(void)
 {}
 
 
-// ---------------------------------------------------------------------- dopy constructor
 
 Directional::Directional(const Directional& dl)
 	: 	Light(dl),
@@ -20,7 +18,6 @@ Directional::Directional(const Directional& dl)
 {}
 
 
-// ---------------------------------------------------------------------- clone
 
 Light* 
 Directional::clone(void) const {
@@ -28,7 +25,6 @@ Directional::clone(void) const {
 }
 
 
-// ---------------------------------------------------------------------- assignment operator
 
 Directional& 
 Directional::operator= (const Directional& rhs) 	
@@ -47,20 +43,15 @@ Directional::operator= (const Directional& rhs)
 }
 
 
-// ---------------------------------------------------------------------- destructor																			
 
 Directional::~Directional(void) {}
 
-
-// ---------------------------------------------------------------------- get_direction
-// as this function is virtual, it shouldn't be inlined 
 
 Vector3D								
 Directional::get_direction(ShadeRec& sr) {
 	return (dir);
 }	
 
-// ------------------------------------------------------------------------------  L
 
 RGBColor
 Directional::L(ShadeRec& s) {	

@@ -1,8 +1,6 @@
-// This file contains the definition the ViewPlane class
 
 #include "ViewPlane.h"
 	
-// ---------------------------------------------------------------- default constructor	
 						
 ViewPlane::ViewPlane(void)							
 	: 	hres(400), 
@@ -15,7 +13,6 @@ ViewPlane::ViewPlane(void)
 {}
 
 
-// ---------------------------------------------------------------- copy constructor
 
 ViewPlane::ViewPlane(const ViewPlane& vp)   
 	:  	hres(vp.hres),  
@@ -28,7 +25,6 @@ ViewPlane::ViewPlane(const ViewPlane& vp)
 {}
 
 
-// ---------------------------------------------------------------- assignment operator
 
 ViewPlane& 
 ViewPlane::operator= (const ViewPlane& rhs) {
@@ -48,7 +44,6 @@ ViewPlane::operator= (const ViewPlane& rhs) {
 }
 
 
-// -------------------------------------------------------------- destructor
 
 ViewPlane::~ViewPlane(void) {}
 

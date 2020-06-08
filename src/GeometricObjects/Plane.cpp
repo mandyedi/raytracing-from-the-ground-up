@@ -2,7 +2,6 @@
 
 const double Plane::kEpsilon = 0.001;
 
-// ----------------------------------------------------------------------  default constructor
 
 Plane::Plane(void)	
 	: 	GeometricObject(),
@@ -11,7 +10,6 @@ Plane::Plane(void)
 {}
 
 
-// ----------------------------------------------------------------------  constructor
 
 Plane::Plane(const Point3D& point, const Normal& normal)
 	:	GeometricObject(),
@@ -22,7 +20,6 @@ Plane::Plane(const Point3D& point, const Normal& normal)
 }
 
 
-// ---------------------------------------------------------------- copy constructor
 
 Plane::Plane(const Plane& plane) 
 	:	GeometricObject(plane),
@@ -31,7 +28,6 @@ Plane::Plane(const Plane& plane)
 {}
 
 
-// ---------------------------------------------------------------- clone
 
 Plane* 
 Plane::clone(void) const {
@@ -39,7 +35,6 @@ Plane::clone(void) const {
 }
 
 
-// ---------------------------------------------------------------- assignment operator
 
 Plane& 
 Plane::operator= (const Plane& rhs)	{
@@ -57,13 +52,11 @@ Plane::operator= (const Plane& rhs)	{
 }
 
 
-// ---------------------------------------------------------------- destructor
 
 Plane::~Plane(void)				
 {}
 
 
-// ----------------------------------------------------------------- hit
 
 bool 															 
 Plane::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {	

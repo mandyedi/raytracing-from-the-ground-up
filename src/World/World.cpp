@@ -1,5 +1,3 @@
-// this file contains the definition of the World class
-
 #include <fstream>
 
 #include "World.h"
@@ -42,7 +40,6 @@
 // #include "BuildShadedObjects.cpp"
 
 
-// -------------------------------------------------------------------- default constructor
 
 // tracer_ptr is set to NULL because the build functions will always construct the appropriate tracer
 // ambient_ptr is set to a default ambient light because this will do for most scenes
@@ -58,7 +55,6 @@ World::World(void)
 
 
 
-//------------------------------------------------------------------ destructor
 
 World::~World(void) {	
 	
@@ -83,7 +79,6 @@ World::~World(void) {
 	delete_lights();				
 } 
 
-//------------------------------------------------------------------ build_shaded_objects
 
 // This builds a scene that consists of 35 shaded spheres and a plane.
 // The objects are illuminated by a directional light and rendered with
@@ -435,7 +430,6 @@ World::build_shaded_objects(void) {
 	add_object (plane_ptr);
 }
 
-// ------------------------------------------------------------------ clamp
 
 RGBColor
 World::max_to_one(const RGBColor& c) const  {
@@ -450,7 +444,6 @@ World::max_to_one(const RGBColor& c) const  {
 }
 
 
-// ------------------------------------------------------------------ clamp_to_color
 // Set color to red if any component is greater than one
 
 RGBColor
@@ -465,7 +458,6 @@ World::clamp_to_color(const RGBColor& raw_color) const {
 }
 
 
-// ---------------------------------------------------------------------------display_pixel
 // raw_color is the pixel color computed by the ray tracer
 // its RGB floating point components can be arbitrarily large
 // mapped_color has all components in the range [0, 1], but still floating point
@@ -500,7 +492,6 @@ World::display_pixel(const int row, const int column, const RGBColor& raw_color)
 	pixels.push_back((int)(mapped_color.b * 255));
 }
 
-// ----------------------------------------------------------------------------- hit_objects
 
 ShadeRec									
 World::hit_objects(const Ray& ray) {
@@ -532,7 +523,6 @@ World::hit_objects(const Ray& ray) {
 	return(sr);   
 }
 
-//------------------------------------------------------------------ save_to_ppm
 
 void
 World::save_to_ppm(void) const {
@@ -545,7 +535,6 @@ World::save_to_ppm(void) const {
 	ofs.close();
 }
 
-//------------------------------------------------------------------ delete_objects
 
 // Deletes the objects in the objects array, and erases the array.
 // The objects array still exists, because it's an automatic variable, but it's empty 
@@ -562,7 +551,6 @@ World::delete_objects(void) {
 	objects.erase (objects.begin(), objects.end());
 }
 
-//------------------------------------------------------------------ delete_lights
 
 void
 World::delete_lights(void) {

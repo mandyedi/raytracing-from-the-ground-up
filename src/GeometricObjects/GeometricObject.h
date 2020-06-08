@@ -8,7 +8,6 @@ class Material;
 #include "ShadeRec.h"
 
 
-//----------------------------------------------------------------------------------------------------- Class GeometricObject
 
 class GeometricObject {	
 	
@@ -43,7 +42,6 @@ class GeometricObject {
 };
 
 
-// ------------------------------------------------------------------------- get_material
 
 inline Material* 
 GeometricObject::get_material(void) const {

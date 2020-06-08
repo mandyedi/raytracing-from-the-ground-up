@@ -1,7 +1,6 @@
 #ifndef __VIEW_PLANE__
 #define __VIEW_PLANE__
 
-//-------------------------------------------------------------------------------------- class ViewPlane
 
 class ViewPlane {
 	public:
@@ -18,13 +17,13 @@ class ViewPlane {
 	
 	public:
 	
-		ViewPlane();   								// default Constructor
+		ViewPlane();
 				
-		ViewPlane(const ViewPlane& vp);				// copy constructor
+		ViewPlane(const ViewPlane& vp);
 
-		ViewPlane& operator= (const ViewPlane& rhs);		// assignment operator
+		ViewPlane& operator= (const ViewPlane& rhs);
 		
-		~ViewPlane();   							// destructor
+		~ViewPlane();
 						
 		void 													
 		set_hres(const int h_res);
@@ -48,7 +47,6 @@ class ViewPlane {
 
 
 
-// ------------------------------------------------------------------------------ set_hres
 
 inline void 													
 ViewPlane::set_hres(const int h_res) {
@@ -56,7 +54,6 @@ ViewPlane::set_hres(const int h_res) {
 }
 
 
-// ------------------------------------------------------------------------------ set_vres
 
 inline void 													
 ViewPlane::set_vres(const int v_res) {
@@ -64,7 +61,6 @@ ViewPlane::set_vres(const int v_res) {
 }
 
 
-// ------------------------------------------------------------------------------ set_pixel_size
 
 inline void 													
 ViewPlane::set_pixel_size(const float size) {
@@ -72,7 +68,6 @@ ViewPlane::set_pixel_size(const float size) {
 }
 
 
-// ------------------------------------------------------------------------------ set_gamma
 
 inline void
 ViewPlane::set_gamma(const float g) {
@@ -81,7 +76,6 @@ ViewPlane::set_gamma(const float g) {
 }
 
 
-// ------------------------------------------------------------------------------ set_gamut_display
 
 inline void
 ViewPlane::set_gamut_display(const bool show) {
@@ -89,7 +83,6 @@ ViewPlane::set_gamut_display(const bool show) {
 }
 
 
-// ------------------------------------------------------------------------------ set_samples
 
 inline void
 ViewPlane::set_samples(const int n) {

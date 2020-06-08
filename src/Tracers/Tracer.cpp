@@ -1,13 +1,11 @@
 #include "Tracer.h"
 
-// -------------------------------------------------------------------- default constructor
 
 Tracer::Tracer(void)
 	: world_ptr(NULL)
 {}
 
 
-// -------------------------------------------------------------------- constructor
 
 Tracer::Tracer(World* _worldPtr)
 	: world_ptr(_worldPtr)
@@ -15,7 +13,6 @@ Tracer::Tracer(World* _worldPtr)
 
 
 
-// -------------------------------------------------------------------- destructor
 
 Tracer::~Tracer(void) {
 	if (world_ptr) {
@@ -24,7 +21,6 @@ Tracer::~Tracer(void) {
 }
 
 
-// -------------------------------------------------------------------- trace_ray
 
 RGBColor	
 Tracer::trace_ray(const Ray& ray) const {
@@ -32,7 +28,6 @@ Tracer::trace_ray(const Ray& ray) const {
 }
 
 
-// -------------------------------------------------------------------- trace_ray
 
 RGBColor	
 Tracer::trace_ray(const Ray ray, const int depth) const {

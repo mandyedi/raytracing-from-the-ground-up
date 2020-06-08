@@ -1,11 +1,9 @@
-// This file contains the definition of the class sphere
 
 #include "Sphere.h"
 #include "math.h"
 
 const double Sphere::kEpsilon = 0.001;
 					
-// ---------------------------------------------------------------- default constructor
 
 Sphere::Sphere(void)	
 	: 	GeometricObject(),
@@ -14,7 +12,6 @@ Sphere::Sphere(void)
 {}
 
 
-// ---------------------------------------------------------------- constructor
 
 Sphere::Sphere(Point3D c, double r)
 	: 	GeometricObject(),
@@ -23,7 +20,6 @@ Sphere::Sphere(Point3D c, double r)
 {}
 
 
-// ---------------------------------------------------------------- clone
 
 Sphere* 
 Sphere::clone(void) const {
@@ -31,7 +27,6 @@ Sphere::clone(void) const {
 }
 
 
-// ---------------------------------------------------------------- copy constructor
 
 Sphere::Sphere (const Sphere& sphere)
 	: 	GeometricObject(sphere),
@@ -41,7 +36,6 @@ Sphere::Sphere (const Sphere& sphere)
 
 
 
-// ---------------------------------------------------------------- assignment operator
 
 Sphere& 
 Sphere::operator= (const Sphere& rhs)		
@@ -59,12 +53,10 @@ Sphere::operator= (const Sphere& rhs)
 }
 
 
-// ---------------------------------------------------------------- destructor
 
 Sphere::~Sphere(void) {}
 
 
-//---------------------------------------------------------------- hit
 
 bool
 Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {

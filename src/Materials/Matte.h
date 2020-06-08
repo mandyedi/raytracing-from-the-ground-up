@@ -4,7 +4,6 @@
 #include "Material.h"
 #include "Lambertian.h"
 
-//----------------------------------------------------------------------------- class Matte
 
 class Matte: public Material {	
 	public:
@@ -46,7 +45,6 @@ class Matte: public Material {
 };
 
 
-// ---------------------------------------------------------------- set_ka
 // this sets Lambertian::kd
 // there is no Lambertian::ka data member because ambient reflection 
 // is diffuse reflection
@@ -57,7 +55,6 @@ Matte::set_ka(const float ka) {
 }
 
 
-// ---------------------------------------------------------------- set_kd
 // this also sets Lambertian::kd, but for a different Lambertian object
 
 inline void								
@@ -66,7 +63,6 @@ Matte::set_kd (const float kd) {
 }
 
 
-// ---------------------------------------------------------------- set_cd
 
 inline void												
 Matte::set_cd(const RGBColor c) {
@@ -75,7 +71,6 @@ Matte::set_cd(const RGBColor c) {
 }
 
 
-// ---------------------------------------------------------------- set_cd
 
 inline void													
 Matte::set_cd(const float r, const float g, const float b) {
@@ -83,7 +78,6 @@ Matte::set_cd(const float r, const float g, const float b) {
 	diffuse_brdf->set_cd(r, g, b);
 }
 
-// ---------------------------------------------------------------- set_cd
 
 inline void													
 Matte::set_cd(const float c) {

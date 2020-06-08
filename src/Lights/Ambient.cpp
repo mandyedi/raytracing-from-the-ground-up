@@ -1,7 +1,6 @@
 
 #include "Ambient.h"
 
-// ---------------------------------------------------------------------- default constructor
 
 Ambient::Ambient (void)
 	: 	Light(),
@@ -10,7 +9,6 @@ Ambient::Ambient (void)
 {}
 
 
-// ---------------------------------------------------------------------- copy constructor
 
 Ambient::Ambient (const Ambient& a)
 	: 	Light(a),
@@ -19,7 +17,6 @@ Ambient::Ambient (const Ambient& a)
 {}
 
 
-// ---------------------------------------------------------------------- clone
 
 Light* 
 Ambient::clone(void) const {
@@ -27,7 +24,6 @@ Ambient::clone(void) const {
 }	
 
 
-// ---------------------------------------------------------------------- assignment operator
 
 Ambient& 
 Ambient::operator= (const Ambient& rhs) {
@@ -44,12 +40,10 @@ Ambient::operator= (const Ambient& rhs) {
 }
 
 
-// ---------------------------------------------------------------------- destructor																			
 
 Ambient::~Ambient (void) {}
 
 
-// ---------------------------------------------------------------------- get_direction	
 
 Vector3D								
 Ambient::get_direction(ShadeRec& s) {
@@ -57,7 +51,6 @@ Ambient::get_direction(ShadeRec& s) {
 }
 
 
-// ---------------------------------------------------------------------- L
 
 RGBColor
 Ambient::L(ShadeRec& sr) {	

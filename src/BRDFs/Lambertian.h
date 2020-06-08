@@ -48,7 +48,6 @@ class Lambertian: public BRDF {
 
 
 
-// -------------------------------------------------------------- set_ka
 
 inline void
 Lambertian::set_ka(const float k) {
@@ -57,7 +56,6 @@ Lambertian::set_ka(const float k) {
 
 
 
-// -------------------------------------------------------------- set_kd
 
 inline void
 Lambertian::set_kd(const float k) {
@@ -65,7 +63,6 @@ Lambertian::set_kd(const float k) {
 }
 
 
-// -------------------------------------------------------------- set_cd
 
 inline void
 Lambertian::set_cd(const RGBColor& c) {
@@ -73,7 +70,6 @@ Lambertian::set_cd(const RGBColor& c) {
 }
 
 
-// ---------------------------------------------------------------- set_cd
 
 inline void													
 Lambertian::set_cd(const float r, const float g, const float b) {
@@ -81,7 +77,6 @@ Lambertian::set_cd(const float r, const float g, const float b) {
 }
 
 
-// ---------------------------------------------------------------- set_cd
 
 inline void													
 Lambertian::set_cd(const float c) {

@@ -1,7 +1,6 @@
 #ifndef __BRDF__
 #define __BRDF__
 
-// This file contains the declaration of the base class BRDF
 
 #include <math.h>
 

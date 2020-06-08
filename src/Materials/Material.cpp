@@ -1,17 +1,14 @@
 #include "Material.h"
 
-// ---------------------------------------------------------------- default constructor
 
 Material::Material(void) {}
 
 
-// ---------------------------------------------------------------- copy constructor
 
 Material::Material(const Material& m) {}
 
 
 
-// ---------------------------------------------------------------- assignment operator
 
 Material& 
 Material::operator= (const Material& rhs) {
@@ -23,13 +20,11 @@ Material::operator= (const Material& rhs) {
 }
 
 
-// ---------------------------------------------------------------- destructor
 
 Material::~Material(void)
 {}
 
 
-// ---------------------------------------------------------------- shade
 
 RGBColor
 Material::shade(ShadeRec& sr) {

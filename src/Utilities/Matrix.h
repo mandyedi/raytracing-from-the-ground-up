@@ -1,36 +1,31 @@
 #ifndef __MATRIX__
 #define __MATRIX__
 
-// this file contains the declaration of the class Matrix
-// Matrix is a 4 x 4 square matrix that is used to represent affine transformations
-// we don't need a general m x n matrix
-
-//----------------------------------------- class Matrix
 
 class Matrix {
 	
 	public:
 	
-		double	m[4][4];								// elements
+		double	m[4][4];
 	
 		
-		Matrix(void);									// default constructor
+		Matrix(void);
 
-		Matrix(const Matrix& mat);						// copy constructor
+		Matrix(const Matrix& mat);
 		
-		~Matrix (void);									// destructor
+		~Matrix (void);
 			
-		Matrix& 										// assignment operator
-		operator= (const Matrix& rhs); 	
+		Matrix&
+		operator= (const Matrix& rhs);
 			
-		Matrix 											// multiplication of two matrices
+		Matrix
 		operator* (const Matrix& mat) const;
 
-		Matrix 											// divsion by a double
+		Matrix
 		operator/ (const double d);
 
-		void											// set to the identity matrix
-		set_identity(void);	
+		void
+		set_identity(void);
 };
 
 

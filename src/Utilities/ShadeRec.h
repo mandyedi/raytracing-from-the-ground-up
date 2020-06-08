@@ -1,15 +1,10 @@
 #ifndef __SHADE_REC__
 #define __SHADE_REC__
 
-// this file contains the declaration of the class ShadeRec
-
 #include <vector>
 
 class Material;
 class World;
-
-// We need the following as #includes instead of forward class declarations,
-// because we have the objects themselves, not pointers or references
 
 #include "Point3D.h"
 #include "Normal.h"
@@ -19,20 +14,20 @@ class World;
 class ShadeRec {
 	public:
 	
-		bool				hit_an_object;		// Did the ray hit an object?
+		bool				hit_an_object;
 		Material* 			material_ptr;		// Pointer to the nearest object's material
 		Point3D 			hit_point;			// World coordinates of intersection
 		Point3D				local_hit_point;	// World coordinates of hit point on generic object (used for texture transformations)
 		Normal				normal;				// Normal at hit point
-		Ray					ray;				// Required for specular highlights and area lights
+		Ray					ray;
 		int					depth;				// recursion depth
 		double				t;					// ray parameter
-		World&				w;					// World reference
+		World&				w;
 		RGBColor            color;
 				
-		ShadeRec(World& wr);					// constructor
+		ShadeRec(World& wr);
 		
-		ShadeRec(const ShadeRec& sr);			// copy constructor
+		ShadeRec(const ShadeRec& sr);
 };
 
 #endif

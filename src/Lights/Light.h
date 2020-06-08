@@ -8,7 +8,6 @@
 class ShadeRec;
 
 
-//-------------------------------------------------------------------- class Light
 
 class Light {	
 	public:

@@ -1,4 +1,3 @@
-// This file contains the definition of the Pinhole class
 
 #include "Constants.h" 
 #include "Point3D.h"
@@ -6,7 +5,6 @@
 #include "Pinhole.h"
 #include <math.h>
 
-// ----------------------------------------------------------------------------- default constructor
 
 Pinhole::Pinhole(void)		
 	:	Camera(),
@@ -15,7 +13,6 @@ Pinhole::Pinhole(void)
 {}
 
 
-// ----------------------------------------------------------------------------- copy constructor
 
 Pinhole::Pinhole(const Pinhole& c)   		
 	: 	Camera(c),
@@ -24,7 +21,6 @@ Pinhole::Pinhole(const Pinhole& c)
 {}
 
 
-// ----------------------------------------------------------------------------- clone
 
 Camera* 
 Pinhole::clone(void) const {
@@ -33,7 +29,6 @@ Pinhole::clone(void) const {
 
 
 
-// ----------------------------------------------------------------------------- assignment operator
 
 Pinhole& 
 Pinhole::operator= (const Pinhole& rhs) { 	
@@ -50,12 +45,10 @@ Pinhole::operator= (const Pinhole& rhs) {
 }
 
 
-// ----------------------------------------------------------------------------- destructor
 
 Pinhole::~Pinhole(void) {}	
 
 
-// ----------------------------------------------------------------------------- get_direction
 
 Vector3D
 Pinhole::get_direction(const Point2D& p) const {
@@ -67,7 +60,6 @@ Pinhole::get_direction(const Point2D& p) const {
 
 
 
-// ----------------------------------------------------------------------------- render_scene
 
 void 												
 Pinhole::render_scene(const World& w) {

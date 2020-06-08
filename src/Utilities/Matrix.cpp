@@ -1,9 +1,6 @@
-// This file contains the definition of the class Matrix
 
 #include "Matrix.h"
 
-// ----------------------------------------------------------------------- default constructor
-// a default matrix is an identity matrix
 
 Matrix::Matrix(void) {	
 	for (int x = 0; x < 4; x++) {
@@ -19,7 +16,6 @@ Matrix::Matrix(void) {
 }
 
 
-// ----------------------------------------------------------------------- copy constructor
 
 Matrix::Matrix (const Matrix& mat) {
 	for (int x = 0; x < 4; x++) {
@@ -30,14 +26,12 @@ Matrix::Matrix (const Matrix& mat) {
 }
 
 
-// ----------------------------------------------------------------------- destructor
 
 Matrix::~Matrix (void) {}   
 
 
 
 
-// ----------------------------------------------------------------------- assignment operator
 
 Matrix& 
 Matrix::operator= (const Matrix& rhs) {
@@ -54,9 +48,6 @@ Matrix::operator= (const Matrix& rhs) {
 	return (*this);
 }
 
-
-// ----------------------------------------------------------------------- operator*
-// multiplication of two matrices
 
 Matrix 
 Matrix::operator* (const Matrix& mat) const {
@@ -78,9 +69,6 @@ Matrix::operator* (const Matrix& mat) const {
 }
 
 
-// ----------------------------------------------------------------------- operator/
-// division by a scalar
-
 Matrix 
 Matrix::operator/ (const double d) {
 	for (int x = 0; x < 4; x++) {
@@ -93,9 +81,6 @@ Matrix::operator/ (const double d) {
 }
 
 
-
-// ----------------------------------------------------------------------- set_identity
-// set matrix to the identity matrix
 
 void											
 Matrix::set_identity(void) {

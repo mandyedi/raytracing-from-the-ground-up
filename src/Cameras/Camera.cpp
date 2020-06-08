@@ -1,9 +1,7 @@
-// This file contains the definition of the Camera class
 
 #include "Camera.h"
 
 
-// ----------------------------------------------------------------- default constructor
 
 Camera::Camera(void)		
 	:	eye(0, 0, 500),
@@ -17,7 +15,6 @@ Camera::Camera(void)
 {}
 
 
-// ----------------------------------------------------------------- copy constructor
 
 Camera::Camera(const Camera& c)   		
 	: 	eye(c.eye),
@@ -32,7 +29,6 @@ Camera::Camera(const Camera& c)
 
 
 
-// ----------------------------------------------------------------- assignment operator
 
 Camera& 
 Camera::operator= (const Camera& rhs) {
@@ -53,13 +49,11 @@ Camera::operator= (const Camera& rhs) {
 }
 
 
-// ----------------------------------------------------------------- destructor
 
 Camera::~Camera(void) {}
 
 
 
-//-------------------------------------------------------------- compute_uvw
 
 // This computes an orthornormal basis given the view point, lookat point, and up vector
 

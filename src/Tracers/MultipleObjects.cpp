@@ -1,26 +1,22 @@
 #include "MultipleObjects.h"
 #include "World.h"
 
-// -------------------------------------------------------------------- default constructor
 
 MultipleObjects::MultipleObjects(void)
 	: Tracer()
 {}
 
 
-// -------------------------------------------------------------------- constructor
 		
 MultipleObjects::MultipleObjects(World* _worldPtr)
 	: Tracer(_worldPtr)
 {}
 
 
-// -------------------------------------------------------------------- destructor
 
 MultipleObjects::~MultipleObjects(void) {}
 
 
-// -------------------------------------------------------------------- trace_ray
 
 RGBColor	
 MultipleObjects::trace_ray(const Ray& ray) const {

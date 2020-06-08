@@ -1,7 +1,6 @@
 #ifndef __CAMERA__
 #define __CAMERA__
 
-// This file contains the declaration of the base class Camera
 // There is no view plane distance because the fisheye and panoramic cameras don't use it
 
 #include "Point3D.h"
@@ -9,7 +8,6 @@
 
 class World;  // can't #include "World" here because World contains a camera pointer
 
-//--------------------------------------------------------------------- class Camera
 
 class Camera {
 	public:
@@ -69,10 +67,8 @@ class Camera {
 };
 
 
-// inlined access functions
 
 
-// ----------------------------------------------------------------- set_eye
 
 inline void
 Camera::set_eye(const Point3D& p) {
@@ -80,7 +76,6 @@ Camera::set_eye(const Point3D& p) {
 }
 
 
-// ----------------------------------------------------------------- set_eye
 
 inline void
 Camera::set_eye(const float x, const float y, const float z) {
@@ -88,7 +83,6 @@ Camera::set_eye(const float x, const float y, const float z) {
 }
 
 
-// ----------------------------------------------------------------- set_lookat
 
 inline void
 Camera::set_lookat(const Point3D& p) {
@@ -96,7 +90,6 @@ Camera::set_lookat(const Point3D& p) {
 }
 
 
-// ----------------------------------------------------------------- set_lookat
 
 inline void
 Camera::set_lookat(const float x, const float y, const float z) {
@@ -104,7 +97,6 @@ Camera::set_lookat(const float x, const float y, const float z) {
 }
 
 
-// ----------------------------------------------------------------- set_up_vector
 
 inline void
 Camera::set_up_vector(const Vector3D& u) {
@@ -112,7 +104,6 @@ Camera::set_up_vector(const Vector3D& u) {
 }
 
 
-// ----------------------------------------------------------------- set_up_vector
 
 inline void
 Camera::set_up_vector(const float x, const float y, const float z) {
@@ -120,7 +111,6 @@ Camera::set_up_vector(const float x, const float y, const float z) {
 }
 
 
-// ----------------------------------------------------------------- set_roll
 
 inline void
 Camera::set_roll(const float r) { 
@@ -128,7 +118,6 @@ Camera::set_roll(const float r) {
 }
 
 
-// ----------------------------------------------------------------- set_exposure_time
 
 inline void
 Camera::set_exposure_time(const float exposure) {

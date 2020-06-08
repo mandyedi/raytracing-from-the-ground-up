@@ -3,7 +3,6 @@
 
 #include "GeometricObject.h"
 
-//-------------------------------------------------------------------- class Plane
 
 class Plane: public GeometricObject {
 	

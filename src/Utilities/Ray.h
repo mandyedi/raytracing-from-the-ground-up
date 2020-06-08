@@ -7,8 +7,8 @@
 class Ray {
 	public:
 	
-		Point3D			o;  	// origin 
-		Vector3D		d; 		// direction 
+		Point3D			o;
+		Vector3D		d;
 		
 		Ray(void);			
 		
