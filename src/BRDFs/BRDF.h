@@ -18,6 +18,7 @@ class BRDF {
 		virtual BRDF*
 		clone(void) const = 0;
 		
+		virtual
 		~BRDF(void);
 								
 		virtual RGBColor

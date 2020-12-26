@@ -6,7 +6,7 @@
 Light::Light(void) {}
 
 
-Light::Light(const Light& ls) {}
+Light::Light([[maybe_unused]] const Light& ls) {}
 
 
 
@@ -26,7 +26,7 @@ Light::~Light(void) {}
 
 
 RGBColor								
-Light::L(ShadeRec& s) {
+Light::L([[maybe_unused]] ShadeRec& s) {
 	return (black);
 }
 

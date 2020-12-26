@@ -1,6 +1,5 @@
 CXX		  := g++
-# TODO(fix): add -Wall -Wextra and fix all warnings
-CXX_FLAGS := -std=c++17 -ggdb -O0
+CXX_FLAGS := -std=c++17 -ggdb -O0 -Wall -Wextra
 
 BIN			:= bin
 LIB			:= lib

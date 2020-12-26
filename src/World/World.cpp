@@ -469,7 +469,7 @@ World::clamp_to_color(const RGBColor& raw_color) const {
 
 
 void
-World::display_pixel(const int row, const int column, const RGBColor& raw_color) const {
+World::display_pixel([[maybe_unused]] const int row, [[maybe_unused]] const int column, const RGBColor& raw_color) const {
 	RGBColor mapped_color;
 
 	if (vp.show_out_of_gamut) {
@@ -482,10 +482,6 @@ World::display_pixel(const int row, const int column, const RGBColor& raw_color)
 	if (vp.gamma != 1.0) {
 		mapped_color = mapped_color.powc(vp.inv_gamma);
 	}
-	
-	//have to start from max y coordinate to convert to screen coordinates
-	int x = column;
-	int y = vp.vres - row - 1;
 
 	pixels.push_back((int)(mapped_color.r * 255));
 	pixels.push_back((int)(mapped_color.g * 255));

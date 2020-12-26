@@ -5,7 +5,7 @@ Material::Material(void) {}
 
 
 
-Material::Material(const Material& m) {}
+Material::Material([[maybe_unused]] const Material& m) {}
 
 
 
@@ -27,7 +27,7 @@ Material::~Material(void)
 
 
 RGBColor
-Material::shade(ShadeRec& sr) {
+Material::shade([[maybe_unused]] ShadeRec& sr) {
 	return (black);
 }
 

@@ -48,13 +48,13 @@ Directional::~Directional(void) {}
 
 
 Vector3D								
-Directional::get_direction(ShadeRec& sr) {
+Directional::get_direction([[maybe_unused]] ShadeRec& sr) {
 	return (dir);
 }	
 
 
 RGBColor
-Directional::L(ShadeRec& s) {	
+Directional::L([[maybe_unused]] ShadeRec& s) {	
 	return (ls * color);
 }
 

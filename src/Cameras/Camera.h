@@ -58,8 +58,8 @@ class Camera {
 		Point3D			eye;				// eye point
 		Point3D			lookat; 			// lookat point
 		float			ra;					// roll angle
-		Vector3D		u, v, w;			// orthonormal basis vectors
 		Vector3D		up;					// up vector
+		Vector3D		u, v, w;			// orthonormal basis vectors
 		float			exposure_time;
 		
 		Camera& 							// assignment operator
