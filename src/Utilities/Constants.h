@@ -1,7 +1,6 @@
 #ifndef __CONSTANTS__
 #define __CONSTANTS__
 
-#include <stdlib.h>
 #include "RGBColor.h"
 
 const float 	PI 			= 3.1415926535897932384;
@@ -27,7 +26,5 @@ const RGBColor darkYellow(0.61, 0.61, 0);
 const RGBColor lightPurple(0.65, 0.3, 1);
 const RGBColor darkPurple(0.5, 0, 1);
 const RGBColor grey(0.25);
-
-const float 	invRAND_MAX = 1.0 / (float)RAND_MAX;
 
 #endif

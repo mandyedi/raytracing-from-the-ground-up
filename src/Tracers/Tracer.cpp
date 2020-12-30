@@ -2,7 +2,7 @@
 
 
 Tracer::Tracer(void)
-	: world_ptr(NULL)
+	: world_ptr(nullptr)
 {}
 
 
@@ -16,7 +16,7 @@ Tracer::Tracer(World* _worldPtr)
 
 Tracer::~Tracer(void) {
 	if (world_ptr) {
-		world_ptr = NULL;
+		world_ptr = nullptr;
 	}
 }
 
