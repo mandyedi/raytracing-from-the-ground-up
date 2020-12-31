@@ -50,6 +50,20 @@ class RGBColor {
 		
 		float
 		average(void) const;
+
+		/*static*/ static const RGBColor black;
+		/*static*/ static const RGBColor white;
+		/*static*/ static const RGBColor red;
+		/*static*/ static const RGBColor yellow;
+		/*static*/ static const RGBColor brown;
+		/*static*/ static const RGBColor darkGreen;
+		/*static*/ static const RGBColor orange;
+		/*static*/ static const RGBColor green;
+		/*static*/ static const RGBColor lightGreen;
+		/*static*/ static const RGBColor darkYellow;
+		/*static*/ static const RGBColor lightPurple;
+		/*static*/ static const RGBColor darkPurple;
+		/*static*/ static const RGBColor grey;
 };
 
 

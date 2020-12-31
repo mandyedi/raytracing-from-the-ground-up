@@ -1,5 +1,5 @@
 
-#include "Constants.h" 
+#include "RGBColor.h" 
 #include "Point3D.h"
 #include "Vector3D.h"
 #include "Pinhole.h"
@@ -75,7 +75,7 @@ Pinhole::render_scene(const World& w) {
 		
 	for (int row = 0; row < vp.vres; row++) {			// up
 		for (int column = 0; column < vp.hres; column++) {		// across 					
-			L = black; 
+			L = RGBColor::black; 
 			
 			for (int p = 0; p < n; p++) {		// up pixel
 				for (int q = 0; q < n; q++) {	// across pixel

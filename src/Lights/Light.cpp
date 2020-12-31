@@ -1,6 +1,6 @@
 #include "Light.h"
 
-#include "Constants.h"
+#include "RGBColor.h"
 
 
 Light::Light(void) {}
@@ -27,7 +27,7 @@ Light::~Light(void) {}
 
 RGBColor								
 Light::L([[maybe_unused]] ShadeRec& s) {
-	return (black);
+	return (RGBColor::black);
 }
 
 

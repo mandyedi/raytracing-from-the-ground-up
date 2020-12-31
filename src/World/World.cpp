@@ -47,7 +47,7 @@
 // and set its parameters
 
 World::World(void)
-	:  	background_color(black),
+	:  	background_color(RGBColor::black),
 		tracer_ptr(NULL),
 		ambient_ptr(new Ambient),
 		camera_ptr(NULL)
@@ -107,7 +107,7 @@ World::build_shaded_objects(void) {
 	ambient_ptr->scale_radiance(1.0);
 	set_ambient_light(ambient_ptr); 
 
-	background_color = black;			// default color - this can be left out
+	background_color = RGBColor::black;			// default color - this can be left out
 	
 	tracer_ptr = new RayCast(this); 
 
@@ -140,7 +140,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr1 = new Matte;   
 	matte_ptr1->set_ka(ka);	
 	matte_ptr1->set_kd(kd);
-	matte_ptr1->set_cd(yellow);				
+	matte_ptr1->set_cd(RGBColor::yellow);				
 	Sphere*	sphere_ptr1 = new Sphere(Point3D(5, 3, 0), 30); 
 	sphere_ptr1->set_material(matte_ptr1);	   							// yellow
 	add_object(sphere_ptr1);
@@ -148,7 +148,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr2 = new Matte;
 	matte_ptr2->set_ka(ka);	
 	matte_ptr2->set_kd(kd);
-	matte_ptr2->set_cd(brown);
+	matte_ptr2->set_cd(RGBColor::brown);
 	Sphere*	sphere_ptr2 = new Sphere(Point3D(45, -7, -60), 20); 
 	sphere_ptr2->set_material(matte_ptr2);								// brown
 	add_object(sphere_ptr2);
@@ -157,7 +157,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr3 = new Matte;
 	matte_ptr3->set_ka(ka);	
 	matte_ptr3->set_kd(kd);
-	matte_ptr3->set_cd(darkGreen);	
+	matte_ptr3->set_cd(RGBColor::darkGreen);	
 	Sphere*	sphere_ptr3 = new Sphere(Point3D(40, 43, -100), 17); 
 	sphere_ptr3->set_material(matte_ptr3);								// dark green
 	add_object(sphere_ptr3);
@@ -165,7 +165,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr4 = new Matte;
 	matte_ptr4->set_ka(ka);	
 	matte_ptr4->set_kd(kd);
-	matte_ptr4->set_cd(orange);
+	matte_ptr4->set_cd(RGBColor::orange);
 	Sphere*	sphere_ptr4 = new Sphere(Point3D(-20, 28, -15), 20); 
 	sphere_ptr4->set_material(matte_ptr4);								// orange
 	add_object(sphere_ptr4);
@@ -173,7 +173,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr5 = new Matte;
 	matte_ptr5->set_ka(ka);	
 	matte_ptr5->set_kd(kd);
-	matte_ptr5->set_cd(green);
+	matte_ptr5->set_cd(RGBColor::green);
 	Sphere*	sphere_ptr5 = new Sphere(Point3D(-25, -7, -35), 27); 			
 	sphere_ptr5->set_material(matte_ptr5);								// green
 	add_object(sphere_ptr5);
@@ -181,7 +181,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr6 = new Matte;
 	matte_ptr6->set_ka(ka);	
 	matte_ptr6->set_kd(kd);
-	matte_ptr6->set_cd(lightGreen);
+	matte_ptr6->set_cd(RGBColor::lightGreen);
 	Sphere*	sphere_ptr6 = new Sphere(Point3D(20, -27, -35), 25); 
 	sphere_ptr6->set_material(matte_ptr6);								// light green
 	add_object(sphere_ptr6);
@@ -189,7 +189,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr7 = new Matte;
 	matte_ptr7->set_ka(ka);	
 	matte_ptr7->set_kd(kd);
-	matte_ptr7->set_cd(green);
+	matte_ptr7->set_cd(RGBColor::green);
 	Sphere*	sphere_ptr7 = new Sphere(Point3D(35, 18, -35), 22); 
 	sphere_ptr7->set_material(matte_ptr7);   							// green
 	add_object(sphere_ptr7);
@@ -197,7 +197,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr8 = new Matte;
 	matte_ptr8->set_ka(ka);	
 	matte_ptr8->set_kd(kd);
-	matte_ptr8->set_cd(brown);
+	matte_ptr8->set_cd(RGBColor::brown);
 	Sphere*	sphere_ptr8 = new Sphere(Point3D(-57, -17, -50), 15);  
 	sphere_ptr8->set_material(matte_ptr8);								// brown
 	add_object(sphere_ptr8);
@@ -205,7 +205,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr9 = new Matte;
 	matte_ptr9->set_ka(ka);	
 	matte_ptr9->set_kd(kd);
-	matte_ptr9->set_cd(lightGreen);
+	matte_ptr9->set_cd(RGBColor::lightGreen);
 	Sphere*	sphere_ptr9 = new Sphere(Point3D(-47, 16, -80), 23); 
 	sphere_ptr9->set_material(matte_ptr9);								// light green
 	add_object(sphere_ptr9);
@@ -213,7 +213,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr10 = new Matte;
 	matte_ptr10->set_ka(ka);	
 	matte_ptr10->set_kd(kd);
-	matte_ptr10->set_cd(darkGreen);	
+	matte_ptr10->set_cd(RGBColor::darkGreen);	
 	Sphere*	sphere_ptr10 = new Sphere(Point3D(-15, -32, -60), 22); 
 	sphere_ptr10->set_material(matte_ptr10);     						// dark green
 	add_object(sphere_ptr10);
@@ -221,7 +221,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr11 = new Matte;
 	matte_ptr11->set_ka(ka);	
 	matte_ptr11->set_kd(kd);
-	matte_ptr11->set_cd(darkYellow);
+	matte_ptr11->set_cd(RGBColor::darkYellow);
 	Sphere*	sphere_ptr11 = new Sphere(Point3D(-35, -37, -80), 22); 
 	sphere_ptr11->set_material(matte_ptr11);							// dark yellow
 	add_object(sphere_ptr11);
@@ -229,7 +229,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr12 = new Matte;
 	matte_ptr12->set_ka(ka);	
 	matte_ptr12->set_kd(kd);
-	matte_ptr12->set_cd(darkYellow);
+	matte_ptr12->set_cd(RGBColor::darkYellow);
 	Sphere*	sphere_ptr12 = new Sphere(Point3D(10, 43, -80), 22); 
 	sphere_ptr12->set_material(matte_ptr12);							// dark yellow
 	add_object(sphere_ptr12);
@@ -237,7 +237,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr13 = new Matte;
 	matte_ptr13->set_ka(ka);	
 	matte_ptr13->set_kd(kd);
-	matte_ptr13->set_cd(darkYellow);		
+	matte_ptr13->set_cd(RGBColor::darkYellow);		
 	Sphere*	sphere_ptr13 = new Sphere(Point3D(30, -7, -80), 10); 
 	sphere_ptr13->set_material(matte_ptr13);
 	add_object(sphere_ptr13);											// dark yellow (hidden)
@@ -245,7 +245,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr14 = new Matte;
 	matte_ptr14->set_ka(ka);	
 	matte_ptr14->set_kd(kd);
-	matte_ptr14->set_cd(darkGreen);	
+	matte_ptr14->set_cd(RGBColor::darkGreen);	
 	Sphere*	sphere_ptr14 = new Sphere(Point3D(-40, 48, -110), 18); 
 	sphere_ptr14->set_material(matte_ptr14); 							// dark green
 	add_object(sphere_ptr14);
@@ -253,7 +253,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr15 = new Matte;
 	matte_ptr15->set_ka(ka);	
 	matte_ptr15->set_kd(kd);
-	matte_ptr15->set_cd(brown);	
+	matte_ptr15->set_cd(RGBColor::brown);	
 	Sphere*	sphere_ptr15 = new Sphere(Point3D(-10, 53, -120), 18); 
 	sphere_ptr15->set_material(matte_ptr15); 							// brown
 	add_object(sphere_ptr15);
@@ -261,7 +261,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr16 = new Matte;
 	matte_ptr16->set_ka(ka);	
 	matte_ptr16->set_kd(kd);
-	matte_ptr16->set_cd(lightPurple);
+	matte_ptr16->set_cd(RGBColor::lightPurple);
 	Sphere*	sphere_ptr16 = new Sphere(Point3D(-55, -52, -100), 10); 
 	sphere_ptr16->set_material(matte_ptr16);							// light purple
 	add_object(sphere_ptr16);
@@ -269,7 +269,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr17 = new Matte;
 	matte_ptr17->set_ka(ka);	
 	matte_ptr17->set_kd(kd);
-	matte_ptr17->set_cd(brown);
+	matte_ptr17->set_cd(RGBColor::brown);
 	Sphere*	sphere_ptr17 = new Sphere(Point3D(5, -52, -100), 15); 		
 	sphere_ptr17->set_material(matte_ptr17);							// browm
 	add_object(sphere_ptr17);
@@ -277,7 +277,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr18 = new Matte;
 	matte_ptr18->set_ka(ka);	
 	matte_ptr18->set_kd(kd);
-	matte_ptr18->set_cd(darkPurple);
+	matte_ptr18->set_cd(RGBColor::darkPurple);
 	Sphere*	sphere_ptr18 = new Sphere(Point3D(-20, -57, -120), 15); 
 	sphere_ptr18->set_material(matte_ptr18);							// dark purple
 	add_object(sphere_ptr18);
@@ -285,7 +285,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr19 = new Matte;
 	matte_ptr19->set_ka(ka);	
 	matte_ptr19->set_kd(kd);
-	matte_ptr19->set_cd(darkGreen);
+	matte_ptr19->set_cd(RGBColor::darkGreen);
 	Sphere*	sphere_ptr19 = new Sphere(Point3D(55, -27, -100), 17); 
 	sphere_ptr19->set_material(matte_ptr19);							// dark green
 	add_object(sphere_ptr19);
@@ -293,7 +293,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr20 = new Matte;
 	matte_ptr20->set_ka(ka);	
 	matte_ptr20->set_kd(kd);
-	matte_ptr20->set_cd(brown);
+	matte_ptr20->set_cd(RGBColor::brown);
 	Sphere*	sphere_ptr20 = new Sphere(Point3D(50, -47, -120), 15); 
 	sphere_ptr20->set_material(matte_ptr20);							// browm
 	add_object(sphere_ptr20);
@@ -301,7 +301,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr21 = new Matte;
 	matte_ptr21->set_ka(ka);	
 	matte_ptr21->set_kd(kd);
-	matte_ptr21->set_cd(lightPurple); 	
+	matte_ptr21->set_cd(RGBColor::lightPurple); 	
 	Sphere*	sphere_ptr21 = new Sphere(Point3D(70, -42, -150), 10); 
 	sphere_ptr21->set_material(matte_ptr21);							// light purple
 	add_object(sphere_ptr21);
@@ -309,7 +309,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr22 = new Matte;
 	matte_ptr22->set_ka(ka);	
 	matte_ptr22->set_kd(kd);
-	matte_ptr22->set_cd(lightPurple);
+	matte_ptr22->set_cd(RGBColor::lightPurple);
 	Sphere*	sphere_ptr22 = new Sphere(Point3D(5, 73, -130), 12); 
 	sphere_ptr22->set_material(matte_ptr22);							// light purple
 	add_object(sphere_ptr22);
@@ -317,7 +317,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr23 = new Matte;
 	matte_ptr23->set_ka(ka);	
 	matte_ptr23->set_kd(kd);
-	matte_ptr23->set_cd(darkPurple);
+	matte_ptr23->set_cd(RGBColor::darkPurple);
 	Sphere*	sphere_ptr23 = new Sphere(Point3D(66, 21, -130), 13); 			
 	sphere_ptr23->set_material(matte_ptr23);							// dark purple
 	add_object(sphere_ptr23);	
@@ -325,7 +325,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr24 = new Matte;
 	matte_ptr24->set_ka(ka);	
 	matte_ptr24->set_kd(kd);
-	matte_ptr24->set_cd(lightPurple);  
+	matte_ptr24->set_cd(RGBColor::lightPurple);  
 	Sphere*	sphere_ptr24 = new Sphere(Point3D(72, -12, -140), 12); 
 	sphere_ptr24->set_material(matte_ptr24);							// light purple
 	add_object(sphere_ptr24);
@@ -333,7 +333,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr25 = new Matte;
 	matte_ptr25->set_ka(ka);	
 	matte_ptr25->set_kd(kd);
-	matte_ptr25->set_cd(green);
+	matte_ptr25->set_cd(RGBColor::green);
 	Sphere*	sphere_ptr25 = new Sphere(Point3D(64, 5, -160), 11); 			
 	sphere_ptr25->set_material(matte_ptr25);					 		// green
 	add_object(sphere_ptr25);
@@ -341,7 +341,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr26 = new Matte;
 	matte_ptr26->set_ka(ka);	
 	matte_ptr26->set_kd(kd);
-	matte_ptr26->set_cd(lightPurple);
+	matte_ptr26->set_cd(RGBColor::lightPurple);
 	Sphere*	sphere_ptr26 = new Sphere(Point3D(55, 38, -160), 12); 		
 	sphere_ptr26->set_material(matte_ptr26);							// light purple
 	add_object(sphere_ptr26);
@@ -349,7 +349,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr27 = new Matte;
 	matte_ptr27->set_ka(ka);	
 	matte_ptr27->set_kd(kd);
-	matte_ptr27->set_cd(lightPurple);
+	matte_ptr27->set_cd(RGBColor::lightPurple);
 	Sphere*	sphere_ptr27 = new Sphere(Point3D(-73, -2, -160), 12); 		
 	sphere_ptr27->set_material(matte_ptr27);							// light purple
 	add_object(sphere_ptr27);
@@ -357,7 +357,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr28 = new Matte;
 	matte_ptr28->set_ka(ka);	
 	matte_ptr28->set_kd(kd);
-	matte_ptr28->set_cd(darkPurple);
+	matte_ptr28->set_cd(RGBColor::darkPurple);
 	Sphere*	sphere_ptr28 = new Sphere(Point3D(30, -62, -140), 15); 
 	sphere_ptr28->set_material(matte_ptr28); 							// dark purple
 	add_object(sphere_ptr28);
@@ -365,7 +365,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr29 = new Matte;
 	matte_ptr29->set_ka(ka);	
 	matte_ptr29->set_kd(kd);
-	matte_ptr29->set_cd(darkPurple);
+	matte_ptr29->set_cd(RGBColor::darkPurple);
 	Sphere*	sphere_ptr29 = new Sphere(Point3D(25, 63, -140), 15); 
 	sphere_ptr29->set_material(matte_ptr29);							// dark purple
 	add_object(sphere_ptr29);
@@ -373,7 +373,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr30 = new Matte;
 	matte_ptr30->set_ka(ka);	
 	matte_ptr30->set_kd(kd);
-	matte_ptr30->set_cd(darkPurple);
+	matte_ptr30->set_cd(RGBColor::darkPurple);
 	Sphere*	sphere_ptr30 = new Sphere(Point3D(-60, 46, -140), 15);  
 	sphere_ptr30->set_material(matte_ptr30); 							// dark purple
 	add_object(sphere_ptr30);
@@ -381,7 +381,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr31 = new Matte;
 	matte_ptr31->set_ka(ka);	
 	matte_ptr31->set_kd(kd);
-	matte_ptr31->set_cd(lightPurple);
+	matte_ptr31->set_cd(RGBColor::lightPurple);
 	Sphere*	sphere_ptr31 = new Sphere(Point3D(-30, 68, -130), 12); 
 	sphere_ptr31->set_material(matte_ptr31); 							// light purple
 	add_object(sphere_ptr31);
@@ -389,7 +389,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr32 = new Matte;
 	matte_ptr32->set_ka(ka);	
 	matte_ptr32->set_kd(kd);
-	matte_ptr32->set_cd(green);
+	matte_ptr32->set_cd(RGBColor::green);
 	Sphere*	sphere_ptr32 = new Sphere(Point3D(58, 56, -180), 11);   
 	sphere_ptr32->set_material(matte_ptr32);							//  green
 	add_object(sphere_ptr32);
@@ -397,7 +397,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr33 = new Matte;
 	matte_ptr33->set_ka(ka);	
 	matte_ptr33->set_kd(kd);
-	matte_ptr33->set_cd(green);
+	matte_ptr33->set_cd(RGBColor::green);
 	Sphere*	sphere_ptr33 = new Sphere(Point3D(-63, -39, -180), 11); 
 	sphere_ptr33->set_material(matte_ptr33);							// green 
 	add_object(sphere_ptr33);
@@ -405,7 +405,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr34 = new Matte;
 	matte_ptr34->set_ka(ka);	
 	matte_ptr34->set_kd(kd);
-	matte_ptr34->set_cd(lightPurple);
+	matte_ptr34->set_cd(RGBColor::lightPurple);
 	Sphere*	sphere_ptr34 = new Sphere(Point3D(46, 68, -200), 10); 	
 	sphere_ptr34->set_material(matte_ptr34);							// light purple
 	add_object(sphere_ptr34);
@@ -413,7 +413,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr35 = new Matte;
 	matte_ptr35->set_ka(ka);	
 	matte_ptr35->set_kd(kd);
-	matte_ptr35->set_cd(lightPurple);
+	matte_ptr35->set_cd(RGBColor::lightPurple);
 	Sphere*	sphere_ptr35 = new Sphere(Point3D(-3, -72, -130), 12); 
 	sphere_ptr35->set_material(matte_ptr35);							// light purple
 	add_object(sphere_ptr35);
@@ -424,7 +424,7 @@ World::build_shaded_objects(void) {
 	Matte* matte_ptr36 = new Matte;
 	matte_ptr36->set_ka(ka);	
 	matte_ptr36->set_kd(kd);
-	matte_ptr36->set_cd(grey);
+	matte_ptr36->set_cd(RGBColor::grey);
 	Plane* plane_ptr = new Plane(Point3D(0, 0, -150), Normal(0, 0, 1));
 	plane_ptr->set_material(matte_ptr36);
 	add_object (plane_ptr);

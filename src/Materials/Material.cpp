@@ -28,7 +28,7 @@ Material::~Material(void)
 
 RGBColor
 Material::shade([[maybe_unused]] ShadeRec& sr) {
-	return (black);
+	return (RGBColor::black);
 }
 
 

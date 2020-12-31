@@ -1,6 +1,6 @@
 
 
-#include "Constants.h"
+#include "RGBColor.h"
 #include "BRDF.h"
 
 
@@ -28,27 +28,27 @@ BRDF::~BRDF(void) {}
 
 RGBColor
 BRDF::f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo, [[maybe_unused]] const Vector3D& wi) const {
-	return (black);
+	return (RGBColor::black);
 }
 
 
 
 RGBColor
 BRDF::sample_f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo, [[maybe_unused]] Vector3D& wi) const {
-	return (black);
+	return (RGBColor::black);
 }
 
 
 
 RGBColor
 BRDF::sample_f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo, [[maybe_unused]] Vector3D& wi, [[maybe_unused]] float& pdf) const {
-	return (black);
+	return (RGBColor::black);
 }
 
 
 	
 RGBColor
 BRDF::rho([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo) const {
-	return (black);
+	return (RGBColor::black);
 }
 

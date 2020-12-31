@@ -25,10 +25,10 @@ SingleSphere::trace_ray(const Ray& ray) const {
 	double    	t;  				// not used
 	
 	if (world_ptr->sphere.hit(ray, t, sr)) {	
-		return (red);
+		return (RGBColor::red);
 	}
 	else {
-		return (black);
+		return (RGBColor::black);
 	}
 }
 

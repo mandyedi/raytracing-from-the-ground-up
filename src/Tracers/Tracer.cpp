@@ -24,14 +24,14 @@ Tracer::~Tracer(void) {
 
 RGBColor	
 Tracer::trace_ray([[maybe_unused]] const Ray& ray) const {
-	return (black);
+	return (RGBColor::black);
 }
 
 
 
 RGBColor	
 Tracer::trace_ray([[maybe_unused]] const Ray ray, [[maybe_unused]] const int depth) const {
-	return (black);
+	return (RGBColor::black);
 }
 
 
