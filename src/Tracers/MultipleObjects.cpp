@@ -1,5 +1,5 @@
 #include "MultipleObjects.h"
-#include "World.h"
+#include "../World/World.h"
 
 
 MultipleObjects::MultipleObjects(void)

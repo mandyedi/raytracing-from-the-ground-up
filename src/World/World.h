@@ -14,16 +14,16 @@
 #include <vector>
 
 #include "ViewPlane.h"
-#include "RGBColor.h"
-#include "Tracer.h"
-#include "GeometricObject.h"
-#include "Sphere.h"
-#include "Ray.h"
-#include "SingleSphere.h"
+#include "../Utilities/RGBColor.h"
+#include "../Tracers/Tracer.h"
+#include "../GeometricObjects/GeometricObject.h"
+#include "../GeometricObjects/Sphere.h"
+#include "../Utilities/Ray.h"
+#include "../Tracers/SingleSphere.h"
 
-#include "Camera.h"
-#include "Light.h"
-#include "Ambient.h"
+#include "../Cameras/Camera.h"
+#include "../Lights/Light.h"
+#include "../Lights/Ambient.h"
 
 using namespace std;
 

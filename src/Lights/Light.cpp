@@ -1,6 +1,6 @@
 #include "Light.h"
 
-#include "RGBColor.h"
+#include "../Utilities/RGBColor.h"
 
 
 Light::Light(void) {}

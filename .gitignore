@@ -1,6 +1,9 @@
 # Binaries
 bin/
 
+# CMake build files
+build/
+
 # Prerequisites
 *.d
 

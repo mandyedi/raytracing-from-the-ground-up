@@ -1,6 +1,6 @@
-#include "Constants.h"
-#include "Material.h"
-#include "GeometricObject.h"
+#include "../Utilities/Constants.h"
+#include "../Materials/Material.h"
+#include "../GeometricObjects/GeometricObject.h"
 
 
 

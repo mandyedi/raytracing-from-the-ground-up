@@ -1,8 +1,8 @@
 #ifndef __MATTE__
 #define __MATTE__
 
-#include "Material.h"
-#include "Lambertian.h"
+#include "../Materials/Material.h"
+#include "../BRDFs/Lambertian.h"
 
 
 class Matte: public Material {	

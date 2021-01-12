@@ -1,7 +1,7 @@
 
-#include "RGBColor.h" 
-#include "Point3D.h"
-#include "Vector3D.h"
+#include "../Utilities/RGBColor.h" 
+#include "../Utilities/Point3D.h"
+#include "../Utilities/Vector3D.h"
 #include "Pinhole.h"
 #include <math.h>
 

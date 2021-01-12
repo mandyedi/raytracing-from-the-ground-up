@@ -1,6 +1,6 @@
 #include "SingleSphere.h"
-#include "World.h"
-#include "ShadeRec.h"
+#include "../World/World.h"
+#include "../Utilities/ShadeRec.h"
 
 
 SingleSphere::SingleSphere(void)

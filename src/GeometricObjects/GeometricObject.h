@@ -3,9 +3,9 @@
 
 class Material;
 	
-#include "Point3D.h"
-#include "Ray.h"
-#include "ShadeRec.h"
+#include "../Utilities/Point3D.h"
+#include "../Utilities/Ray.h"
+#include "../Utilities/ShadeRec.h"
 
 
 

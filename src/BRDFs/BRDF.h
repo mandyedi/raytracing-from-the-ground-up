@@ -4,9 +4,9 @@
 
 #include <math.h>
 
-#include "RGBColor.h"
-#include "Vector3D.h"
-#include "ShadeRec.h"
+#include "../Utilities/RGBColor.h"
+#include "../Utilities/Vector3D.h"
+#include "../Utilities/ShadeRec.h"
 
 class BRDF {
 	public:

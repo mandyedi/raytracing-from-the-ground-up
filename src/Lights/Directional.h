@@ -2,11 +2,11 @@
 #define __DIRECTIONAL__
 
 #include "Light.h"
-#include "Vector3D.h"
-#include "RGBColor.h"
+#include "../Utilities/Vector3D.h"
+#include "../Utilities/RGBColor.h"
 
-#include "World.h"			// you will need this later on for shadows
-#include "ShadeRec.h"
+#include "../World/World.h"			// you will need this later on for shadows
+#include "../Utilities/ShadeRec.h"
 
 
 class Directional: public Light {

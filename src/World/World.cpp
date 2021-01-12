@@ -1,38 +1,38 @@
 #include <fstream>
 
 #include "World.h"
-#include "Constants.h"
+#include "../Utilities/Constants.h"
 
 // geometric objects
 
-#include "Plane.h"
-#include "Sphere.h"
+#include "../GeometricObjects/Plane.h"
+#include "../GeometricObjects/Sphere.h"
 
 // tracers
 
-#include "SingleSphere.h"
-#include "MultipleObjects.h"
-#include "RayCast.h"
+#include "../Tracers/SingleSphere.h"
+#include "../Tracers/MultipleObjects.h"
+#include "../Tracers/RayCast.h"
 
 // cameras
 
-#include "Pinhole.h"
+#include "../Cameras/Pinhole.h"
 
 // lights
 
-#include "Directional.h"
+#include "../Lights/Directional.h"
 
 // materials
 
-#include "Matte.h"
+#include "../Materials/Matte.h"
 
 // utilities
 
-#include "Vector3D.h"
-#include "Point3D.h"
-#include "Normal.h"
-#include "ShadeRec.h"
-#include "Maths.h"
+#include "../Utilities/Vector3D.h"
+#include "../Utilities/Point3D.h"
+#include "../Utilities/Normal.h"
+#include "../Utilities/ShadeRec.h"
+#include "../Utilities/Maths.h"
 
 // build functions
 

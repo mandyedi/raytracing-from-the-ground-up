@@ -6,9 +6,9 @@
 #ifndef __TRACER__
 #define __TRACER__
 
-#include "Constants.h"
-#include "Ray.h"
-#include "RGBColor.h"
+#include "../Utilities/Constants.h"
+#include "../Utilities/Ray.h"
+#include "../Utilities/RGBColor.h"
 
 class World;
 

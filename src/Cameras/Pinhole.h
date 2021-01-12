@@ -2,8 +2,8 @@
 #define __PINHOLE__
 
 
-#include "Point2D.h"
-#include "World.h"
+#include "../Utilities/Point2D.h"
+#include "../World/World.h"
 
 
 class Pinhole: public Camera {

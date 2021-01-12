@@ -1,5 +1,5 @@
-#include "Lambertian.h"
-#include "Constants.h"
+#include "../BRDFs/Lambertian.h"
+#include "../Utilities/Constants.h"
 
 
 Lambertian::Lambertian(void) 

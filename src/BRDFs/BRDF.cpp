@@ -1,6 +1,6 @@
 
 
-#include "RGBColor.h"
+#include "../Utilities/RGBColor.h"
 #include "BRDF.h"
 
 

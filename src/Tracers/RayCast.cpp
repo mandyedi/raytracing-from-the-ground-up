@@ -1,7 +1,7 @@
 #include "RayCast.h"
-#include "World.h"
-#include "ShadeRec.h"
-#include "Material.h"
+#include "../World/World.h"
+#include "../Utilities/ShadeRec.h"
+#include "../Materials/Material.h"
 
 
 RayCast::RayCast(void)

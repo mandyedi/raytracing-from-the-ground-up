@@ -3,8 +3,8 @@
 
 // There is no view plane distance because the fisheye and panoramic cameras don't use it
 
-#include "Point3D.h"
-#include "Vector3D.h"
+#include "../Utilities/Point3D.h"
+#include "../Utilities/Vector3D.h"
 
 class World;  // can't #include "World" here because World contains a camera pointer
 
