@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
-#include "Sphere.h"
-#include "Ray.h"
-#include "ShadeRec.h"
-#include "World.h"
+#include "../../src/GeometricObjects/Sphere.h"
+#include "../../src/Utilities/Ray.h"
+#include "../../src/Utilities/ShadeRec.h"
+#include "../../src/World/World.h"
 
 TEST(SphereeTest, RayIntersection) {
 	// [Figure 3.7, ray 2] One hit point

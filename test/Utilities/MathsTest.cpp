@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Maths.h"
+#include "../../src/Utilities/Maths.h"
 
 TEST(MathsTest, Max) {
     EXPECT_EQ(5.0, max(1.0, 5.0));

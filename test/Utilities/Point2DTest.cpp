@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Point2D.h"
+#include "../../src/Utilities/Point2D.h"
 
 TEST(Point2DTest, Initialization) {
     Point2D p0;

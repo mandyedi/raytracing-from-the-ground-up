@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Point3D.h"
+#include "../../src/Utilities/Point3D.h"
 
 TEST(Point3DTest, Initialization) {
     Point3D p0;

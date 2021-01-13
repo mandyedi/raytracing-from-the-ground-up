@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "RGBColor.h"
+#include "../../src/Utilities/RGBColor.h"
 
 TEST(RGBColorTest, Initialization) {
     RGBColor c0;

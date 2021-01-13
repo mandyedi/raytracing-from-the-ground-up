@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
-#include "Plane.h"
-#include "Ray.h"
-#include "ShadeRec.h"
-#include "World.h"
+#include "../../src/GeometricObjects/Plane.h"
+#include "../../src/Utilities/Ray.h"
+#include "../../src/Utilities/ShadeRec.h"
+#include "../../src/World/World.h"
 
 TEST(PlaneTest, RayIntersection) {
 	Ray ray({0.0f, 0.0f, 0.0f}, {0.0f, 0.0f, -1.0f});

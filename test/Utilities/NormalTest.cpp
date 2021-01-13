@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Normal.h"
+#include "../../src/Utilities/Normal.h"
 // #include "Vector3D.h"
 // #include "Point3D.h"
 

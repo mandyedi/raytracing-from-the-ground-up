@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Matrix.h"
+#include "../../src/Utilities/Matrix.h"
 
 class MatrixTest : public testing::Test {
 protected:

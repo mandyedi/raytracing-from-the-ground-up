@@ -1,7 +1,7 @@
 #include "gtest/gtest.h"
-#include "Vector3D.h"
-#include "Normal.h"
-#include "Point3D.h"
+#include "../../src/Utilities/Vector3D.h"
+#include "../../src/Utilities/Normal.h"
+#include "../../src/Utilities/Point3D.h"
 
 TEST(Vector3DTest, Initialization) {
     Vector3D v0;

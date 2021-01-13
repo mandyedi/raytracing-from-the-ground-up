@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "Ray.h"
+#include "../../src/Utilities/Ray.h"
 
 TEST(RayTest, Initialization) {
     Ray r;
