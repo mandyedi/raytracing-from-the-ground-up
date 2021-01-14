@@ -6,6 +6,20 @@ project(rtf VERSION 1.0
 
 file(GLOB_RECURSE SOURCES src/*.cpp)
 
-add_executable(rtf ${SOURCES})
+# add_executable(rtf ${SOURCES})
 
-target_include_directories(rtf PRIVATE ${CMAKE_SOURCE_DIR}/src)
+# target_include_directories(rtf PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
+add_library(libRTF STATIC ${SOURCES})
+
+add_executable(consoleApp consoleApp.cpp)
+
+target_link_libraries(consoleApp libRTF)
+
+# Unit Test Setup
+
+enable_testing()
+
+add_subdirectory(third_party/googletest-release-1.10.0)
+
+add_subdirectory(test)
