@@ -18,3 +18,6 @@ cmake ..
 ### Unit testing
 For testing I am using GoogleTest. It is copied directly into the repo and can be found in the **third_party** directory.
 Using CMake the test application is automatically added the build environment.
+
+### Original source code
+The original source codes are downloaded from the [official website](http://www.raytracegroundup.com/). I am keeping it here for refrence in the **src_original** directory. The continued version can be found under the **src** directory.
