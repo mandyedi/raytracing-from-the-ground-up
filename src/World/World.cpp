@@ -519,6 +519,23 @@ World::hit_objects(const Ray& ray) {
 	return(sr);   
 }
 
+ShadeRec
+World::hit_bare_bones_objects(const Ray &ray) {
+	ShadeRec	sr(*this);
+	double		t;
+	double		tmin = kHugeValue;
+	int 		num_objects = objects.size();
+
+	for ( int j = 0; j < num_objects; j++ ) {
+		if ( objects[j]->hit(ray, t, sr) && (t < tmin) ) {
+			sr.hit_an_object = true;
+			tmin = t;
+			sr.color = objects[j]->get_color();
+		}
+	}
+
+	return(sr);
+}
 
 void
 World::save_to_ppm(void) const {

@@ -1,8 +1,7 @@
 
+#include <cmath>
 #include "Sphere.h"
-#include "math.h"
-
-const double Sphere::kEpsilon = 0.001;
+#include "../Utilities/Constants.h"
 					
 
 Sphere::Sphere(void)	

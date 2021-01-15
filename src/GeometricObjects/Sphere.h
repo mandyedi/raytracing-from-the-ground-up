@@ -40,8 +40,6 @@ class Sphere: public GeometricObject {
 	
 		Point3D 	center;   			// center coordinates as a point  
 		double 		radius;				// the radius 
-		
-		static const double kEpsilon;   // for shadows and secondary rays
 };
 
 

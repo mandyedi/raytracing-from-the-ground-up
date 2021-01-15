@@ -68,6 +68,9 @@ class World {
 
 		ShadeRec
 		hit_objects(const Ray& ray);
+
+		ShadeRec
+		hit_bare_bones_objects(const Ray &ray);
 		
 		void
 		save_to_ppm(void) const;
@@ -90,7 +93,13 @@ class World {
 		World::build_single_sphere_3_6_5(void);
 
 		void
+		World::build_multiple_objects_3_9(void);
+
+		void
 		World::render_single_sphere_3_6_5( void );
+
+		void
+		World::render_multiple_objects_3_9(void);
 
 		void
 		build_shaded_objects( void );

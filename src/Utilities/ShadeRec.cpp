@@ -21,7 +21,6 @@ ShadeRec::ShadeRec(World& wr)
 {}
 
 
-
 ShadeRec::ShadeRec(const ShadeRec& sr)
 	: 	hit_an_object(sr.hit_an_object),
 		material_ptr(sr.material_ptr),
@@ -31,7 +30,8 @@ ShadeRec::ShadeRec(const ShadeRec& sr)
 		ray(sr.ray),
 		depth(sr.depth),
 		t(sr.t),
-		w(sr.w)
+		w(sr.w),
+		color(sr.color)
 {}
 
 
