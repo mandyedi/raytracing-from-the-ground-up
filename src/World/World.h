@@ -56,12 +56,6 @@ class World {
 		
 		void
 		set_camera(Camera* c_ptr);	 
-
-		void 					
-		build(void);
-
-		void 												
-		build_shaded_objects(void);
 						
 		RGBColor
 		max_to_one(const RGBColor& c) const;
@@ -87,6 +81,19 @@ class World {
 		
 		void 
 		delete_lights(void);
+
+	public:
+		// The following methods are example codes from book chapters
+		// These are not necessary to use the ray tracer engine
+
+		void
+		World::build_single_sphere_3_6_5(void);
+
+		void
+		World::render_single_sphere_3_6_5( void );
+
+		void
+		build_shaded_objects( void );
 };
 
 
