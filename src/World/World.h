@@ -90,6 +90,9 @@ class World {
 		// These are not necessary to use the ray tracer engine
 
 		void
+		build_shaded_objects(void);
+
+		void
 		World::build_single_sphere_3_6_5(void);
 
 		void
@@ -100,9 +103,6 @@ class World {
 
 		void
 		World::render_multiple_objects_3_9(void);
-
-		void
-		build_shaded_objects( void );
 };
 
 
