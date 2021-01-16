@@ -1,7 +1,7 @@
 #include "World.h"
 #include "../Utilities/RGBColor.h"
-#include "../GeometricObjects/Sphere.cpp"
-#include "../GeometricObjects/Plane.cpp"
+#include "../GeometricObjects/Sphere.h"
+#include "../GeometricObjects/Plane.h"
 #include "../Tracers/MultipleObjects.h"
 
 void
