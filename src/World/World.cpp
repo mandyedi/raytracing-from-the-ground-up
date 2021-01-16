@@ -496,10 +496,10 @@ World::hit_objects(const Ray& ray) {
 	double		t;
 	Normal normal;
 	Point3D local_hit_point;
-	float		tmin 			= kHugeValue;
-	int 		num_objects 	= objects.size();
+	double		tmin 			= static_cast<double>(kHugeValue);
+	size_t 		num_objects 	= objects.size();
 	
-	for (int j = 0; j < num_objects; j++) {
+	for (size_t j = 0; j < num_objects; j++) {
 		if (objects[j]->hit(ray, t, sr) && (t < tmin)) {
 			sr.hit_an_object	= true;
 			tmin 				= t;
@@ -524,9 +524,9 @@ World::hit_bare_bones_objects(const Ray &ray) {
 	ShadeRec	sr(*this);
 	double		t;
 	double		tmin = kHugeValue;
-	int 		num_objects = objects.size();
+	size_t 		num_objects = objects.size();
 
-	for ( int j = 0; j < num_objects; j++ ) {
+	for ( size_t j = 0; j < num_objects; j++ ) {
 		if ( objects[j]->hit(ray, t, sr) && (t < tmin) ) {
 			sr.hit_an_object = true;
 			tmin = t;
@@ -554,9 +554,9 @@ World::save_to_ppm(void) const {
 
 void
 World::delete_objects(void) {
-	int num_objects = objects.size();
+	size_t num_objects = objects.size();
 	
-	for (int j = 0; j < num_objects; j++) {
+	for ( size_t j = 0; j < num_objects; j++) {
 		delete objects[j];
 		objects[j] = NULL;
 	}	
@@ -567,9 +567,9 @@ World::delete_objects(void) {
 
 void
 World::delete_lights(void) {
-	int num_lights = lights.size();
+	size_t num_lights = lights.size();
 	
-	for (int j = 0; j < num_lights; j++) {
+	for (size_t j = 0; j < num_lights; j++) {
 		delete lights[j];
 		lights[j] = NULL;
 	}	

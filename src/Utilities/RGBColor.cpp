@@ -5,7 +5,7 @@
 
 
 RGBColor::RGBColor(void)
-	: r(0.0), g(0.0), b(0.0) 							
+	: r(0.0f), g(0.0f), b(0.0f) 							
 {}
 
 
@@ -46,22 +46,21 @@ RGBColor::operator= (const RGBColor& rhs) {
  
 
 // used for color filtering in Chapter 28
-
 RGBColor
 RGBColor::powc(float p) const {
-	return (RGBColor(pow(r, p), pow(g, p), pow(b, p)));
+	return (RGBColor(powf(r, p), powf(g, p), powf(b, p)));
 }
 
-const RGBColor RGBColor::black = RGBColor(0.0);
-const RGBColor RGBColor::white = RGBColor(1.0);
-const RGBColor RGBColor::red = RGBColor(1.0, 0.0, 0.0);
-const RGBColor RGBColor::yellow = RGBColor(1, 1, 0);
-const RGBColor RGBColor::brown = RGBColor(0.71, 0.40, 0.16);
-const RGBColor RGBColor::darkGreen = RGBColor(0.0, 0.41, 0.0);
-const RGBColor RGBColor::orange = RGBColor(1, 0.75, 0);
-const RGBColor RGBColor::green = RGBColor(0, 0.6, 0.3);
-const RGBColor RGBColor::lightGreen = RGBColor(0.65, 1, 0.30);
-const RGBColor RGBColor::darkYellow = RGBColor(0.61, 0.61, 0);
-const RGBColor RGBColor::lightPurple = RGBColor(0.65, 0.3, 1);
-const RGBColor RGBColor::darkPurple = RGBColor(0.5, 0, 1);
-const RGBColor RGBColor::grey = RGBColor(0.25);
+const RGBColor RGBColor::black = RGBColor(0.0f);
+const RGBColor RGBColor::white = RGBColor(1.0f);
+const RGBColor RGBColor::red = RGBColor(1.0f, 0.0f, 0.0f);
+const RGBColor RGBColor::yellow = RGBColor(1.0f, 1.0f, 0.0f);
+const RGBColor RGBColor::brown = RGBColor(0.71f, 0.4f, 0.16f);
+const RGBColor RGBColor::darkGreen = RGBColor(0.0f, 0.41f, 0.0f);
+const RGBColor RGBColor::orange = RGBColor(1.0f, 0.75, 0.0f);
+const RGBColor RGBColor::green = RGBColor(0.0f, 0.6f, 0.3f);
+const RGBColor RGBColor::lightGreen = RGBColor(0.65f, 1.0f, 0.3f);
+const RGBColor RGBColor::darkYellow = RGBColor(0.61f, 0.61f, 0.0f);
+const RGBColor RGBColor::lightPurple = RGBColor(0.65f, 0.3f, 1.0f);
+const RGBColor RGBColor::darkPurple = RGBColor(0.5f, 0.0f, 1.0f);
+const RGBColor RGBColor::grey = RGBColor(0.25f);
