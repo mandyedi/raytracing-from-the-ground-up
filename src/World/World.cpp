@@ -1,4 +1,7 @@
 #include <fstream>
+#include <ctime>
+#include <iomanip>
+#include <sstream>
 
 #include "World.h"
 #include "../Utilities/Constants.h"
@@ -539,8 +542,13 @@ World::hit_bare_bones_objects(const Ray &ray) {
 
 void
 World::save_to_ppm(void) const {
+	std::time_t t = std::time(nullptr);
+	std::tm tm = *std::localtime(&t);
+	std::stringstream imageFile;
+	imageFile << "./image_" << std::put_time(&tm, "%Y%m%e%H%M%S") << ".ppm";
+
 	std::ofstream ofs;
-	ofs.open("./image.ppm", std::ios::out | std::ios::binary);
+	ofs.open(imageFile.str().c_str(), std::ios::out | std::ios::binary);
 	ofs << "P6\n" << vp.hres << " " << vp.vres << "\n255\n";
 	for (int i : pixels) {
 		ofs << static_cast<unsigned char>(i);
