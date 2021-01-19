@@ -20,4 +20,4 @@ jobs:
     - name: make
       run: cd build && make
     - name: Run Test
-      run: /home/runner/work/GoogleTest/GoogleTest/build/test/runTest
+      run: /home/runner/work/raytracing-from-the-ground-up/raytracing-from-the-ground-up/build/test/runTest
