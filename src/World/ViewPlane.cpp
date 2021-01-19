@@ -11,8 +11,10 @@
 //  See the file COPYING.txt for the full license.
 
 #include "ViewPlane.h"
-	
-						
+#include "../Samplers/Sampler.h"
+#include "../Samplers/MultiJittered.h"
+#include "../Samplers/Regular.h"
+
 ViewPlane::ViewPlane(void)							
 	: 	hres(400), 
 		vres(400),
@@ -20,7 +22,8 @@ ViewPlane::ViewPlane(void)
 		num_samples(1),
 		gamma(1.0),
 		inv_gamma(1.0),
-		show_out_of_gamut(false)
+		show_out_of_gamut(false),
+		sampler_ptr(nullptr)
 {}
 
 
@@ -33,7 +36,14 @@ ViewPlane::ViewPlane(const ViewPlane& vp)
 		gamma(vp.gamma),
 		inv_gamma(vp.inv_gamma),
 		show_out_of_gamut(vp.show_out_of_gamut)
-{}
+{
+	if (vp.sampler_ptr) {
+		sampler_ptr = vp.sampler_ptr->clone();
+	}
+	else {
+		sampler_ptr = nullptr;
+	}
+}
 
 
 
@@ -50,22 +60,53 @@ ViewPlane::operator= (const ViewPlane& rhs) {
 	gamma				= rhs.gamma;
 	inv_gamma			= rhs.inv_gamma;
 	show_out_of_gamut	= rhs.show_out_of_gamut;
+
+	if (sampler_ptr) {
+		delete sampler_ptr;
+		sampler_ptr = nullptr;
+	}
+
+	if (rhs.sampler_ptr) {
+		sampler_ptr = rhs.sampler_ptr->clone();
+	}
 	
 	return (*this);
 }
 
 
 
-ViewPlane::~ViewPlane(void) {}
+ViewPlane::~ViewPlane(void) {
+	if (sampler_ptr) {
+		delete sampler_ptr;
+		sampler_ptr = nullptr;
+	}
+}
 
-
-
-
-
-
+void
+ViewPlane::set_samples(const int n) {
+	num_samples = n;
 	
+	if (sampler_ptr) {
+		delete sampler_ptr;
+		sampler_ptr = nullptr;
+	}
+	
+	if (num_samples > 1) {
+		sampler_ptr = new MultiJittered(num_samples);
+	}
+	else {
+		sampler_ptr = new Regular(1);
+	}
+}
 
-
-
-
-
+void
+ViewPlane::set_sampler(Sampler* sp) {
+	
+	if (sampler_ptr) {
+		delete sampler_ptr;
+		sampler_ptr = nullptr;
+	}
+	
+	num_samples = sp->get_num_samples();
+	sampler_ptr = sp;
+}

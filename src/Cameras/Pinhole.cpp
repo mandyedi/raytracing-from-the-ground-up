@@ -10,11 +10,13 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
+#include <math.h>
+
+#include "Pinhole.h"
 #include "../Utilities/RGBColor.h" 
 #include "../Utilities/Point3D.h"
 #include "../Utilities/Vector3D.h"
-#include "Pinhole.h"
-#include <math.h>
+#include "../Samplers/Sampler.h"
 
 
 Pinhole::Pinhole(void)		
@@ -77,7 +79,8 @@ Pinhole::render_scene(const World& w) {
 	RGBColor	L;
 	ViewPlane	vp(w.vp);	 								
 	Ray			ray;
-	int 		depth = 0;  
+	int 		depth = 0;
+	Point2D		sp;		// sample point in [0, 1] x [0, 1]
 	Point2D 	pp;		// sample point on a pixel
 	int n = (int)sqrt((float)vp.num_samples);
 		
@@ -90,13 +93,12 @@ Pinhole::render_scene(const World& w) {
 		for (int column = 0; column < vp.hres; column++) {		// across 					
 			L = RGBColor::black; 
 			
-			for (int p = 0; p < n; p++) {		// up pixel
-				for (int q = 0; q < n; q++) {	// across pixel
-					pp.x = vp.s * (column - 0.5f * vp.hres + (q + 0.5f) / n); 
-					pp.y = vp.s * (row - 0.5f * vp.vres + (p + 0.5f) / n);
-					ray.d = get_direction(pp);
-					L += w.tracer_ptr->trace_ray(ray, depth);
-				}
+			for (int j = 0; j < vp.num_samples; j++) {
+				sp = vp.sampler_ptr->sample_unit_square();
+				pp.x = vp.s * (column - 0.5f * vp.hres + sp.x);
+				pp.y = vp.s * (row - 0.5f * vp.vres + sp.y);
+				ray.d = get_direction(pp);
+				L += w.tracer_ptr->trace_ray(ray, depth);
 			}
 											
 			L *= inv_num_samples;

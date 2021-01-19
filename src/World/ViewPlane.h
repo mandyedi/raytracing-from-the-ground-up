@@ -13,6 +13,7 @@
 #ifndef __VIEW_PLANE__
 #define __VIEW_PLANE__
 
+class Sampler;
 
 class ViewPlane {
 	public:
@@ -25,7 +26,7 @@ class ViewPlane {
 		float			inv_gamma;					// the inverse of the gamma correction factor
 		bool			show_out_of_gamut;			// display red if RGBColor out of gamut
 		
-									
+		Sampler			*sampler_ptr;
 	
 	public:
 	
@@ -36,6 +37,12 @@ class ViewPlane {
 		ViewPlane& operator= (const ViewPlane& rhs);
 		
 		~ViewPlane();
+
+		void
+		set_samples(const int n);
+
+		void
+		set_sampler(Sampler* sp);
 						
 		void 													
 		set_hres(const int h_res);
@@ -50,10 +57,7 @@ class ViewPlane {
 		set_gamma(const float g);
 		
 		void
-		set_gamut_display(const bool show);	
-		
-		void
-		set_samples(const int n);			
+		set_gamut_display(const bool show);			
 };
 
 
@@ -92,13 +96,6 @@ ViewPlane::set_gamma(const float g) {
 inline void
 ViewPlane::set_gamut_display(const bool show) {
 	show_out_of_gamut = show;
-}
-
-
-
-inline void
-ViewPlane::set_samples(const int n) {
-	num_samples = n;
 }
 
 #endif
