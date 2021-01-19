@@ -105,16 +105,16 @@ class World {
 		build_shaded_objects(void);
 
 		void
-		World::build_single_sphere_3_6_5(void);
+		build_single_sphere_3_6_5(void);
 
 		void
-		World::build_multiple_objects_3_9(void);
+		build_multiple_objects_3_9(void);
 
 		void
-		World::render_single_sphere_3_6_5( void );
+		render_single_sphere_3_6_5( void );
 
 		void
-		World::render_multiple_objects_3_9(void);
+		render_multiple_objects_3_9(void);
 };
 
 
