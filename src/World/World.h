@@ -54,6 +54,10 @@ class World {
 	public:
 	
 		World(void);												
+
+		World(const World& w);
+
+		World& operator= (const World& rhs);
 		
 		~World();
 								

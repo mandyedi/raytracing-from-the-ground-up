@@ -28,11 +28,11 @@ class Vector3D {
 	public:
 	
 		Vector3D(void);
-		Vector3D(double a);
+		explicit Vector3D(double a);
 		Vector3D(double _x, double _y, double _z);
 		Vector3D(const Vector3D& v);
-		Vector3D(const Normal& n);
-		Vector3D(const Point3D& p);
+		explicit Vector3D(const Normal& n);
+		explicit Vector3D(const Point3D& p);
 
 		~Vector3D (void);
 

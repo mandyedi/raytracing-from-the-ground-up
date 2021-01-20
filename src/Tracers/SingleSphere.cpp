@@ -27,6 +27,13 @@ SingleSphere::SingleSphere(World* _worldPtr)
 
 
 
+SingleSphere* 
+SingleSphere::clone(void) const {
+	return (new SingleSphere(*this));
+}
+
+
+
 SingleSphere::~SingleSphere(void) {}
 
 

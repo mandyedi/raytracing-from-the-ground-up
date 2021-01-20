@@ -23,7 +23,7 @@ class Point3D {
 		double x, y, z;
 	
 		Point3D();
-		Point3D(const double a);
+		explicit Point3D(const double a);
 		Point3D(const double a, const double b, const double c);
 		Point3D(const Point3D& p);
 		~Point3D();

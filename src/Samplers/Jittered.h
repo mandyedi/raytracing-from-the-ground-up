@@ -22,7 +22,7 @@ class Jittered: public Sampler {
 		
 		Jittered(void);								
 		
-		Jittered(const int num_samples);					
+		explicit Jittered(const int num_samples);					
 		
 		Jittered(const int num_samples, const int m);	
 
@@ -32,7 +32,7 @@ class Jittered: public Sampler {
 		operator= (const Jittered& rhs);				
 
 		virtual Jittered*								
-		clone(void) const;			
+		clone(void) const override;			
 
 		virtual
 		~Jittered(void);
@@ -40,7 +40,7 @@ class Jittered: public Sampler {
 	private:
 		
 		virtual void									
-		generate_samples(void);
+		generate_samples(void) override;
 };
 
 #endif

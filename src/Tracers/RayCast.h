@@ -20,16 +20,19 @@ class RayCast: public Tracer {
 		
 		RayCast(void);
 		
-		RayCast(World* _worldPtr);
+		explicit RayCast(World* _worldPtr);
 				
+		virtual RayCast*
+		clone(void) const override;
+
 		virtual											
 		~RayCast(void);		
 
 		virtual RGBColor	
-		trace_ray(const Ray& ray) const;
+		trace_ray(const Ray& ray) const override;
 
 		virtual RGBColor	
-		trace_ray(const Ray ray, const int depth) const;
+		trace_ray(const Ray& ray, const int depth) const override;
 };
 
 #endif

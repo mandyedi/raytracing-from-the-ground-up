@@ -20,6 +20,7 @@
 
 // geometric objects
 
+#include "../GeometricObjects/GeometricObject.h"
 #include "../GeometricObjects/Plane.h"
 #include "../GeometricObjects/Sphere.h"
 
@@ -63,12 +64,107 @@
 
 World::World(void)
 	:  	background_color(RGBColor::black),
-		tracer_ptr(NULL),
+		tracer_ptr(nullptr),
 		ambient_ptr(new Ambient),
-		camera_ptr(NULL)
+		camera_ptr(nullptr)
 {}
 
+World::World(const World& w)
+	: 	vp(w.vp),
+		background_color(w.background_color),
+		tracer_ptr(nullptr),
+		ambient_ptr(nullptr),
+		camera_ptr(nullptr),
+		sphere(w.sphere)
+{
+	if (w.tracer_ptr) {
+		tracer_ptr = w.tracer_ptr->clone();
+	}
+	else {
+		tracer_ptr = nullptr;
+	}
 
+	if (w.ambient_ptr) {
+		ambient_ptr = w.ambient_ptr->clone();
+	}
+	else {
+		ambient_ptr = nullptr;
+	}
+
+	if (w.camera_ptr) {
+		camera_ptr = w.camera_ptr->clone();
+	}
+	else {
+		camera_ptr = nullptr;
+	}
+
+	for (auto object : w.objects) {
+		objects.push_back(object->clone());
+	}
+
+	for (auto light : w.lights) {
+		lights.push_back(light->clone());
+	}
+
+}
+
+World&
+World::operator= (const World& rhs) {
+	if (this == &rhs) {
+		return (*this);
+	}
+
+	vp 					= rhs.vp;
+	background_color 	= rhs.background_color;
+	sphere 				= rhs.sphere;
+
+	if (tracer_ptr) {
+		delete tracer_ptr;
+		tracer_ptr = nullptr;
+	}
+
+	if (rhs.tracer_ptr) {
+		tracer_ptr = rhs.tracer_ptr->clone();
+	}
+
+	if (ambient_ptr) {
+		delete ambient_ptr;
+		ambient_ptr = nullptr;
+	}
+
+	if (rhs.ambient_ptr) {
+		ambient_ptr = rhs.ambient_ptr->clone();
+	}
+
+	if (camera_ptr) {
+		delete camera_ptr;
+		camera_ptr = nullptr;
+	}
+
+	if (rhs.camera_ptr) {
+		camera_ptr = rhs.camera_ptr->clone();
+	}
+
+	for (auto object : objects) {
+		delete object;
+	}
+	objects.clear();
+
+	for (auto object : rhs.objects) {
+		objects.push_back(object->clone());
+	}
+
+	for (auto light : lights) {
+		delete light;
+	}
+	lights.clear();
+
+	for (auto light : rhs.lights) {
+		lights.push_back(light->clone());
+	}
+
+	return (*this);
+}
 
 
 World::~World(void) {	

@@ -23,7 +23,7 @@ Sphere::Sphere(void)
 
 
 
-Sphere::Sphere(Point3D c, double r)
+Sphere::Sphere(const Point3D& c, double r)
 	: 	GeometricObject(),
 		center(c),
 		radius(r)
@@ -70,7 +70,6 @@ Sphere::~Sphere(void) {}
 
 bool
 Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
-	double 		t;
 	Vector3D	temp 	= ray.o - center;
 	double 		a 		= ray.d * ray.d;
 	double 		b 		= 2.0 * temp * ray.d;
@@ -80,7 +79,8 @@ Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 	if (disc < 0.0) {
 		return(false);
 	}
-	else {	
+	else {
+		double t;
 		double e = sqrt(disc);
 		double denom = 2.0 * a;
 		t = (-b - e) / denom;    // smaller root

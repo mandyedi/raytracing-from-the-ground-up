@@ -21,7 +21,7 @@ class Hammersley: public Sampler {
 		
 		Hammersley(void);							
 		
-		Hammersley(const int num);					
+		explicit Hammersley(const int num);					
 
 		Hammersley(const Hammersley& r);			
 
@@ -29,7 +29,7 @@ class Hammersley: public Sampler {
 		operator= (const Hammersley& rhs);			
 
 		virtual Hammersley*							
-		clone(void) const;
+		clone(void) const override;
 
 		virtual
 		~Hammersley(void);
@@ -40,7 +40,7 @@ class Hammersley: public Sampler {
 	private:
 		
 		virtual void
-		generate_samples(void);
+		generate_samples(void) override;
 };
 
 #endif

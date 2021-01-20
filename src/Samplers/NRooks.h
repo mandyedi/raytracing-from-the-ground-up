@@ -21,7 +21,7 @@ class NRooks: public Sampler {
 		
 		NRooks(void);									
 		
-		NRooks(const int num_samples);					
+		explicit NRooks(const int num_samples);					
 		
 		NRooks(const int num_samples, const int m);	
 
@@ -31,7 +31,7 @@ class NRooks: public Sampler {
 		operator= (const NRooks& rhs);				
 
 		virtual NRooks*								
-		clone(void) const;			
+		clone(void) const override;			
 
 		virtual
 		~NRooks(void);
@@ -39,7 +39,7 @@ class NRooks: public Sampler {
 	private:
 		
 		virtual void									
-		generate_samples(void);						
+		generate_samples(void) override;						
 };
 
 #endif

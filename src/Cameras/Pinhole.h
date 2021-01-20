@@ -26,7 +26,7 @@ class Pinhole: public Camera {
 		Pinhole(const Pinhole& ph);	
 		
 		virtual Camera*						
-		clone(void) const;			
+		clone(void) const override;			
 
 		Pinhole& 							
 		operator= (const Pinhole& rhs);	
@@ -44,7 +44,7 @@ class Pinhole: public Camera {
 		get_direction(const Point2D& p) const;
 		
 		virtual void 												
-		render_scene(const World& w);
+		render_scene(const World& w) override;
 		
 	private:
 			

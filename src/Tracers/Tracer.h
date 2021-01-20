@@ -29,7 +29,10 @@ class Tracer {
 	
 		Tracer(void);									
 		
-		Tracer(World* _world_ptr);						
+		explicit Tracer(World* _world_ptr);						
+
+		virtual Tracer*
+		clone(void) const = 0;
 				
 		virtual											
 		~Tracer(void);									
@@ -38,7 +41,7 @@ class Tracer {
 		trace_ray(const Ray& ray) const;
 
 		virtual RGBColor	
-		trace_ray(const Ray ray, const int depth) const;
+		trace_ray(const Ray& ray, const int depth) const;
 				
 	protected:
 	

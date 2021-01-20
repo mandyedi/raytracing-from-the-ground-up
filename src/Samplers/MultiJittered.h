@@ -22,7 +22,7 @@ class MultiJittered: public Sampler {
 		
 		MultiJittered(void);								
 		
-		MultiJittered(const int num_samples);				
+		explicit MultiJittered(const int num_samples);				
 		
 		MultiJittered(const int num_samples, const int m);	
 
@@ -32,7 +32,7 @@ class MultiJittered: public Sampler {
 		operator= (const MultiJittered& rhs);				
 
 		virtual MultiJittered*								
-		clone(void) const;			
+		clone(void) const override;			
 
 		virtual
 		~MultiJittered(void);								
@@ -40,7 +40,7 @@ class MultiJittered: public Sampler {
 	private:
 		
 		virtual void										
-		generate_samples(void);		
+		generate_samples(void) override;		
 };
 
 #endif

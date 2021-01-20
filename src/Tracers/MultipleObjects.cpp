@@ -26,6 +26,13 @@ MultipleObjects::MultipleObjects(World* _worldPtr)
 
 
 
+MultipleObjects* 
+MultipleObjects::clone(void) const {
+	return (new MultipleObjects(*this));
+}
+
+
+
 MultipleObjects::~MultipleObjects(void) {}
 
 

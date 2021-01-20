@@ -42,7 +42,7 @@ Tracer::trace_ray([[maybe_unused]] const Ray& ray) const {
 
 
 RGBColor	
-Tracer::trace_ray([[maybe_unused]] const Ray ray, [[maybe_unused]] const int depth) const {
+Tracer::trace_ray([[maybe_unused]] const Ray& ray, [[maybe_unused]] const int depth) const {
 	return (RGBColor::black);
 }
 

@@ -21,7 +21,7 @@ class Point2D {
 	public:
 	
 		Point2D (void);
-		Point2D (const float arg);
+		explicit Point2D (const float arg);
 		Point2D (const float x1, const float y1);
 		Point2D (const Point2D& p);
 		~Point2D (void) {}

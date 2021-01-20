@@ -21,7 +21,7 @@ class PureRandom: public Sampler {
 		
 		PureRandom(void);							
 		
-		PureRandom(const int num);					
+		explicit PureRandom(const int num);					
 
 		PureRandom(const PureRandom& r);				
 
@@ -29,7 +29,7 @@ class PureRandom: public Sampler {
 		operator= (const PureRandom& rhs);			
 
 		virtual PureRandom*							
-		clone(void) const;			
+		clone(void) const override;			
 
 		virtual
 		~PureRandom(void);
@@ -37,7 +37,7 @@ class PureRandom: public Sampler {
 	private:
 		
 		virtual void
-		generate_samples(void);
+		generate_samples(void) override;
 };
 
 #endif

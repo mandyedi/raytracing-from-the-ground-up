@@ -23,12 +23,12 @@ class Sphere: public GeometricObject {
 		
 		Sphere(void);   									// Default constructor
 				
-		Sphere(Point3D center, double r);					// Constructor 
+		Sphere(const Point3D& center, double r);					// Constructor 
 					
 		Sphere(const Sphere& sphere); 						// Copy constructor
 		
 		virtual Sphere* 									// Virtual copy constructor
-		clone(void) const;
+		clone(void) const override;
 
 		virtual												// Destructor
 		~Sphere(void);   									
@@ -46,7 +46,7 @@ class Sphere: public GeometricObject {
 		set_radius(const double r);
 						
 		virtual bool 												 
-		hit(const Ray& ray, double& t, ShadeRec& s) const;	
+		hit(const Ray& ray, double& t, ShadeRec& s) const override;	
 		
 	private:
 	

@@ -23,7 +23,7 @@ class Ambient: public Light {
 		Ambient(const Ambient& a); 					 
 	
 		virtual Light* 									
-		clone(void) const;	
+		clone(void) const override;	
 		
 		Ambient& 									
 		operator= (const Ambient& rhs);									
@@ -44,10 +44,10 @@ class Ambient: public Light {
 		set_color(const float r, const float g, const float b); 
 		
 		virtual Vector3D								
-		get_direction(ShadeRec& s); 
+		get_direction(ShadeRec& s) override; 
 		
 		virtual RGBColor
-		L(ShadeRec& s);
+		L(ShadeRec& s) override;
 	
 	private:
 	

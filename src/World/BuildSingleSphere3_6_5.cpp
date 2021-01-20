@@ -22,7 +22,7 @@ World::build_single_sphere_3_6_5(void) {
 	background_color = RGBColor::black;
 	tracer_ptr = new SingleSphere(this);
 
-	sphere.set_center(0.0);
+	sphere.set_center(Point3D(0.0));
 	sphere.set_radius(85.0);
 }
 

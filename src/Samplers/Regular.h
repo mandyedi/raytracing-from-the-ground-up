@@ -21,7 +21,7 @@ class Regular: public Sampler {
 		
 		Regular(void);							
 		
-		Regular(const int num);					
+		explicit Regular(const int num);					
 
 		Regular(const Regular& u);				
 
@@ -29,13 +29,13 @@ class Regular: public Sampler {
 		operator= (const Regular& rhs);			
 
 		virtual Regular*						
-		clone(void) const;			
+		clone(void) const override;			
 
 		virtual
 		~Regular(void);
 		
 		virtual void
-		generate_samples(void);
+		generate_samples(void) override;
 };
 
 #endif

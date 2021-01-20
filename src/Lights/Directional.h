@@ -29,7 +29,7 @@ class Directional: public Light {
 		Directional(const Directional& dl); 
 		
 		virtual Light* 									
-		clone(void) const;			
+		clone(void) const override;			
 
 		Directional& 									
 		operator= (const Directional& rhs); 
@@ -50,16 +50,16 @@ class Directional: public Light {
 		set_color(const float r, const float g, const float b); 		
 			
 		void
-		set_direction(Vector3D d);						
+		set_direction(const Vector3D& d);						
 		
 		void
 		set_direction(float dx, float dy, float dz);
 		
 		virtual Vector3D								
-		get_direction(ShadeRec& sr);
+		get_direction(ShadeRec& sr) override;
 				
 		virtual RGBColor		
-		L(ShadeRec& sr);	
+		L(ShadeRec& sr) override;	
 		
 	private:
 
@@ -100,7 +100,7 @@ Directional::set_color(const float r, const float g, const float b) {
 
 
 inline void
-Directional::set_direction(Vector3D d) {
+Directional::set_direction(const Vector3D& d) {
 	dir = d;
 	dir.normalize();
 }

@@ -24,7 +24,7 @@ class RGBColor {
 	public:
 	
 		RGBColor(void);
-		RGBColor(float c);
+		explicit RGBColor(float c);
 		RGBColor(float _r, float _g, float _b);
 		RGBColor(const RGBColor& c);
 		

@@ -20,13 +20,16 @@ class MultipleObjects: public Tracer {
 		
 		MultipleObjects(void);							
 		
-		MultipleObjects(World* _world_ptr);				
-	
+		explicit MultipleObjects(World* _world_ptr);				
+
+		virtual MultipleObjects*
+		clone(void) const override;
+
 		virtual											
 		~MultipleObjects(void);
 						
 		virtual RGBColor	
-		trace_ray(const Ray& ray) const;
+		trace_ray(const Ray& ray) const override;
 };
 
 #endif

@@ -20,13 +20,16 @@ class SingleSphere: public Tracer {
 		
 		SingleSphere(void);
 										
-		SingleSphere(World* _worldPtr);					
+		explicit SingleSphere(World* _worldPtr);					
 		
+		virtual SingleSphere*
+		clone(void) const override;
+
 		virtual											
 		~SingleSphere(void);
 		
 		virtual RGBColor	
-		trace_ray(const Ray& ray) const;
+		trace_ray(const Ray& ray) const override;
 };
 
 #endif

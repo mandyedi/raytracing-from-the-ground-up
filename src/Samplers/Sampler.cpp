@@ -250,21 +250,17 @@ Sampler::map_samples_to_hemisphere(const float exp) {
 // this is used for modelling a spherical light
 
 void
-Sampler::map_samples_to_sphere(void) {
-	float r1, r2;
-	float x, y, z;
-	float r, phi;
-		
+Sampler::map_samples_to_sphere(void) {		
 	sphere_samples.reserve(num_samples * num_sets);   
 		
 	for (int j = 0; j < num_samples * num_sets; j++) {
-		r1 	= samples[j].x;
-    	r2 	= samples[j].y;
-    	z 	= 1.0f - 2.0f * r1;
-    	r 	= (float)sqrt(1.0 - z * z);
-    	phi = TWO_PI * r2;
-    	x 	= r * (float)cos(phi);
-    	y 	= r * (float)sin(phi);
+		float r1 	= samples[j].x;
+    	float r2 	= samples[j].y;
+    	float z 	= 1.0f - 2.0f * r1;
+    	float r 	= (float)sqrt(1.0 - z * z);
+    	float phi = TWO_PI * r2;
+    	float x 	= r * (float)cos(phi);
+    	float y 	= r * (float)sin(phi);
 		sphere_samples.push_back(Point3D(x, y, z)); 
 	}
 }

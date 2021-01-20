@@ -35,8 +35,8 @@ TEST(Point3DTest, MathOperations) {
     EXPECT_DOUBLE_EQ(-1.0, p2.y);
     EXPECT_DOUBLE_EQ(-1.0, p2.z);
 
-    Vector3D v0;
-    v0 = v0 - p1;
+    Vector3D v0(2.0f, 2.0f, 2.0f);
+    v0 = p1 - v0;
     EXPECT_DOUBLE_EQ(-1.0, v0.x);
     EXPECT_DOUBLE_EQ(-1.0, v0.y);
     EXPECT_DOUBLE_EQ(-1.0, v0.z);

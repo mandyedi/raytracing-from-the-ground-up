@@ -27,10 +27,10 @@ class Normal
 	public:
 	
 		Normal(void);
-		Normal(double a);
+		explicit Normal(double a);
 		Normal(double _x, double _y, double _z);
 		Normal(const Normal& n);
-		Normal(const Vector3D& v);
+		explicit Normal(const Vector3D& v);
 		
 		~Normal(void);
 
