@@ -1,4 +1,5 @@
 [![GoogleTest](https://github.com/mandyedi/raytracing-from-the-ground-up/workflows/GoogleTest/badge.svg)](https://github.com/mandyedi/raytracing-from-the-ground-up/actions)
+[![cppcheck](https://github.com/mandyedi/raytracing-from-the-ground-up/workflows/cppcheck/badge.svg)](https://github.com/mandyedi/raytracing-from-the-ground-up/actions)
 
 The goal of this project is to make the sample project complete based on the book's chapters.
 
