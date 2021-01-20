@@ -16,111 +16,6 @@ GeometricObject::get_color(void) {
 src/GeometricObjects/GeometricObject.h:54:3: note: Technically the member function 'GeometricObject::get_color' can be const.
   get_color(void);
   ^
-src/Utilities/RGBColor.h:27:3: style: Class 'RGBColor' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  RGBColor(float c);
-  ^
-src/Utilities/Vector3D.h:31:3: style: Class 'Vector3D' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  Vector3D(double a);
-  ^
-src/Utilities/Vector3D.h:34:3: style: Class 'Vector3D' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  Vector3D(const Normal& n);
-  ^
-src/Utilities/Vector3D.h:35:3: style: Class 'Vector3D' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  Vector3D(const Point3D& p);
-  ^
-src/Utilities/Point3D.h:26:3: style: Class 'Point3D' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  Point3D(const double a);
-  ^
-src/Tracers/Tracer.h:32:3: style: Class 'Tracer' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  Tracer(World* _world_ptr);
-  ^
-src/Utilities/Normal.h:30:3: style: Class 'Normal' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  Normal(double a);
-  ^
-src/Utilities/Normal.h:33:3: style: Class 'Normal' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  Normal(const Vector3D& v);
-  ^
-src/Utilities/ShadeRec.h:40:3: style: Class 'ShadeRec' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  ShadeRec(World& wr);
-  ^
-src/Tracers/SingleSphere.h:23:3: style: Class 'SingleSphere' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  SingleSphere(World* _worldPtr);
-  ^
-src/Tracers/RayCast.h:23:3: style: Class 'RayCast' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  RayCast(World* _worldPtr);
-  ^
-src/GeometricObjects/Sphere.h:31:3: style: The function 'clone' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  clone(void) const;
-  ^
-src/GeometricObjects/GeometricObject.h:33:3: note: Virtual function in base class
-  clone(void) const = 0;
-  ^
-src/GeometricObjects/Sphere.h:31:3: note: Function in derived class
-  clone(void) const;
-  ^
-src/GeometricObjects/Sphere.h:49:3: style: The function 'hit' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  hit(const Ray& ray, double& t, ShadeRec& s) const;
-  ^
-src/GeometricObjects/GeometricObject.h:39:3: note: Virtual function in base class
-  hit(const Ray& ray, double& t, ShadeRec& s) const = 0;
-  ^
-src/GeometricObjects/Sphere.h:49:3: note: Function in derived class
-  hit(const Ray& ray, double& t, ShadeRec& s) const;
-  ^
-src/Tracers/SingleSphere.h:29:3: style: The function 'trace_ray' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  trace_ray(const Ray& ray) const;
-  ^
-src/Tracers/Tracer.h:38:3: note: Virtual function in base class
-  trace_ray(const Ray& ray) const;
-  ^
-src/Tracers/SingleSphere.h:29:3: note: Function in derived class
-  trace_ray(const Ray& ray) const;
-  ^
-src/Lights/Ambient.h:26:3: style: The function 'clone' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  clone(void) const;
-  ^
-src/Lights/Light.h:35:3: note: Virtual function in base class
-  clone(void) const = 0;
-  ^
-src/Lights/Ambient.h:26:3: note: Function in derived class
-  clone(void) const;
-  ^
-src/Lights/Ambient.h:47:3: style: The function 'get_direction' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  get_direction(ShadeRec& s);
-  ^
-src/Lights/Light.h:41:3: note: Virtual function in base class
-  get_direction(ShadeRec& sr) = 0;
-  ^
-src/Lights/Ambient.h:47:3: note: Function in derived class
-  get_direction(ShadeRec& s);
-  ^
-src/Lights/Ambient.h:50:3: style: The function 'L' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  L(ShadeRec& s);
-  ^
-src/Lights/Light.h:44:3: note: Virtual function in base class
-  L(ShadeRec& sr);
-  ^
-src/Lights/Ambient.h:50:3: note: Function in derived class
-  L(ShadeRec& s);
-  ^
-src/Tracers/RayCast.h:29:3: style: The function 'trace_ray' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  trace_ray(const Ray& ray) const;
-  ^
-src/Tracers/Tracer.h:38:3: note: Virtual function in base class
-  trace_ray(const Ray& ray) const;
-  ^
-src/Tracers/RayCast.h:29:3: note: Function in derived class
-  trace_ray(const Ray& ray) const;
-  ^
-src/Tracers/RayCast.h:32:3: style: The function 'trace_ray' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  trace_ray(const Ray ray, const int depth) const;
-  ^
-src/Tracers/Tracer.h:41:3: note: Virtual function in base class
-  trace_ray(const Ray ray, const int depth) const;
-  ^
-src/Tracers/RayCast.h:32:3: note: Function in derived class
-  trace_ray(const Ray ray, const int depth) const;
-  ^
 src/Utilities/Vector3D.h:133:38: style:inconclusive: Function 'operator*' argument 1 names different: declaration 'b' definition 'v'. [funcArgNamesDifferent]
 Vector3D::operator* (const Vector3D& v) const {
                                      ^
@@ -148,12 +43,6 @@ src/Cameras/Camera.h:59:24: note: Function 'set_roll' argument 1 names different
 src/Cameras/Camera.h:128:30: note: Function 'set_roll' argument 1 names different: declaration 'ra' definition 'r'.
 Camera::set_roll(const float r) {
                              ^
-src/Tracers/Tracer.h:41:23: performance: Function parameter 'ray' should be passed by const reference. [passedByValue]
-  trace_ray(const Ray ray, const int depth) const;
-                      ^
-src/Tracers/RayCast.h:32:23: performance: Function parameter 'ray' should be passed by const reference. [passedByValue]
-  trace_ray(const Ray ray, const int depth) const;
-                      ^
 src/BRDFs/BRDF.cpp:20:40: style:inconclusive: Function 'BRDF' argument 1 names different: declaration 'object' definition 'brdf'. [funcArgNamesDifferent]
 BRDF::BRDF([[maybe_unused]]const BRDF& brdf) {}
                                        ^
@@ -163,33 +52,6 @@ src/BRDFs/BRDF.h:28:20: note: Function 'BRDF' argument 1 names different: declar
 src/BRDFs/BRDF.cpp:20:40: note: Function 'BRDF' argument 1 names different: declaration 'object' definition 'brdf'.
 BRDF::BRDF([[maybe_unused]]const BRDF& brdf) {}
                                        ^
-src/BRDFs/Lambertian.h:26:3: style: The function 'clone' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  clone(void) const;
-  ^
-src/BRDFs/BRDF.h:31:3: note: Virtual function in base class
-  clone(void) const = 0;
-  ^
-src/BRDFs/Lambertian.h:26:3: note: Function in derived class
-  clone(void) const;
-  ^
-src/BRDFs/Lambertian.h:34:3: style: The function 'f' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const;
-  ^
-src/BRDFs/BRDF.h:37:3: note: Virtual function in base class
-  f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const;
-  ^
-src/BRDFs/Lambertian.h:34:3: note: Function in derived class
-  f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const;
-  ^
-src/BRDFs/Lambertian.h:37:3: style: The function 'rho' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  rho(const ShadeRec& sr, const Vector3D& wo) const;
-  ^
-src/BRDFs/BRDF.h:46:3: note: Virtual function in base class
-  rho(const ShadeRec& sr, const Vector3D& wo) const;
-  ^
-src/BRDFs/Lambertian.h:37:3: note: Function in derived class
-  rho(const ShadeRec& sr, const Vector3D& wo) const;
-  ^
 src/BRDFs/Lambertian.h:65:32: style:inconclusive: Function 'set_ka' argument 1 names different: declaration 'ka' definition 'k'. [funcArgNamesDifferent]
 Lambertian::set_ka(const float k) {
                                ^
@@ -226,27 +88,6 @@ src/Cameras/Camera.h:78:28: note: Function 'operator=' argument 1 names differen
 src/Cameras/Camera.cpp:45:34: note: Function 'operator=' argument 1 names different: declaration 'camera' definition 'rhs'.
 Camera::operator= (const Camera& rhs) {
                                  ^
-src/Utilities/Point2D.h:24:3: style: Class 'Point2D' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  Point2D (const float arg);
-  ^
-src/Cameras/Pinhole.h:29:3: style: The function 'clone' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  clone(void) const;
-  ^
-src/Cameras/Camera.h:32:3: note: Virtual function in base class
-  clone(void) const = 0;
-  ^
-src/Cameras/Pinhole.h:29:3: note: Function in derived class
-  clone(void) const;
-  ^
-src/Cameras/Pinhole.h:47:3: style: The function 'render_scene' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  render_scene(const World& w);
-  ^
-src/Cameras/Camera.h:38:3: note: Virtual function in base class
-  render_scene(const World& w) = 0;
-  ^
-src/Cameras/Pinhole.h:47:3: note: Function in derived class
-  render_scene(const World& w);
-  ^
 src/Cameras/Pinhole.h:61:34: style:inconclusive: Function 'set_view_distance' argument 1 names different: declaration 'vpd' definition '_d'. [funcArgNamesDifferent]
 Pinhole::set_view_distance(float _d) {
                                  ^
@@ -265,39 +106,15 @@ src/Cameras/Pinhole.h:26:26: note: Function 'Pinhole' argument 1 names different
 src/Cameras/Pinhole.cpp:30:33: note: Function 'Pinhole' argument 1 names different: declaration 'ph' definition 'c'.
 Pinhole::Pinhole(const Pinhole& c)
                                 ^
-src/Cameras/Pinhole.cpp:85:8: style: Variable 'n' is assigned a value that is never used. [unreadVariable]
- int n = (int)sqrt((float)vp.num_samples);
-       ^
-src/GeometricObjects/Plane.h:30:3: style: The function 'clone' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  clone(void) const;
-  ^
-src/GeometricObjects/GeometricObject.h:33:3: note: Virtual function in base class
-  clone(void) const = 0;
-  ^
-src/GeometricObjects/Plane.h:30:3: note: Function in derived class
-  clone(void) const;
-  ^
-src/GeometricObjects/Plane.h:39:3: style: The function 'hit' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
-  ^
-src/GeometricObjects/GeometricObject.h:39:3: note: Virtual function in base class
-  hit(const Ray& ray, double& t, ShadeRec& s) const = 0;
-  ^
-src/GeometricObjects/Plane.h:39:3: note: Function in derived class
-  hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
-  ^
-src/GeometricObjects/Sphere.cpp:73:11: style: The scope of the variable 't' can be reduced. [variableScope]
- double   t;
-          ^
-src/GeometricObjects/Sphere.cpp:26:24: style:inconclusive: Function 'Sphere' argument 1 names different: declaration 'center' definition 'c'. [funcArgNamesDifferent]
-Sphere::Sphere(Point3D c, double r)
-                       ^
-src/GeometricObjects/Sphere.h:26:18: note: Function 'Sphere' argument 1 names different: declaration 'center' definition 'c'.
-  Sphere(Point3D center, double r);     // Constructor
-                 ^
-src/GeometricObjects/Sphere.cpp:26:24: note: Function 'Sphere' argument 1 names different: declaration 'center' definition 'c'.
-Sphere::Sphere(Point3D c, double r)
-                       ^
+src/GeometricObjects/Sphere.cpp:26:31: style:inconclusive: Function 'Sphere' argument 1 names different: declaration 'center' definition 'c'. [funcArgNamesDifferent]
+Sphere::Sphere(const Point3D& c, double r)
+                              ^
+src/GeometricObjects/Sphere.h:26:25: note: Function 'Sphere' argument 1 names different: declaration 'center' definition 'c'.
+  Sphere(const Point3D& center, double r);     // Constructor
+                        ^
+src/GeometricObjects/Sphere.cpp:26:31: note: Function 'Sphere' argument 1 names different: declaration 'center' definition 'c'.
+Sphere::Sphere(const Point3D& c, double r)
+                              ^
 src/GeometricObjects/Sphere.cpp:51:34: style:inconclusive: Function 'operator=' argument 1 names different: declaration 'sphere' definition 'rhs'. [funcArgNamesDifferent]
 Sphere::operator= (const Sphere& rhs)
                                  ^
@@ -311,7 +128,7 @@ src/GeometricObjects/Sphere.cpp:72:37: style:inconclusive: Function 'hit' argume
 Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
                                     ^
 src/GeometricObjects/Sphere.h:49:31: note: Function 'hit' argument 2 names different: declaration 't' definition 'tmin'.
-  hit(const Ray& ray, double& t, ShadeRec& s) const;
+  hit(const Ray& ray, double& t, ShadeRec& s) const override;
                               ^
 src/GeometricObjects/Sphere.cpp:72:37: note: Function 'hit' argument 2 names different: declaration 't' definition 'tmin'.
 Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
@@ -320,62 +137,29 @@ src/GeometricObjects/Sphere.cpp:72:53: style:inconclusive: Function 'hit' argume
 Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
                                                     ^
 src/GeometricObjects/Sphere.h:49:44: note: Function 'hit' argument 3 names different: declaration 's' definition 'sr'.
-  hit(const Ray& ray, double& t, ShadeRec& s) const;
+  hit(const Ray& ray, double& t, ShadeRec& s) const override;
                                            ^
 src/GeometricObjects/Sphere.cpp:72:53: note: Function 'hit' argument 3 names different: declaration 's' definition 'sr'.
 Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
                                                     ^
-src/GeometricObjects/Sphere.cpp:26:24: performance: Function parameter 'c' should be passed by const reference. [passedByValue]
-Sphere::Sphere(Point3D c, double r)
-                       ^
 src/Lights/Ambient.cpp:67:39: style:inconclusive: Function 'L' argument 1 names different: declaration 's' definition 'sr'. [funcArgNamesDifferent]
 Ambient::L([[maybe_unused]] ShadeRec& sr) {
                                       ^
 src/Lights/Ambient.h:50:15: note: Function 'L' argument 1 names different: declaration 's' definition 'sr'.
-  L(ShadeRec& s);
+  L(ShadeRec& s) override;
               ^
 src/Lights/Ambient.cpp:67:39: note: Function 'L' argument 1 names different: declaration 's' definition 'sr'.
 Ambient::L([[maybe_unused]] ShadeRec& sr) {
                                       ^
-src/Lights/Directional.h:32:3: style: The function 'clone' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  clone(void) const;
-  ^
-src/Lights/Light.h:35:3: note: Virtual function in base class
-  clone(void) const = 0;
-  ^
-src/Lights/Directional.h:32:3: note: Function in derived class
-  clone(void) const;
-  ^
-src/Lights/Directional.h:59:3: style: The function 'get_direction' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  get_direction(ShadeRec& sr);
-  ^
-src/Lights/Light.h:41:3: note: Virtual function in base class
-  get_direction(ShadeRec& sr) = 0;
-  ^
-src/Lights/Directional.h:59:3: note: Function in derived class
-  get_direction(ShadeRec& sr);
-  ^
-src/Lights/Directional.h:62:3: style: The function 'L' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  L(ShadeRec& sr);
-  ^
-src/Lights/Light.h:44:3: note: Virtual function in base class
-  L(ShadeRec& sr);
-  ^
-src/Lights/Directional.h:62:3: note: Function in derived class
-  L(ShadeRec& sr);
-  ^
 src/Lights/Directional.cpp:69:43: style:inconclusive: Function 'L' argument 1 names different: declaration 'sr' definition 's'. [funcArgNamesDifferent]
 Directional::L([[maybe_unused]] ShadeRec& s) {
                                           ^
 src/Lights/Directional.h:62:15: note: Function 'L' argument 1 names different: declaration 'sr' definition 's'.
-  L(ShadeRec& sr);
+  L(ShadeRec& sr) override;
               ^
 src/Lights/Directional.cpp:69:43: note: Function 'L' argument 1 names different: declaration 'sr' definition 's'.
 Directional::L([[maybe_unused]] ShadeRec& s) {
                                           ^
-src/Lights/Directional.h:103:37: performance: Function parameter 'd' should be passed by const reference. [passedByValue]
-Directional::set_direction(Vector3D d) {
-                                    ^
 src/Lights/Light.cpp:41:37: style:inconclusive: Function 'L' argument 1 names different: declaration 'sr' definition 's'. [funcArgNamesDifferent]
 Light::L([[maybe_unused]] ShadeRec& s) {
                                     ^
@@ -394,24 +178,6 @@ src/Materials/Material.h:25:28: note: Function 'Material' argument 1 names diffe
 src/Materials/Material.cpp:20:53: note: Function 'Material' argument 1 names different: declaration 'material' definition 'm'.
 Material::Material([[maybe_unused]] const Material& m) {}
                                                     ^
-src/Materials/Matte.h:28:3: style: The function 'clone' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  clone(void) const;
-  ^
-src/Materials/Material.h:28:3: note: Virtual function in base class
-  clone(void) const = 0;
-  ^
-src/Materials/Matte.h:28:3: note: Function in derived class
-  clone(void) const;
-  ^
-src/Materials/Matte.h:51:3: style: The function 'shade' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  shade(ShadeRec& sr);
-  ^
-src/Materials/Material.h:34:3: note: Virtual function in base class
-  shade(ShadeRec& sr);
-  ^
-src/Materials/Matte.h:51:3: note: Function in derived class
-  shade(ShadeRec& sr);
-  ^
 src/Materials/Matte.h:65:27: style:inconclusive: Function 'set_ka' argument 1 names different: declaration 'k' definition 'ka'. [funcArgNamesDifferent]
 Matte::set_ka(const float ka) {
                           ^
@@ -439,27 +205,6 @@ Hammersley::phi(int j) {
 src/Samplers/Hammersley.h:38:3: note: Technically the member function 'Hammersley::phi' can be static (but you may consider moving to unnamed namespace).
   phi(int j);
   ^
-src/Samplers/Hammersley.h:24:3: style: Class 'Hammersley' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  Hammersley(const int num);
-  ^
-src/Samplers/Hammersley.h:32:3: style: The function 'clone' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  clone(void) const;
-  ^
-src/Samplers/Sampler.h:39:3: note: Virtual function in base class
-  clone(void) const = 0;
-  ^
-src/Samplers/Hammersley.h:32:3: note: Function in derived class
-  clone(void) const;
-  ^
-src/Samplers/Hammersley.h:43:3: style: The function 'generate_samples' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  generate_samples(void);
-  ^
-src/Samplers/Sampler.h:48:3: note: Virtual function in base class
-  generate_samples(void) = 0;
-  ^
-src/Samplers/Hammersley.h:43:3: note: Function in derived class
-  generate_samples(void);
-  ^
 src/Samplers/Hammersley.cpp:36:42: style:inconclusive: Function 'Hammersley' argument 1 names different: declaration 'r' definition 'h'. [funcArgNamesDifferent]
 Hammersley::Hammersley(const Hammersley& h)
                                          ^
@@ -469,27 +214,6 @@ src/Samplers/Hammersley.h:26:32: note: Function 'Hammersley' argument 1 names di
 src/Samplers/Hammersley.cpp:36:42: note: Function 'Hammersley' argument 1 names different: declaration 'r' definition 'h'.
 Hammersley::Hammersley(const Hammersley& h)
                                          ^
-src/Samplers/Jittered.h:25:3: style: Class 'Jittered' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  Jittered(const int num_samples);
-  ^
-src/Samplers/Jittered.h:35:3: style: The function 'clone' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  clone(void) const;
-  ^
-src/Samplers/Sampler.h:39:3: note: Virtual function in base class
-  clone(void) const = 0;
-  ^
-src/Samplers/Jittered.h:35:3: note: Function in derived class
-  clone(void) const;
-  ^
-src/Samplers/Jittered.h:43:3: style: The function 'generate_samples' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  generate_samples(void);
-  ^
-src/Samplers/Sampler.h:48:3: note: Virtual function in base class
-  generate_samples(void) = 0;
-  ^
-src/Samplers/Jittered.h:43:3: note: Function in derived class
-  generate_samples(void);
-  ^
 src/Samplers/Jittered.cpp:41:36: style:inconclusive: Function 'Jittered' argument 1 names different: declaration 'u' definition 'js'. [funcArgNamesDifferent]
 Jittered::Jittered(const Jittered& js)
                                    ^
@@ -499,90 +223,6 @@ src/Samplers/Jittered.h:29:28: note: Function 'Jittered' argument 1 names differ
 src/Samplers/Jittered.cpp:41:36: note: Function 'Jittered' argument 1 names different: declaration 'u' definition 'js'.
 Jittered::Jittered(const Jittered& js)
                                    ^
-src/Samplers/MultiJittered.h:25:3: style: Class 'MultiJittered' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  MultiJittered(const int num_samples);
-  ^
-src/Samplers/MultiJittered.h:35:3: style: The function 'clone' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  clone(void) const;
-  ^
-src/Samplers/Sampler.h:39:3: note: Virtual function in base class
-  clone(void) const = 0;
-  ^
-src/Samplers/MultiJittered.h:35:3: note: Function in derived class
-  clone(void) const;
-  ^
-src/Samplers/MultiJittered.h:43:3: style: The function 'generate_samples' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  generate_samples(void);
-  ^
-src/Samplers/Sampler.h:48:3: note: Virtual function in base class
-  generate_samples(void) = 0;
-  ^
-src/Samplers/MultiJittered.h:43:3: note: Function in derived class
-  generate_samples(void);
-  ^
-src/Samplers/NRooks.h:24:3: style: Class 'NRooks' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  NRooks(const int num_samples);
-  ^
-src/Samplers/NRooks.h:34:3: style: The function 'clone' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  clone(void) const;
-  ^
-src/Samplers/Sampler.h:39:3: note: Virtual function in base class
-  clone(void) const = 0;
-  ^
-src/Samplers/NRooks.h:34:3: note: Function in derived class
-  clone(void) const;
-  ^
-src/Samplers/NRooks.h:42:3: style: The function 'generate_samples' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  generate_samples(void);
-  ^
-src/Samplers/Sampler.h:48:3: note: Virtual function in base class
-  generate_samples(void) = 0;
-  ^
-src/Samplers/NRooks.h:42:3: note: Function in derived class
-  generate_samples(void);
-  ^
-src/Samplers/PureRandom.h:24:3: style: Class 'PureRandom' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  PureRandom(const int num);
-  ^
-src/Samplers/PureRandom.h:32:3: style: The function 'clone' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  clone(void) const;
-  ^
-src/Samplers/Sampler.h:39:3: note: Virtual function in base class
-  clone(void) const = 0;
-  ^
-src/Samplers/PureRandom.h:32:3: note: Function in derived class
-  clone(void) const;
-  ^
-src/Samplers/PureRandom.h:40:3: style: The function 'generate_samples' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  generate_samples(void);
-  ^
-src/Samplers/Sampler.h:48:3: note: Virtual function in base class
-  generate_samples(void) = 0;
-  ^
-src/Samplers/PureRandom.h:40:3: note: Function in derived class
-  generate_samples(void);
-  ^
-src/Samplers/Regular.h:24:3: style: Class 'Regular' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  Regular(const int num);
-  ^
-src/Samplers/Regular.h:32:3: style: The function 'clone' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  clone(void) const;
-  ^
-src/Samplers/Sampler.h:39:3: note: Virtual function in base class
-  clone(void) const = 0;
-  ^
-src/Samplers/Regular.h:32:3: note: Function in derived class
-  clone(void) const;
-  ^
-src/Samplers/Regular.h:38:3: style: The function 'generate_samples' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  generate_samples(void);
-  ^
-src/Samplers/Sampler.h:48:3: note: Virtual function in base class
-  generate_samples(void) = 0;
-  ^
-src/Samplers/Regular.h:38:3: note: Function in derived class
-  generate_samples(void);
-  ^
 src/Samplers/Sampler.h:51:3: style:inconclusive: Technically the member function 'Sampler::get_num_samples' can be const. [functionConst]
   get_num_samples(void);
   ^
@@ -592,27 +232,6 @@ Sampler::get_num_samples(void) {
 src/Samplers/Sampler.h:51:3: note: Technically the member function 'Sampler::get_num_samples' can be const.
   get_num_samples(void);
   ^
-src/Samplers/Sampler.cpp:254:8: style: The scope of the variable 'r1' can be reduced. [variableScope]
- float r1, r2;
-       ^
-src/Samplers/Sampler.cpp:254:12: style: The scope of the variable 'r2' can be reduced. [variableScope]
- float r1, r2;
-           ^
-src/Samplers/Sampler.cpp:255:8: style: The scope of the variable 'x' can be reduced. [variableScope]
- float x, y, z;
-       ^
-src/Samplers/Sampler.cpp:255:11: style: The scope of the variable 'y' can be reduced. [variableScope]
- float x, y, z;
-          ^
-src/Samplers/Sampler.cpp:255:14: style: The scope of the variable 'z' can be reduced. [variableScope]
- float x, y, z;
-             ^
-src/Samplers/Sampler.cpp:256:8: style: The scope of the variable 'r' can be reduced. [variableScope]
- float r, phi;
-       ^
-src/Samplers/Sampler.cpp:256:11: style: The scope of the variable 'phi' can be reduced. [variableScope]
- float r, phi;
-          ^
 src/Samplers/Sampler.cpp:35:28: style:inconclusive: Function 'Sampler' argument 1 names different: declaration 'num' definition 'ns'. [funcArgNamesDifferent]
 Sampler::Sampler(const int ns)
                            ^
@@ -649,42 +268,24 @@ src/Samplers/Sampler.h:66:41: note: Function 'map_samples_to_hemisphere' argumen
 src/Samplers/Sampler.cpp:229:48: note: Function 'map_samples_to_hemisphere' argument 1 names different: declaration 'p' definition 'exp'.
 Sampler::map_samples_to_hemisphere(const float exp) {
                                                ^
-src/Tracers/MultipleObjects.h:23:3: style: Class 'MultipleObjects' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
-  MultipleObjects(World* _world_ptr);
-  ^
-src/Tracers/MultipleObjects.h:29:3: style: The function 'trace_ray' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
-  trace_ray(const Ray& ray) const;
-  ^
-src/Tracers/Tracer.h:38:3: note: Virtual function in base class
-  trace_ray(const Ray& ray) const;
-  ^
-src/Tracers/MultipleObjects.h:29:3: note: Function in derived class
-  trace_ray(const Ray& ray) const;
-  ^
 src/Tracers/MultipleObjects.cpp:23:41: style:inconclusive: Function 'MultipleObjects' argument 1 names different: declaration '_world_ptr' definition '_worldPtr'. [funcArgNamesDifferent]
 MultipleObjects::MultipleObjects(World* _worldPtr)
                                         ^
-src/Tracers/MultipleObjects.h:23:26: note: Function 'MultipleObjects' argument 1 names different: declaration '_world_ptr' definition '_worldPtr'.
-  MultipleObjects(World* _world_ptr);
-                         ^
+src/Tracers/MultipleObjects.h:23:35: note: Function 'MultipleObjects' argument 1 names different: declaration '_world_ptr' definition '_worldPtr'.
+  explicit MultipleObjects(World* _world_ptr);
+                                  ^
 src/Tracers/MultipleObjects.cpp:23:41: note: Function 'MultipleObjects' argument 1 names different: declaration '_world_ptr' definition '_worldPtr'.
 MultipleObjects::MultipleObjects(World* _worldPtr)
                                         ^
-src/Tracers/RayCast.cpp:52:30: performance: Function parameter 'ray' should be passed by const reference. [passedByValue]
-RayCast::trace_ray(const Ray ray, [[maybe_unused]] const int depth) const {
-                             ^
 src/Tracers/Tracer.cpp:22:23: style:inconclusive: Function 'Tracer' argument 1 names different: declaration '_world_ptr' definition '_worldPtr'. [funcArgNamesDifferent]
 Tracer::Tracer(World* _worldPtr)
                       ^
-src/Tracers/Tracer.h:32:17: note: Function 'Tracer' argument 1 names different: declaration '_world_ptr' definition '_worldPtr'.
-  Tracer(World* _world_ptr);
-                ^
+src/Tracers/Tracer.h:32:26: note: Function 'Tracer' argument 1 names different: declaration '_world_ptr' definition '_worldPtr'.
+  explicit Tracer(World* _world_ptr);
+                         ^
 src/Tracers/Tracer.cpp:22:23: note: Function 'Tracer' argument 1 names different: declaration '_world_ptr' definition '_worldPtr'.
 Tracer::Tracer(World* _worldPtr)
                       ^
-src/Tracers/Tracer.cpp:45:46: performance: Function parameter 'ray' should be passed by const reference. [passedByValue]
-Tracer::trace_ray([[maybe_unused]] const Ray ray, [[maybe_unused]] const int depth) const {
-                                             ^
 src/Utilities/Point3D.cpp:47:36: style:inconclusive: Function 'operator=' argument 1 names different: declaration 'p' definition 'rhs'. [funcArgNamesDifferent]
 Point3D::operator= (const Point3D& rhs) {
                                    ^
@@ -703,66 +304,78 @@ src/Utilities/Vector3D.h:33:28: note: Function 'Vector3D' argument 1 names diffe
 src/Utilities/Vector3D.cpp:35:36: note: Function 'Vector3D' argument 1 names different: declaration 'v' definition 'vector'.
 Vector3D::Vector3D(const Vector3D& vector)
                                    ^
-src/World/World.h:117:3: style:inconclusive: Technically the member function 'World::render_multiple_objects_3_9' can be const. [functionConst]
+src/World/World.h:121:3: style:inconclusive: Technically the member function 'World::render_multiple_objects_3_9' can be const. [functionConst]
   render_multiple_objects_3_9(void);
   ^
 src/World/BuildMultipleObjects3_9.cpp:44:8: note: Technically the member function 'World::render_multiple_objects_3_9' can be const.
 World::render_multiple_objects_3_9(void) {
        ^
-src/World/World.h:117:3: note: Technically the member function 'World::render_multiple_objects_3_9' can be const.
+src/World/World.h:121:3: note: Technically the member function 'World::render_multiple_objects_3_9' can be const.
   render_multiple_objects_3_9(void);
   ^
-src/World/World.h:114:3: style:inconclusive: Technically the member function 'World::render_single_sphere_3_6_5' can be const. [functionConst]
+src/World/World.h:118:3: style:inconclusive: Technically the member function 'World::render_single_sphere_3_6_5' can be const. [functionConst]
   render_single_sphere_3_6_5( void );
   ^
 src/World/BuildSingleSphere3_6_5.cpp:30:8: note: Technically the member function 'World::render_single_sphere_3_6_5' can be const.
 World::render_single_sphere_3_6_5(void) {
        ^
-src/World/World.h:114:3: note: Technically the member function 'World::render_single_sphere_3_6_5' can be const.
+src/World/World.h:118:3: note: Technically the member function 'World::render_single_sphere_3_6_5' can be const.
   render_single_sphere_3_6_5( void );
   ^
-src/World/World.h:73:3: performance:inconclusive: Technically the member function 'World::max_to_one' can be static (but you may consider moving to unnamed namespace). [functionStatic]
+src/World/World.cpp:72:8: warning:inconclusive: Member variable 'World::pixels' is not assigned in the copy constructor. Should it be copied? [uninitMemberVar]
+World::World(const World& w)
+       ^
+src/World/World.cpp:112:8: warning:inconclusive: Member variable 'World::pixels' is not assigned a value in 'World::operator='. [operatorEqVarError]
+World::operator= (const World& rhs) {
+       ^
+src/World/World.h:77:3: performance:inconclusive: Technically the member function 'World::max_to_one' can be static (but you may consider moving to unnamed namespace). [functionStatic]
   max_to_one(const RGBColor& c) const;
   ^
-src/World/World.cpp:99:8: note: Technically the member function 'World::max_to_one' can be static (but you may consider moving to unnamed namespace).
+src/World/World.cpp:195:8: note: Technically the member function 'World::max_to_one' can be static (but you may consider moving to unnamed namespace).
 World::max_to_one(const RGBColor& c) const  {
        ^
-src/World/World.h:73:3: note: Technically the member function 'World::max_to_one' can be static (but you may consider moving to unnamed namespace).
+src/World/World.h:77:3: note: Technically the member function 'World::max_to_one' can be static (but you may consider moving to unnamed namespace).
   max_to_one(const RGBColor& c) const;
   ^
-src/World/World.h:76:3: performance:inconclusive: Technically the member function 'World::clamp_to_color' can be static (but you may consider moving to unnamed namespace). [functionStatic]
+src/World/World.h:80:3: performance:inconclusive: Technically the member function 'World::clamp_to_color' can be static (but you may consider moving to unnamed namespace). [functionStatic]
   clamp_to_color(const RGBColor& c) const;
   ^
-src/World/World.cpp:114:8: note: Technically the member function 'World::clamp_to_color' can be static (but you may consider moving to unnamed namespace).
+src/World/World.cpp:210:8: note: Technically the member function 'World::clamp_to_color' can be static (but you may consider moving to unnamed namespace).
 World::clamp_to_color(const RGBColor& raw_color) const {
        ^
-src/World/World.h:76:3: note: Technically the member function 'World::clamp_to_color' can be static (but you may consider moving to unnamed namespace).
+src/World/World.h:80:3: note: Technically the member function 'World::clamp_to_color' can be static (but you may consider moving to unnamed namespace).
   clamp_to_color(const RGBColor& c) const;
   ^
-src/World/World.cpp:67:3: warning: Class 'World' does not have a copy constructor which is recommended since it has dynamic memory/resource allocation(s). [noCopyConstructor]
-  ambient_ptr(new Ambient),
-  ^
-src/World/World.cpp:67:3: warning: Class 'World' does not have a operator= which is recommended since it has dynamic memory/resource allocation(s). [noOperatorEq]
-  ambient_ptr(new Ambient),
-  ^
-src/World/World.cpp:114:39: style:inconclusive: Function 'clamp_to_color' argument 1 names different: declaration 'c' definition 'raw_color'. [funcArgNamesDifferent]
+src/World/World.cpp:210:39: style:inconclusive: Function 'clamp_to_color' argument 1 names different: declaration 'c' definition 'raw_color'. [funcArgNamesDifferent]
 World::clamp_to_color(const RGBColor& raw_color) const {
                                       ^
-src/World/World.h:76:34: note: Function 'clamp_to_color' argument 1 names different: declaration 'c' definition 'raw_color'.
+src/World/World.h:80:34: note: Function 'clamp_to_color' argument 1 names different: declaration 'c' definition 'raw_color'.
   clamp_to_color(const RGBColor& c) const;
                                  ^
-src/World/World.cpp:114:39: note: Function 'clamp_to_color' argument 1 names different: declaration 'c' definition 'raw_color'.
+src/World/World.cpp:210:39: note: Function 'clamp_to_color' argument 1 names different: declaration 'c' definition 'raw_color'.
 World::clamp_to_color(const RGBColor& raw_color) const {
                                       ^
-src/World/World.cpp:136:105: style:inconclusive: Function 'display_pixel' argument 3 names different: declaration 'pixel_color' definition 'raw_color'. [funcArgNamesDifferent]
+src/World/World.cpp:232:105: style:inconclusive: Function 'display_pixel' argument 3 names different: declaration 'pixel_color' definition 'raw_color'. [funcArgNamesDifferent]
 World::display_pixel([[maybe_unused]] const int row, [[maybe_unused]] const int column, const RGBColor& raw_color) const {
                                                                                                         ^
-src/World/World.h:79:66: note: Function 'display_pixel' argument 3 names different: declaration 'pixel_color' definition 'raw_color'.
+src/World/World.h:83:66: note: Function 'display_pixel' argument 3 names different: declaration 'pixel_color' definition 'raw_color'.
   display_pixel(const int row, const int column, const RGBColor& pixel_color) const;
                                                                  ^
-src/World/World.cpp:136:105: note: Function 'display_pixel' argument 3 names different: declaration 'pixel_color' definition 'raw_color'.
+src/World/World.cpp:232:105: note: Function 'display_pixel' argument 3 names different: declaration 'pixel_color' definition 'raw_color'.
 World::display_pixel([[maybe_unused]] const int row, [[maybe_unused]] const int column, const RGBColor& raw_color) const {
                                                                                                         ^
+src/World/World.cpp:102:11: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+  objects.push_back(object->clone());
+          ^
+src/World/World.cpp:106:10: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+  lights.push_back(light->clone());
+         ^
+src/World/World.cpp:154:11: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+  objects.push_back(object->clone());
+          ^
+src/World/World.cpp:163:10: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+  lights.push_back(light->clone());
+         ^
 third_party/googletest-release-1.10.0/googlemock/src/gmock-spec-builders.cc:640:13: style:inconclusive: Technically the member function 'testing::::MockObjectRegistry::states' can be const. [functionConst]
   StateMap& states() { return states_; }
             ^
@@ -1312,16 +925,16 @@ src/World/BuildSingleSphere3_6_5.cpp:30:0: style: The function 'render_single_sp
 src/BRDFs/BRDF.cpp:47:0: style: The function 'sample_f' is never used. [unusedFunction]
 
 ^
-src/Samplers/Sampler.cpp:335:0: style: The function 'sample_hemisphere' is never used. [unusedFunction]
+src/Samplers/Sampler.cpp:331:0: style: The function 'sample_hemisphere' is never used. [unusedFunction]
 
 ^
-src/Samplers/Sampler.cpp:363:0: style: The function 'sample_one_set' is never used. [unusedFunction]
+src/Samplers/Sampler.cpp:359:0: style: The function 'sample_one_set' is never used. [unusedFunction]
 
 ^
-src/Samplers/Sampler.cpp:348:0: style: The function 'sample_sphere' is never used. [unusedFunction]
+src/Samplers/Sampler.cpp:344:0: style: The function 'sample_sphere' is never used. [unusedFunction]
 
 ^
-src/Samplers/Sampler.cpp:322:0: style: The function 'sample_unit_disk' is never used. [unusedFunction]
+src/Samplers/Sampler.cpp:318:0: style: The function 'sample_unit_disk' is never used. [unusedFunction]
 
 ^
 src/Samplers/Sampler.cpp:99:0: style: The function 'set_num_sets' is never used. [unusedFunction]
