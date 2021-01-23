@@ -1,22 +1,35 @@
 name: cppcheck
-on: [push]
+
+on: push
 
 jobs:
   build:
-    name: cppcheck
+    if: "!contains(github.event.commits[0].message, '#skipcppcheck')"
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: cppcheck
-        uses: deep5050/cppcheck-action@main
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN}}
-          enable: all
-          exclude_check: ./src_original
-          max_ctu_depth: 4
-
-      - name: publish report    
-        uses: mikeal/publish-to-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH_NAME: 'master'
+    - uses: actions/checkout@v2
+    - name: Checkout cppcheck
+      uses: actions/checkout@v2
+      with:
+        repository: danmar/cppcheck
+        ref: '2.3'
+        path: './cppcheck'
+    - name: Build cppcheck
+      run: |
+        cd cppcheck
+        mkdir build && cd build
+        cmake .. -DUSE_MATCHCOMPILER=ON
+        make
+        cp -r ../cfg ./bin
+    - name: Run cppcheck
+      run: |
+        cd cppcheck/build/bin
+        ./cppcheck ../../../src --enable=all --max-ctu-depth=4 --output-file=../../../cppcheck_report.txt --language=c++ --std=c++17 --suppress=missingIncludeSystem
+        echo ' ' >> ../../../cppcheck_report.txt && ./cppcheck --version >> ../../../cppcheck_report.txt
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v7
+      with:
+        author_name: mandyedi
+        author_email: mandyedi@gmail.com
+        message: 'Automated commit: update cppcheck report'
+        add: './cppcheck_report.txt'
