@@ -65,7 +65,7 @@
 World::World(void)
 	:  	background_color(RGBColor::black),
 		tracer_ptr(nullptr),
-		ambient_ptr(new Ambient),
+		ambient_ptr(nullptr),
 		camera_ptr(nullptr)
 {}
 
