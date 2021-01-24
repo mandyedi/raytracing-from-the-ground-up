@@ -1,6 +1,7 @@
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 [![GoogleTest](https://github.com/mandyedi/raytracing-from-the-ground-up/workflows/GoogleTest/badge.svg)](https://github.com/mandyedi/raytracing-from-the-ground-up/actions)
 [![cppcheck](https://github.com/mandyedi/raytracing-from-the-ground-up/workflows/cppcheck/badge.svg)](https://github.com/mandyedi/raytracing-from-the-ground-up/actions)
+[![valgrind](https://github.com/mandyedi/raytracing-from-the-ground-up/workflows/valgrind/badge.svg)](https://github.com/mandyedi/raytracing-from-the-ground-up/actions)
 
 The goal of this project is to make the sample project complete based on the book's chapters.
 

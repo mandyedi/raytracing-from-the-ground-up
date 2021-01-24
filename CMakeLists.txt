@@ -10,6 +10,8 @@ file(GLOB_RECURSE SOURCES src/*.cpp)
 
 # target_include_directories(rtf PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
+set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")
+
 add_library(libRTF STATIC ${SOURCES})
 
 add_executable(consoleApp consoleApp.cpp)

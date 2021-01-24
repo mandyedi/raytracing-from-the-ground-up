@@ -1,0 +1,33 @@
+name: valgrind
+
+on: push
+
+jobs:
+  build:
+    if: "!contains(github.event.commits[0].message, '#skipvalgrind')"
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install valgrind
+      run: |
+        sudo apt-get update
+        sudo apt-get install valgrind
+    - name: Build
+      run: |
+        mkdir build && cd build && cmake .. -DCMAKE_BUILD_TYPE=DEBUG
+        make
+    - name: Run valgrind
+      run: |
+        cd build
+        valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=../valgrind_report.txt ./consoleApp
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v7
+      with:
+        author_name: mandyedi
+        author_email: mandyedi@gmail.com
+        message: 'Automated commit: update valgrind report'
+        add: './valgrind_report.txt'
+    - name: Set workflow status
+      run: |
+        grep -q 'All heap blocks were freed' ./valgrind_report.txt && exit 0
+        exit 1
