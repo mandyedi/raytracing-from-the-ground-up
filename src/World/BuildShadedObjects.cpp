@@ -30,7 +30,7 @@
 
 void
 World::build_shaded_objects(void) {
-	int num_samples = 16;
+	int num_samples = 1;
 
 	// view plane  
 
