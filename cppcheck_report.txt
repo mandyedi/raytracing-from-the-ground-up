@@ -1,3 +1,39 @@
+../../../src/Cameras/ThinLens.cpp:19:11: warning: Member variable 'ThinLens::lens_radius' is not initialized in the constructor. [uninitMemberVar]
+ThinLens::ThinLens(void)
+          ^
+../../../src/Cameras/ThinLens.cpp:19:11: warning: Member variable 'ThinLens::f' is not initialized in the constructor. [uninitMemberVar]
+ThinLens::ThinLens(void)
+          ^
+../../../src/Cameras/ThinLens.cpp:19:11: warning: Member variable 'ThinLens::sampler_ptr' is not initialized in the constructor. [uninitMemberVar]
+ThinLens::ThinLens(void)
+          ^
+../../../src/Cameras/ThinLens.cpp:27:11: warning: Member variable 'ThinLens::lens_radius' is not initialized in the constructor. [uninitMemberVar]
+ThinLens::ThinLens(const ThinLens & c)
+          ^
+../../../src/Cameras/ThinLens.cpp:27:11: warning: Member variable 'ThinLens::f' is not initialized in the constructor. [uninitMemberVar]
+ThinLens::ThinLens(const ThinLens & c)
+          ^
+../../../src/Cameras/ThinLens.cpp:27:11: warning: Member variable 'ThinLens::sampler_ptr' is not initialized in the constructor. [uninitMemberVar]
+ThinLens::ThinLens(const ThinLens & c)
+          ^
+../../../src/Textures/Checker3D.h:28:5: style: The function 'clone' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
+    clone(void) const;
+    ^
+../../../src/Textures/Texture.h:26:7: note: Virtual function in base class
+      clone(void) const = 0;
+      ^
+../../../src/Textures/Checker3D.h:28:5: note: Function in derived class
+    clone(void) const;
+    ^
+../../../src/Textures/Checker3D.h:34:5: style: The function 'get_color' overrides a function in a base class but is not marked with a 'override' specifier. [missingOverride]
+    get_color(const ShadeRec& sr) const;
+    ^
+../../../src/Textures/Texture.h:35:7: note: Virtual function in base class
+      get_color(const ShadeRec& sr) const = 0;
+      ^
+../../../src/Textures/Checker3D.h:34:5: note: Function in derived class
+    get_color(const ShadeRec& sr) const;
+    ^
 ../../../src/World/World.cpp:102:11: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
   objects.push_back(object->clone());
           ^
@@ -10,16 +46,7 @@
 ../../../src/World/World.cpp:163:10: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
   lights.push_back(light->clone());
          ^
-../../../src/World/BuildMultipleObjects3_9.cpp:20:0: style: The function 'build_multiple_objects_3_9' is never used. [unusedFunction]
-
-^
-../../../src/World/BuildShadedObjects.cpp:32:0: style: The function 'build_shaded_objects' is never used. [unusedFunction]
-
-^
-../../../src/World/BuildSingleSphere3_6_5.cpp:17:0: style: The function 'build_single_sphere_3_6_5' is never used. [unusedFunction]
-
-^
-../../../src/Utilities/Point3D.cpp:63:0: style: The function 'distance' is never used. [unusedFunction]
+../../../src/World/World.cpp:326:0: style: The function 'build' is never used. [unusedFunction]
 
 ^
 ../../../src/Utilities/Vector3D.cpp:105:0: style: The function 'hat' is never used. [unusedFunction]
@@ -34,16 +61,7 @@
 ../../../src/Samplers/Sampler.cpp:253:0: style: The function 'map_samples_to_sphere' is never used. [unusedFunction]
 
 ^
-../../../src/Samplers/Sampler.cpp:174:0: style: The function 'map_samples_to_unit_disk' is never used. [unusedFunction]
-
-^
-../../../src/World/BuildMultipleObjects3_9.cpp:44:0: style: The function 'render_multiple_objects_3_9' is never used. [unusedFunction]
-
-^
 ../../../src/Cameras/Pinhole.cpp:78:0: style: The function 'render_scene' is never used. [unusedFunction]
-
-^
-../../../src/World/BuildSingleSphere3_6_5.cpp:30:0: style: The function 'render_single_sphere_3_6_5' is never used. [unusedFunction]
 
 ^
 ../../../src/BRDFs/BRDF.cpp:47:0: style: The function 'sample_f' is never used. [unusedFunction]
@@ -58,17 +76,16 @@
 ../../../src/Samplers/Sampler.cpp:344:0: style: The function 'sample_sphere' is never used. [unusedFunction]
 
 ^
-../../../src/Samplers/Sampler.cpp:318:0: style: The function 'sample_unit_disk' is never used. [unusedFunction]
-
-^
 ../../../src/Utilities/Matrix.cpp:97:0: style: The function 'set_identity' is never used. [unusedFunction]
 
 ^
 ../../../src/Samplers/Sampler.cpp:99:0: style: The function 'set_num_sets' is never used. [unusedFunction]
 
 ^
-../../../src/World/ViewPlane.cpp:103:0: style: The function 'set_sampler' is never used. [unusedFunction]
+../../../src/Cameras/ThinLens.cpp:62:0: style: The function 'set_sampler' is never used. [unusedFunction]
 
 ^
+nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingInclude]
+
  
 Cppcheck 2.3
