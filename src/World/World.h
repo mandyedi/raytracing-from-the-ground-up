@@ -19,8 +19,8 @@
 // 1 	There's no need to copy construct or assign the World
 // 2 	We wouldn't want to do this anyway, because the world can contain an arbitray amount of data
 // 3 	These operations wouldn't work because the world is self-referencing:
-//	 	the Tracer base class contains a pointer to the world. If we wrote a correct copy constructor for the 
-// 	  	Tracer class, the World copy construtor would call itself recursively until we ran out of memory. 
+//	 	the Tracer base class contains a pointer to the world. If we wrote a correct copy constructor for the
+// 	  	Tracer class, the World copy construtor would call itself recursively until we ran out of memory.
 
 
 #include <vector>
@@ -39,46 +39,46 @@
 
 using namespace std;
 
-class World {	
+class World {
 	public:
-	
+
 		ViewPlane					vp;
 		RGBColor					background_color;
 		Tracer*						tracer_ptr;
 		Light*   					ambient_ptr;
-		Camera*						camera_ptr;		
+		Camera*						camera_ptr;
 		Sphere 						sphere;		// for Chapter 3 only
-		vector<GeometricObject*>	objects;		
-		vector<Light*> 				lights;			
+		vector<GeometricObject*>	objects;
+		vector<Light*> 				lights;
 
 	public:
-	
-		World(void);												
+
+		World(void);
 
 		World(const World& w);
 
 		World& operator= (const World& rhs);
-		
+
 		~World();
-								
-		void 
+
+		void
 		add_object(GeometricObject* object_ptr);
-		
-		void 
-		add_light(Light* light_ptr); 
-		
+
 		void
-		set_ambient_light(Light* light_ptr);			
-		
+		add_light(Light* light_ptr);
+
 		void
-		set_camera(Camera* c_ptr);	 
-						
+		set_ambient_light(Light* light_ptr);
+
+		void
+		set_camera(Camera* c_ptr);
+
 		RGBColor
 		max_to_one(const RGBColor& c) const;
-		
+
 		RGBColor
 		clamp_to_color(const RGBColor& c) const;
-		
+
 		void
 		display_pixel(const int row, const int column, const RGBColor& pixel_color) const;
 
@@ -87,51 +87,38 @@ class World {
 
 		ShadeRec
 		hit_bare_bones_objects(const Ray &ray);
-		
+
 		void
 		save_to_ppm(void) const;
 
+		void
+		build(void);
+
+		void
+		render_scene(void) const;
+
 	private:
-		
+
 		mutable std::vector<int> pixels;
 
-		void 
+		void
 		delete_objects(void);
-		
-		void 
+
+		void
 		delete_lights(void);
-
-	public:
-		// The following methods are example codes from book chapters
-		// These are not necessary to use the ray tracer engine
-
-		void
-		build_shaded_objects(void);
-
-		void
-		build_single_sphere_3_6_5(void);
-
-		void
-		build_multiple_objects_3_9(void);
-
-		void
-		render_single_sphere_3_6_5( void );
-
-		void
-		render_multiple_objects_3_9(void);
 };
 
 
 
-inline void 
-World::add_object(GeometricObject* object_ptr) {  
-	objects.push_back(object_ptr);	
+inline void
+World::add_object(GeometricObject* object_ptr) {
+	objects.push_back(object_ptr);
 }
 
 
 
-inline void 
-World::add_light(Light* light_ptr) {  
+inline void
+World::add_light(Light* light_ptr) {
 	lights.push_back(light_ptr);
 }
 
