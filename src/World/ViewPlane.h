@@ -27,6 +27,8 @@ class ViewPlane {
 		bool			show_out_of_gamut;			// display red if RGBColor out of gamut
 		
 		Sampler			*sampler_ptr;
+
+		int				max_depth;
 	
 	public:
 	
@@ -58,6 +60,9 @@ class ViewPlane {
 		
 		void
 		set_gamut_display(const bool show);			
+
+		void
+		set_max_depth(int depth);
 };
 
 
@@ -96,6 +101,11 @@ ViewPlane::set_gamma(const float g) {
 inline void
 ViewPlane::set_gamut_display(const bool show) {
 	show_out_of_gamut = show;
+}
+
+inline void
+ViewPlane::set_max_depth(int depth) {
+	max_depth = depth;
 }
 
 #endif

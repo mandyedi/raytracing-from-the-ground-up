@@ -42,6 +42,15 @@ class ThinLens: public Camera {
 		virtual void
 		render_scene(const World& w) override;
 
+		void
+		set_view_distance(float distance);
+
+		void
+		set_focal_distance(float distance);
+
+		void
+		set_lens_radius(float radius);
+
 	private:
 
 		float		lens_radius;	// lens radius
@@ -50,5 +59,20 @@ class ThinLens: public Camera {
 		float		zoom;			// zoom factor
 		Sampler*	sampler_ptr;	// sampler object
 };
+
+inline void
+ThinLens::set_view_distance(float distance) {
+	d = distance;
+}
+
+inline void
+ThinLens::set_focal_distance(float distance) {
+	f = distance;
+}
+
+inline void
+ThinLens::set_lens_radius(float radius) {
+	lens_radius = radius;
+}
 
 #endif
