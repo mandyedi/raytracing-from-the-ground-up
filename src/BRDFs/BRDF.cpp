@@ -14,25 +14,50 @@
 #include "BRDF.h"
 
 
-BRDF::BRDF(void) {}
+BRDF::BRDF(void)
+ 	: sampler_ptr(nullptr)
+	{}
 
+BRDF::BRDF (const BRDF& brdf) {
+	if(brdf.sampler_ptr)
+		sampler_ptr	= brdf.sampler_ptr->clone();
+	else  sampler_ptr = NULL;
+}
 
-BRDF::BRDF([[maybe_unused]]const BRDF& brdf) {}	
-
-
-
-
-BRDF&														
+BRDF&
 BRDF::operator= (const BRDF& rhs) {
-	if (this == &rhs)
+	if (this == &rhs) {
 		return (*this);
+	}
+
+	if (sampler_ptr) {
+		delete sampler_ptr;
+		sampler_ptr = nullptr;
+	}
+
+	if (rhs.sampler_ptr) {
+		sampler_ptr	= rhs.sampler_ptr->clone();
+	}
 
 	return (*this);
 }
 
 
 
-BRDF::~BRDF(void) {}  
+BRDF::~BRDF(void) {
+	if (sampler_ptr) {
+		delete sampler_ptr;
+		sampler_ptr = nullptr;
+	}
+}
+
+
+
+void
+BRDF::set_sampler(Sampler* sPtr) {
+	sampler_ptr = sPtr;
+	sampler_ptr->map_samples_to_hemisphere(1);  // for perfect diffuse
+}
 
 
 
@@ -56,9 +81,8 @@ BRDF::sample_f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vecto
 }
 
 
-	
+
 RGBColor
 BRDF::rho([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo) const {
 	return (RGBColor::black);
 }
-
