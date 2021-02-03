@@ -80,7 +80,7 @@ ThinLens::ray_direction(const Point2D& pixel_point, const Point2D& lens_point) c
 }
 
 void
-ThinLens::render_scene(const World& w) {
+ThinLens::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) {
 	RGBColor	L;
 	Ray			ray;
 	ViewPlane	vp(w.vp);
@@ -101,7 +101,7 @@ ThinLens::render_scene(const World& w) {
 
 			for (int n = 0; n < vp.num_samples; n++) {
 				sp = vp.sampler_ptr->sample_unit_square();
-				pp.x = vp.s * (c - vp.hres / 2.0f + sp.x);
+				pp.x = vp.s * (c - vp.hres / 2.0f + sp.x) + x;
 				pp.y = vp.s * (r - vp.vres / 2.0f + sp.y);
 
 				dp = sampler_ptr->sample_unit_disk();
@@ -114,6 +114,6 @@ ThinLens::render_scene(const World& w) {
 
 			L *= inv_num_samples;
 			L *= exposure_time;
-			w.display_pixel(r, c, L);
+			w.display_pixel(r, c + offset, L);
 		}
 }

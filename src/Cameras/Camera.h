@@ -23,26 +23,29 @@ class World;  // can't #include "World" here because World contains a camera poi
 
 class Camera {
 	public:
-	
+
 		Camera();   							// default constructor
 
 		Camera(const Camera& camera);			// copy constructor
-		
+
 		virtual Camera*							// virtual copy constructor
 		clone(void) const = 0;
-		
-		virtual
-		~Camera();   							
 
-		virtual void 																		
-		render_scene(const World& w) = 0;
-		
+		virtual
+		~Camera();
+
+		// In chapter 12.5 Implementation (Stereoscopy) there is a separate function called
+		// Pinhole::render_stereo(World& w, float, int offset)
+		// I found it simpler to just extend the original Camera::render_scene method with the x and offset arguments.
+		virtual void
+		render_scene(const World& w, float x = 0, int offset = 0) = 0;
+
 		void
 		set_eye(const Point3D& p);
 
 		void
 		set_eye(const float x, const float y, const float z);
-		
+
 		void
 		set_lookat(const Point3D& p);
 
@@ -57,23 +60,23 @@ class Camera {
 
 		void
 		set_roll(const float ra);
-		
+
 		void
 		set_exposure_time(const float exposure);
-		
-		void									
+
+		void
 		compute_uvw(void);
-		
-		
-	protected:		
-	
+
+
+	protected:
+
 		Point3D			eye;				// eye point
 		Point3D			lookat; 			// lookat point
 		float			ra;					// roll angle
 		Vector3D		up;					// up vector
 		Vector3D		u, v, w;			// orthonormal basis vectors
 		float			exposure_time;
-		
+
 		Camera& 							// assignment operator
 		operator= (const Camera& camera);
 };
@@ -125,7 +128,7 @@ Camera::set_up_vector(const float x, const float y, const float z) {
 
 
 inline void
-Camera::set_roll(const float r) { 
+Camera::set_roll(const float r) {
 	ra = r;
 }
 

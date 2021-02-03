@@ -74,7 +74,7 @@ FishEye::ray_direction(	const Point2D& 	pp,
 }
 
 void
-FishEye::render_scene(const World& wr) {
+FishEye::render_scene(const World& wr, float x /*= 0*/, int offset /*= 0*/) {
 	RGBColor	L;
 	ViewPlane	vp(wr.vp);
 	int 		hres		= vp.hres;
@@ -95,7 +95,7 @@ FishEye::render_scene(const World& wr) {
 
 			for (int j = 0; j < vp.num_samples; j++) {
 				sp = vp.sampler_ptr->sample_unit_square();
-				pp.x = s * (c - 0.5f * hres + sp.x);
+				pp.x = s * (c - 0.5f * hres + sp.x) + x;
 				pp.y = s * (r - 0.5f * vres + sp.y);
 				ray.d = ray_direction(pp, hres, vres, s, r_squared);
 
@@ -106,9 +106,9 @@ FishEye::render_scene(const World& wr) {
 
 			L *= inv_num_samples;
 			L *= exposure_time;
-			wr.display_pixel(r, c, L);
+			wr.display_pixel(r, c + offset, L);
 		}
 
 
 	wr.save_to_ppm();
-} 
+}
