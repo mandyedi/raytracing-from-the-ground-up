@@ -6,11 +6,12 @@ project(rtf VERSION 1.0
 
 file(GLOB_RECURSE SOURCES src/*.cpp)
 
-# add_executable(rtf ${SOURCES})
-
-# target_include_directories(rtf PRIVATE ${CMAKE_SOURCE_DIR}/src)
-
+if (MSVC)
+set(CMAKE_CXX_FLAGS "/std:c++17")
+set(CMAKE_C_FLAGS_DEBUG "/Od")
+else()
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")
+endif()
 
 add_library(libRTF STATIC ${SOURCES})
 
