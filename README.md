@@ -3,6 +3,10 @@
 [![cppcheck](https://github.com/mandyedi/raytracing-from-the-ground-up/workflows/cppcheck/badge.svg)](https://github.com/mandyedi/raytracing-from-the-ground-up/actions)
 [![valgrind](https://github.com/mandyedi/raytracing-from-the-ground-up/workflows/valgrind/badge.svg)](https://github.com/mandyedi/raytracing-from-the-ground-up/actions)
 
+<p align="center">
+  <img width="300" height="300" src="https://raw.githubusercontent.com/mandyedi/raytracing-from-the-ground-up/master/src_original/chapters/Chapter28/Ray%20Traced%20Images%2028/Figure28.16.jpg">
+</p>
+
 The goal of this project is to make the sample project complete based on the book's chapters.
 
 The origin of the project: [Raytracing from the Ground Up](http://www.raytracegroundup.com/)
