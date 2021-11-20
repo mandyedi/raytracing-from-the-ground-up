@@ -79,9 +79,25 @@ Plane::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 		sr.normal = n;
 		sr.local_hit_point = ray.o + t * ray.d;
 		
-		return (true);	
+		return true;	
 	}
 
-	return(false);
+	return false;
 }
 
+bool
+Plane::shadow_hit(const Ray& ray, float& tmin) const {
+	if (!shadows) {
+		return false;
+	}
+
+	float t = (a - ray.o) * n / (ray.d * n);
+														
+	if (t > kEpsilon) {
+		tmin = t;
+		return true;	
+	}
+
+	return false;
+
+}

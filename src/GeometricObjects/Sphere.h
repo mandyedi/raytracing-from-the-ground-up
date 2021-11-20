@@ -46,12 +46,17 @@ class Sphere: public GeometricObject {
 		set_radius(const double r);
 						
 		virtual bool 												 
-		hit(const Ray& ray, double& t, ShadeRec& s) const override;	
+		hit(const Ray& ray, double& t, ShadeRec& s) const override;
+
+		bool
+		shadow_hit(const Ray &ray, float &tmin) const;
 		
 	private:
 	
 		Point3D 	center;   			// center coordinates as a point  
-		double 		radius;				// the radius 
+		double 		radius;				// the radius
+
+		static const double kEpsilon;   // for shadows and secondary rays
 };
 
 

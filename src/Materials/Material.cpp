@@ -13,11 +13,15 @@
 #include "../Materials/Material.h"
 
 
-Material::Material(void) {}
+Material::Material(void)
+	: shadows(true)
+{}
 
 
 
-Material::Material([[maybe_unused]] const Material& m) {}
+Material::Material([[maybe_unused]] const Material& m) {
+	shadows = m.shadows;
+}
 
 
 
@@ -27,6 +31,8 @@ Material::operator= (const Material& rhs) {
 	if (this == &rhs) {
 		return (*this);
 	}
+
+	shadows = rhs.shadows;
 
 	return (*this);
 }

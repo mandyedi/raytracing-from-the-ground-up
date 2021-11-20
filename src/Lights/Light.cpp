@@ -15,10 +15,12 @@
 #include "../Utilities/RGBColor.h"
 
 
-Light::Light(void) {}
+Light::Light(void) : shadows(false) {}
 
 
-Light::Light([[maybe_unused]] const Light& ls) {}
+Light::Light([[maybe_unused]] const Light& ls) {
+	shadows = ls.shadows;
+}
 
 
 
@@ -27,6 +29,8 @@ Light::operator= (const Light& rhs) {
 	if (this == &rhs) {
 		return (*this);
 	}
+
+	shadows = rhs.shadows;
 
 	return (*this);
 }
@@ -43,3 +47,7 @@ Light::L([[maybe_unused]] ShadeRec& s) {
 }
 
 
+bool
+Light::in_shadow(const Ray &ray, const ShadeRec &sr) const{
+    return false;
+}

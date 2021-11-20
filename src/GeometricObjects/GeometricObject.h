@@ -37,7 +37,10 @@ class GeometricObject {
 			
 		virtual bool
 		hit(const Ray& ray, double& t, ShadeRec& s) const = 0;
-				
+		
+		virtual bool
+    	shadow_hit(const Ray& ray, float& tmin) const;
+		
 		Material*
 		get_material(void) const;
 
@@ -52,6 +55,9 @@ class GeometricObject {
 
 		RGBColor
 		get_color(void);
+
+		void
+    	set_shadows(bool _shadows);
 	
 	protected:
 	
@@ -60,6 +66,11 @@ class GeometricObject {
 
 		GeometricObject&
 		operator= (const GeometricObject& rhs);
+
+		// From the book, chapter 16.7 Shadowing Options
+		// Specify whether an object casts shadows or not.
+		// This is essential for performing ambient occlusion with environment lights (see Section 18.10).
+		bool shadows;
 };
 
 
@@ -84,6 +95,11 @@ GeometricObject::set_color(const float r, const float g, const float b) {
 inline RGBColor
 GeometricObject::get_color(void) {
 	return (color);
+}
+
+inline void
+GeometricObject::set_shadows(bool _shadows) {
+    shadows = _shadows;
 }
 
 #endif

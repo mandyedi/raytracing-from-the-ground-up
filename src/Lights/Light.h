@@ -41,7 +41,31 @@ class Light {
 		get_direction(ShadeRec& sr) = 0;				
 																
 		virtual RGBColor														
-		L(ShadeRec& sr);								
+		L(ShadeRec& sr);
+
+		virtual bool
+    	in_shadow(const Ray& ray, const ShadeRec& sr) const;
+
+		void
+    	set_shadows(bool _shadows);
+
+    
+	    bool
+	    casts_shadows();
+
+	protected:
+
+		bool shadows;
 };
+
+inline void
+Light::set_shadows(bool _shadows) {
+    shadows = _shadows;
+}
+
+inline bool
+Light::casts_shadows() {
+    return shadows;
+}
 
 #endif

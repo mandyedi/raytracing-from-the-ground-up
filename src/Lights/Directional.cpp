@@ -71,3 +71,18 @@ Directional::L([[maybe_unused]] ShadeRec& s) {
 }
 
 
+bool
+Directional::in_shadow(const Ray &ray, const ShadeRec &sr) const
+{
+    float t;
+    int num_objects = sr.w.objects.size();
+
+    for (int j = 0; j < num_objects; j++) {
+        if (sr.w.objects[j]->shadow_hit(ray, t) && t > 0) {
+            return true;
+        }
+    }
+
+    return false;
+
+}

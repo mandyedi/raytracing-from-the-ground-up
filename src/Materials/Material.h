@@ -36,7 +36,13 @@ class Material {
 	protected:
 	
 		Material& 								
-		operator= (const Material& rhs);						
+		operator= (const Material& rhs);
+
+		// From the book, chapter 16.7 Shadowing Options
+		// Allows us to specify whether a material has shadows cast on it or not.
+		// This is sometimes necessary for shading objects inside transparent objects
+		// without having to render caustics (see Sections 28.7 and 28.8)
+		bool shadows;
 };
 
 #endif

@@ -19,12 +19,14 @@
 
 GeometricObject::GeometricObject(void)
 	: material_ptr(NULL)
+	, shadows(true)
 {}
 
 
 
 GeometricObject::GeometricObject (const GeometricObject& object) {
 	if (object.material_ptr) {
+		shadows = object.shadows;
 		material_ptr = object.material_ptr->clone(); 
 	}
 	else {
@@ -46,6 +48,7 @@ GeometricObject::operator= (const GeometricObject& rhs) {
 	}
 
 	if (rhs.material_ptr) {
+		shadows = rhs.shadows;
 		material_ptr = rhs.material_ptr->clone();
 	}
 
@@ -62,11 +65,13 @@ GeometricObject::~GeometricObject (void) {
 }
 
 
+bool
+GeometricObject::shadow_hit(const Ray &ray, float &tmin) const {
+    return false;
+}
 
 void 
 GeometricObject::set_material(Material* mPtr) {
 	material_ptr = mPtr;
 }
 
-
-								
