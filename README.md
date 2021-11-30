@@ -18,7 +18,9 @@ You can use CMake to configure your build environment.
 # In the repo root directory:
 mkdir build
 cd build
-cmake ..
+# Depending on your needs, build for debug or relese: 
+cmake .. -DCMAKE_BUILD_TYPE=Debug
+cmake .. -DCMAKE_BUILD_TYPE=Release
 # Depending on your OS type and installed development tools the development environment is set up in the build directory
 ```
 
