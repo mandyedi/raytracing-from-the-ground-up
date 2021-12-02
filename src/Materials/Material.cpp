@@ -50,4 +50,13 @@ Material::shade([[maybe_unused]] ShadeRec& sr) {
 }
 
 
+RGBColor
+Material::area_light_shade(ShadeRec &sr) {
+    return shade(sr);
+}
 
+
+RGBColor
+Material::get_Le(ShadeRec &sr) const {
+    return RGBColor::black;
+}

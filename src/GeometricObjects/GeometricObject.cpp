@@ -13,7 +13,7 @@
 #include "../Utilities/Constants.h"
 #include "../Materials/Material.h"
 #include "../GeometricObjects/GeometricObject.h"
-
+#include "../Samplers/Sampler.h"
 
 
 
@@ -75,3 +75,23 @@ GeometricObject::set_material(Material* mPtr) {
 	material_ptr = mPtr;
 }
 
+void
+GeometricObject::set_sampler(Sampler* sPtr) {
+	sampler_ptr = sPtr;
+	sampler_ptr->map_samples_to_hemisphere(1);  // for perfect diffuse
+}
+
+Point3D 
+GeometricObject::sample(void) {
+	return Point3D();
+}
+
+Normal
+GeometricObject::get_normal(const Point3D& p) {
+	return Normal();
+}
+
+float
+GeometricObject::pdf(const ShadeRec& sr) {
+	return 0.0f;
+}

@@ -22,7 +22,7 @@ class Ambient: public Light {
 
 		Ambient(const Ambient& a); 					 
 	
-		virtual Light* 									
+		Light* 									
 		clone(void) const override;	
 		
 		Ambient& 									

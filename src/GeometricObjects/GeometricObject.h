@@ -19,7 +19,7 @@ class Material;
 #include "../Utilities/Ray.h"
 #include "../Utilities/ShadeRec.h"
 
-
+class Sampler;
 
 class GeometricObject {	
 	
@@ -58,6 +58,21 @@ class GeometricObject {
 
 		void
     	set_shadows(bool _shadows);
+
+    	// the following functions are used when the rectangle is a light source
+    	// todo: implement them in rectangle, disk and sphere
+
+    	virtual void 								
+		set_sampler(Sampler* sampler); 
+				
+		virtual Point3D 											
+		sample(void);
+		
+		virtual Normal 																
+		get_normal(const Point3D& p);		
+		
+		virtual float												
+		pdf(const ShadeRec& sr);
 	
 	protected:
 	
@@ -71,6 +86,8 @@ class GeometricObject {
 		// Specify whether an object casts shadows or not.
 		// This is essential for performing ambient occlusion with environment lights (see Section 18.10).
 		bool shadows;
+
+		Sampler* sampler_ptr;
 };
 
 

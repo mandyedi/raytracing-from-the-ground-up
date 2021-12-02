@@ -31,7 +31,15 @@ class Material {
 		~Material(void);
 				
 		virtual RGBColor
-		shade(ShadeRec& sr);	
+		shade(ShadeRec& sr);
+
+		// 18.6 Other Materials
+		// It has to be defined for every material tha we want to render with area-light shading
+		virtual RGBColor
+		area_light_shade(ShadeRec &sr);
+
+		virtual RGBColor
+    	get_Le(ShadeRec& sr) const;
 		
 	protected:
 	

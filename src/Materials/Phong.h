@@ -66,6 +66,9 @@ class Phong: public Material {
 		virtual RGBColor
 		shade(ShadeRec& sr) override;
 
+		virtual RGBColor
+		area_light_shade(ShadeRec &sr);
+
 	private:
 
 		Lambertian     *ambient_brdf;
