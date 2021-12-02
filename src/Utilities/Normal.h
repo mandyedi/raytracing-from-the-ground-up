@@ -22,20 +22,16 @@ class Normal
 {	
 	public:
 	
-		double	x, y, z;
+		double x = 0.0;
+		double y = 0.0;
+		double z = 0.0;
 				
 	public:
 	
-		Normal(void);
+		Normal(void) = default;
 		explicit Normal(double a);
-		Normal(double _x, double _y, double _z);
-		Normal(const Normal& n);
+		explicit Normal(double _x, double _y, double _z);
 		explicit Normal(const Vector3D& v);
-		
-		~Normal(void);
-
-		Normal&
-		operator= (const Normal& rhs);
 		
 		Normal&
 		operator= (const Vector3D& rhs);

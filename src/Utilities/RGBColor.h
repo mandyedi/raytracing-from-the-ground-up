@@ -19,19 +19,13 @@ class RGBColor {
 	
 	public:
 	
-		float	r, g, b;									
-				
-	public:
+		float r = 0.0f;
+		float g = 0.0f;
+		float b = 0.0f;
 	
-		RGBColor(void);
+		RGBColor(void) = default;
 		explicit RGBColor(float c);
-		RGBColor(float _r, float _g, float _b);
-		RGBColor(const RGBColor& c);
-		
-		~RGBColor(void);
-		
-		RGBColor&
-		operator= (const RGBColor& rhs);
+		explicit RGBColor(float _r, float _g, float _b);
 
 		RGBColor
 		operator+ (const RGBColor& c) const;

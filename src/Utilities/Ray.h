@@ -19,19 +19,12 @@
 class Ray {
 	public:
 	
-		Point3D			o;
-		Vector3D		d;
+		Point3D o = Point3D(0.0);
+		Vector3D d = Vector3D(0.0, 0.0, 1.0);
 		
-		Ray(void);			
+		Ray(void) = default;			
 		
-		Ray(const Point3D& origin, const Vector3D& dir);	
-		
-		Ray(const Ray& ray); 		
-		
-		Ray& 						
-		operator= (const Ray& rhs);
-		 								
-		~Ray(void);
+		explicit Ray(const Point3D& origin, const Vector3D& dir);
 };
 
 #endif

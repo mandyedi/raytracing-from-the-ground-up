@@ -18,17 +18,14 @@ class Matrix {
 	
 	public:
 	
-		double	m[4][4];
+		double	m[4][4] = {
+			{1.0, 0.0, 0.0, 0.0},
+			{0.0, 1.0, 0.0, 0.0},
+			{0.0, 0.0, 1.0, 0.0},
+			{0.0, 0.0, 0.0, 1.0} };
 	
 		
-		Matrix(void);
-
-		Matrix(const Matrix& mat);
-		
-		~Matrix (void);
-			
-		Matrix&
-		operator= (const Matrix& rhs);
+		Matrix(void) = default;
 			
 		Matrix
 		operator* (const Matrix& mat) const;

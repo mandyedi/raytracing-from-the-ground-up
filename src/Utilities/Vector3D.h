@@ -23,21 +23,18 @@ class Point3D;
 class Vector3D {
 	public:
 	
-		double	x, y, z;
+		double x = 0.0;
+		double y = 0.0;
+		double z = 0.0;
 
 	public:
 	
-		Vector3D(void);
+		Vector3D(void) = default;
 		explicit Vector3D(double a);
-		Vector3D(double _x, double _y, double _z);
-		Vector3D(const Vector3D& v);
+		explicit Vector3D(double _x, double _y, double _z);
+
 		explicit Vector3D(const Normal& n);
 		explicit Vector3D(const Point3D& p);
-
-		~Vector3D (void);
-
-		Vector3D&
-		operator= (const Vector3D& rhs);
 		
 		Vector3D&
 		operator= (const Normal& rhs);
@@ -83,10 +80,6 @@ class Vector3D {
 };
 
 
-
-// this does not change the current vector
-// this allows ShadeRec objects to be declared as constant arguments in many shading
-// functions that reverse the direction of a ray that's stored in the ShadeRec object
 
 inline Vector3D 
 Vector3D::operator- (void) const {
