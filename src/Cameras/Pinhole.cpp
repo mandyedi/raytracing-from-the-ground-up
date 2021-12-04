@@ -77,25 +77,24 @@ Pinhole::get_direction(const Point2D& p) const {
 void
 Pinhole::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) {
 	RGBColor	L;
-	ViewPlane	vp(w.vp);
 	Ray			ray;
 	int 		depth = 0;
 	Point2D		sp;		// sample point in [0, 1] x [0, 1]
 	Point2D 	pp;		// sample point on a pixel
 
-	vp.s /= zoom;
+	float s = w.vp.s / zoom;
 	ray.o = eye;
 
-	float inv_num_samples = 1.0f / static_cast<float>(vp.num_samples);
+	float inv_num_samples = 1.0f / static_cast<float>(w.vp.num_samples);
 
-	for (int row = 0; row < vp.vres; row++) {			// up
-		for (int column = 0; column < vp.hres; column++) {		// across
+	for (int row = 0; row < w.vp.vres; row++) {			// up
+		for (int column = 0; column < w.vp.hres; column++) {		// across
 			L = RGBColor::black;
 
-			for (int j = 0; j < vp.num_samples; j++) {
-				sp = vp.sampler_ptr->sample_unit_square();
-				pp.x = vp.s * (column - 0.5f * vp.hres + sp.x) + x;
-				pp.y = vp.s * (row - 0.5f * vp.vres + sp.y);
+			for (int j = 0; j < w.vp.num_samples; j++) {
+				sp = w.vp.sampler_ptr->sample_unit_square();
+				pp.x = s * (column - 0.5f * w.vp.hres + sp.x) + x;
+				pp.y = s * (row - 0.5f * w.vp.vres + sp.y);
 				ray.d = get_direction(pp);
 				L += w.tracer_ptr->trace_ray(ray, depth);
 			}

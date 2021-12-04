@@ -76,10 +76,9 @@ FishEye::ray_direction(	const Point2D& 	pp,
 void
 FishEye::render_scene(const World& wr, float x /*= 0*/, int offset /*= 0*/) {
 	RGBColor	L;
-	ViewPlane	vp(wr.vp);
-	int 		hres		= vp.hres;
-	int 		vres 		= vp.vres;
-	float		s 			= vp.s;
+	int 		hres		= wr.vp.hres;
+	int 		vres 		= wr.vp.vres;
+	float		s 			= wr.vp.s;
 	Ray			ray;
 	int 		depth 		= 0;
 	Point2D 	sp; 					// sample point in [0, 1] X [0, 1]
@@ -87,14 +86,14 @@ FishEye::render_scene(const World& wr, float x /*= 0*/, int offset /*= 0*/) {
 	float		r_squared;				// sum of squares of normalised device coordinates
 
 	ray.o = eye;
-	float inv_num_samples = 1.0f / static_cast<float>(vp.num_samples);
+	float inv_num_samples = 1.0f / static_cast<float>(wr.vp.num_samples);
 
 	for (int r = 0; r < vres; r++)		// up
 		for (int c = 0; c < hres; c++) {	// across
 			L = RGBColor::black;
 
-			for (int j = 0; j < vp.num_samples; j++) {
-				sp = vp.sampler_ptr->sample_unit_square();
+			for (int j = 0; j < wr.vp.num_samples; j++) {
+				sp = wr.vp.sampler_ptr->sample_unit_square();
 				pp.x = s * (c - 0.5f * hres + sp.x) + x;
 				pp.y = s * (r - 0.5f * vres + sp.y);
 				ray.d = ray_direction(pp, hres, vres, s, r_squared);

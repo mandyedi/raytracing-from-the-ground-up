@@ -42,22 +42,28 @@ using namespace std;
 class World {
 	public:
 
-		ViewPlane					vp;
-		RGBColor					background_color;
-		Tracer*						tracer_ptr;
-		Light*   					ambient_ptr;
-		Camera*						camera_ptr;
+		// tracer_ptr is set to NULL because the build functions will always construct the appropriate tracer
+		// ambient_ptr is set to a default ambient light because this will do for most scenes
+		// camera_ptr is set to NULL because the build functions will always have to construct a camera
+		// and set its parameters
+		// todo: Fix this, reference: C.41: A constructor should create a fully initialized object.
+
+		ViewPlane					vp = ViewPlane();
+		RGBColor					background_color = RGBColor::black;
+		Tracer*						tracer_ptr = nullptr;
+		Light*   					ambient_ptr = nullptr;
+		Camera*						camera_ptr = nullptr;
 		Sphere 						sphere;		// for Chapter 3 only
 		vector<GeometricObject*>	objects;
 		vector<Light*> 				lights;
 
-	public:
+		World(void) = default;
 
-		World(void);
-
-		World(const World& w);
-
-		World& operator= (const World& rhs);
+		// For the sake of simplicity I prevent copy and move
+		World(const World& w) = delete;
+		World(World&& w) = delete;
+		World& operator= (const World& rhs) = delete;
+		World& operator= (World&& rhs) = delete;
 
 		~World();
 

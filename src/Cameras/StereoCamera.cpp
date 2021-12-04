@@ -119,9 +119,8 @@ StereoCamera::setup_cameras(void) {
 
 void
 StereoCamera::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) {
-	ViewPlane	vp 		= w.vp;
-	int 		hres	= vp.hres;
-	int 		vres 	= vp.vres;
+	int 		hres	= w.vp.hres;
+	int 		vres 	= w.vp.vres;
 
 	double r = eye.distance(lookat);
 	float x2 = static_cast<float>(r * tan(0.5 * degreeToRadian(beta)));
