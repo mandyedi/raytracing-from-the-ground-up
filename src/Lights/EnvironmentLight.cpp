@@ -11,7 +11,10 @@
 //  See the file COPYING.txt for the full license.
 
 #include "EnvironmentLight.h"
-
+#include "../Samplers/Sampler.h"
+#include "../Utilities/ShadeRec.h"
+#include "../Materials/Material.h"
+#include "../World/World.h"
 
 void
 EnvironmentLight::set_sampler(Sampler* s_ptr) {
@@ -37,7 +40,7 @@ EnvironmentLight::set_material(Material* m_ptr) {
 Vector3D								
 EnvironmentLight::get_direction(ShadeRec& sr) {
 	w = sr.normal;
-	v = (0.0034, 1, 0.0071) ^ w;
+	v = Vector3D(0.0034, 1, 0.0071) ^ w;
 	v.normalize();
 	u = v ^ w;
 	Point3D sp = sampler_ptr->sample_hemisphere();	
@@ -52,12 +55,12 @@ EnvironmentLight::L(ShadeRec& sr) {
 }
 
 bool									
-AmbientOccluder::in_shadow(const Ray& ray, const ShadeRec& sr) const {			
+EnvironmentLight::in_shadow(const Ray& ray, const ShadeRec& sr) const {
 	float 	t;
-	int 	num_objects = sr.w.objects.size();
+	int 	num_objects = sr.w->objects.size();
 	
 	for (int j = 0; j < num_objects; j++) {
-		if (sr.w.objects[j]->shadow_hit(ray, t)) {
+		if (sr.w->objects[j]->shadow_hit(ray, t)) {
 			return true;  
 		}
 	}
@@ -69,6 +72,6 @@ AmbientOccluder::in_shadow(const Ray& ray, const ShadeRec& sr) const {
 // It uses Equation 18.6
 
 float									
-EnvironmentLight::pdf(ShadeRec& sr) {
+EnvironmentLight::pdf(const ShadeRec& sr) const {
 	return (sr.normal * wi * invPI);
 }

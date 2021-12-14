@@ -13,6 +13,11 @@
 #ifndef __ENVIRONMENTLIGHT__
 #define __ENVIRONMENTLIGHT__
 
+#include "Light.h"
+
+class Sampler;
+class Material;
+
 class EnvironmentLight: public Light {	
 	public:
 		

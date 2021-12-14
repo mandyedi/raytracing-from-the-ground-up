@@ -44,6 +44,8 @@ set (SOURCE_GEOMETRICOBJECTS
   src/GeometricObjects/GeometricObject.h
   src/GeometricObjects/Plane.cpp
   src/GeometricObjects/Plane.h
+  src/GeometricObjects/Rectangle.cpp
+  src/GeometricObjects/Rectangle.h
   src/GeometricObjects/Sphere.cpp
   src/GeometricObjects/Sphere.h
 )
@@ -53,8 +55,12 @@ set (SOURCE_LIGHTS
   src/Lights/Ambient.h
   src/Lights/AmbientOccluder.cpp
   src/Lights/AmbientOccluder.h
+  src/Lights/AreaLight.cpp
+  src/Lights/AreaLight.h
   src/Lights/Directional.cpp
   src/Lights/Directional.h
+  src/Lights/EnvironmentLight.cpp
+  src/Lights/EnvironmentLight.h
   src/Lights/Light.cpp
   src/Lights/Light.h
   src/Lights/PointLight.cpp
@@ -62,6 +68,8 @@ set (SOURCE_LIGHTS
 )
 
 set (SOURCE_MATERIALS
+  src/Materials/Emissive.cpp
+  src/Materials/Emissive.h
   src/Materials/Material.cpp
   src/Materials/Material.h
   src/Materials/Matte.cpp

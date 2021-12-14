@@ -127,11 +127,11 @@ AreaLight::L(ShadeRec& sr) {
 bool									
 AreaLight::in_shadow(const Ray& ray, const ShadeRec& sr) const {
 	float t;
-	int num_objects = sr.w.objects.size();
+	int num_objects = sr.w->objects.size();
 	float ts = (sample_point - ray.o) * ray.d;
 	
 	for (int j = 0; j < num_objects; j++) {
-		if (sr.w.objects[j]->shadow_hit(ray, t) && t < ts) {
+		if (sr.w->objects[j]->shadow_hit(ray, t) && t < ts) {
 			return (true); 
 		}
 	}
