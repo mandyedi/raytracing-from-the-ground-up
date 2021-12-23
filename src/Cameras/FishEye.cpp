@@ -16,35 +16,40 @@
 #include "../Utilities/Vector3D.h"
 #include "../Samplers/Sampler.h"
 
-FishEye::FishEye(void)
-	:	Camera(),
-		psi_max(120)
+FishEye::~FishEye(void) {}
+
+FishEye::FishEye(const FishEye& fe)
+	: Camera(fe),
+	  psi_max(fe.psi_max)
 {}
 
-FishEye::FishEye(const FishEye& c)
-	: 	Camera(c),
-		psi_max(120)
+FishEye::FishEye(FishEye&& fe) noexcept
+	: Camera(std::move(fe)),
+	  psi_max(std::exchange(fe.psi_max, 0.0f))
 {}
+
+FishEye&
+FishEye::operator= (const FishEye& fe) {
+	Camera::operator= (fe);
+
+	psi_max = fe.psi_max;
+
+	return (*this);
+}
+
+FishEye&
+FishEye::operator= (FishEye&& fe) noexcept {
+	Camera::operator= (std::move(fe));
+
+	psi_max = std::exchange(fe.psi_max, 0.0f);
+
+	return (*this);
+}
 
 Camera*
 FishEye::clone(void) const {
 	return (new FishEye(*this));
 }
-
-FishEye&
-FishEye::operator= (const FishEye& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-
-	Camera::operator= (rhs);
-
-	psi_max = rhs.psi_max;
-
-	return (*this);
-}
-
-FishEye::~FishEye(void) {}
 
 Vector3D
 FishEye::ray_direction(	const Point2D& 	pp,

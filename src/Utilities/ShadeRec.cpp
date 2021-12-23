@@ -19,7 +19,7 @@
 #include "ShadeRec.h"
 
 
-ShadeRec::ShadeRec(World* wr)
+ShadeRec::ShadeRec(World& wr)
 	: 	hit_an_object(false),
 		material_ptr(nullptr),
 		hit_point(),

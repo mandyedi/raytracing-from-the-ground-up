@@ -16,19 +16,76 @@
 #include "../Utilities/Vector3D.h"
 #include "../Samplers/Sampler.h"
 
-ThinLens::ThinLens(void)
-	:	Camera(),
-		d(500),
-		zoom(1.0)
+
+
+ThinLens::~ThinLens(void) {
+	if (sampler_ptr != nullptr) {
+		delete sampler_ptr;
+		sampler_ptr = nullptr;
+	}
+}
+
+
+
+ThinLens::ThinLens(const ThinLens& tl)
+	: 	Camera(tl),
+		lens_radius(tl.lens_radius),
+		d(tl.d),
+		f(tl.f),
+		zoom(tl.zoom)
+{
+	sampler_ptr = tl.sampler_ptr->clone();
+}
+
+
+
+ThinLens::ThinLens(ThinLens&& tl) noexcept
+	: 	Camera(std::move(tl)),
+		lens_radius(std::exchange(tl.lens_radius, 0.0f)),
+		d(std::exchange(tl.d, 0.0f)),
+		f(std::exchange(tl.f, 0.0f)),
+		zoom(std::exchange(tl.zoom, 0.0f)),
+		sampler_ptr(std::exchange(tl.sampler_ptr, nullptr))
 {}
 
 
 
-ThinLens::ThinLens(const ThinLens & c)
-	: 	Camera(c),
-		d(c.d),
-		zoom(c.zoom)
-{}
+ThinLens&
+ThinLens::operator= (const ThinLens& tl) {
+	Camera::operator= (tl);
+
+	lens_radius = tl.lens_radius;
+	d 			= tl.d;
+	f 			= tl.f;
+	zoom		= tl.zoom;
+
+	if (sampler_ptr != nullptr) {
+		delete sampler_ptr;
+	}
+	sampler_ptr = tl.sampler_ptr->clone();
+
+	return (*this);
+}
+
+
+
+ThinLens&
+ThinLens::operator= (ThinLens&& tl) noexcept {
+	Camera::operator= (std::move(tl));
+
+	lens_radius = std::exchange(tl.lens_radius, 0.0f);
+	d 			= std::exchange(tl.d, 0.0f);
+	f 			= std::exchange(tl.f, 0.0f);
+	zoom		= std::exchange(tl.zoom, 0.0f);
+
+	if (sampler_ptr != nullptr) {
+		delete sampler_ptr;
+	}
+	sampler_ptr = tl.sampler_ptr;
+	tl.sampler_ptr = nullptr;
+
+	return (*this);
+}
 
 
 
@@ -39,24 +96,6 @@ ThinLens::clone(void) const {
 
 
 
-
-ThinLens&
-ThinLens::operator= (const ThinLens& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-
-	Camera::operator= (rhs);
-
-	d 		= rhs.d;
-	zoom	= rhs.zoom;
-
-	return (*this);
-}
-
-
-
-ThinLens::~ThinLens(void) {}
 
 void
 ThinLens::set_sampler(Sampler* sp) {

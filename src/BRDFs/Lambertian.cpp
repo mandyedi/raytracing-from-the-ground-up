@@ -14,45 +14,53 @@
 #include "../Utilities/Constants.h"
 
 
-Lambertian::Lambertian(void)
-	:   BRDF(),
-		kd(0.0),
-		cd(0.0)
+
+Lambertian::~Lambertian(void) {}
+
+
+Lambertian::Lambertian(const Lambertian& l)
+	:	BRDF(l),
+		kd(l.kd),
+		cd(l.cd)
 {}
 
 
 
-Lambertian::Lambertian(const Lambertian& lamb)
-	:   BRDF(lamb),
-		kd(lamb.kd),
-		cd(lamb.cd)
+Lambertian::Lambertian(Lambertian&& l) noexcept
+	:	BRDF(std::move(l)),
+		kd(std::exchange(l.kd, 0.0f)),
+		cd(std::move(l.cd))
 {}
+
+
+
+Lambertian&
+Lambertian::operator= (const Lambertian& l) {
+	BRDF::operator= (l);
+
+	kd = l.kd;
+	cd = l.cd;
+
+	return (*this);
+}
+
+
+
+Lambertian&
+Lambertian::operator= (Lambertian&& l) noexcept {
+	BRDF::operator= (std::move(l));
+
+	kd = std::exchange(l.kd, 0.0f);
+	cd = std::move(l.cd);
+
+	return (*this);
+}
 
 
 
 Lambertian*
 Lambertian::clone(void) const {
 	return (new Lambertian(*this));
-}
-
-
-
-Lambertian::~Lambertian(void) {}
-
-
-
-Lambertian&
-Lambertian::operator= (const Lambertian& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-
-	BRDF::operator= (rhs);
-
-	kd = rhs.kd;
-	cd = rhs.cd;
-
-	return (*this);
 }
 
 

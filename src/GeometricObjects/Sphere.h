@@ -21,20 +21,24 @@ class Sphere: public GeometricObject {
 								  	
 	public:
 		
-		Sphere(void);   									// Default constructor
+		Sphere(void) = default;
 				
-		Sphere(const Point3D& center, double r);					// Constructor 
-					
-		Sphere(const Sphere& sphere); 						// Copy constructor
-		
-		virtual Sphere* 									// Virtual copy constructor
+		explicit Sphere(const Point3D& center, double r);
+
+		~Sphere(void);
+
+		Sphere(const Sphere &s);
+
+		Sphere(Sphere &&s) noexcept;
+
+		Sphere&
+		operator= (const Sphere& s);
+
+		Sphere&
+		operator= (Sphere&& s) noexcept;
+
+		Sphere*
 		clone(void) const override;
-
-		virtual												// Destructor
-		~Sphere(void);   									
-
-		Sphere& 											// assignment operator
-		operator= (const Sphere& sphere);				
 																					
 		void
 		set_center(const Point3D& c);
@@ -45,16 +49,16 @@ class Sphere: public GeometricObject {
 		void
 		set_radius(const double r);
 						
-		virtual bool 												 
+		bool 												 
 		hit(const Ray& ray, double& t, ShadeRec& s) const override;
 
 		bool
-		shadow_hit(const Ray &ray, float &tmin) const;
+		shadow_hit(const Ray &ray, float &tmin) const override;
 		
 	private:
 	
-		Point3D 	center;   			// center coordinates as a point  
-		double 		radius;				// the radius
+		Point3D 	center = Point3D(0.0);
+		double 		radius = 1.0;
 
 		static const double kEpsilon;   // for shadows and secondary rays
 };

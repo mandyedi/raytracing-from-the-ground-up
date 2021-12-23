@@ -19,18 +19,22 @@
 class FishEye: public Camera {
 	public:
 
-    FishEye();
+    	FishEye() = default;
 
-		FishEye(const FishEye& ph);
+		~FishEye();
 
-		virtual Camera*
-		clone(void) const override;
+		FishEye(const FishEye& fe);
+
+		FishEye(FishEye&& fe) noexcept;
 
 		FishEye&
-		operator= (const FishEye& rhs);
+		operator= (const FishEye& fe);
 
-		virtual
-		~FishEye();
+		FishEye&
+		operator= (FishEye&& fe) noexcept;
+
+		Camera*
+		clone(void) const override;
 
 		Vector3D
 		ray_direction(	const Point2D& pp,
@@ -39,15 +43,15 @@ class FishEye: public Camera {
 						const float s,
 						float& 		r_squared) const;
 
-		virtual void
+		void
 		render_scene(const World& w, float x = 0, int offset = 0) override;
 
-    void
-    set_fov(const float fov);
+	    void
+	    set_fov(const float fov);
 
-		private:
+	private:
 
-			float	psi_max;	// in degrees
+		float	psi_max = 120.0f;	// in degrees
 };
 
 inline void

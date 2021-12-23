@@ -18,21 +18,6 @@ const double Rectangle::kEpsilon = 0.001;
 
 
 
-Rectangle::Rectangle(void)
-	: 	GeometricObject(),
-		p0(-1, 0, -1), 
-		a(0, 0, 2), b(2, 0, 0), 
-		a_len_squared(4.0), 
-		b_len_squared(4.0),
-		normal(0, 1, 0),
-		area(4.0),
-		inv_area(0.25),
-		sampler_ptr(NULL)
-{}
-
-
-
-
 Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b)
 	:	GeometricObject(),
 		p0(_p0),
@@ -42,7 +27,7 @@ Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b)
 		b_len_squared(b.len_squared()),
 		area(a.length() * b.length()),
 		inv_area(1.0 / area),
-		sampler_ptr(NULL)		
+		sampler_ptr(nullptr)		
 {
 	normal = a ^ b;
 	normal.normalize();
@@ -61,20 +46,19 @@ Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b,
 		area(a.length() * b.length()),	
 		inv_area(1.0 / area),
 		normal(n),
-		sampler_ptr(NULL)
+		sampler_ptr(nullptr)
 {
 	normal.normalize();
 }
 
 
 
-
-
-Rectangle* 
-Rectangle::clone(void) const {
-	return (new Rectangle(*this));
+Rectangle::~Rectangle (void) {
+	if (sampler_ptr == nullptr) {
+		delete sampler_ptr;
+		sampler_ptr = nullptr;
+	}
 }
-
 
 
 
@@ -89,53 +73,80 @@ Rectangle::Rectangle (const Rectangle& r)
 		area(r.area),
 		inv_area(r.inv_area)
 {
-	if(r.sampler_ptr)
-		sampler_ptr	= r.sampler_ptr->clone(); 
-	else  sampler_ptr = NULL;
+	sampler_ptr	= r.sampler_ptr->clone();
 }
 
 
 
+Rectangle::Rectangle (Rectangle&& r) noexcept
+	:	GeometricObject(std::move(r)),
+		p0(std::move(r.p0)), 
+		a(std::move(r.a)),
+		b(std::move(r.b)),
+		a_len_squared(std::exchange(r.a_len_squared, 4.0)), 
+		b_len_squared(std::exchange(r.b_len_squared, 4.0)),	
+		normal(std::move(r.normal)),
+		area(std::exchange(r.area, 4.0f)),
+		inv_area(std::exchange(r.inv_area, 0.25f))
+{
+	sampler_ptr	= r.sampler_ptr;
+	r.sampler_ptr = nullptr;
+}
+
 
 
 Rectangle& 
-Rectangle::operator= (const Rectangle& rhs) {
-	if (this == &rhs)
-		return (*this);
-
-	GeometricObject::operator=(rhs);
+Rectangle::operator= (const Rectangle& r) {
+	GeometricObject::operator=(r);
 	
-	p0				= rhs.p0;
-	a				= rhs.a;
-	b				= rhs.b;
-	a_len_squared	= rhs.a_len_squared; 
-	b_len_squared	= rhs.b_len_squared;
-	area			= rhs.area;	
-	inv_area		= rhs.inv_area;
-	normal			= rhs.normal;
+	p0				= r.p0;
+	a				= r.a;
+	b				= r.b;
+	a_len_squared	= r.a_len_squared; 
+	b_len_squared	= r.b_len_squared;
+	normal			= r.normal;
+	area			= r.area;	
+	inv_area		= r.inv_area;
 	
-	if (sampler_ptr) {
+	if (sampler_ptr != nullptr) {
 		delete sampler_ptr;
-		sampler_ptr = NULL;
 	}
-
-	if (rhs.sampler_ptr) {
-		sampler_ptr= rhs.sampler_ptr->clone();
-	}
+	sampler_ptr = r.sampler_ptr->clone();
 
 	return (*this);
 }
 
 
 
-
-Rectangle::~Rectangle (void) {
-
-	if (sampler_ptr) {
+Rectangle& 
+Rectangle::operator= (Rectangle&& r) noexcept {
+	GeometricObject::operator=(std::move(r));
+	
+	p0				= std::move(r.p0);
+	a				= std::move(r.a);
+	b				= std::move(r.b);
+	a_len_squared	= std::exchange(r.a_len_squared, 4.0); 
+	b_len_squared	= std::exchange(r.b_len_squared, 4.0);
+	normal			= std::move(r.normal);
+	area			= std::exchange(r.area, 4.0f);
+	inv_area		= std::exchange(r.inv_area, 0.25f);
+	
+	if (sampler_ptr != nullptr) {
 		delete sampler_ptr;
-		sampler_ptr = NULL;
 	}
+	sampler_ptr = r.sampler_ptr;
+	r.sampler_ptr = nullptr;
+
+	return (*this);
 }
+
+
+
+Rectangle* 
+Rectangle::clone(void) const {
+	return (new Rectangle(*this));
+}
+
 
 
 // todo: implement it, when BBox class is ready

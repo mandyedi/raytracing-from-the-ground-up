@@ -19,19 +19,48 @@
 #include "../Samplers/Sampler.h"
 
 
-Pinhole::Pinhole(void)
-	:	Camera(),
-		d(500),
-		zoom(1.0)
+
+Pinhole::~Pinhole(void) {}
+
+
+
+Pinhole::Pinhole(const Pinhole& p)
+	: 	Camera(p),
+		d(p.d),
+		zoom(p.zoom)
 {}
 
 
 
-Pinhole::Pinhole(const Pinhole& c)
-	: 	Camera(c),
-		d(c.d),
-		zoom(c.zoom)
+Pinhole::Pinhole(Pinhole&& p) noexcept
+	: 	Camera(std::move(p)),
+		d(std::exchange(p.d, 0.0f)),
+		zoom(std::exchange(p.zoom, 0.0f))
 {}
+
+
+
+Pinhole&
+Pinhole::operator= (const Pinhole& p) {
+	Camera::operator= (p);
+
+	d 		= p.d;
+	zoom	= p.zoom;
+
+	return (*this);
+}
+
+
+
+Pinhole&
+Pinhole::operator= (Pinhole&& p) noexcept {
+	Camera::operator= (std::move(p));
+
+	d 		= std::exchange(p.d, 0.0f);
+	zoom	= std::exchange(p.zoom, 0.0f);
+
+	return (*this);
+}
 
 
 
@@ -41,25 +70,6 @@ Pinhole::clone(void) const {
 }
 
 
-
-
-Pinhole&
-Pinhole::operator= (const Pinhole& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-
-	Camera::operator= (rhs);
-
-	d 		= rhs.d;
-	zoom	= rhs.zoom;
-
-	return (*this);
-}
-
-
-
-Pinhole::~Pinhole(void) {}
 
 
 

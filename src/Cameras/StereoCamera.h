@@ -10,10 +10,6 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-typedef enum {
-	parallel,
-	transverse
-} ViewingType;
 
 #include "../Utilities/Point2D.h"
 #include "../World/World.h"
@@ -25,21 +21,25 @@ class StereoCamera: public Camera {
 
 		StereoCamera(Camera* left_camera, Camera* right_camera);
 
-		StereoCamera(const StereoCamera& ph);
+		~StereoCamera();
 
-		virtual Camera*
-		clone(void) const override;
+		StereoCamera(const StereoCamera& sc);
+
+		StereoCamera(StereoCamera&& sc) noexcept;
 
 		StereoCamera&
-		operator= (const StereoCamera& rhs);
+		operator= (const StereoCamera& sc);
 
-		virtual
-		~StereoCamera();
+		StereoCamera&
+		operator= (StereoCamera&& sc) noexcept;
+
+		Camera*
+		clone(void) const override;
 
 		void
 		setup_cameras(void);
 
-		virtual void
+		void
 		render_scene(const World& w, float x = 0, int offset = 0) override;
 
 		void
@@ -56,21 +56,26 @@ class StereoCamera: public Camera {
 
 	private:
 
-		ViewingType	viewing_type;		// parallel or transverse viewing
-		int			pixel_gap;			// gap in pixels between the left and right images
-		float		beta;				// stereo separation angle
-		Camera*		left_camera_ptr;	// left eye camera
-		Camera*		right_camera_ptr;	// right eye camera
+		enum class ViewingType {
+			Parallel,
+			Transverse
+		};
+
+		ViewingType	viewing_type 		= ViewingType::Parallel;	// parallel or transverse viewing
+		int			pixel_gap 			= 5;						// gap in pixels between the left and right images
+		float		beta 				= 5.0f;						// stereo separation angle
+		Camera*		left_camera_ptr 	= nullptr;					// left eye camera
+		Camera*		right_camera_ptr	= nullptr;					// right eye camera
 };
 
 inline void
 StereoCamera::use_parallel_viewing() {
-	viewing_type = ViewingType::parallel;
+	viewing_type = ViewingType::Parallel;
 }
 
 inline void
 StereoCamera::use_transverse_viewing() {
-	viewing_type = ViewingType::transverse;
+	viewing_type = ViewingType::Transverse;
 }
 
 inline void

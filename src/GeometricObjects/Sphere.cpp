@@ -10,18 +10,12 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
+#include <utility>
 #include <cmath>
 #include "Sphere.h"
 #include "../Utilities/Constants.h"
 
 const double Sphere::kEpsilon = 0.001;
-
-
-Sphere::Sphere(void)	
-	: 	GeometricObject(),
-		center(0.0),
-		radius(1.0)
-{}
 
 
 
@@ -33,40 +27,54 @@ Sphere::Sphere(const Point3D& c, double r)
 
 
 
-Sphere* 
-Sphere::clone(void) const {
-	return (new Sphere(*this));
-}
+
+Sphere::~Sphere(void) {}
 
 
 
-Sphere::Sphere (const Sphere& sphere)
-	: 	GeometricObject(sphere),
-		center(sphere.center),
-		radius(sphere.radius)
+Sphere::Sphere(const Sphere& s) 
+	:	GeometricObject(s),
+		center(s.center),
+		radius(s.radius)
 {}
 
 
 
+Sphere::Sphere(Sphere&& s) noexcept
+	:	GeometricObject(std::move(s)),
+		center(std::move(s.center)),
+		radius(std::exchange(s.radius, 1.0)) 			
+{}
 
 Sphere& 
-Sphere::operator= (const Sphere& rhs)		
-{
-	if (this == &rhs) {
-		return (*this);
-	}
+Sphere::operator= (const Sphere& s) {
+	GeometricObject::operator= (s);
 
-	GeometricObject::operator= (rhs);
-
-	center 	= rhs.center;
-	radius	= rhs.radius;
+	center 	= s.center;
+	radius	= s.radius;
 
 	return (*this);
 }
 
 
 
-Sphere::~Sphere(void) {}
+Sphere&
+Sphere::operator= (Sphere&& s) noexcept {
+	GeometricObject::operator= (std::move(s));
+
+	center 	= std::move(s.center);
+	radius	= std::exchange(s.radius, 1.0);
+
+	return (*this);
+}
+
+
+
+
+Sphere* 
+Sphere::clone(void) const {
+	return (new Sphere(*this));
+}
 
 
 

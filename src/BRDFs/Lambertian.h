@@ -18,17 +18,22 @@
 class Lambertian: public BRDF {
 	public:
 
-		Lambertian(void);
-
-		Lambertian(const Lambertian& lamb);
-
-		Lambertian*
-		clone(void) const override;
+		Lambertian(void) = default;
 
 		~Lambertian(void);
 
+		Lambertian(const Lambertian& l);
+
+		Lambertian(Lambertian&& l) noexcept;
+
 		Lambertian&
-		operator= (const Lambertian& rhs);
+		operator= (const Lambertian& l);
+
+		Lambertian&
+		operator= (Lambertian&& l) noexcept;
+
+		Lambertian*
+		clone(void) const override;
 
 		RGBColor
 		f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const override;
@@ -56,8 +61,8 @@ class Lambertian: public BRDF {
 
 	private:
 
-		float		kd;
-		RGBColor 	cd;
+		float		kd = 0.0f;
+		RGBColor 	cd = RGBColor::black;
 };
 
 

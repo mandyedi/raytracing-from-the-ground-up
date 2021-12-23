@@ -19,18 +19,22 @@
 class Spherical: public Camera {
 	public:
 
-    Spherical();
+    	Spherical() = default;
 
-		Spherical(const Spherical& ph);
+		~Spherical();
 
-		virtual Camera*
-		clone(void) const override;
+		Spherical(const Spherical& s);
+
+		Spherical(Spherical&& s) noexcept;
 
 		Spherical&
-		operator= (const Spherical& rhs);
+		operator= (const Spherical& s);
 
-		virtual
-		~Spherical();
+		Spherical&
+		operator= (Spherical&& s) noexcept;
+
+		Camera*
+		clone(void) const override;
 
 		Vector3D
 		ray_direction(	const Point2D& pp,
@@ -38,19 +42,19 @@ class Spherical: public Camera {
 						const int 	vres,
 						const float s) const;
 
-		virtual void
+		void
 		render_scene(const World& w, float x = 0, int offset = 0) override;
 
-    void
-	set_horizontal_fov(const float fov);
+	    void
+		set_horizontal_fov(const float fov);
 
-	void
-	set_vertical_fov(const float fov);
+		void
+		set_vertical_fov(const float fov);
 
-		private:
+	private:
 
-			float   lambda_max;		// in degrees
-			float	psi_max;	// in degrees
+		float   lambda_max = 120.0f;		// in degrees
+		float	psi_max = 120.0f;	// in degrees
 };
 
 inline void

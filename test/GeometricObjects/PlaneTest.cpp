@@ -9,7 +9,7 @@ TEST(PlaneTest, RayIntersection) {
 	Plane plane(Point3D(0.0, 0.0, -3.0), Normal(0.0, 0.0, 1.0));
 	World *world = new World;
 	double t = 1.0E10;
-	ShadeRec shadeRec(world);
+	ShadeRec shadeRec(*world);
 	bool isHit = plane.hit(ray, t, shadeRec);
 	EXPECT_TRUE(isHit);
 	EXPECT_DOUBLE_EQ(shadeRec.normal.x, 0.0f);
@@ -27,7 +27,7 @@ TEST(PlaneTest, NoIntersection) {
 	Plane plane(Point3D(0.0f, 0.0f, -3.0f), Normal(0.0f, 0.0f, 1.0f));
 	World *world = new World;
 	double t = 1.0E10;
-	ShadeRec shadeRec(world);
+	ShadeRec shadeRec(*world);
 	bool isHit = plane.hit(ray, t, shadeRec);
 	EXPECT_FALSE(isHit);
 

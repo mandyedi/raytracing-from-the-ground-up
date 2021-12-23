@@ -9,7 +9,7 @@ TEST(SphereeTest, RayIntersection) {
 	Ray ray(Point3D(0.0f, 3.0f, 6.0f), Vector3D(0.0f, 0.0f, -1.0f));
 	Sphere sphere(Point3D(0.0f, 0.0f, 0.0f), 3.0);
 	World *world = new World;
-	ShadeRec shadeRec(world);
+	ShadeRec shadeRec(*world);
 	double t = 1.0E10;
 	bool isHit = sphere.hit(ray, t, shadeRec);
 	EXPECT_TRUE(isHit);
@@ -65,7 +65,7 @@ TEST(SphereeTest, NoIntersection) {
 	Sphere sphere(Point3D(0.0f, 0.0f, 0.0f), 3.0);
 	World *world = new World;
 	double t = 1.0E10;
-	ShadeRec shadeRec(world);
+	ShadeRec shadeRec(*world);
 	bool isHit = sphere.hit(ray, t, shadeRec);
 	EXPECT_FALSE(isHit);
 

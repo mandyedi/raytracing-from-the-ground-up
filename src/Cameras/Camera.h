@@ -24,15 +24,24 @@ class World;  // can't #include "World" here because World contains a camera poi
 class Camera {
 	public:
 
-		Camera();   							// default constructor
-
-		Camera(const Camera& camera);			// copy constructor
-
-		virtual Camera*							// virtual copy constructor
-		clone(void) const = 0;
+		Camera() = default;
 
 		virtual
 		~Camera();
+
+		Camera(const Camera& c);
+
+		Camera(Camera&& c) noexcept;
+
+		Camera&
+		operator= (const Camera& c);
+
+		Camera&
+		operator= (Camera&& c) noexcept;
+
+		virtual Camera*
+		clone(void) const = 0;
+
 
 		// In chapter 12.5 Implementation (Stereoscopy) there is a separate function called
 		// Pinhole::render_stereo(World& w, float, int offset)
@@ -70,18 +79,15 @@ class Camera {
 
 	protected:
 
-		Point3D			eye;				// eye point
-		Point3D			lookat; 			// lookat point
-		float			ra;					// roll angle
-		Vector3D		up;					// up vector
-		Vector3D		u, v, w;			// orthonormal basis vectors
-		float			exposure_time;
-
-		Camera& 							// assignment operator
-		operator= (const Camera& camera);
+		Point3D			eye = Point3D(0.0, 0.0, 500.0);				// eye point
+		Point3D			lookat = Point3D(0.0);			 			// lookat point
+		float			ra = 0.0f;									// roll angle
+		Vector3D		up = Vector3D(0.0, 0.1, 0.0);				// up vector
+		Vector3D		u = Vector3D(1.0, 0.0, 0.0);				// orthonormal basis vectors
+		Vector3D		v = Vector3D(0.0, 0.1, 0.0);
+		Vector3D		w = Vector3D(0.0, 0.0, 1.0);
+		float			exposure_time = 1.0f;
 };
-
-
 
 
 

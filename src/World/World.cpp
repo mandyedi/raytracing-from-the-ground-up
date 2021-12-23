@@ -141,7 +141,7 @@ World::display_pixel([[maybe_unused]] const int row, [[maybe_unused]] const int 
 ShadeRec
 World::hit_objects(const Ray& ray) {
 
-	ShadeRec	sr(this);
+	ShadeRec	sr(*this);
 	double		t;
 	Normal normal;
 	Point3D local_hit_point;
@@ -170,7 +170,7 @@ World::hit_objects(const Ray& ray) {
 
 ShadeRec
 World::hit_bare_bones_objects(const Ray &ray) {
-	ShadeRec	sr(this);
+	ShadeRec	sr(*this);
 	double		t;
 	double		tmin = kHugeValue;
 	size_t 		num_objects = objects.size();

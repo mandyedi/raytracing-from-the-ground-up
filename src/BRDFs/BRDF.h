@@ -24,18 +24,23 @@
 class BRDF {
 	public:
 
-		BRDF(void);
-
-		BRDF(const BRDF& object);
-
-		virtual BRDF*
-		clone(void) const = 0;
-
-		BRDF&
-		operator= (const BRDF& rhs);
+		BRDF(void) = default;
 
 		virtual
 		~BRDF(void);
+
+		BRDF(const BRDF& b);
+
+		BRDF(BRDF&& b) noexcept;
+
+		BRDF&
+		operator= (const BRDF& b);
+
+		BRDF&
+		operator= (BRDF&& b) noexcept;
+
+		virtual BRDF*
+		clone(void) const = 0;
 
 		void
 		set_sampler(Sampler* sPtr);
@@ -54,7 +59,7 @@ class BRDF {
 
 	protected:
 
-		Sampler* sampler_ptr;		// for indirect illumination
+		Sampler* sampler_ptr = nullptr;		// for indirect illumination
 };
 
 #endif

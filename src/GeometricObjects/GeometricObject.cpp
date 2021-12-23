@@ -17,52 +17,79 @@
 
 
 
-GeometricObject::GeometricObject(void)
-	: material_ptr(NULL)
-	, shadows(true)
+GeometricObject::~GeometricObject (void) {	
+	if (material_ptr != nullptr) {
+		delete material_ptr;
+		material_ptr = nullptr;
+	}
+
+	if (sampler_ptr != nullptr) {
+		delete sampler_ptr;
+		sampler_ptr = nullptr;
+	}
+}
+
+
+
+GeometricObject::GeometricObject (const GeometricObject& go)
+	:	color(go.color),
+		shadows(go.shadows)
+{
+	material_ptr = go.material_ptr->clone();
+	sampler_ptr = go.sampler_ptr->clone();
+}
+
+
+
+GeometricObject::GeometricObject (GeometricObject&& go) noexcept
+	:	color(std::move(go.color)),
+		shadows(std::exchange(go.shadows, true)),
+		material_ptr(std::exchange(go.material_ptr, nullptr)),
+		sampler_ptr(std::exchange(go.sampler_ptr, nullptr))
 {}
 
 
 
-GeometricObject::GeometricObject (const GeometricObject& object) {
-	if (object.material_ptr) {
-		shadows = object.shadows;
-		material_ptr = object.material_ptr->clone(); 
-	}
-	else {
-		material_ptr = NULL;
-	}
-}	
-
-
-
 GeometricObject&														
-GeometricObject::operator= (const GeometricObject& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-			
-	if (material_ptr) {
-		delete material_ptr;
-		material_ptr = NULL;
-	}
+GeometricObject::operator= (const GeometricObject& go) {
+	color = go.color;
+	shadows = go.shadows;
 
-	if (rhs.material_ptr) {
-		shadows = rhs.shadows;
-		material_ptr = rhs.material_ptr->clone();
+	if (material_ptr != nullptr) {
+		delete material_ptr;
 	}
+	material_ptr = go.material_ptr->clone();
+
+	if (sampler_ptr != nullptr) {
+		delete sampler_ptr;
+	}
+	sampler_ptr = go.sampler_ptr->clone();
 
 	return (*this);
 }
 
 
 
-GeometricObject::~GeometricObject (void) {	
-	if (material_ptr) {
+GeometricObject&														
+GeometricObject::operator= (GeometricObject&& go) noexcept {
+	color = std::move(go.color);
+	shadows = std::exchange(go.shadows, true);
+
+	if (material_ptr != nullptr) {
 		delete material_ptr;
-		material_ptr = NULL;
 	}
+	material_ptr = go.material_ptr;
+	go.material_ptr = nullptr;
+
+	if (sampler_ptr != nullptr) {
+		delete sampler_ptr;
+	}
+	sampler_ptr = go.sampler_ptr;
+	go.sampler_ptr = nullptr;
+
+	return (*this);
 }
+
 
 
 bool

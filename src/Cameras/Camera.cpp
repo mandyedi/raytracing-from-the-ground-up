@@ -10,21 +10,10 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
+#include <utility>
 #include "Camera.h"
 
-
-
-Camera::Camera(void)		
-	:	eye(0, 0, 500),
-		lookat(0),
-		ra(0),
-		up(0, 1, 0),
-		u(1, 0, 0),
-		v(0, 1, 0),
-		w(0, 0, 1),
-		exposure_time(1.0)
-{}
-
+Camera::~Camera(void) {}
 
 
 Camera::Camera(const Camera& c)   		
@@ -39,31 +28,46 @@ Camera::Camera(const Camera& c)
 {}
 
 
+Camera::Camera(Camera&& c) noexcept   		
+	: 	eye(std::move(c.eye)),
+		lookat(std::move(c.lookat)),
+		ra(std::exchange(c.ra, 0.0f)),
+		up(std::move(c.up)),
+		u(std::move(c.u)),
+		v(std::move(c.v)),
+		w(std::move(c.w)),
+		exposure_time(std::exchange(c.exposure_time, 0.0f))
+{}
 
 
 Camera& 
-Camera::operator= (const Camera& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-
-	eye				= rhs.eye;
-	lookat			= rhs.lookat;
-	ra				= rhs.ra;
-	up				= rhs.up;
-	u				= rhs.u;
-	v				= rhs.v;
-	w				= rhs.w;
-	exposure_time 	= rhs.exposure_time;
+Camera::operator= (const Camera& c) {
+	eye				= c.eye;
+	lookat			= c.lookat;
+	ra				= c.ra;
+	up				= c.up;
+	u				= c.u;
+	v				= c.v;
+	w				= c.w;
+	exposure_time 	= c.exposure_time;
 
 	return (*this);
 }
 
 
+Camera& 
+Camera::operator= (Camera&& c) noexcept {
+	eye				= std::move(c.eye);
+	lookat			= std::move(c.lookat);
+	ra				= std::exchange(c.ra, 0.0f);
+	up				= std::move(c.up);
+	u				= std::move(c.u);
+	v				= std::move(c.v);
+	w				= std::move(c.w);
+	exposure_time 	= std::exchange(c.exposure_time, 0.0f);
 
-Camera::~Camera(void) {}
-
-
+	return (*this);
+}
 
 
 // This computes an orthornormal basis given the view point, lookat point, and up vector

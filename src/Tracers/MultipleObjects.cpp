@@ -14,28 +14,12 @@
 #include "../World/World.h"
 
 
-MultipleObjects::MultipleObjects(void)
-	: Tracer()
-{}
-
-
 		
 MultipleObjects::MultipleObjects(World* _worldPtr)
 	: Tracer(_worldPtr)
 {}
 
-
-
-MultipleObjects* 
-MultipleObjects::clone(void) const {
-	return (new MultipleObjects(*this));
-}
-
-
-
 MultipleObjects::~MultipleObjects(void) {}
-
-
 
 RGBColor	
 MultipleObjects::trace_ray(const Ray& ray) const {

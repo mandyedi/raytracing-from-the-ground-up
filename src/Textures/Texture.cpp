@@ -12,17 +12,18 @@
 
 #include "Texture.h"
 
-Texture::Texture(void) {}
+Texture::~Texture(void) {}
 
-Texture::Texture(const Texture& texture) {}
+Texture::Texture(const Texture& t) {}
+
+Texture::Texture(Texture&& t) noexcept {}
 
 Texture&
-Texture::operator= (const Texture& rhs) {
-    if (this == &rhs){
-        return (*this);
-    }
-
-    return (*this);
+Texture::operator= (const Texture& t) {
+    return *this;
 }
 
-Texture::~Texture(void) {}
+Texture&
+Texture::operator= (Texture&& t) noexcept {
+    return *this;
+}

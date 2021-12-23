@@ -32,12 +32,12 @@ class ShadeRec {
 		Ray					ray;
 		int					depth;				// recursion depth
 		double				t;					// ray parameter
-		World*				w = nullptr;
+		World&				w;
 		RGBColor            color;
 
-		ShadeRec() = default;
+		ShadeRec() = delete;
 				
-		explicit ShadeRec(World* wr);
+		explicit ShadeRec(World& wr);
 };
 
 #endif

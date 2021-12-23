@@ -11,6 +11,7 @@
 //  See the file COPYING.txt for the full license.
 
 #include "StereoCamera.h"
+#include "Pinhole.h"
 #include "../Utilities/RGBColor.h"
 #include "../Utilities/Point3D.h"
 #include "../Utilities/Vector3D.h"
@@ -18,90 +19,98 @@
 #include "../Samplers/Sampler.h"
 #include "../World/ViewPlane.h"
 
-ViewingType	viewing_type;		// parallel or transverse viewing
-int			pixel_gap;			// gap in pixels between the left and right images
-float		beta;				// stereo separation angle
-Camera *left_camera_ptr;	// left eye camera
-Camera *right_camera_ptr;	// right eye camera
-
 StereoCamera::StereoCamera(void)
 	:	Camera(),
-		viewing_type(ViewingType::parallel),
-		pixel_gap(5),
-		beta(5.0f),
-		left_camera_ptr(nullptr),
-		right_camera_ptr(nullptr)
+		left_camera_ptr(new Pinhole),
+		right_camera_ptr(new Pinhole)
 {}
 
 StereoCamera::StereoCamera(Camera *left_camera, Camera *right_camera)
 	:	Camera(),
-		viewing_type(ViewingType::parallel),
-		pixel_gap(5),
-		beta(5.0f),
 		left_camera_ptr(left_camera),
 		right_camera_ptr(right_camera)
 {}
 
-StereoCamera::StereoCamera(const StereoCamera& c)
-	: 	Camera(c),
-	viewing_type(c.viewing_type),
-	pixel_gap(c.pixel_gap),
-	beta(c.beta)
-{
-	if (c.left_camera_ptr) {
-		left_camera_ptr = c.left_camera_ptr->clone();
-	}
-	else {
+StereoCamera::~StereoCamera(void) {
+	if (left_camera_ptr != nullptr) {
+		delete left_camera_ptr;	
 		left_camera_ptr = nullptr;
 	}
-
-	if (c.right_camera_ptr) {
-		right_camera_ptr = c.right_camera_ptr->clone();
-	}
-	else {
+	
+	if (right_camera_ptr != nullptr) {
+		delete right_camera_ptr;
 		right_camera_ptr = nullptr;
 	}
+}
+
+StereoCamera::StereoCamera(const StereoCamera& c)
+	: 	Camera(c),
+		viewing_type(c.viewing_type),
+		pixel_gap(c.pixel_gap),
+		beta(c.beta)
+{
+	left_camera_ptr = c.left_camera_ptr->clone();
+	right_camera_ptr = c.right_camera_ptr->clone();
+}
+
+StereoCamera::StereoCamera(StereoCamera&& sc) noexcept
+	: 	Camera(std::move(sc)),
+		viewing_type(std::exchange(sc.viewing_type, ViewingType::Parallel)),
+		pixel_gap(std::exchange(sc.pixel_gap, 0)),
+		beta(std::exchange(sc.beta, 0.0f)),
+		left_camera_ptr(std::exchange(sc.left_camera_ptr, nullptr)),
+		right_camera_ptr(std::exchange(sc.right_camera_ptr, nullptr))
+{}
+
+StereoCamera&
+StereoCamera::operator= (const StereoCamera& sc) {
+	Camera::operator= (sc);
+
+	viewing_type = sc.viewing_type;
+	pixel_gap = sc.pixel_gap;
+	beta = sc.beta;
+	
+	if (left_camera_ptr != nullptr) {
+		delete left_camera_ptr;
+	}
+	left_camera_ptr = sc.left_camera_ptr->clone();
+
+	if (right_camera_ptr != nullptr) {
+		delete right_camera_ptr;
+	}
+	right_camera_ptr = sc.right_camera_ptr->clone();
+
+	return (*this);
+}
+
+StereoCamera&
+StereoCamera::operator= (StereoCamera&& sc) noexcept {
+	Camera::operator= (std::move(sc));
+
+	viewing_type = std::exchange(sc.viewing_type, ViewingType::Parallel);
+	pixel_gap = std::exchange(sc.pixel_gap, 0);
+	beta = std::exchange(sc.beta, 0.0f);
+
+	if (left_camera_ptr != nullptr) {
+		delete left_camera_ptr;
+	}
+	left_camera_ptr = sc.left_camera_ptr;
+	sc.left_camera_ptr = nullptr;
+
+
+	if (right_camera_ptr != nullptr) {
+		delete right_camera_ptr;
+	}
+	right_camera_ptr = sc.right_camera_ptr;
+	sc.right_camera_ptr = nullptr;
+
+	return *this;
 }
 
 Camera*
 StereoCamera::clone(void) const {
 	return (new StereoCamera(*this));
 }
-
-StereoCamera&
-StereoCamera::operator= (const StereoCamera& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-
-	Camera::operator= (rhs);
-
-	viewing_type = rhs.viewing_type;
-	pixel_gap = rhs.pixel_gap;
-	beta = rhs.beta;
-	
-	if (left_camera_ptr) {
-		delete left_camera_ptr;
-		left_camera_ptr = nullptr;
-	}
-
-	if (rhs.left_camera_ptr) {
-		left_camera_ptr = rhs.left_camera_ptr->clone();
-	}
-
-	if (right_camera_ptr) {
-		delete right_camera_ptr;
-		right_camera_ptr = nullptr;
-	}
-
-	if (rhs.right_camera_ptr) {
-		right_camera_ptr = rhs.right_camera_ptr->clone();
-	}
-
-	return (*this);
-}
-
-StereoCamera::~StereoCamera(void) {}
 
 void
 StereoCamera::setup_cameras(void) {
@@ -125,12 +134,12 @@ StereoCamera::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) 
 	double r = eye.distance(lookat);
 	float x2 = static_cast<float>(r * tan(0.5 * degreeToRadian(beta)));
 
-	if (viewing_type == parallel) {
+	if (viewing_type == ViewingType::Parallel) {
 		left_camera_ptr->render_scene(w, x2, 0);						// left view on left
 		right_camera_ptr->render_scene(w, -x2, hres + pixel_gap);   	// right view on right
 	}
 
-	if (viewing_type == transverse) {
+	if (viewing_type == ViewingType::Transverse) {
 		right_camera_ptr->render_scene(w, -x2, 0);   					// right view on left
 		left_camera_ptr->render_scene(w, x2, hres + pixel_gap);    		// left view on right
 	}

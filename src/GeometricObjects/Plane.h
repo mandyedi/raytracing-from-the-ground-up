@@ -20,31 +20,35 @@ class Plane: public GeometricObject {
 	
 	public:
 	
-		Plane(void);   												// default constructor
-		
-		Plane(const Point3D& point, const Normal& normal);			// constructor	
-	
-		Plane(const Plane& plane); 									// copy constructor
-		
-		virtual Plane* 												// virtual copy constructor
-		clone(void) const override;
+		Plane(void) = default;
 
-		Plane& 														// assignment operator
-		operator= (const Plane& rhs);	
+		explicit Plane(const Point3D& point, const Normal& normal);
+
+		~Plane(void);
+	
+		Plane(const Plane& p);
+
+		Plane(Plane&& p) noexcept;
+
+		Plane&
+		operator= (const Plane& p);
+
+		Plane&
+		operator= (Plane&& p) noexcept;
 		
-		virtual														// destructor
-		~Plane(void);   											
+		Plane*
+		clone(void) const override;
 					
-		virtual bool 																								 
+		bool 																								 
 		hit(const Ray& ray, double& tmin, ShadeRec& sr) const override;
 
 		bool
-		shadow_hit(const Ray &ray, float &tmin) const;
+		shadow_hit(const Ray &ray, float &tmin) const override;
 		
 	private:
 	
-		Point3D 	a;   				// point through which plane passes 
-		Normal 		n;					// normal to the plane
+		Point3D 	a = Point3D(0.0);			// point through which plane passes 
+		Normal 		n = Normal(0.0, 1.0, 0.0);	// normal to the plane
 				
 		static const double kEpsilon;   // for shadows and secondary rays
 };

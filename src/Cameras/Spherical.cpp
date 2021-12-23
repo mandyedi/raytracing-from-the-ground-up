@@ -17,35 +17,58 @@
 #include "../Utilities/Maths.h"
 #include "../Samplers/Sampler.h"
 
-Spherical::Spherical(void)
-	:	Camera(),
-		psi_max(120)
+
+
+Spherical::~Spherical(void) {}
+
+
+
+Spherical::Spherical(const Spherical& s)
+	: 	Camera(s),
+		lambda_max(s.lambda_max),
+		psi_max(s.psi_max)
 {}
 
-Spherical::Spherical(const Spherical& c)
-	: 	Camera(c),
-		psi_max(120)
+
+
+Spherical::Spherical(Spherical&& s) noexcept
+	: 	Camera(std::move(s)),
+		lambda_max(std::exchange(s.lambda_max, 0.0f)),
+		psi_max(std::exchange(s.psi_max, 0.0f))
 {}
+
+
+
+Spherical&
+Spherical::operator= (const Spherical& s) {
+	Camera::operator= (s);
+
+	lambda_max = s.lambda_max;
+	psi_max = s.psi_max;
+
+	return (*this);
+}
+
+
+
+Spherical&
+Spherical::operator= (Spherical&& s) noexcept {
+	Camera::operator= (std::move(s));
+
+	lambda_max = std::exchange(s.lambda_max, 0.0f);
+	psi_max = std::exchange(s.psi_max, 0.0f);
+
+	return (*this);
+}
+
+
 
 Camera*
 Spherical::clone(void) const {
 	return (new Spherical(*this));
 }
 
-Spherical&
-Spherical::operator= (const Spherical& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
 
-	Camera::operator= (rhs);
-
-	psi_max = rhs.psi_max;
-
-	return (*this);
-}
-
-Spherical::~Spherical(void) {}
 
 Vector3D
 Spherical::ray_direction(	const Point2D& 	pp,

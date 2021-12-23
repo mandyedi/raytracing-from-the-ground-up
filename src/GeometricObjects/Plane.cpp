@@ -10,16 +10,10 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
+#include <utility>
 #include "Plane.h"
 
 const double Plane::kEpsilon = 0.001;
-
-
-Plane::Plane(void)	
-	: 	GeometricObject(),
-		a(0.0),
-		n(0, 1, 0)						
-{}
 
 
 
@@ -33,11 +27,48 @@ Plane::Plane(const Point3D& point, const Normal& normal)
 
 
 
-Plane::Plane(const Plane& plane) 
-	:	GeometricObject(plane),
-		a(plane.a),
-		n(plane.n) 				
+Plane::~Plane(void)				
 {}
+
+
+
+Plane::Plane(const Plane& p) 
+	:	GeometricObject(p),
+		a(p.a),
+		n(p.n) 				
+{}
+
+
+
+Plane::Plane(Plane&& p) noexcept
+	:	GeometricObject(std::move(p)),
+		a(std::move(p.a)),
+		n(std::move(p.n)) 				
+{}
+
+
+
+Plane& 
+Plane::operator= (const Plane& p)	{
+	GeometricObject::operator= (p);
+
+	a = p.a;
+	n = p.n;
+
+	return (*this);
+}
+
+
+
+Plane& 
+Plane::operator= (Plane&& p) noexcept {
+	GeometricObject::operator= (std::move(p));
+
+	a = std::move(p.a);
+	n = std::move(p.n);
+
+	return (*this);
+}
 
 
 
@@ -45,28 +76,6 @@ Plane*
 Plane::clone(void) const {
 	return (new Plane(*this));
 }
-
-
-
-Plane& 
-Plane::operator= (const Plane& rhs)	{
-	
-	if (this == &rhs) {
-		return (*this);
-	}
-
-	GeometricObject::operator= (rhs);
-
-	a = rhs.a;
-	n = rhs.n;
-
-	return (*this);
-}
-
-
-
-Plane::~Plane(void)				
-{}
 
 
 

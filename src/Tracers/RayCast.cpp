@@ -16,26 +16,13 @@
 #include "../Materials/Material.h"
 
 
-RayCast::RayCast(void)
-	: Tracer()
-{}
-
-
 		
 RayCast::RayCast(World* _worldPtr)
 	: Tracer(_worldPtr)
 {}
 
-
-
-RayCast* 
-RayCast::clone(void) const {
-	return (new RayCast(*this));
-}
-
-
-
 RayCast::~RayCast(void) {}
+
 
 
 

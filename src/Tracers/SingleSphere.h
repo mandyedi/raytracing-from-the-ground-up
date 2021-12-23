@@ -18,17 +18,21 @@
 class SingleSphere: public Tracer {
 	public:
 		
-		SingleSphere(void);
+		SingleSphere(void) = delete;
 										
-		explicit SingleSphere(World* _worldPtr);					
-		
-		virtual SingleSphere*
-		clone(void) const override;
+		explicit SingleSphere(World* _worldPtr);
 
-		virtual											
 		~SingleSphere(void);
+
+		// For the sake of simplicity I prevent copy and move
+		SingleSphere(const SingleSphere& ss) = delete;
+		SingleSphere(SingleSphere&& ss) = delete;
+		SingleSphere& operator= (const SingleSphere& ss) = delete;
+		SingleSphere& operator= (SingleSphere&& ss) = delete;
+
 		
-		virtual RGBColor	
+		
+		RGBColor	
 		trace_ray(const Ray& ray) const override;
 };
 

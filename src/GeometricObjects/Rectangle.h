@@ -20,28 +20,32 @@ class Sampler;
 class Rectangle: public GeometricObject {	
 	public:
 		
-		Rectangle(void);   									
+		Rectangle(void) = default;   									
 				
-		Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b);
+		explicit Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b);
 		
-		Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b, const Normal& n);
+		explicit Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b, const Normal& n);
 		
-		virtual Rectangle* 										
-		clone(void) const;
+		~Rectangle(void);
 	
-		Rectangle(const Rectangle& r); 						
+		Rectangle(const Rectangle& r);
 
-		virtual													
-		~Rectangle(void);   									
+		Rectangle(Rectangle&& r) noexcept;
 
-		Rectangle& 												
+		Rectangle&
 		operator= (const Rectangle& rhs);
-		
+
+		Rectangle&
+		operator= (Rectangle&& rhs) noexcept;
+
+		Rectangle* 										
+		clone(void) const override;
+
 		// todo: implement it, when BBox class is ready
 		// BBox
 		// get_bounding_box(void);				
 	
-		virtual bool 												 
+		bool 												 
 		hit(const Ray& ray, double& t, ShadeRec& s) const;	
 				
 		
@@ -59,16 +63,16 @@ class Rectangle: public GeometricObject {
 		
 	private:
 	
-		Point3D 		p0;   			// corner vertex 
-		Vector3D		a;				// side
-		Vector3D		b;				// side
-		double			a_len_squared;	// square of the length of side a
-		double			b_len_squared;	// square of the length of side b
-		Normal			normal;	
+		Point3D 	p0 				= Point3D(-1.0, 0.0, -1.0); 	// corner vertex 
+		Vector3D	a 				= Vector3D(0.0, 0.0, 2.0);		// side
+		Vector3D	b				= Vector3D(2.0, 0.0, 0.0);		// side
+		double		a_len_squared   = 4.0;							// square of the length of side a
+		double		b_len_squared   = 4.0;							// square of the length of side b
+		Normal		normal 			= Normal(0.0, 1.0, 0.0);
 		
-		float			area;			// for rectangular lights
-		float			inv_area;		// for rectangular lights
-		Sampler*		sampler_ptr;	// for rectangular lights 	
+		float		area 			= 4.0f;							// for rectangular lights
+		float		inv_area		= 0.25f;						// for rectangular lights
+		Sampler*	sampler_ptr 	= nullptr;						// for rectangular lights 	
 		
 		static const double kEpsilon;   											
 };

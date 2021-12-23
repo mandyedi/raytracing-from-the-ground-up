@@ -18,21 +18,31 @@
 class GlossySpecular: public BRDF {
 	public:
 
-		GlossySpecular(void);
+		GlossySpecular(void) = default;
 
 		~GlossySpecular(void);
 
-		virtual GlossySpecular*
-		clone(void) const;
+		GlossySpecular(const GlossySpecular& gs);
 
-		virtual RGBColor
-		f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const;
+		GlossySpecular(GlossySpecular&& gs) noexcept;
 
-		virtual RGBColor
-		sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const;
+		GlossySpecular&
+		operator= (const GlossySpecular& gs);
 
-		virtual RGBColor
-		rho(const ShadeRec& sr, const Vector3D& wo) const;
+		GlossySpecular&
+		operator= (GlossySpecular&& gs) noexcept;
+
+		GlossySpecular*
+		clone(void) const override;
+
+		RGBColor
+		f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const override;
+
+		RGBColor
+		sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const override;
+
+		RGBColor
+		rho(const ShadeRec& sr, const Vector3D& wo) const override;
 
 		void
 		set_ks(const float ks);
@@ -59,10 +69,10 @@ class GlossySpecular: public BRDF {
 
 	private:
 
-		float		ks;
-		RGBColor 	cs;			// specular color
-		float		exp; 		// specular exponent
-		Sampler*	sampler;    // for use in sample_f
+		float		ks 			= 0.0f;
+		RGBColor 	cs			= RGBColor::white;	// specular color
+		float		exp 		= 0.0f;		 		// specular exponent
+		Sampler*	sampler_ptr = nullptr;		    // for use in sample_f
 };
 
 

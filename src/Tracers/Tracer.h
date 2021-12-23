@@ -11,7 +11,7 @@
 //  See the file COPYING.txt for the full license.
 
 // This is the declaration of the base class Tracer
-// The tracer classes have no copy constructor, assignment operator. or clone function because 
+// The tracer classes have no copy constructor, assignment operator. or clone function because
 // of the world pointer, which should not be assigned or copy constructed
 // See comments in the World.h file.
 
@@ -26,25 +26,28 @@ class World;
 
 class Tracer {
 	public:
-	
-		Tracer(void);									
-		
-		explicit Tracer(World* _world_ptr);						
 
-		virtual Tracer*
-		clone(void) const = 0;
-				
-		virtual											
-		~Tracer(void);									
+		Tracer(void) = delete;
 
-		virtual RGBColor	
+		explicit Tracer(World* _world_ptr);
+
+		virtual
+		~Tracer(void);
+
+		// For the sake of simplicity I prevent copy and move
+		Tracer(const Tracer& t) = delete;
+		Tracer(Tracer&& t) = delete;
+		Tracer& operator= (const Tracer& t) = delete;
+		Tracer& operator= (Tracer&& t) = delete;
+
+		virtual RGBColor
 		trace_ray(const Ray& ray) const;
 
-		virtual RGBColor	
+		virtual RGBColor
 		trace_ray(const Ray& ray, const int depth) const;
-				
+
 	protected:
-	
+
 		World* world_ptr;
 };
 

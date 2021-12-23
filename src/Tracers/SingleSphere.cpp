@@ -15,32 +15,23 @@
 #include "../Utilities/ShadeRec.h"
 
 
-SingleSphere::SingleSphere(void)
-	: Tracer()
-{}
-
-
-		
+	
 SingleSphere::SingleSphere(World* _worldPtr)
 	: Tracer(_worldPtr)
 {}
 
-
-
-SingleSphere* 
-SingleSphere::clone(void) const {
-	return (new SingleSphere(*this));
-}
-
-
-
 SingleSphere::~SingleSphere(void) {}
+
+//SingleSphere* 
+//SingleSphere::clone(void) const {
+//	return (new SingleSphere(*this));
+//}
 
 
 
 RGBColor	
 SingleSphere::trace_ray(const Ray& ray) const {
-	ShadeRec	sr(world_ptr); 	// not used
+	ShadeRec	sr(*world_ptr); 	// not used
 	double    	t;  				// not used
 	
 	if (world_ptr->sphere.hit(ray, t, sr)) {	

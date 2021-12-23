@@ -18,20 +18,22 @@
 class RayCast: public Tracer {
 	public:
 		
-		RayCast(void);
+		RayCast(void) = delete;
 		
 		explicit RayCast(World* _worldPtr);
-				
-		virtual RayCast*
-		clone(void) const override;
+		
+		~RayCast(void);
 
-		virtual											
-		~RayCast(void);		
+		// For the sake of simplicity I prevent copy and move
+		RayCast(const RayCast& rc) = delete;
+		RayCast(RayCast&& rc) = delete;
+		RayCast& operator= (const RayCast& rc) = delete;
+		RayCast& operator= (RayCast&& rc) = delete;
 
-		virtual RGBColor	
+		RGBColor	
 		trace_ray(const Ray& ray) const override;
 
-		virtual RGBColor	
+		RGBColor	
 		trace_ray(const Ray& ray, const int depth) const override;
 };
 

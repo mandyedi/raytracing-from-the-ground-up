@@ -21,18 +21,22 @@
 class Pinhole: public Camera {
 	public:
 
-		Pinhole();
+		Pinhole() = default;
 
-		Pinhole(const Pinhole& ph);
+		~Pinhole();
 
-		virtual Camera*
-		clone(void) const override;
+		Pinhole(const Pinhole& p);
+
+		Pinhole(Pinhole&& p) noexcept;		
 
 		Pinhole&
-		operator= (const Pinhole& rhs);
+		operator= (const Pinhole& p);
 
-		virtual
-		~Pinhole();
+		Pinhole&
+		operator= (Pinhole&& p) noexcept;
+
+		Camera*
+		clone(void) const override;
 
 		void
 		set_view_distance(const float vpd);
@@ -43,13 +47,13 @@ class Pinhole: public Camera {
 		Vector3D
 		get_direction(const Point2D& p) const;
 
-		virtual void
+		void
 		render_scene(const World& w, float x = 0, int offset = 0) override;
 
 	private:
 
-		float	d;		// view plane distance
-		float	zoom;
+		float	d = 500.0f;		// view plane distance
+		float	zoom = 1.0f;
 
 };
 

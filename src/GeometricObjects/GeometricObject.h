@@ -25,15 +25,23 @@ class GeometricObject {
 	
 	public:	
 
-		GeometricObject(void);
-		
-		GeometricObject(const GeometricObject& object);
-	
-		virtual GeometricObject*
-		clone(void) const = 0;
+		GeometricObject(void) = default;
 
 		virtual
 		~GeometricObject (void);
+		
+		GeometricObject(const GeometricObject& go);
+
+		GeometricObject(GeometricObject&& go) noexcept;
+
+		GeometricObject&
+		operator= (const GeometricObject& go);
+
+		GeometricObject&
+		operator= (GeometricObject&& go) noexcept;
+
+		virtual GeometricObject*
+		clone(void) const = 0;
 			
 		virtual bool
 		hit(const Ray& ray, double& t, ShadeRec& s) const = 0;
@@ -44,7 +52,7 @@ class GeometricObject {
 		Material*
 		get_material(void) const;
 
-		virtual void
+		void
 		set_material(Material* mPtr);
 
 		void
@@ -76,18 +84,17 @@ class GeometricObject {
 	
 	protected:
 	
-		mutable Material*   material_ptr;   	// mutable allows Compound::hit, Instance::hit and Grid::hit to assign to material_ptr. hit functions are const
-		RGBColor   			color;
-
-		GeometricObject&
-		operator= (const GeometricObject& rhs);
+		RGBColor   			color = RGBColor::black;
 
 		// From the book, chapter 16.7 Shadowing Options
 		// Specify whether an object casts shadows or not.
 		// This is essential for performing ambient occlusion with environment lights (see Section 18.10).
-		bool shadows;
+		bool shadows = true;
 
-		Sampler* sampler_ptr;
+		// mutable allows Compound::hit, Instance::hit and Grid::hit to assign to material_ptr. hit functions are const
+		mutable Material*   material_ptr = nullptr;
+
+		Sampler* sampler_ptr = nullptr;
 };
 
 

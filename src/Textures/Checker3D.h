@@ -18,20 +18,25 @@
 class Checker3D : public Texture
 {
 public:
-    Checker3D(void);
-    Checker3D(const Checker3D& sc);
+    Checker3D(void) = default;
 
-    Checker3D&
-    operator= (const Checker3D& rhs);
-
-    virtual Checker3D*
-    clone(void) const;
-
-    virtual
     ~Checker3D(void);
 
-    virtual RGBColor
-    get_color(const ShadeRec& sr) const;
+    Checker3D(const Checker3D& c);
+
+    Checker3D(Checker3D&& c) noexcept;
+
+    Checker3D&
+    operator= (const Checker3D& c);
+
+    Checker3D&
+    operator= (Checker3D&& c) noexcept;
+
+    Checker3D*
+    clone(void) const override;
+
+    RGBColor
+    get_color(const ShadeRec& sr) const override;
 
     void
     set_size(const float s);
@@ -49,9 +54,9 @@ public:
     set_color2(const float r, const float g, const float b);
 
 protected:
-    RGBColor color1;
-    RGBColor color2;
-    float size;
+    RGBColor color1 = RGBColor::white;
+    RGBColor color2 = RGBColor(0.5f);
+    float size = 1.0f;
 };
 
 inline void

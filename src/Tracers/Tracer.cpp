@@ -10,12 +10,9 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
+#include <utility>
+
 #include "Tracer.h"
-
-
-Tracer::Tracer(void)
-	: world_ptr(nullptr)
-{}
 
 
 
@@ -24,13 +21,12 @@ Tracer::Tracer(World* _worldPtr)
 {}
 
 
-
-
 Tracer::~Tracer(void) {
 	if (world_ptr) {
 		world_ptr = nullptr;
 	}
 }
+
 
 
 

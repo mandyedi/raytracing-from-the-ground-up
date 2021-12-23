@@ -18,17 +18,19 @@
 class MultipleObjects: public Tracer {
 	public:
 		
-		MultipleObjects(void);							
+		MultipleObjects(void) = delete;							
 		
-		explicit MultipleObjects(World* _world_ptr);				
+		explicit MultipleObjects(World *_world_ptr);
 
-		virtual MultipleObjects*
-		clone(void) const override;
-
-		virtual											
 		~MultipleObjects(void);
-						
-		virtual RGBColor	
+
+		// For the sake of simplicity I prevent copy and move
+		MultipleObjects(const MultipleObjects& mo) = delete;
+		MultipleObjects(MultipleObjects&& mo) = delete;
+		MultipleObjects& operator= (const MultipleObjects& mo) = delete;
+		MultipleObjects& operator= (MultipleObjects&& mo) = delete;
+
+		RGBColor	
 		trace_ray(const Ray& ray) const override;
 };
 

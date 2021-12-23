@@ -16,15 +16,67 @@
 
 
 
-GlossySpecular::GlossySpecular(void)
-	: 	ks(0.0),
-		cs(1.0),
-		sampler(NULL)
+GlossySpecular::~GlossySpecular(void) {
+	if (sampler_ptr != nullptr) {
+		delete sampler_ptr;
+		sampler_ptr = nullptr;
+	}
+}
+
+
+
+GlossySpecular::GlossySpecular(const GlossySpecular& gs)
+	:	BRDF(gs),
+		ks(gs.ks),
+		cs(gs.cs),
+		exp(gs.exp)
+{
+	sampler_ptr = gs.sampler_ptr->clone();
+}
+
+
+
+GlossySpecular::GlossySpecular(GlossySpecular&& gs) noexcept
+	:	BRDF(std::move(gs)),
+		ks(std::exchange(gs.ks, 0.0f)),
+		cs(std::move(gs.cs)),
+		exp(std::exchange(gs.exp, 0.0f)),
+		sampler_ptr(std::exchange(gs.sampler_ptr, nullptr))
 {}
 
 
 
-GlossySpecular::~GlossySpecular(void) {}
+GlossySpecular&
+GlossySpecular::operator= (const GlossySpecular& gs) {
+	BRDF::operator= (gs);
+
+	ks 			= gs.ks;
+	cs			= gs.cs;
+	exp 		= gs.exp;
+	if (sampler_ptr == nullptr) {
+		delete sampler_ptr;
+	}
+	sampler_ptr = gs.sampler_ptr->clone();
+
+	return *this;
+}
+
+GlossySpecular&
+GlossySpecular::operator= (GlossySpecular&& gs) noexcept {
+	BRDF::operator= (std::move(gs));
+
+	ks  = std::exchange(gs.ks, 0.0f);
+	cs  = std::move(gs.cs);
+	exp = std::exchange(gs.exp, 0.0f);
+
+	if (sampler_ptr != nullptr) {
+		delete sampler_ptr;
+	}
+	sampler_ptr = gs.sampler_ptr;
+	gs.sampler_ptr = nullptr;
+
+	return *this;
+}
 
 
 

@@ -20,18 +20,22 @@ class ThinLens: public Camera {
 
 	public:
 
-		ThinLens();
+		ThinLens() = default;
 
-		ThinLens(const ThinLens& ph);
+		~ThinLens();
 
-		virtual Camera*
-		clone(void) const override;
+		ThinLens(const ThinLens& tl);
+
+		ThinLens(ThinLens&& tl) noexcept;
 
 		ThinLens&
-		operator= (const ThinLens& rhs);
+		operator= (const ThinLens& tl);
 
-		virtual
-		~ThinLens();
+		ThinLens&
+		operator= (ThinLens&& tl) noexcept;
+
+		Camera*
+		clone(void) const override;
 
 		void
 		set_sampler(Sampler* sp);
@@ -39,7 +43,7 @@ class ThinLens: public Camera {
 		Vector3D
 		ray_direction(const Point2D& pixel_point, const Point2D& lens_point) const;
 
-		virtual void
+		void
 		render_scene(const World& w, float x = 0, int offset = 0) override;
 
 		void
@@ -53,11 +57,11 @@ class ThinLens: public Camera {
 
 	private:
 
-		float		lens_radius;	// lens radius
-		float		d;				// view plane distance
-		float		f;				// focal distance
-		float		zoom;			// zoom factor
-		Sampler*	sampler_ptr;	// sampler object
+		float		lens_radius 	= 1.0f;				// lens radius
+		float		d 				= 500.0f;			// view plane distance
+		float		f 				= 100.0f;			// focal distance
+		float		zoom 			= 1.0f;				// zoom factor
+		Sampler*	sampler_ptr 	= nullptr;			// sampler object
 };
 
 inline void
