@@ -25,18 +25,22 @@
 class PointLight: public Light {
 	public:
 
-		PointLight(void);
+		PointLight(void) = default;
 
-		PointLight(const PointLight& dl);
+		~PointLight(void);
+
+		PointLight(const PointLight& pl);
+
+		PointLight(PointLight&& pl) noexcept;
+
+		PointLight&
+		operator= (const PointLight& pl);
+
+		PointLight&
+		operator= (PointLight&& pl) noexcept;
 
 		virtual Light*
 		clone(void) const override;
-
-		PointLight&
-		operator= (const PointLight& rhs);
-
-		virtual
-		~PointLight(void);
 
 		void
 		scale_radiance(const float b);
@@ -70,9 +74,9 @@ class PointLight: public Light {
 
 	private:
 
-		float		ls;
-		RGBColor	color;
-		Point3D location;
+		float		ls 			= 1.0f;
+		RGBColor	color 		= RGBColor::white;
+		Point3D 	location 	= Point3D(0.0f);
 };
 
 

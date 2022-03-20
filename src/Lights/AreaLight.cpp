@@ -13,88 +13,111 @@
 
 #include "AreaLight.h"
 
-// ---------------------------------------------------------------- default constructor
+
+
+AreaLight::~AreaLight(void) {
+	if (object_ptr != nullptr) {
+		delete object_ptr;
+		object_ptr = nullptr;
+	}
 	
-AreaLight::AreaLight(void)
-	: 	Light(),
-		object_ptr(nullptr),
-		material_ptr(nullptr)
-{}	
+	if (material_ptr != nullptr) {
+		delete material_ptr;
+		material_ptr = nullptr;
+	}
+}
 
 
-// ---------------------------------------------------------------- copy constructor 
+ 
 	
 AreaLight::AreaLight(const AreaLight& al)
-	: 	Light(al) {
-	if(al.object_ptr) {
-		object_ptr = al.object_ptr->clone(); 
-	}
-	else {
-		object_ptr = nullptr;
-	}
-	
-	if(al.material_ptr) {
-		material_ptr = al.material_ptr->clone(); 
-	}
-	else { 
-		material_ptr = nullptr;
-	}
+	: 	Light(al),
+		object_ptr(al.object_ptr),
+		material_ptr(al.material_ptr),
+		sample_point(al.sample_point),
+		light_normal(al.light_normal),
+		wi(al.wi)
+{
+	object_ptr = al.object_ptr->clone(); 
+	material_ptr = al.material_ptr->clone();
 }
 
 
-// ---------------------------------------------------------------- clone
 
-AreaLight* 
-AreaLight::clone(void) const {
-	return (new AreaLight(*this));
-}					
-
-
-// ---------------------------------------------------------------- destructor
- 								
-AreaLight::~AreaLight(void) {
-	if (object_ptr) {
-		delete object_ptr;
-		object_ptr = nullptr;
-	}
-	
-	if (material_ptr) {
-		delete material_ptr;
-		material_ptr = nullptr;
-	}
+AreaLight::AreaLight(AreaLight&& al) noexcept
+	: 	Light(std::move(al)),
+		object_ptr(std::move(al.object_ptr)),
+		material_ptr(std::move(al.material_ptr)),
+		sample_point(std::move(al.sample_point)),
+		light_normal(std::move(al.light_normal)),
+		wi(std::move(al.wi))
+{
+	object_ptr = al.object_ptr->clone(); 
+	material_ptr = al.material_ptr->clone();
 }
 
 
-// --------------------------------------------------------------- assignment operator
+
 
 AreaLight&														
-AreaLight::operator= (const AreaLight& rhs) {
-	if (this == &rhs)
-		return (*this);
-		
-	Light::operator=(rhs);
+AreaLight::operator= (const AreaLight& al) {
+	Light::operator=(al);
 	
-	if (object_ptr) {
+	if (object_ptr != nullptr) {
 		delete object_ptr;
-		object_ptr = nullptr;
 	}
 
-	if (rhs.object_ptr)
-		object_ptr = rhs.object_ptr->clone();
+	object_ptr = al.object_ptr->clone();
 		
-	if (material_ptr) {
+	if (material_ptr != nullptr) {
 		delete material_ptr;
-		material_ptr = nullptr;
 	}
 
-	if (rhs.material_ptr)
-		material_ptr = rhs.material_ptr->clone();
+	material_ptr = al.material_ptr->clone();
+
+	sample_point = al.sample_point;
+	light_normal = al.light_normal;
+	wi = al.wi;
 
 	return (*this);
 }
 
 
-// --------------------------------------------------------------- get_direction
+
+AreaLight&														
+AreaLight::operator= (AreaLight&& al) noexcept {
+	Light::operator=(std::move(al));
+	
+	if (object_ptr != nullptr) {
+		delete object_ptr;
+	}
+
+	object_ptr = al.object_ptr;
+	al.object_ptr = nullptr;
+		
+	if (material_ptr != nullptr) {
+		delete material_ptr;
+	}
+
+	material_ptr = al.material_ptr;
+	al.material_ptr = nullptr;
+
+	sample_point = std::move(al.sample_point);
+	light_normal = std::move(al.light_normal);
+	wi = std::move(al.wi);
+
+	return (*this);
+}
+
+
+
+AreaLight* 
+AreaLight::clone(void) const {
+	return (new AreaLight(*this));
+}
+
+
+
 
 Vector3D								
 AreaLight::get_direction(ShadeRec& sr) {
@@ -107,7 +130,7 @@ AreaLight::get_direction(ShadeRec& sr) {
 }
 
 
-// --------------------------------------------------------------- L
+
 
 RGBColor								
 AreaLight::L(ShadeRec& sr) {
@@ -122,7 +145,7 @@ AreaLight::L(ShadeRec& sr) {
 }
 
 
-// ---------------------------------------------------------------- in_shadow	
+
 
 bool									
 AreaLight::in_shadow(const Ray& ray, const ShadeRec& sr) const {
@@ -140,7 +163,7 @@ AreaLight::in_shadow(const Ray& ray, const ShadeRec& sr) const {
 }
 
 
-// ---------------------------------------------------------------- G
+
 // G is part of the geometric factor
 
 float
@@ -152,7 +175,7 @@ AreaLight::G(const ShadeRec& sr) const {
 }
 
 
-// ---------------------------------------------------------------- pdf
+
 
 float									
 AreaLight::pdf(const ShadeRec& sr) const {

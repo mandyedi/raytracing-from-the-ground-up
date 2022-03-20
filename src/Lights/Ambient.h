@@ -18,18 +18,22 @@
 class Ambient: public Light {
 	public:
 	
-		Ambient(void);   							
+		Ambient(void) = default;
 
-		Ambient(const Ambient& a); 					 
+		~Ambient(void);
+
+		Ambient(const Ambient& a);
+
+		Ambient(Ambient&& a) noexcept;
+
+		Ambient&
+		operator= (const Ambient& a);
+
+		Ambient&
+		operator= (Ambient&& a) noexcept;
 	
 		Light* 									
-		clone(void) const override;	
-		
-		Ambient& 									
-		operator= (const Ambient& rhs);									
-		
-		virtual 									
-		~Ambient(void);
+		clone(void) const override;
 				
 		void
 		scale_radiance(const float b);
@@ -51,8 +55,8 @@ class Ambient: public Light {
 	
 	private:
 	
-		float		ls;
-		RGBColor	color;
+		float		ls 			= 1.0f;
+		RGBColor	color 		= RGBColor::white;
 };
 
 

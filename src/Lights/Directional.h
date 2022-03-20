@@ -24,19 +24,23 @@
 class Directional: public Light {
 	public:
 	
-		Directional(void);   							
+		Directional(void) = default;
 
-		Directional(const Directional& dl); 
-		
-		virtual Light* 									
-		clone(void) const override;			
-
-		Directional& 									
-		operator= (const Directional& rhs); 
-			
-		virtual											
 		~Directional(void); 
-				
+
+		Directional(const Directional& d);
+
+		Directional(Directional&& d) noexcept;
+
+		Directional&
+		operator= (const Directional& d);
+
+		Directional&
+		operator= (Directional&& d) noexcept;
+
+		virtual Light*
+		clone(void) const override;
+		
 		void
 		scale_radiance(const float b);
 		
@@ -66,9 +70,9 @@ class Directional: public Light {
 		
 	private:
 
-		float		ls;			
-		RGBColor	color;
-		Vector3D	dir;		// direction the light comes from
+		float		ls 		= 1.0f;			
+		RGBColor	color 	= RGBColor::white;
+		Vector3D	dir 	= Vector3D(0.0, 1.0, 0.0);		// direction the light comes from
 };
 
 

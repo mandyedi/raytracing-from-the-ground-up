@@ -54,7 +54,7 @@ Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b,
 
 
 Rectangle::~Rectangle (void) {
-	if (sampler_ptr == nullptr) {
+	if (sampler_ptr != nullptr) {
 		delete sampler_ptr;
 		sampler_ptr = nullptr;
 	}

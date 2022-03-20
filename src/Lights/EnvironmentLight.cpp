@@ -16,6 +16,96 @@
 #include "../Materials/Material.h"
 #include "../World/World.h"
 
+
+
+EnvironmentLight::~EnvironmentLight(void) {
+	if (sampler_ptr != nullptr) {
+		delete sampler_ptr;
+		sampler_ptr = nullptr;
+	}
+
+	if (material_ptr != nullptr) {
+		delete material_ptr;
+		material_ptr = nullptr;
+	}
+}
+
+EnvironmentLight::EnvironmentLight(const EnvironmentLight& el)
+	: 	Light(el),
+		u(el.u),
+		v(el.v),
+		w(el.w),
+		wi(el.wi)
+{
+	sampler_ptr = el.sampler_ptr->clone();
+	material_ptr = el.material_ptr->clone();
+}
+
+EnvironmentLight::EnvironmentLight(EnvironmentLight&& el) noexcept
+	: 	Light(std::move(el)),
+		u(std::move(el.u)),
+		v(std::move(el.v)),
+		w(std::move(el.w)),
+		wi(std::move(el.wi))
+{
+	sampler_ptr = el.sampler_ptr;
+	el.sampler_ptr = nullptr;
+	material_ptr = el.material_ptr;
+	el.material_ptr = nullptr;
+}
+
+EnvironmentLight&
+EnvironmentLight::operator= (const EnvironmentLight& el) {
+	Light::operator=(el);
+
+	if (sampler_ptr != nullptr) {
+		delete sampler_ptr;
+	}
+	sampler_ptr = el.sampler_ptr->clone();
+
+	if (material_ptr != nullptr) {
+		delete material_ptr;
+	}
+	material_ptr = el.material_ptr->clone();
+
+	u = el.u;
+	v = el.v;
+	w = el.w;
+	wi = el.wi;
+
+	return *this;
+}
+
+EnvironmentLight&
+EnvironmentLight::operator= (EnvironmentLight&& el) noexcept {
+	Light::operator=(std::move(el));
+
+	if (sampler_ptr != nullptr) {
+		delete sampler_ptr;
+	}
+	sampler_ptr = el.sampler_ptr;
+	el.sampler_ptr = nullptr;
+
+	if (material_ptr != nullptr) {
+		delete material_ptr;
+	}
+	material_ptr = el.material_ptr;
+	el.material_ptr = nullptr;
+
+	u = std::move(el.u);
+	v = std::move(el.v);
+	w = std::move(el.w);
+	wi = std::move(el.wi);
+
+	return *this;
+}
+
+
+Light*
+EnvironmentLight::clone(void) const {
+	return (new EnvironmentLight(*this));
+}
+
 void
 EnvironmentLight::set_sampler(Sampler* s_ptr) {
 	if (sampler_ptr) {

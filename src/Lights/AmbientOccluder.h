@@ -26,18 +26,23 @@ class Sampler;
 class AmbientOccluder: public Light {
 	public:
 	
-		AmbientOccluder(void);
-
-		AmbientOccluder(const AmbientOccluder& other);
-
-		virtual Light*
-		clone(void) const override;
-
-		AmbientOccluder&
-		operator= (const AmbientOccluder& other);
+		AmbientOccluder(void) = default;
 
 		virtual
 		~AmbientOccluder(void);
+
+		AmbientOccluder(const AmbientOccluder& a);
+
+		AmbientOccluder(AmbientOccluder&& a) noexcept;
+
+		AmbientOccluder&
+		operator= (const AmbientOccluder& a);
+
+		AmbientOccluder&
+		operator= (AmbientOccluder&& a) noexcept;
+
+		virtual Light*
+		clone(void) const override;
 	
 		void
 		set_sampler(Sampler* s_ptr);
@@ -59,11 +64,13 @@ class AmbientOccluder: public Light {
 	
 	private:
 	
-		float		ls;
-		RGBColor	color;
-		float 		min_amount;	    
-		Vector3D 	u, v, w;		
-		Sampler*	sampler_ptr;
+		float		ls 				= 1.0f;
+		RGBColor	color 			= RGBColor::white;
+		float 		min_amount 		= 0.0f;	    
+		Vector3D 	u 				= Vector3D(1.0, 0.0, 0.0);
+		Vector3D 	v 				= Vector3D(0.0, 1.0, 0.0);
+		Vector3D    w 				= Vector3D(0.0, 0.0, 1.0);		
+		Sampler*	sampler_ptr 	= nullptr;
 };
 
 inline void

@@ -14,35 +14,89 @@
 #include "../Samplers/Sampler.h"
 
 
-AmbientOccluder::AmbientOccluder(void)
-	: Light(),
-      ls(1.0),
-      color(1.0),
-      min_amount(0.0),
-      u(1.0, 0.0, 0.0),
-      v(0.0, 1.0, 0.0),
-      w(0.0, 0.0, 1.0),
-      sampler_ptr(nullptr)
-{}
 
-
-
-AmbientOccluder::AmbientOccluder(const AmbientOccluder& other)
-	: 	Light(other),
-		ls(other.ls),
-		color(other.color),
-		min_amount(other.min_amount),
-		u(other.u),
-		v(other.v),
-		w(other.w)
-{
-	if (other.sampler_ptr) {
-		sampler_ptr = other.sampler_ptr->clone();
-	}
-	else {
+AmbientOccluder::~AmbientOccluder(void) {
+	if (sampler_ptr != nullptr) {
+		delete sampler_ptr;
 		sampler_ptr = nullptr;
 	}
 }
+
+
+
+AmbientOccluder::AmbientOccluder(const AmbientOccluder& a)
+	: 	Light(a),
+		ls(a.ls),
+		color(a.color),
+		min_amount(a.min_amount),
+		u(a.u),
+		v(a.v),
+		w(a.w)
+{
+	sampler_ptr = a.sampler_ptr->clone();
+}
+
+
+
+AmbientOccluder::AmbientOccluder(AmbientOccluder&& a) noexcept
+	: 	Light(std::move(a)),
+		ls(std::exchange(a.ls, 1.0f)),
+		color(std::move(a.color)),
+		min_amount(std::exchange(a.min_amount, 0.0f)),
+		u(std::move(a.u)),
+		v(std::move(a.v)),
+		w(std::move(a.w))
+{
+	sampler_ptr = a.sampler_ptr;
+	a.sampler_ptr = nullptr;
+}
+
+
+
+
+AmbientOccluder&
+AmbientOccluder::operator= (const AmbientOccluder& a)
+{
+	Light::operator=(a);
+
+	ls			= a.ls;
+	color 		= a.color;
+	min_amount 	= a.min_amount;
+	u 			= a.u;
+	v 			= a.v;
+	w 			= a.w;
+
+	if (sampler_ptr != nullptr) {
+		delete sampler_ptr;
+	}
+	sampler_ptr = a.sampler_ptr->clone();
+
+	return *this;
+}
+
+
+
+AmbientOccluder&
+AmbientOccluder::operator= (AmbientOccluder&& a) noexcept
+{
+	Light::operator=(std::move(a));
+
+	ls			= std::exchange(a.ls, 1.0f);
+	color 		= std::move(a.color);
+	min_amount 	= std::exchange(a.min_amount, 0.0f);
+	u 			= std::move(a.u);
+	v 			= std::move(a.v);
+	w 			= std::move(a.w);
+
+	if (sampler_ptr != nullptr) {
+		delete sampler_ptr;
+	}
+	sampler_ptr = a.sampler_ptr;
+	a.sampler_ptr = nullptr;
+
+	return *this;
+}
+
 
 
 
@@ -51,34 +105,6 @@ AmbientOccluder::clone(void) const {
 	return (new AmbientOccluder(*this));
 }
 
-
-
-AmbientOccluder&
-AmbientOccluder::operator= (const AmbientOccluder& other)
-{
-	if (this == &other) {
-		return *this;
-	}
-
-	Light::operator=(other);
-
-	ls		= other.ls;
-	color 	= other.color;
-	u 		= other.u;
-	v 		= other.v;
-	w 		= other.w;
-
-	return *this;
-}
-
-
-
-AmbientOccluder::~AmbientOccluder(void) {
-	if (sampler_ptr) {
-		delete sampler_ptr;
-		sampler_ptr = nullptr;
-	}
-}
 
 
 void

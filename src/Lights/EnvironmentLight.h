@@ -21,17 +21,22 @@ class Material;
 class EnvironmentLight: public Light {	
 	public:
 		
-		EnvironmentLight(void);   							
+		EnvironmentLight(void) = default;   							
 
-		EnvironmentLight(const EnvironmentLight& dl); 
+		~EnvironmentLight(void);
+
+		EnvironmentLight(const EnvironmentLight& el);
+
+		EnvironmentLight(EnvironmentLight&& el) noexcept;
+
+		EnvironmentLight&
+		operator= (const EnvironmentLight& el);		
+
+		EnvironmentLight&
+		operator= (EnvironmentLight&& el) noexcept;
 		
-		Light* 									
-		clone(void) const override;			
-
-		EnvironmentLight& 									
-		operator= (const EnvironmentLight& rhs); 
-														
-		~EnvironmentLight(void); 
+		Light*
+		clone(void) const override;
 	
 		void 
 		set_sampler(Sampler* sampler); 
@@ -53,10 +58,12 @@ class EnvironmentLight: public Light {
 	
 	private:
 	
-		Sampler*	sampler_ptr;
-		Material* 	material_ptr;
-		Vector3D	u, v, w;		
-		Vector3D	wi;
+		Sampler*	sampler_ptr 	= nullptr;
+		Material* 	material_ptr    = nullptr;
+		Vector3D 	u 				= Vector3D(1.0, 0.0, 0.0);
+		Vector3D 	v 				= Vector3D(0.0, 1.0, 0.0);
+		Vector3D    w 				= Vector3D(0.0, 0.0, 1.0);
+		Vector3D	wi 				= Vector3D(0.0, 0.0, 0.0);
 };
 
 #endif

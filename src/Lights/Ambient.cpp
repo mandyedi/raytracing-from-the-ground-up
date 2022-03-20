@@ -10,14 +10,9 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
+
+#include <utility>
 #include "Ambient.h"
-
-
-Ambient::Ambient (void)
-	: 	Light(),
-		ls(1.0),
-		color(1.0)			
-{}
 
 
 
@@ -29,25 +24,41 @@ Ambient::Ambient (const Ambient& a)
 
 
 
-Light* 
-Ambient::clone(void) const {
-	return (new Ambient(*this));
-}	
+Ambient::Ambient (Ambient&& a) noexcept
+	: 	Light(std::move(a)),
+		ls(std::exchange(a.ls, 1.0f)),
+		color(std::move(a.color)) 		
+{}
 
 
 
 Ambient& 
-Ambient::operator= (const Ambient& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-			
-	Light::operator= (rhs);
+Ambient::operator= (const Ambient& a) {
+	Light::operator= (a);
 	
-	ls 		= rhs.ls;
-	color 	= rhs.color;
+	ls 		= a.ls;
+	color 	= a.color;
 	
 	return (*this);
+}
+
+
+
+Ambient& 
+Ambient::operator= (Ambient&& a) noexcept {
+	Light::operator= (std::move(a));
+	
+	ls 		= std::exchange(a.ls, 1.0f);
+	color 	= std::move(a.color);
+	
+	return (*this);
+}
+
+
+
+Light* 
+Ambient::clone(void) const {
+	return (new Ambient(*this));
 }
 
 

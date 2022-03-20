@@ -24,18 +24,23 @@ class ShadeRec;
 class Light {	
 	public:
 	
-		Light(void);
+		Light(void) = default;
+
+		virtual 							
+		~Light(void);
 								
-		Light(const Light& ls);			
+		Light(const Light& ls);
+
+		Light(Light&& ls) noexcept;
 
 		Light& 								
-		operator= (const Light& rhs); 
+		operator= (const Light& rhs);
+
+		Light& 								
+		operator= (Light&& rhs) noexcept; 
 
 		virtual Light* 						
 		clone(void) const = 0;
-		
-		virtual 							
-		~Light(void);
 						
 		virtual Vector3D								
 		get_direction(ShadeRec& sr) = 0;				
@@ -61,7 +66,7 @@ class Light {
 
 	protected:
 
-		bool shadows;
+		bool shadows = false;
 };
 
 inline void

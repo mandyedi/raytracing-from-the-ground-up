@@ -53,7 +53,7 @@ GlossySpecular::operator= (const GlossySpecular& gs) {
 	ks 			= gs.ks;
 	cs			= gs.cs;
 	exp 		= gs.exp;
-	if (sampler_ptr == nullptr) {
+	if (sampler_ptr != nullptr) {
 		delete sampler_ptr;
 	}
 	sampler_ptr = gs.sampler_ptr->clone();

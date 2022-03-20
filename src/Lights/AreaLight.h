@@ -26,17 +26,22 @@
 class AreaLight: public Light {	
 	public:
 	
-		AreaLight(void);						
+		AreaLight(void) = default;						
 
-		AreaLight(const AreaLight& al);				
+		~AreaLight(void);
+
+		AreaLight(const AreaLight& al);
+
+		AreaLight(AreaLight&& al) noexcept;
+
+		AreaLight&
+		operator= (const AreaLight& al);
+
+		AreaLight&
+		operator= (AreaLight&& al) noexcept;
 
 		AreaLight* 						
-		clone(void) const override;
-		
-		~AreaLight(void);
-		
-		AreaLight& 								
-		operator= (const AreaLight& rhs); 
+		clone(void) const override; 
 		
 		void 									
 		set_object(GeometricObject* obj_ptr);
@@ -61,16 +66,16 @@ class AreaLight: public Light {
 		
 	private:
 		
-		GeometricObject* 	object_ptr;
-		Material* 			material_ptr;	 // will be an emissive material
-		Point3D				sample_point;
-		Normal				light_normal;    // assigned in get_direction - which therefore can't be const for any light
-		Vector3D			wi;			     // unit direction from hit point being shaded to sample point on light surface			
+		GeometricObject* 	object_ptr		= nullptr;
+		Material* 			material_ptr 	= nullptr;	 				// will be an emissive material
+		Point3D				sample_point	= Point3D(0.0);
+		Normal				light_normal 	= Normal(1.0, 0.0, 0.0);    // assigned in get_direction - which therefore can't be const for any light
+		Vector3D			wi 				= Vector3D(0.0);			// unit direction from hit point being shaded to sample point on light surface			
 	
 };
 
 
-// --------------------------------------------------------------- set_object
+
 
 inline void 									
 AreaLight::set_object(GeometricObject* obj_ptr) {

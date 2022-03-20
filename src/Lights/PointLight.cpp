@@ -13,21 +13,53 @@
 #include "PointLight.h"
 
 
-PointLight::PointLight(void)
-	: 	Light(),
-		ls(1.0f),
-		color(1.0f),
-		location(0.0f, 1.0f, 0.0f)
+PointLight::~PointLight(void) {}
+
+
+
+PointLight::PointLight(const PointLight& pl)
+	: 	Light(pl),
+		ls(pl.ls),
+		color(pl.color),
+		location(pl.location)
 {}
 
 
 
-PointLight::PointLight(const PointLight& dl)
-	: 	Light(dl),
-		ls(dl.ls),
-		color(dl.color),
-		location(dl.location)
+PointLight::PointLight(PointLight&& pl) noexcept
+	: 	Light(std::move(pl)),
+		ls(std::exchange(pl.ls, 1.0f)),
+		color(std::move(pl.color)),
+		location(std::move(pl.location))
 {}
+
+
+
+PointLight&
+PointLight::operator= (const PointLight& pl)
+{
+	Light::operator= (pl);
+
+	ls		= pl.ls;
+	color 	= pl.color;
+	location 	= pl.location;
+
+	return (*this);
+}
+
+
+
+PointLight&
+PointLight::operator= (PointLight&& pl) noexcept
+{
+	Light::operator= (std::move(pl));
+
+	ls		= std::exchange(pl.ls, 1.0f);
+	color 	= std::move(pl.color);
+	location 	= std::move(pl.location);
+
+	return (*this);
+}
 
 
 
@@ -36,27 +68,6 @@ PointLight::clone(void) const {
 	return (new PointLight(*this));
 }
 
-
-
-PointLight&
-PointLight::operator= (const PointLight& rhs)
-{
-	if (this == &rhs) {
-		return (*this);
-	}
-
-	Light::operator= (rhs);
-
-	ls		= rhs.ls;
-	color 	= rhs.color;
-	location 	= rhs.location;
-
-	return (*this);
-}
-
-
-
-PointLight::~PointLight(void) {}
 
 
 Vector3D

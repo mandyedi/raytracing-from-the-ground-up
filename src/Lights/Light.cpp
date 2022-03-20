@@ -10,34 +10,43 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#include "Light.h"
 
+#include <utility>
+#include "Light.h"
 #include "../Utilities/RGBColor.h"
 
 
-Light::Light(void) : shadows(false) {}
+Light::~Light(void) {}
 
 
-Light::Light([[maybe_unused]] const Light& ls) {
-	shadows = ls.shadows;
-}
+
+Light::Light(const Light& l)
+	: shadows(l.shadows)
+{}
+
+
+
+Light::Light(Light&& l) noexcept
+	: shadows(std::exchange(l.shadows, false))
+{}
 
 
 
 Light& 
-Light::operator= (const Light& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-
-	shadows = rhs.shadows;
+Light::operator= (const Light& l) {
+	shadows = l.shadows;
 
 	return (*this);
 }
 
 
 
-Light::~Light(void) {} 
+Light& 
+Light::operator= (Light&& l) noexcept {
+	shadows = std::exchange(l.shadows, false);
+
+	return (*this);
+}
 
 
 

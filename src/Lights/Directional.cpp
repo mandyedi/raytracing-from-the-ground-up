@@ -13,13 +13,6 @@
 #include "Directional.h"
 
 
-Directional::Directional(void)
-	: 	Light(),
-		ls(1.0),
-		color(1.0),
-		dir(0, 1, 0)			
-{}
-
 
 
 Directional::Directional(const Directional& dl)
@@ -31,27 +24,44 @@ Directional::Directional(const Directional& dl)
 
 
 
-Light* 
-Directional::clone(void) const {
-	return (new Directional(*this));
+Directional::Directional(Directional&& dl) noexcept
+	: 	Light(std::move(dl)),
+		ls(std::exchange(dl.ls, 1.0f)),
+		color(std::move(dl.color)),
+		dir(std::move(dl.dir))
+{}
+
+
+
+Directional& 
+Directional::operator= (const Directional& dl) {
+	Light::operator= (dl);
+	
+	ls		= dl.ls;
+	color 	= dl.color;
+	dir 	= dl.dir;
+
+	return (*this);
 }
 
 
 
 Directional& 
-Directional::operator= (const Directional& rhs) 	
-{
-	if (this == &rhs) {
-		return (*this);
-	}
-			
-	Light::operator= (rhs);
+Directional::operator= (Directional&& dl) noexcept {
+	Light::operator= (std::move(dl));
 	
-	ls		= rhs.ls;
-	color 	= rhs.color;
-	dir 	= rhs.dir;
+	ls		= std::exchange(dl.ls, 1.0f);
+	color 	= std::move(dl.color);
+	dir 	= std::move(dl.dir);
 
 	return (*this);
+}
+
+
+
+Light* 
+Directional::clone(void) const {
+	return (new Directional(*this));
 }
 
 
