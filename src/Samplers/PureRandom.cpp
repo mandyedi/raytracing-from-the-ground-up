@@ -13,14 +13,7 @@
 #include "PureRandom.h"
 #include "../Utilities/Random.h"
 
-// ---------------------------------------------------------------- default constructor
-	
-PureRandom::PureRandom(void)							
-	: Sampler()
-{}
 
-
-// ---------------------------------------------------------------- constructor
 
 PureRandom::PureRandom(const int num)
 	: Sampler(num) {
@@ -28,39 +21,13 @@ PureRandom::PureRandom(const int num)
 }
 
 
-// ---------------------------------------------------------------- constructor
-
-PureRandom::PureRandom(const PureRandom& r)			
-	: Sampler(r) {
-	generate_samples();
-}
-
-// ---------------------------------------------------------------- assignment operator
-
-PureRandom& 
-PureRandom::operator= (const PureRandom& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-		
-	Sampler::operator=(rhs);
-
-	return (*this);
-}
-
-// ---------------------------------------------------------------- clone
 
 PureRandom*										
 PureRandom::clone(void) const {
 	return (new PureRandom(*this));
 }
 
-// ---------------------------------------------------------------- destructor			
 
-PureRandom::~PureRandom(void) {}
-
-
-// ---------------------------------------------------------------- generate_samples	
 
 void
 PureRandom::generate_samples(void) {

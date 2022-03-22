@@ -13,27 +13,31 @@
 #include "../Materials/Material.h"
 
 
-Material::Material(void)
-	: shadows(true)
+
+
+Material::Material(const Material& material)
+	: shadows(material.shadows)
 {}
 
 
 
-Material::Material([[maybe_unused]] const Material& m) {
-	shadows = m.shadows;
-}
-
+Material::Material(Material&& material) noexcept
+	: shadows(std::exchange(material.shadows, true))
+{}
 
 
 
 Material& 
-Material::operator= (const Material& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
+Material::operator= (const Material& material) {
+	shadows = material.shadows;
+	return (*this);
+}
 
-	shadows = rhs.shadows;
 
+
+Material& 
+Material::operator= (Material&& material) noexcept {
+	shadows = std::exchange(material.shadows, true);
 	return (*this);
 }
 

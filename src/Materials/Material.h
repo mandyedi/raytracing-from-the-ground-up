@@ -20,15 +20,23 @@
 class Material {	
 	public:
 	
-		Material(void);						
+		Material(void) = default;						
 		
-		Material(const Material& material); 
+		virtual 								
+		~Material(void);
+
+		Material(const Material& material);
+
+		Material(Material&& material) noexcept;
+
+		Material& 								
+		operator= (const Material& material);
+
+		Material& 								
+		operator= (Material&& material) noexcept;
 		
 		virtual Material*								
 		clone(void) const = 0;	
-				
-		virtual 								
-		~Material(void);
 				
 		virtual RGBColor
 		shade(ShadeRec& sr);
@@ -42,15 +50,12 @@ class Material {
     	get_Le(ShadeRec& sr) const;
 		
 	protected:
-	
-		Material& 								
-		operator= (const Material& rhs);
 
 		// From the book, chapter 16.7 Shadowing Options
 		// Allows us to specify whether a material has shadows cast on it or not.
 		// This is sometimes necessary for shading objects inside transparent objects
 		// without having to render caustics (see Sections 28.7 and 28.8)
-		bool shadows;
+		bool shadows = true;
 };
 
 #endif

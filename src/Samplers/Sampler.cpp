@@ -18,7 +18,6 @@
 #include "../Utilities/Constants.h"
 #include "../Utilities/Random.h"
 
-// ------------------------------------------------------------------ default constructor
 	
 Sampler::Sampler(void)						
 	: 	num_samples(1),
@@ -30,7 +29,6 @@ Sampler::Sampler(void)
 }
 
 
-// ------------------------------------------------------------------ constructor
 
 Sampler::Sampler(const int ns)
 	: 	num_samples(ns),
@@ -42,7 +40,6 @@ Sampler::Sampler(const int ns)
 }
 
 
-// ------------------------------------------------------------------ constructor
 
 Sampler::Sampler(const int ns, const int n_sets)
 	: 	num_samples(ns),
@@ -54,7 +51,10 @@ Sampler::Sampler(const int ns, const int n_sets)
 }
 
 
-// ------------------------------------------------------------------ copy constructor
+
+Sampler::~Sampler(void) {}
+
+
 
 Sampler::Sampler(const Sampler& s)				
 	: 	num_samples(s.num_samples),
@@ -69,31 +69,55 @@ Sampler::Sampler(const Sampler& s)
 {}
 
 
-// ------------------------------------------------------------------ assignment operator
+
+Sampler::Sampler(Sampler&& s) noexcept				
+	: 	num_samples(std::exchange(s.num_samples, 1)),
+		num_sets(std::exchange(s.num_sets, 83)),
+		samples(std::move(s.samples)),
+		shuffled_indices(std::move(s.shuffled_indices)),
+		disk_samples(std::move(s.disk_samples)),
+		hemisphere_samples(std::move(s.hemisphere_samples)),
+		sphere_samples(std::move(s.sphere_samples)),
+		count(std::exchange(s.count, 0)),
+		jump(std::exchange(s.jump, 0))
+{}
+
+
 
 Sampler& 
-Sampler::operator= (const Sampler& rhs)	{
-	if (this == &rhs) {
-		return (*this);
-	}
-	
-	num_samples 		= rhs.num_samples;
-	num_sets			= rhs.num_sets;
-	samples				= rhs.samples;
-	shuffled_indices	= rhs.shuffled_indices;
-	disk_samples		= rhs.disk_samples;
-	hemisphere_samples	= rhs.hemisphere_samples;
-	sphere_samples		= rhs.sphere_samples;
-	count				= rhs.count;
-	jump				= rhs.jump;
+Sampler::operator= (const Sampler& s) {
+	num_samples 		= s.num_samples;
+	num_sets			= s.num_sets;
+	samples				= s.samples;
+	shuffled_indices	= s.shuffled_indices;
+	disk_samples		= s.disk_samples;
+	hemisphere_samples	= s.hemisphere_samples;
+	sphere_samples		= s.sphere_samples;
+	count				= s.count;
+	jump				= s.jump;
 	
 	return (*this);
 }
 
-Sampler::~Sampler(void) {}
 
 
-// ------------------------------------------------------------------- set_num_sets
+Sampler& 
+Sampler::operator= (Sampler&& s) noexcept {
+	num_samples 		= std::exchange(s.num_samples, 1);
+	num_sets			= std::exchange(s.num_sets, 83);
+	samples				= std::move(s.samples);
+	shuffled_indices	= std::move(s.shuffled_indices);
+	disk_samples		= std::move(s.disk_samples);
+	hemisphere_samples	= std::move(s.hemisphere_samples);
+	sphere_samples		= std::move(s.sphere_samples);
+	count				= std::exchange(s.count, 0);
+	jump				= std::exchange(s.jump, 0);
+	
+	return (*this);
+}
+
+
+
 
 void
 Sampler::set_num_sets(const int np) {
@@ -101,7 +125,6 @@ Sampler::set_num_sets(const int np) {
 }
 
 
-// ------------------------------------------------------------------- get_num_samples
 
 int
 Sampler::get_num_samples(void) {
@@ -109,7 +132,6 @@ Sampler::get_num_samples(void) {
 }
 
 
-// ------------------------------------------------------------------- shuffle_x_coordinates
 // shuffle the x coordinates of the points within each set
 
 void
@@ -125,7 +147,6 @@ Sampler::shuffle_x_coordinates(void) {
 }
 
 
-// ------------------------------------------------------------------- shuffle_y_coordinates
 // shuffle the y coordinates of the points within set
 
 void
@@ -141,7 +162,6 @@ Sampler::shuffle_y_coordinates(void) {
 }
 
 
-// ------------------------------------------------------------------- setup_shuffled_indices
 // sets up randomly shuffled indices for the samples array
 
 void											
@@ -165,7 +185,6 @@ Sampler::setup_shuffled_indices(void) {
 }
 
 
-// ------------------------------------------------------------------- map_samples_to_unit_disk
 
 // Maps the 2D sample points in the square [-1,1] X [-1,1] to a unit disk, using Peter Shirley's
 // concentric map function
@@ -220,7 +239,6 @@ Sampler::map_samples_to_unit_disk(void) {
 }
 
 
-// ------------------------------------------------------------------- map_samples_to_hemisphere
 
 // Maps the 2D sample points to 3D points on a unit hemisphere with a cosine power
 // density distribution in the polar angle
@@ -243,7 +261,6 @@ Sampler::map_samples_to_hemisphere(const float exp) {
 }
 
 
-// ------------------------------------------------------------------- map_samples_to_sphere
 
 // Maps the 2D sample points to 3D points on a unit sphere with a uniform density 
 // distribution over the surface
@@ -266,7 +283,6 @@ Sampler::map_samples_to_sphere(void) {
 }
 
 
-// ------------------------------------------------------------------- sample_unit_square
 // the final version in Listing 5.13
 
 Point2D
@@ -283,7 +299,6 @@ Sampler::sample_unit_square(void) {
 
 /*
 
-// ------------------------------------------------------------------- sample_unit_square
 // the first revised version in Listing in Listing 5.8
 
 Point2D
@@ -300,7 +315,6 @@ Sampler::sample_unit_square(void) {
 
 /*
 
-// ------------------------------------------------------------------- sample_unit_square
 // the original version in Listing 5.7
 
 Point2D
@@ -312,7 +326,6 @@ Sampler::sample_unit_square(void) {
 
 
 
-// ------------------------------------------------------------------- sample_unit_disk
 
 Point2D
 Sampler::sample_unit_disk(void) {
@@ -325,7 +338,6 @@ Sampler::sample_unit_disk(void) {
 
 
 
-// ------------------------------------------------------------------- sample_hemisphere
 
 Point3D
 Sampler::sample_hemisphere(void) {
@@ -338,7 +350,6 @@ Sampler::sample_hemisphere(void) {
 
 
 
-// ------------------------------------------------------------------- sample_sphere
 
 Point3D
 Sampler::sample_sphere(void) {
@@ -351,7 +362,6 @@ Sampler::sample_sphere(void) {
 
 
 
-// ------------------------------------------------------------------- sample_one_set
 // This is a specialised function called in LatticeNoise::init_vector_table
 // It doesn't shuffle the indices
 

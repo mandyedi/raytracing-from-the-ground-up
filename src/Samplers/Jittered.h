@@ -20,22 +20,27 @@
 class Jittered: public Sampler {
 	public:
 		
-		Jittered(void);								
+		Jittered(void) = delete;
 		
 		explicit Jittered(const int num_samples);					
 		
-		Jittered(const int num_samples, const int m);	
+		explicit Jittered(const int num_samples, const int m);
 
-		Jittered(const Jittered& u);					
+		Jittered(const Jittered& r)  = default;
+
+		Jittered(Jittered&& r) = default;
 
 		Jittered& 
-		operator= (const Jittered& rhs);				
+		operator= (const Jittered& rhs) = default;
 
-		virtual Jittered*								
-		clone(void) const override;			
+		Jittered& 
+		operator= (Jittered&& rhs) = default;
 
 		virtual
 		~Jittered(void);
+
+		virtual Jittered*								
+		clone(void) const override;							
 		
 	private:
 		

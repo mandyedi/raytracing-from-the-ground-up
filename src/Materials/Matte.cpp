@@ -21,23 +21,77 @@ Matte::Matte (void)
 
 
 
+Matte::~Matte(void) {
+
+	if (ambient_brdf != nullptr) {
+		delete ambient_brdf;
+		ambient_brdf = nullptr;
+	}
+	
+	if (diffuse_brdf != nullptr) {
+		delete diffuse_brdf;
+		diffuse_brdf = nullptr;
+	}
+}
+
+
 
 Matte::Matte(const Matte& m)
 	: 	Material(m)
 {
-	if (m.ambient_brdf) {
-		ambient_brdf = m.ambient_brdf->clone(); 
-	}
-	else {
-		ambient_brdf = NULL;
-	}
+	ambient_brdf = m.ambient_brdf->clone();
+	diffuse_brdf = m.diffuse_brdf->clone();
+}
+
+
+
+Matte::Matte(Matte&& m) noexcept
+	: 	Material(std::move(m))
+{
+	ambient_brdf = m.ambient_brdf;
+	m.ambient_brdf = nullptr;
+	diffuse_brdf = m.diffuse_brdf;
+	m.diffuse_brdf = nullptr;
+}
+
+
+
+Matte& 
+Matte::operator= (const Matte& m) {
+	Material::operator=(m);
 	
-	if (m.diffuse_brdf) {
-		diffuse_brdf = m.diffuse_brdf->clone();
+	if (ambient_brdf != nullptr) {
+		delete ambient_brdf;
 	}
-	else {
-		diffuse_brdf = NULL;
+	ambient_brdf = m.ambient_brdf->clone();
+		
+	if (diffuse_brdf != nullptr) {
+		delete diffuse_brdf;
 	}
+	diffuse_brdf = m.diffuse_brdf->clone();
+
+	return (*this);
+}
+
+
+
+Matte& 
+Matte::operator= (Matte&& m) noexcept {
+	Material::operator=(std::move(m));
+	
+	if (ambient_brdf != nullptr) {
+		delete ambient_brdf;
+	}
+	ambient_brdf = m.ambient_brdf;
+	m.ambient_brdf = nullptr;
+		
+	if (diffuse_brdf != nullptr) {
+		delete diffuse_brdf;
+	}
+	diffuse_brdf = m.diffuse_brdf;
+	m.diffuse_brdf = nullptr;
+
+	return (*this);
 }
 
 
@@ -45,53 +99,8 @@ Matte::Matte(const Matte& m)
 Material*										
 Matte::clone(void) const {
 	return (new Matte(*this));
-}	
-
-
-
-Matte& 
-Matte::operator= (const Matte& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-		
-	Material::operator=(rhs);
-	
-	if (ambient_brdf) {
-		delete ambient_brdf;
-		ambient_brdf = NULL;
-	}
-
-	if (rhs.ambient_brdf) {
-		ambient_brdf = rhs.ambient_brdf->clone();
-	}
-		
-	if (diffuse_brdf) {
-		delete diffuse_brdf;
-		diffuse_brdf = NULL;
-	}
-
-	if (rhs.diffuse_brdf) {
-		diffuse_brdf = rhs.diffuse_brdf->clone();
-	}
-
-	return (*this);
 }
 
-
-
-Matte::~Matte(void) {
-
-	if (ambient_brdf) {
-		delete ambient_brdf;
-		ambient_brdf = NULL;
-	}
-	
-	if (diffuse_brdf) {
-		delete diffuse_brdf;
-		diffuse_brdf = NULL;
-	}
-}
 
 
 

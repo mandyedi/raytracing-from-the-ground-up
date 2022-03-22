@@ -13,17 +13,8 @@
 #include "Hammersley.h"
 #include "../Utilities/Maths.h"
 
-//extern float 
-//rand_float(void);
-
-// ---------------------------------------------------------------- default constructor
-	
-Hammersley::Hammersley(void)							
-	: 	Sampler()
-{}
 
 
-// ---------------------------------------------------------------- constructor
 
 Hammersley::Hammersley(const int num)
 	: 	Sampler(num) {
@@ -31,28 +22,6 @@ Hammersley::Hammersley(const int num)
 }
 
 
-// ---------------------------------------------------------------- copy constructor
-
-Hammersley::Hammersley(const Hammersley& h)			
-	: 	Sampler(h) {
-	generate_samples();
-}
-
-// ---------------------------------------------------------------- assignment operator
-
-Hammersley& 
-Hammersley::operator= (const Hammersley& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-		
-	Sampler::operator=(rhs);
-
-	return (*this);
-}
-
-
-// ---------------------------------------------------------------- clone
 
 Hammersley*										
 Hammersley::clone(void) const {
@@ -60,12 +29,7 @@ Hammersley::clone(void) const {
 }
 
 
-// ---------------------------------------------------------------- destructor			
 
-Hammersley::~Hammersley(void) {}
-
-
-// ---------------------------------------------------------------- phi
  
 double 
 Hammersley::phi(int j) {
@@ -82,7 +46,7 @@ Hammersley::phi(int j) {
 }
 
 
-// ---------------------------------------------------------------- generate_samples	
+
 
 void
 Hammersley::generate_samples(void) {

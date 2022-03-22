@@ -20,22 +20,26 @@
 class MultiJittered: public Sampler {
 	public:
 		
-		MultiJittered(void);								
+		MultiJittered(void) = default;					
 		
 		explicit MultiJittered(const int num_samples);				
 		
-		MultiJittered(const int num_samples, const int m);	
+		explicit MultiJittered(const int num_samples, const int m);
 
-		MultiJittered(const MultiJittered& mjs);			
+		~MultiJittered(void) = default;					
+
+		MultiJittered(const MultiJittered& r)  = default;
+
+		MultiJittered(MultiJittered&& r) = default;
 
 		MultiJittered& 
-		operator= (const MultiJittered& rhs);				
+		operator= (const MultiJittered& rhs) = default;
+
+		MultiJittered& 
+		operator= (MultiJittered&& rhs) = default;
 
 		virtual MultiJittered*								
-		clone(void) const override;			
-
-		virtual
-		~MultiJittered(void);								
+		clone(void) const override;									
 		
 	private:
 		

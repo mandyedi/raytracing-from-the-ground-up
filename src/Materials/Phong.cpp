@@ -22,30 +22,96 @@ Phong::Phong (void)
 
 
 
+Phong::~Phong(void) {
 
-Phong::Phong(const Phong& m)
-	: 	Material(m)
-{
-	if (m.ambient_brdf) {
-		ambient_brdf = m.ambient_brdf->clone();
-	}
-	else {
+	if (ambient_brdf != nullptr) {
+		delete ambient_brdf;
 		ambient_brdf = nullptr;
 	}
 
-	if (m.diffuse_brdf) {
-		diffuse_brdf = m.diffuse_brdf->clone();
-	}
-	else {
+	if (diffuse_brdf != nullptr) {
+		delete diffuse_brdf;
 		diffuse_brdf = nullptr;
 	}
 
-	if (m.specular_brdf) {
-		specular_brdf = m.specular_brdf->clone();
-	}
-	else {
+	if (specular_brdf != nullptr) {
+		delete specular_brdf;
 		specular_brdf = nullptr;
 	}
+}
+
+
+
+Phong::Phong(const Phong& p)
+	: 	Material(p)
+{
+	ambient_brdf = p.ambient_brdf->clone();
+	diffuse_brdf = p.diffuse_brdf->clone();
+	specular_brdf = p.specular_brdf->clone();
+}
+
+
+
+Phong::Phong(Phong&& p) noexcept
+	: 	Material(std::move(p))
+{
+	ambient_brdf = p.ambient_brdf;
+	p.ambient_brdf = nullptr;
+	diffuse_brdf = p.diffuse_brdf;
+	p.diffuse_brdf = nullptr;
+	specular_brdf = p.specular_brdf;
+	p.specular_brdf = nullptr;
+}
+
+
+
+Phong&
+Phong::operator= (const Phong& p) {
+	Material::operator=(p);
+
+	if (ambient_brdf != nullptr) {
+		delete ambient_brdf;
+	}
+	ambient_brdf = p.ambient_brdf->clone();
+
+	if (diffuse_brdf != nullptr) {
+		delete diffuse_brdf;
+	}
+	diffuse_brdf = p.diffuse_brdf->clone();
+
+	if (specular_brdf != nullptr) {
+		delete specular_brdf;
+	}
+	specular_brdf = p.specular_brdf->clone();
+
+	return (*this);
+}
+
+
+
+Phong&
+Phong::operator= (Phong&& p) noexcept {
+	Material::operator=(std::move(p));
+
+	if (ambient_brdf != nullptr) {
+		delete ambient_brdf;
+	}
+	ambient_brdf = p.ambient_brdf;
+	p.ambient_brdf = nullptr;
+
+	if (diffuse_brdf != nullptr) {
+		delete diffuse_brdf;
+	}
+	diffuse_brdf = p.diffuse_brdf;
+	p.diffuse_brdf = nullptr;
+
+	if (specular_brdf != nullptr) {
+		delete specular_brdf;
+	}
+	specular_brdf = p.specular_brdf;
+	p.specular_brdf = nullptr;
+
+	return (*this);
 }
 
 
@@ -53,66 +119,6 @@ Phong::Phong(const Phong& m)
 Material*
 Phong::clone(void) const {
 	return (new Phong(*this));
-}
-
-
-
-Phong&
-Phong::operator= (const Phong& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-
-	Material::operator=(rhs);
-
-	if (ambient_brdf) {
-		delete ambient_brdf;
-		ambient_brdf = nullptr;
-	}
-
-	if (rhs.ambient_brdf) {
-		ambient_brdf = rhs.ambient_brdf->clone();
-	}
-
-	if (diffuse_brdf) {
-		delete diffuse_brdf;
-		diffuse_brdf = nullptr;
-	}
-
-	if (rhs.diffuse_brdf) {
-		diffuse_brdf = rhs.diffuse_brdf->clone();
-	}
-
-	if (specular_brdf) {
-		delete specular_brdf;
-		specular_brdf = nullptr;
-	}
-
-	if (rhs.specular_brdf) {
-		specular_brdf = rhs.specular_brdf->clone();
-	}
-
-	return (*this);
-}
-
-
-
-Phong::~Phong(void) {
-
-	if (ambient_brdf) {
-		delete ambient_brdf;
-		ambient_brdf = nullptr;
-	}
-
-	if (diffuse_brdf) {
-		delete diffuse_brdf;
-		diffuse_brdf = nullptr;
-	}
-
-	if (specular_brdf) {
-		delete specular_brdf;
-		specular_brdf = nullptr;
-	}
 }
 
 

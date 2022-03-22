@@ -19,20 +19,26 @@
 class Regular: public Sampler {
 	public:
 		
-		Regular(void);							
+		Regular(void) = delete;							
 		
-		explicit Regular(const int num);					
+		explicit Regular(const int num);								
 
-		Regular(const Regular& u);				
+		~Regular(void) = default;					
+
+		Regular(const Regular& r)  = default;
+
+		Regular(Regular&& r) = default;
 
 		Regular& 
-		operator= (const Regular& rhs);			
+		operator= (const Regular& rhs) = default;
+
+		Regular& 
+		operator= (Regular&& rhs) = default;
 
 		virtual Regular*						
 		clone(void) const override;			
 
-		virtual
-		~Regular(void);
+	private:
 		
 		virtual void
 		generate_samples(void) override;

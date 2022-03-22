@@ -12,47 +12,56 @@
 
 #include "Emissive.h"
 
-Emissive::Emissive (void)
-	:	Material(),
-		ls(1.0),
-		ce(0.0)
-{}
 
+
+Emissive::~Emissive(void) {}
 
 
 
 Emissive::Emissive(const Emissive& m)
 	: 	Material(m),
-		ls(1.0),
-		ce(0.0)
+		ls(m.ls),
+		ce(m.ce)
 {}
 
 
 
-Material*										
-Emissive::clone(void) const {
-	return (new Emissive(*this));
-}	
+Emissive::Emissive(Emissive&& m) noexcept
+	: 	Material(std::move(m)),
+		ls(std::exchange(m.ls, 1.0f)),
+		ce(std::move(m.ce))
+{}	
 
 
 
 Emissive& 
-Emissive::operator= (const Emissive& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-		
-	Material::operator=(rhs);
+Emissive::operator= (const Emissive& e) {
+	Material::operator=(e);
 	
-	ls = rhs.ls;
-    ce = rhs.ce;
+	ls = e.ls;
+    ce = e.ce;
 
 	return (*this);
 }
 
 
 
-Emissive::~Emissive(void) {}
+Emissive& 
+Emissive::operator= (Emissive&& e) noexcept {
+	Material::operator=(std::move(e));
+	
+	ls = std::exchange(e.ls, 1.0f);
+    ce = std::move(e.ce);
+
+	return (*this);
+}
+
+
+
+Material*										
+Emissive::clone(void) const {
+	return (new Emissive(*this));
+}
 
 
 

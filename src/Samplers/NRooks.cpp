@@ -13,14 +13,6 @@
 #include "NRooks.h"
 #include "../Utilities/Random.h"
 
-// ---------------------------------------------------------------- default constructor
-	
-NRooks::NRooks(void)							
-	: Sampler()
-{}
-
-
-// ---------------------------------------------------------------- constructor
 
 NRooks::NRooks(const int num_samples)
 	: 	Sampler(num_samples) {
@@ -28,7 +20,6 @@ NRooks::NRooks(const int num_samples)
 }
 
 
-// ---------------------------------------------------------------- constructor
 
 NRooks::NRooks(const int num_samples, const int m)
 	: 	Sampler(num_samples, m) {
@@ -36,39 +27,13 @@ NRooks::NRooks(const int num_samples, const int m)
 }
 
 
-// ---------------------------------------------------------------- copy constructor
-
-NRooks::NRooks(const NRooks& nr)			
-	: Sampler(nr) {
-	generate_samples();
-}
-
-// ---------------------------------------------------------------- assignment operator
-
-NRooks& 
-NRooks::operator= (const NRooks& rhs) {
-	if (this == &rhs) {
-		return (*this);
-	}
-		
-	Sampler::operator=(rhs);
-
-	return (*this);
-}
-
-// ---------------------------------------------------------------- clone
 
 NRooks*										
 NRooks::clone(void) const {
 	return (new NRooks(*this));
 }
 
-// ---------------------------------------------------------------- destructor			
 
-NRooks::~NRooks(void) {}
-
-
-// ---------------------------------------------------------------- generate_samples	
 
 void
 NRooks::generate_samples(void) {	

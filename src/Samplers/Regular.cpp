@@ -12,14 +12,8 @@
 
 #include "Regular.h"
 
-// ---------------------------------------------------------------- default constructor
-	
-Regular::Regular(void)							
-	: Sampler()
-{}
 
 
-// ---------------------------------------------------------------- constructor
 
 Regular::Regular(const int num)
 	: 	Sampler(num) 
@@ -28,40 +22,13 @@ Regular::Regular(const int num)
 }
 
 
-// ---------------------------------------------------------------- copy constructor
-
-Regular::Regular(const Regular& u)			
-	: Sampler(u)
-{
-	generate_samples();
-}
-
-// ---------------------------------------------------------------- assignment operator
-
-Regular& 
-Regular::operator= (const Regular& rhs)	{
-	if (this == &rhs) {
-		return (*this);
-	}
-		
-	Sampler::operator= (rhs);
-
-	return (*this);
-}
-
-// ---------------------------------------------------------------- clone
 
 Regular*										
 Regular::clone(void) const {
 	return (new Regular(*this));
 }
 
-// ---------------------------------------------------------------- destructor			
 
-Regular::~Regular(void) {}
-
-
-// ---------------------------------------------------------------- generate_samples	
 
 void
 Regular::generate_samples(void) {

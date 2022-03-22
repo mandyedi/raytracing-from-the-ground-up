@@ -30,16 +30,21 @@ class Sampler {
 		
 		Sampler(const int num, const int num_sets);		
 
-		Sampler(const Sampler& s);						
+		virtual
+		~Sampler(void);
+
+		Sampler(const Sampler& s);
+
+		Sampler(Sampler&& s) noexcept;
 
 		Sampler& 
-		operator= (const Sampler& rhs);				
+		operator= (const Sampler& s);
+
+		Sampler& 
+		operator= (Sampler&& s) noexcept;
 
 		virtual Sampler*								
 		clone(void) const = 0;			
-
-		virtual
-		~Sampler(void);							
 		
 		void
 		set_num_sets(const int np);					
@@ -91,11 +96,11 @@ class Sampler {
 	
 		int 					num_samples;     		// the number of sample points in a set
 		int 					num_sets;				// the number of sample sets
-		std::vector<Point2D>			samples;				// sample points on a unit square
-		std::vector<int>				shuffled_indices;		// shuffled samples array indices
-		std::vector<Point2D>			disk_samples;			// sample points on a unit disk
-		std::vector<Point3D> 		hemisphere_samples;		// sample points on a unit hemisphere
-		std::vector<Point3D> 		sphere_samples;			// sample points on a unit sphere
+		std::vector<Point2D>	samples;				// sample points on a unit square
+		std::vector<int>		shuffled_indices;		// shuffled samples array indices
+		std::vector<Point2D>	disk_samples;			// sample points on a unit disk
+		std::vector<Point3D> 	hemisphere_samples;		// sample points on a unit hemisphere
+		std::vector<Point3D> 	sphere_samples;			// sample points on a unit sphere
 		unsigned long 			count;					// the current number of sample points used
 		int 					jump;					// random index jump
 };

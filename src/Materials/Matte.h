@@ -22,15 +22,20 @@ class Matte: public Material {
 			
 		Matte(void);											
 
-		Matte(const Matte& m);
-		
-		virtual Material*										
-		clone(void) const override;									
+		~Matte(void);
+
+		Matte(const Matte& m);									
+
+		Matte(Matte&& m) noexcept;
 
 		Matte& 
-		operator= (const Matte& rhs);							
+		operator= (const Matte& m);
 
-		~Matte(void);											
+		Matte& 
+		operator= (Matte&& m) noexcept;									
+
+		virtual Material*										
+		clone(void) const override;
 		
 		void 													
 		set_ka(const float k);
@@ -55,8 +60,8 @@ class Matte: public Material {
 		
 	private:
 		
-		Lambertian*		ambient_brdf;
-		Lambertian*		diffuse_brdf;
+		Lambertian*		ambient_brdf = nullptr;
+		Lambertian*		diffuse_brdf = nullptr;
 };
 
 

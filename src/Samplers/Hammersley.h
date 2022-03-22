@@ -19,20 +19,24 @@
 class Hammersley: public Sampler {
 	public:
 		
-		Hammersley(void);							
+		Hammersley(void) = delete;
 		
-		explicit Hammersley(const int num);					
+		explicit Hammersley(const int num);
 
-		Hammersley(const Hammersley& r);			
+		~Hammersley(void) = default;					
+
+		Hammersley(const Hammersley& r)  = default;
+
+		Hammersley(Hammersley&& r) = default;
 
 		Hammersley& 
-		operator= (const Hammersley& rhs);			
+		operator= (const Hammersley& rhs) = default;
+
+		Hammersley& 
+		operator= (Hammersley&& rhs) = default;
 
 		virtual Hammersley*							
 		clone(void) const override;
-
-		virtual
-		~Hammersley(void);
 		
 		double 
 		phi(int j);

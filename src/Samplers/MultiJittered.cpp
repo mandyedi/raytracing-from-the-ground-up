@@ -13,24 +13,16 @@
 #include "MultiJittered.h"
 #include "../Utilities/Random.h"
 
-// ---------------------------------------------------------------- default constructor
-	
-MultiJittered::MultiJittered(void)							
-	: Sampler()
-{}
 
 
-// ---------------------------------------------------------------- constructor
 
 MultiJittered::MultiJittered(const int num_samples)
 	: 	Sampler(num_samples) {
-//	count = 0;
-//	jump = 0;
 	generate_samples();
 }
 
 
-// ---------------------------------------------------------------- constructor
+
 
 MultiJittered::MultiJittered(const int num_samples, const int m)
 	: 	Sampler(num_samples, m) {
@@ -38,59 +30,14 @@ MultiJittered::MultiJittered(const int num_samples, const int m)
 }
 
 
-// ---------------------------------------------------------------- copy constructor
-
-MultiJittered::MultiJittered(const MultiJittered& mjs)			
-	: Sampler(mjs)
-{
-	generate_samples();
-}
-
-// ---------------------------------------------------------------- assignment operator
-
-MultiJittered& 
-MultiJittered::operator= (const MultiJittered& rhs)	{
-	if (this == &rhs)
-		return (*this);
-		
-	Sampler::operator=(rhs);
-
-	return (*this);
-}
-
-// ---------------------------------------------------------------- clone
 
 MultiJittered*										
 MultiJittered::clone(void) const {
 	return (new MultiJittered(*this));
 }
 
-// ---------------------------------------------------------------- destructor			
-
-MultiJittered::~MultiJittered(void) {}
 
 
-// ---------------------------------------------------------------- shuffle_x_coordinates
-
-/*
-
-void
-MultiJittered::shuffle_x_coordinates(void) {
-	for (int p = 0; p < num_sets; p++) {
-			for (int i = 0; i < n; i++)		
-				for (int j = 0; j < n; j++) {
-					int k = rand_int(j, n - 1);
-					float t = samples[i * n + j + p * num_samples].x;
-					samples[i * n + j + p * num_samples].x = samples[i * n + k + p * num_samples].x;
-					samples[i * n + k + p * num_samples].x = t;
-				}
-		}
-}
-
-*/
-
-
-// ---------------------------------------------------------------- generate_samples
 
 // This is based on code in Chui et al. (1994), cited in the references	
 // The overloaded functions rand_int and rand_float (called from rand_int), which take arguments,

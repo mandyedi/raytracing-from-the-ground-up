@@ -16,24 +16,25 @@
 #include "../Materials/Material.h"
 
 class Emissive: public Material {
-	private:
-	
-		float		ls;		// radiance scaling factor
-		RGBColor 	ce;		// color
 	
 	public:
 	
-		Emissive(void);
+		Emissive(void) = default;
 
-		Emissive(const Emissive& m);
-		
-		virtual Material*
-		clone(void) const override;
+		~Emissive(void);
+
+		Emissive(const Emissive& e);
+
+		Emissive(Emissive&& e) noexcept;
 
 		Emissive& 
-		operator= (const Emissive& rhs);
+		operator= (const Emissive& e);
 
-		~Emissive(void);	
+		Emissive& 
+		operator= (Emissive&& e) noexcept;
+
+		virtual Material*
+		clone(void) const override;
 	
 		virtual RGBColor
 		shade(ShadeRec& sr);
@@ -52,6 +53,11 @@ class Emissive: public Material {
 
 		void
 		scale_radiance(float _ls);
+
+	private:
+	
+		float		ls 	= 1.0f;				// radiance scaling factor
+		RGBColor 	ce 	= RGBColor::black;
 };
 
 inline void

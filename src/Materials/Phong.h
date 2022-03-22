@@ -23,15 +23,20 @@ class Phong: public Material {
 
 		Phong(void);
 
-		Phong(const Phong& m);
+		~Phong(void);
 
-		virtual Material *
-		clone(void) const override;
+		Phong(const Phong& p);
+
+		Phong(Phong&& p) noexcept;
 
 		Phong&
-		operator= (const Phong& rhs);
+		operator= (const Phong& p);
 
-		~Phong(void);
+		Phong&
+		operator= (Phong&& p) noexcept;
+
+		virtual Material*
+		clone(void) const override;
 
 		void
 		set_ka(const float k);
@@ -71,9 +76,9 @@ class Phong: public Material {
 
 	private:
 
-		Lambertian     *ambient_brdf;
-		Lambertian     *diffuse_brdf;
-		GlossySpecular *specular_brdf;
+		Lambertian     *ambient_brdf 	= nullptr;
+		Lambertian     *diffuse_brdf 	= nullptr;
+		GlossySpecular *specular_brdf 	= nullptr;
 };
 
 
