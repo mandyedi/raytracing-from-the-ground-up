@@ -114,6 +114,8 @@ set (SOURCE_TRACERS
 )
 
 set (SOURCE_UTILITIES
+  src/Utilities/BBox.cpp
+  src/Utilities/BBox.h
   src/Utilities/Constants.h
   src/Utilities/Maths.h
   src/Utilities/Matrix.cpp

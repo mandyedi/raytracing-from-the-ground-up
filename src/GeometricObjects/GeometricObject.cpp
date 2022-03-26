@@ -108,6 +108,11 @@ GeometricObject::set_sampler(Sampler* sPtr) {
 	sampler_ptr->map_samples_to_hemisphere(1);  // for perfect diffuse
 }
 
+BBox
+GeometricObject::get_bounding_box() {
+	return BBox();
+}
+
 Point3D 
 GeometricObject::sample(void) {
 	return Point3D();

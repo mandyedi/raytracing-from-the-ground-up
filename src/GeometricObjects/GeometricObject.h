@@ -18,6 +18,7 @@ class Material;
 #include "../Utilities/Point3D.h"
 #include "../Utilities/Ray.h"
 #include "../Utilities/ShadeRec.h"
+#include "../Utilities/BBox.h"
 
 class Sampler;
 
@@ -63,6 +64,9 @@ class GeometricObject {
 
 		RGBColor
 		get_color(void);
+
+		virtual BBox
+		get_bounding_box();
 
 		void
     	set_shadows(bool _shadows);

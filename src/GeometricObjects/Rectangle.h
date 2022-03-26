@@ -41,9 +41,8 @@ class Rectangle: public GeometricObject {
 		Rectangle* 										
 		clone(void) const override;
 
-		// todo: implement it, when BBox class is ready
-		// BBox
-		// get_bounding_box(void);				
+		BBox
+		get_bounding_box(void) override;
 	
 		bool 												 
 		hit(const Ray& ray, double& t, ShadeRec& s) const;	
