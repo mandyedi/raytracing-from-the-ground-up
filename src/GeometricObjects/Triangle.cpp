@@ -12,6 +12,7 @@
 
 #include <utility>
 #include <limits>
+#include <algorithm>
 #include "Triangle.h"
 
 

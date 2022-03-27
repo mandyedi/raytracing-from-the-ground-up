@@ -59,7 +59,7 @@ class Box : public GeometricObject {
 
 	private:
 		Normal
-		Box::get_normal(const int face_hit) const;
+		get_normal(const int face_hit) const;
 };
 
 #endif
