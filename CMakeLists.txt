@@ -50,6 +50,8 @@ set (SOURCE_GEOMETRICOBJECTS
   src/GeometricObjects/Rectangle.h
   src/GeometricObjects/Sphere.cpp
   src/GeometricObjects/Sphere.h
+  src/GeometricObjects/Triangle.cpp
+  src/GeometricObjects/Triangle.h
 )
 
 set (SOURCE_LIGHTS
