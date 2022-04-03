@@ -42,6 +42,8 @@ set (SOURCE_CAMERAS
 set (SOURCE_GEOMETRICOBJECTS
   src/GeometricObjects/Box.cpp
   src/GeometricObjects/Box.h
+  src/GeometricObjects/Disk.cpp
+  src/GeometricObjects/Disk.h
   src/GeometricObjects/GeometricObject.cpp
   src/GeometricObjects/GeometricObject.h
   src/GeometricObjects/Plane.cpp
