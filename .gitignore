@@ -1,5 +1,5 @@
 # CMake build files
-build/
+build*
 
 # Prerequisites
 *.d
