@@ -54,6 +54,8 @@ set (SOURCE_GEOMETRICOBJECTS
   src/GeometricObjects/Rectangle.h
   src/GeometricObjects/Sphere.cpp
   src/GeometricObjects/Sphere.h
+  src/GeometricObjects/Torus.cpp
+  src/GeometricObjects/Torus.h
   src/GeometricObjects/Triangle.cpp
   src/GeometricObjects/Triangle.h
 )
@@ -126,6 +128,7 @@ set (SOURCE_UTILITIES
   src/Utilities/BBox.h
   src/Utilities/Constants.h
   src/Utilities/Maths.h
+  src/Utilities/Maths.cpp
   src/Utilities/Matrix.cpp
   src/Utilities/Matrix.h
   src/Utilities/Normal.cpp
