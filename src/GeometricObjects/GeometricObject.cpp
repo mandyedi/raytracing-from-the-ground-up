@@ -17,7 +17,7 @@
 
 
 
-GeometricObject::~GeometricObject (void) {	
+GeometricObject::~GeometricObject (void) {
 	if (material_ptr != nullptr) {
 		delete material_ptr;
 		material_ptr = nullptr;
@@ -50,7 +50,7 @@ GeometricObject::GeometricObject (GeometricObject&& go) noexcept
 
 
 
-GeometricObject&														
+GeometricObject&
 GeometricObject::operator= (const GeometricObject& go) {
 	color = go.color;
 	shadows = go.shadows;
@@ -70,7 +70,7 @@ GeometricObject::operator= (const GeometricObject& go) {
 
 
 
-GeometricObject&														
+GeometricObject&
 GeometricObject::operator= (GeometricObject&& go) noexcept {
 	color = std::move(go.color);
 	shadows = std::exchange(go.shadows, true);
@@ -97,7 +97,7 @@ GeometricObject::shadow_hit(const Ray &ray, float &tmin) const {
     return false;
 }
 
-void 
+void
 GeometricObject::set_material(Material* mPtr) {
 	material_ptr = mPtr;
 }
@@ -109,11 +109,11 @@ GeometricObject::set_sampler(Sampler* sPtr) {
 }
 
 BBox
-GeometricObject::get_bounding_box() {
+GeometricObject::get_bounding_box() const {
 	return BBox();
 }
 
-Point3D 
+Point3D
 GeometricObject::sample(void) {
 	return Point3D();
 }

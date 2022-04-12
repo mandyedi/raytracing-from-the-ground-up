@@ -10,33 +10,36 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#ifndef __TORUS__
-#define __TORUS__
+#ifndef __CONVEXPARTTORUS__
+#define __CONVEXPARTTORUS__
 
 #include "GeometricObject.h"
 
-class Torus: public GeometricObject {
+
+class ConvexPartTorus: public GeometricObject {
 
 public:
 
-    Torus();
+    ConvexPartTorus();
 
-    explicit Torus(const double _a, const double _b);
+    explicit ConvexPartTorus(const double _a,      const double _b,
+                             const double _phi1,   const double _phi2,
+                             const double _theta1, const double _theta2);
 
-    ~Torus() = default;
+    ~ConvexPartTorus() = default;
 
-    Torus(const Torus& t);
+    ConvexPartTorus(const ConvexPartTorus& c);
 
-    Torus(Torus&& t) noexcept;
+    ConvexPartTorus(ConvexPartTorus&& c) noexcept;
 
-    Torus&
-    operator= (const Torus& t);
+    ConvexPartTorus&
+    operator= (const ConvexPartTorus& c);
 
-    Torus&
-    operator= (Torus&& t) noexcept;
+    ConvexPartTorus&
+    operator= (ConvexPartTorus&& c) noexcept;
 
-    Normal
-    compute_normal(const Point3D& p) const;
+    ConvexPartTorus*
+    clone() const override;
 
     bool
     hit(const Ray& ray, double& tmin, ShadeRec& sr) const override;
@@ -45,7 +48,14 @@ private:
 
     double a;
     double b;
+    double phi1;
+    double phi2;
+    double theta1;
+    double theta2;
     BBox   bbox;
+
+    Normal
+    compute_normal(const Point3D& p) const;
 };
 
 #endif

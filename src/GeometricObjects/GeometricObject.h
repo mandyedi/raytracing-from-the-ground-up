@@ -14,7 +14,7 @@
 #define __GEOMETRIC_OBJECT__
 
 class Material;
-	
+
 #include "../Utilities/Point3D.h"
 #include "../Utilities/Ray.h"
 #include "../Utilities/ShadeRec.h"
@@ -22,15 +22,15 @@ class Material;
 
 class Sampler;
 
-class GeometricObject {	
-	
-	public:	
+class GeometricObject {
+
+	public:
 
 		GeometricObject(void) = default;
 
 		virtual
 		~GeometricObject (void);
-		
+
 		GeometricObject(const GeometricObject& go);
 
 		GeometricObject(GeometricObject&& go) noexcept;
@@ -43,13 +43,13 @@ class GeometricObject {
 
 		virtual GeometricObject*
 		clone(void) const = 0;
-			
+
 		virtual bool
 		hit(const Ray& ray, double& t, ShadeRec& s) const = 0;
-		
+
 		virtual bool
     	shadow_hit(const Ray& ray, float& tmin) const;
-		
+
 		Material*
 		get_material(void) const;
 
@@ -66,7 +66,7 @@ class GeometricObject {
 		get_color(void);
 
 		virtual BBox
-		get_bounding_box();
+		get_bounding_box() const;
 
 		void
     	set_shadows(bool _shadows);
@@ -74,20 +74,20 @@ class GeometricObject {
     	// the following functions are used when the rectangle is a light source
     	// todo: implement them in rectangle, disk and sphere
 
-    	virtual void 								
-		set_sampler(Sampler* sampler); 
-				
-		virtual Point3D 											
+    	virtual void
+		set_sampler(Sampler* sampler);
+
+		virtual Point3D
 		sample(void);
-		
-		virtual Normal 																
-		get_normal(const Point3D& p);		
-		
-		virtual float												
+
+		virtual Normal
+		get_normal(const Point3D& p);
+
+		virtual float
 		pdf(const ShadeRec& sr);
-	
+
 	protected:
-	
+
 		RGBColor   			color = RGBColor::black;
 
 		// From the book, chapter 16.7 Shadowing Options
@@ -103,7 +103,7 @@ class GeometricObject {
 
 
 
-inline Material* 
+inline Material*
 GeometricObject::get_material(void) const {
 	return (material_ptr);
 }
