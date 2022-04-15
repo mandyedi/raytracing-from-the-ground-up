@@ -22,12 +22,12 @@ public:
 
     ConvexPartSphere() = default;
 
-    ConvexPartSphere(	const Point3D 	c,
-                        const double 	r,
-                        const double 	azimuth_min,	// in degrees
-                        const double 	azimuth_max,	// in degrees
-                        const double 	polar_min,		// in degrees measured from top
-                        const double 	polar_max);		// in degrees measured from top
+    ConvexPartSphere(   const Point3D   c,
+                        const double    r,
+                        const double    azimuth_min,    // in degrees
+                        const double    azimuth_max,    // in degrees
+                        const double    polar_min,      // in degrees measured from top
+                        const double    polar_max);     // in degrees measured from top
 
     ConvexPartSphere(const Point3D c, const double radius);
 

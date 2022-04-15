@@ -18,95 +18,95 @@ const double Plane::kEpsilon = 0.001;
 
 
 Plane::Plane(const Point3D& point, const Normal& normal)
-	:	GeometricObject(),
-		a(point),
-		n(normal)
+    :   GeometricObject(),
+        a(point),
+        n(normal)
 {
-		n.normalize();
+        n.normalize();
 }
 
 
 
-Plane::~Plane(void)				
+Plane::~Plane(void)
 {}
 
 
 
-Plane::Plane(const Plane& p) 
-	:	GeometricObject(p),
-		a(p.a),
-		n(p.n) 				
+Plane::Plane(const Plane& p)
+    :   GeometricObject(p),
+        a(p.a),
+        n(p.n)
 {}
 
 
 
 Plane::Plane(Plane&& p) noexcept
-	:	GeometricObject(std::move(p)),
-		a(std::move(p.a)),
-		n(std::move(p.n)) 				
+    :   GeometricObject(std::move(p)),
+        a(std::move(p.a)),
+        n(std::move(p.n))
 {}
 
 
 
-Plane& 
-Plane::operator= (const Plane& p)	{
-	GeometricObject::operator= (p);
+Plane&
+Plane::operator= (const Plane& p)   {
+    GeometricObject::operator= (p);
 
-	a = p.a;
-	n = p.n;
+    a = p.a;
+    n = p.n;
 
-	return (*this);
+    return (*this);
 }
 
 
 
-Plane& 
+Plane&
 Plane::operator= (Plane&& p) noexcept {
-	GeometricObject::operator= (std::move(p));
+    GeometricObject::operator= (std::move(p));
 
-	a = std::move(p.a);
-	n = std::move(p.n);
+    a = std::move(p.a);
+    n = std::move(p.n);
 
-	return (*this);
+    return (*this);
 }
 
 
 
-Plane* 
+Plane*
 Plane::clone(void) const {
-	return (new Plane(*this));
+    return (new Plane(*this));
 }
 
 
 
-bool 															 
-Plane::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {	
-	double t = (a - ray.o) * n / (ray.d * n); 
-														
-	if (t > kEpsilon) {
-		tmin = t;
-		sr.normal = n;
-		sr.local_hit_point = ray.o + t * ray.d;
-		
-		return true;	
-	}
+bool
+Plane::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+    double t = (a - ray.o) * n / (ray.d * n);
 
-	return false;
+    if (t > kEpsilon) {
+        tmin = t;
+        sr.normal = n;
+        sr.local_hit_point = ray.o + t * ray.d;
+
+        return true;
+    }
+
+    return false;
 }
 
 bool
 Plane::shadow_hit(const Ray& ray, float& tmin) const {
-	if (!shadows) {
-		return false;
-	}
+    if (!shadows) {
+        return false;
+    }
 
-	float t = (a - ray.o) * n / (ray.d * n);
-														
-	if (t > kEpsilon) {
-		tmin = t;
-		return true;	
-	}
+    float t = (a - ray.o) * n / (ray.d * n);
 
-	return false;
+    if (t > kEpsilon) {
+        tmin = t;
+        return true;
+    }
+
+    return false;
 
 }

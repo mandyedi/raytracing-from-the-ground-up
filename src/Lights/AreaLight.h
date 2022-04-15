@@ -23,64 +23,64 @@
 #include "../GeometricObjects/GeometricObject.h"
 
 
-class AreaLight: public Light {	
-	public:
-	
-		AreaLight(void) = default;						
+class AreaLight: public Light {
+    public:
 
-		~AreaLight(void);
+        AreaLight(void) = default;
 
-		AreaLight(const AreaLight& al);
+        ~AreaLight(void);
 
-		AreaLight(AreaLight&& al) noexcept;
+        AreaLight(const AreaLight& al);
 
-		AreaLight&
-		operator= (const AreaLight& al);
+        AreaLight(AreaLight&& al) noexcept;
 
-		AreaLight&
-		operator= (AreaLight&& al) noexcept;
+        AreaLight&
+        operator= (const AreaLight& al);
 
-		AreaLight* 						
-		clone(void) const override; 
-		
-		void 									
-		set_object(GeometricObject* obj_ptr);
-		
-		// From the book, chapter 18.8 The Area Light Class
-		// This function will work for planar objects and objects that are defined by
-		// a signle implicit function but will not work for other objects (e.g. asix-aligned box).
-		Vector3D												
-		get_direction(ShadeRec& s) override;
-		
-		RGBColor						
-		L(ShadeRec& sr) override;
-		
-		bool									
-		in_shadow(const Ray& ray, const ShadeRec& sr) const override;
-		
-		float
-		G(const ShadeRec& sr) const override;
-		
-		float									
-		pdf(const ShadeRec& sr) const override;
-		
-	private:
-		
-		GeometricObject* 	object_ptr		= nullptr;
-		Material* 			material_ptr 	= nullptr;	 				// will be an emissive material
-		Point3D				sample_point	= Point3D(0.0);
-		Normal				light_normal 	= Normal(1.0, 0.0, 0.0);    // assigned in get_direction - which therefore can't be const for any light
-		Vector3D			wi 				= Vector3D(0.0);			// unit direction from hit point being shaded to sample point on light surface			
-	
+        AreaLight&
+        operator= (AreaLight&& al) noexcept;
+
+        AreaLight*
+        clone(void) const override;
+
+        void
+        set_object(GeometricObject* obj_ptr);
+
+        // From the book, chapter 18.8 The Area Light Class
+        // This function will work for planar objects and objects that are defined by
+        // a signle implicit function but will not work for other objects (e.g. asix-aligned box).
+        Vector3D
+        get_direction(ShadeRec& s) override;
+
+        RGBColor
+        L(ShadeRec& sr) override;
+
+        bool
+        in_shadow(const Ray& ray, const ShadeRec& sr) const override;
+
+        float
+        G(const ShadeRec& sr) const override;
+
+        float
+        pdf(const ShadeRec& sr) const override;
+
+    private:
+
+        GeometricObject*    object_ptr      = nullptr;
+        Material*           material_ptr    = nullptr;                  // will be an emissive material
+        Point3D             sample_point    = Point3D(0.0);
+        Normal              light_normal    = Normal(1.0, 0.0, 0.0);    // assigned in get_direction - which therefore can't be const for any light
+        Vector3D            wi              = Vector3D(0.0);            // unit direction from hit point being shaded to sample point on light surface
+
 };
 
 
 
 
-inline void 									
+inline void
 AreaLight::set_object(GeometricObject* obj_ptr) {
-	object_ptr = obj_ptr;
-	material_ptr = object_ptr->get_material();	
+    object_ptr = obj_ptr;
+    material_ptr = object_ptr->get_material();
 }
 
 #endif

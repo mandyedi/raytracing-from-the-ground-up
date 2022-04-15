@@ -19,58 +19,58 @@ Emissive::~Emissive(void) {}
 
 
 Emissive::Emissive(const Emissive& m)
-	: 	Material(m),
-		ls(m.ls),
-		ce(m.ce)
+    :   Material(m),
+        ls(m.ls),
+        ce(m.ce)
 {}
 
 
 
 Emissive::Emissive(Emissive&& m) noexcept
-	: 	Material(std::move(m)),
-		ls(std::exchange(m.ls, 1.0f)),
-		ce(std::move(m.ce))
-{}	
+    :   Material(std::move(m)),
+        ls(std::exchange(m.ls, 1.0f)),
+        ce(std::move(m.ce))
+{}
 
 
 
-Emissive& 
+Emissive&
 Emissive::operator= (const Emissive& e) {
-	Material::operator=(e);
-	
-	ls = e.ls;
+    Material::operator=(e);
+
+    ls = e.ls;
     ce = e.ce;
 
-	return (*this);
+    return (*this);
 }
 
 
 
-Emissive& 
+Emissive&
 Emissive::operator= (Emissive&& e) noexcept {
-	Material::operator=(std::move(e));
-	
-	ls = std::exchange(e.ls, 1.0f);
+    Material::operator=(std::move(e));
+
+    ls = std::exchange(e.ls, 1.0f);
     ce = std::move(e.ce);
 
-	return (*this);
+    return (*this);
 }
 
 
 
-Material*										
+Material*
 Emissive::clone(void) const {
-	return (new Emissive(*this));
+    return (new Emissive(*this));
 }
 
 
 
 RGBColor
-Emissive::area_light_shade(ShadeRec& sr) {	
-	if (-sr.normal * sr.ray.d > 0.0) {
-		return (ls * ce);
-	}
-	else {
-		return (RGBColor::black);
-	}
+Emissive::area_light_shade(ShadeRec& sr) {
+    if (-sr.normal * sr.ray.d > 0.0) {
+        return (ls * ce);
+    }
+    else {
+        return (RGBColor::black);
+    }
 }

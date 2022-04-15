@@ -19,66 +19,66 @@
 
 
 class Phong: public Material {
-	public:
+    public:
 
-		Phong(void);
+        Phong(void);
 
-		~Phong(void);
+        ~Phong(void);
 
-		Phong(const Phong& p);
+        Phong(const Phong& p);
 
-		Phong(Phong&& p) noexcept;
+        Phong(Phong&& p) noexcept;
 
-		Phong&
-		operator= (const Phong& p);
+        Phong&
+        operator= (const Phong& p);
 
-		Phong&
-		operator= (Phong&& p) noexcept;
+        Phong&
+        operator= (Phong&& p) noexcept;
 
-		virtual Material*
-		clone(void) const override;
+        virtual Material*
+        clone(void) const override;
 
-		void
-		set_ka(const float k);
+        void
+        set_ka(const float k);
 
-		void
-		set_kd(const float k);
+        void
+        set_kd(const float k);
 
-		void
-		set_cd(const RGBColor c);
+        void
+        set_cd(const RGBColor c);
 
-		void
-		set_cd(const float r, const float g, const float b);
+        void
+        set_cd(const float r, const float g, const float b);
 
-		void
-		set_cd(const float c);
+        void
+        set_cd(const float c);
 
-		void
-		set_ks(const float ks);
+        void
+        set_ks(const float ks);
 
-		void
-		set_exp(const float exp);
+        void
+        set_exp(const float exp);
 
-		void
-		set_cs(const RGBColor &c);
+        void
+        set_cs(const RGBColor &c);
 
-		void
-		set_cs(const float r, const float g, const float b);
+        void
+        set_cs(const float r, const float g, const float b);
 
-		void
-		set_cs(const float c);
+        void
+        set_cs(const float c);
 
-		virtual RGBColor
-		shade(ShadeRec& sr) override;
+        virtual RGBColor
+        shade(ShadeRec& sr) override;
 
-		virtual RGBColor
-		area_light_shade(ShadeRec &sr);
+        virtual RGBColor
+        area_light_shade(ShadeRec &sr);
 
-	private:
+    private:
 
-		Lambertian     *ambient_brdf 	= nullptr;
-		Lambertian     *diffuse_brdf 	= nullptr;
-		GlossySpecular *specular_brdf 	= nullptr;
+        Lambertian     *ambient_brdf    = nullptr;
+        Lambertian     *diffuse_brdf    = nullptr;
+        GlossySpecular *specular_brdf   = nullptr;
 };
 
 
@@ -86,70 +86,70 @@ class Phong: public Material {
 // there is no Lambertian::ka data member because ambient reflection is diffuse reflection
 inline void
 Phong::set_ka(const float ka) {
-	ambient_brdf->set_kd(ka);
+    ambient_brdf->set_kd(ka);
 }
 
 
 // this also sets Lambertian::kd, but for a different Lambertian object
 inline void
 Phong::set_kd (const float kd) {
-	diffuse_brdf->set_kd(kd);
+    diffuse_brdf->set_kd(kd);
 }
 
 
 
 inline void
 Phong::set_cd(const RGBColor c) {
-	ambient_brdf->set_cd(c);
-	diffuse_brdf->set_cd(c);
+    ambient_brdf->set_cd(c);
+    diffuse_brdf->set_cd(c);
 }
 
 
 
 inline void
 Phong::set_cd(const float r, const float g, const float b) {
-	ambient_brdf->set_cd(r, g, b);
-	diffuse_brdf->set_cd(r, g, b);
+    ambient_brdf->set_cd(r, g, b);
+    diffuse_brdf->set_cd(r, g, b);
 }
 
 
 inline void
 Phong::set_cd(const float c) {
-	ambient_brdf->set_cd(c);
-	diffuse_brdf->set_cd(c);
+    ambient_brdf->set_cd(c);
+    diffuse_brdf->set_cd(c);
 }
 
 inline void
 Phong::set_ks(const float k) {
-	specular_brdf->set_ks(k);
+    specular_brdf->set_ks(k);
 }
 
 
 
 inline void
 Phong::set_exp(const float e) {
-	specular_brdf->set_exp(e);
+    specular_brdf->set_exp(e);
 }
 
 
 
 inline void
 Phong::set_cs(const RGBColor &c) {
-	specular_brdf->set_cs(c);
+    specular_brdf->set_cs(c);
 }
 
 
 
 inline void
 Phong::set_cs(const float r, const float g, const float b) {
-	specular_brdf->set_cs(r, g, b);
+    specular_brdf->set_cs(r, g, b);
 }
 
 
 
 inline void
 Phong::set_cs(const float c) {
-	specular_brdf->set_cs(c);
+    specular_brdf->set_cs(c);
 }
 
 #endif

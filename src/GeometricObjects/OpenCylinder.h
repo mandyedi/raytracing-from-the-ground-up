@@ -16,38 +16,38 @@
 #include "GeometricObject.h"
 
 class OpenCylinder: public GeometricObject {
-	public:
+    public:
 
-		OpenCylinder(void) = default;
+        OpenCylinder(void) = default;
 
-		explicit OpenCylinder(double bottom, double top, double radius);
+        explicit OpenCylinder(double bottom, double top, double radius);
 
-		~OpenCylinder(void) = default;
+        ~OpenCylinder(void) = default;
 
-		OpenCylinder(const OpenCylinder& oc);
+        OpenCylinder(const OpenCylinder& oc);
 
-		OpenCylinder(OpenCylinder&& oc) noexcept;
+        OpenCylinder(OpenCylinder&& oc) noexcept;
 
-		OpenCylinder&
-		operator= (const OpenCylinder& oc);
+        OpenCylinder&
+        operator= (const OpenCylinder& oc);
 
-		OpenCylinder&
-		operator= (OpenCylinder&& oc) noexcept;
+        OpenCylinder&
+        operator= (OpenCylinder&& oc) noexcept;
 
-		OpenCylinder*
-		clone(void) const override;
+        OpenCylinder*
+        clone(void) const override;
 
-		bool
-		hit(const Ray& ray, double& t, ShadeRec& s) const;
+        bool
+        hit(const Ray& ray, double& t, ShadeRec& s) const;
 
-	private:
+    private:
 
-		double y0			= 0.0;
-		double y1			= 0.0;
-		double radius		= 1.0;
-		double inv_radius	= 1.0;
+        double y0           = 0.0;
+        double y1           = 0.0;
+        double radius       = 1.0;
+        double inv_radius   = 1.0;
 
-		static const double kEpsilon;
+        static const double kEpsilon;
 };
 
 #endif

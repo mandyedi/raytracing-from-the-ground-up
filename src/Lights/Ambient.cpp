@@ -17,48 +17,48 @@
 
 
 Ambient::Ambient (const Ambient& a)
-	: 	Light(a),
-		ls(a.ls),
-		color(a.color) 		
+    :   Light(a),
+        ls(a.ls),
+        color(a.color)
 {}
 
 
 
 Ambient::Ambient (Ambient&& a) noexcept
-	: 	Light(std::move(a)),
-		ls(std::exchange(a.ls, 1.0f)),
-		color(std::move(a.color)) 		
+    :   Light(std::move(a)),
+        ls(std::exchange(a.ls, 1.0f)),
+        color(std::move(a.color))
 {}
 
 
 
-Ambient& 
+Ambient&
 Ambient::operator= (const Ambient& a) {
-	Light::operator= (a);
-	
-	ls 		= a.ls;
-	color 	= a.color;
-	
-	return (*this);
+    Light::operator= (a);
+
+    ls      = a.ls;
+    color   = a.color;
+
+    return (*this);
 }
 
 
 
-Ambient& 
+Ambient&
 Ambient::operator= (Ambient&& a) noexcept {
-	Light::operator= (std::move(a));
-	
-	ls 		= std::exchange(a.ls, 1.0f);
-	color 	= std::move(a.color);
-	
-	return (*this);
+    Light::operator= (std::move(a));
+
+    ls      = std::exchange(a.ls, 1.0f);
+    color   = std::move(a.color);
+
+    return (*this);
 }
 
 
 
-Light* 
+Light*
 Ambient::clone(void) const {
-	return (new Ambient(*this));
+    return (new Ambient(*this));
 }
 
 
@@ -67,16 +67,16 @@ Ambient::~Ambient (void) {}
 
 
 
-Vector3D								
+Vector3D
 Ambient::get_direction([[maybe_unused]] ShadeRec& s) {
-	return (Vector3D(0.0));
+    return (Vector3D(0.0));
 }
 
 
 
 RGBColor
-Ambient::L([[maybe_unused]] ShadeRec& sr) {	
-	return (ls * color);
+Ambient::L([[maybe_unused]] ShadeRec& sr) {
+    return (ls * color);
 }
 
 

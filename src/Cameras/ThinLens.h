@@ -18,65 +18,65 @@
 
 class ThinLens: public Camera {
 
-	public:
+    public:
 
-		ThinLens() = default;
+        ThinLens() = default;
 
-		~ThinLens();
+        ~ThinLens();
 
-		ThinLens(const ThinLens& tl);
+        ThinLens(const ThinLens& tl);
 
-		ThinLens(ThinLens&& tl) noexcept;
+        ThinLens(ThinLens&& tl) noexcept;
 
-		ThinLens&
-		operator= (const ThinLens& tl);
+        ThinLens&
+        operator= (const ThinLens& tl);
 
-		ThinLens&
-		operator= (ThinLens&& tl) noexcept;
+        ThinLens&
+        operator= (ThinLens&& tl) noexcept;
 
-		Camera*
-		clone(void) const override;
+        Camera*
+        clone(void) const override;
 
-		void
-		set_sampler(Sampler* sp);
+        void
+        set_sampler(Sampler* sp);
 
-		Vector3D
-		ray_direction(const Point2D& pixel_point, const Point2D& lens_point) const;
+        Vector3D
+        ray_direction(const Point2D& pixel_point, const Point2D& lens_point) const;
 
-		void
-		render_scene(const World& w, float x = 0, int offset = 0) override;
+        void
+        render_scene(const World& w, float x = 0, int offset = 0) override;
 
-		void
-		set_view_distance(float distance);
+        void
+        set_view_distance(float distance);
 
-		void
-		set_focal_distance(float distance);
+        void
+        set_focal_distance(float distance);
 
-		void
-		set_lens_radius(float radius);
+        void
+        set_lens_radius(float radius);
 
-	private:
+    private:
 
-		float		lens_radius 	= 1.0f;				// lens radius
-		float		d 				= 500.0f;			// view plane distance
-		float		f 				= 100.0f;			// focal distance
-		float		zoom 			= 1.0f;				// zoom factor
-		Sampler*	sampler_ptr 	= nullptr;			// sampler object
+        float       lens_radius     = 1.0f;             // lens radius
+        float       d               = 500.0f;           // view plane distance
+        float       f               = 100.0f;           // focal distance
+        float       zoom            = 1.0f;             // zoom factor
+        Sampler*    sampler_ptr     = nullptr;          // sampler object
 };
 
 inline void
 ThinLens::set_view_distance(float distance) {
-	d = distance;
+    d = distance;
 }
 
 inline void
 ThinLens::set_focal_distance(float distance) {
-	f = distance;
+    f = distance;
 }
 
 inline void
 ThinLens::set_lens_radius(float radius) {
-	lens_radius = radius;
+    lens_radius = radius;
 }
 
 #endif

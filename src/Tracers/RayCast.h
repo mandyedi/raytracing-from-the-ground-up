@@ -16,25 +16,25 @@
 #include "Tracer.h"
 
 class RayCast: public Tracer {
-	public:
-		
-		RayCast(void) = delete;
-		
-		explicit RayCast(World* _worldPtr);
-		
-		~RayCast(void);
+    public:
 
-		// For the sake of simplicity I prevent copy and move
-		RayCast(const RayCast& rc) = delete;
-		RayCast(RayCast&& rc) = delete;
-		RayCast& operator= (const RayCast& rc) = delete;
-		RayCast& operator= (RayCast&& rc) = delete;
+        RayCast(void) = delete;
 
-		RGBColor	
-		trace_ray(const Ray& ray) const override;
+        explicit RayCast(World* _worldPtr);
 
-		RGBColor	
-		trace_ray(const Ray& ray, const int depth) const override;
+        ~RayCast(void);
+
+        // For the sake of simplicity I prevent copy and move
+        RayCast(const RayCast& rc) = delete;
+        RayCast(RayCast&& rc) = delete;
+        RayCast& operator= (const RayCast& rc) = delete;
+        RayCast& operator= (RayCast&& rc) = delete;
+
+        RGBColor
+        trace_ray(const Ray& ray) const override;
+
+        RGBColor
+        trace_ray(const Ray& ray, const int depth) const override;
 };
 
 #endif

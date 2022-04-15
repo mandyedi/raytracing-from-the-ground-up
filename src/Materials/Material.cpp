@@ -16,29 +16,29 @@
 
 
 Material::Material(const Material& material)
-	: shadows(material.shadows)
+    : shadows(material.shadows)
 {}
 
 
 
 Material::Material(Material&& material) noexcept
-	: shadows(std::exchange(material.shadows, true))
+    : shadows(std::exchange(material.shadows, true))
 {}
 
 
 
-Material& 
+Material&
 Material::operator= (const Material& material) {
-	shadows = material.shadows;
-	return (*this);
+    shadows = material.shadows;
+    return (*this);
 }
 
 
 
-Material& 
+Material&
 Material::operator= (Material&& material) noexcept {
-	shadows = std::exchange(material.shadows, true);
-	return (*this);
+    shadows = std::exchange(material.shadows, true);
+    return (*this);
 }
 
 
@@ -50,7 +50,7 @@ Material::~Material(void)
 
 RGBColor
 Material::shade([[maybe_unused]] ShadeRec& sr) {
-	return (RGBColor::black);
+    return (RGBColor::black);
 }
 
 

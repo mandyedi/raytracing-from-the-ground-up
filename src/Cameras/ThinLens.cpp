@@ -19,79 +19,79 @@
 
 
 ThinLens::~ThinLens(void) {
-	if (sampler_ptr != nullptr) {
-		delete sampler_ptr;
-		sampler_ptr = nullptr;
-	}
+    if (sampler_ptr != nullptr) {
+        delete sampler_ptr;
+        sampler_ptr = nullptr;
+    }
 }
 
 
 
 ThinLens::ThinLens(const ThinLens& tl)
-	: 	Camera(tl),
-		lens_radius(tl.lens_radius),
-		d(tl.d),
-		f(tl.f),
-		zoom(tl.zoom)
+    :   Camera(tl),
+        lens_radius(tl.lens_radius),
+        d(tl.d),
+        f(tl.f),
+        zoom(tl.zoom)
 {
-	sampler_ptr = tl.sampler_ptr->clone();
+    sampler_ptr = tl.sampler_ptr->clone();
 }
 
 
 
 ThinLens::ThinLens(ThinLens&& tl) noexcept
-	: 	Camera(std::move(tl)),
-		lens_radius(std::exchange(tl.lens_radius, 0.0f)),
-		d(std::exchange(tl.d, 0.0f)),
-		f(std::exchange(tl.f, 0.0f)),
-		zoom(std::exchange(tl.zoom, 0.0f)),
-		sampler_ptr(std::exchange(tl.sampler_ptr, nullptr))
+    :   Camera(std::move(tl)),
+        lens_radius(std::exchange(tl.lens_radius, 0.0f)),
+        d(std::exchange(tl.d, 0.0f)),
+        f(std::exchange(tl.f, 0.0f)),
+        zoom(std::exchange(tl.zoom, 0.0f)),
+        sampler_ptr(std::exchange(tl.sampler_ptr, nullptr))
 {}
 
 
 
 ThinLens&
 ThinLens::operator= (const ThinLens& tl) {
-	Camera::operator= (tl);
+    Camera::operator= (tl);
 
-	lens_radius = tl.lens_radius;
-	d 			= tl.d;
-	f 			= tl.f;
-	zoom		= tl.zoom;
+    lens_radius = tl.lens_radius;
+    d           = tl.d;
+    f           = tl.f;
+    zoom        = tl.zoom;
 
-	if (sampler_ptr != nullptr) {
-		delete sampler_ptr;
-	}
-	sampler_ptr = tl.sampler_ptr->clone();
+    if (sampler_ptr != nullptr) {
+        delete sampler_ptr;
+    }
+    sampler_ptr = tl.sampler_ptr->clone();
 
-	return (*this);
+    return (*this);
 }
 
 
 
 ThinLens&
 ThinLens::operator= (ThinLens&& tl) noexcept {
-	Camera::operator= (std::move(tl));
+    Camera::operator= (std::move(tl));
 
-	lens_radius = std::exchange(tl.lens_radius, 0.0f);
-	d 			= std::exchange(tl.d, 0.0f);
-	f 			= std::exchange(tl.f, 0.0f);
-	zoom		= std::exchange(tl.zoom, 0.0f);
+    lens_radius = std::exchange(tl.lens_radius, 0.0f);
+    d           = std::exchange(tl.d, 0.0f);
+    f           = std::exchange(tl.f, 0.0f);
+    zoom        = std::exchange(tl.zoom, 0.0f);
 
-	if (sampler_ptr != nullptr) {
-		delete sampler_ptr;
-	}
-	sampler_ptr = tl.sampler_ptr;
-	tl.sampler_ptr = nullptr;
+    if (sampler_ptr != nullptr) {
+        delete sampler_ptr;
+    }
+    sampler_ptr = tl.sampler_ptr;
+    tl.sampler_ptr = nullptr;
 
-	return (*this);
+    return (*this);
 }
 
 
 
 Camera*
 ThinLens::clone(void) const {
-	return (new ThinLens(*this));
+    return (new ThinLens(*this));
 }
 
 
@@ -100,58 +100,58 @@ ThinLens::clone(void) const {
 void
 ThinLens::set_sampler(Sampler* sp) {
 
-	if (sampler_ptr) {
-		delete sampler_ptr;
-		sampler_ptr = NULL;
-	}
+    if (sampler_ptr) {
+        delete sampler_ptr;
+        sampler_ptr = NULL;
+    }
 
-	sampler_ptr = sp;
-	sampler_ptr->map_samples_to_unit_disk();
+    sampler_ptr = sp;
+    sampler_ptr->map_samples_to_unit_disk();
 }
 
 Vector3D
 ThinLens::ray_direction(const Point2D& pixel_point, const Point2D& lens_point) const {
-	Point2D p(pixel_point.x * f / d, pixel_point.y * f / d);   // hit point on focal plane
-	Vector3D dir = (p.x - lens_point.x) * u + (p.y - lens_point.y) * v - f * w;
-	dir.normalize();
+    Point2D p(pixel_point.x * f / d, pixel_point.y * f / d);   // hit point on focal plane
+    Vector3D dir = (p.x - lens_point.x) * u + (p.y - lens_point.y) * v - f * w;
+    dir.normalize();
 
-	return (dir);
+    return (dir);
 }
 
 void
 ThinLens::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) {
-	RGBColor	L;
-	Ray			ray;
-	int 		depth 		= 0;
+    RGBColor    L;
+    Ray         ray;
+    int         depth       = 0;
 
-	Point2D sp;			// sample point in [0, 1] X [0, 1]
-	Point2D pp;			// sample point on a pixel
-	Point2D dp; 		// sample point on unit disk
-	Point2D lp;			// sample point on lens
+    Point2D sp;         // sample point in [0, 1] X [0, 1]
+    Point2D pp;         // sample point on a pixel
+    Point2D dp;         // sample point on unit disk
+    Point2D lp;         // sample point on lens
 
-	float s = w.vp.s / zoom;
+    float s = w.vp.s / zoom;
 
-	float inv_num_samples = 1.0f / static_cast<float>(w.vp.num_samples);
+    float inv_num_samples = 1.0f / static_cast<float>(w.vp.num_samples);
 
-	for (int r = 0; r < w.vp.vres; r++)			// up
-		for (int c = 0; c < w.vp.hres; c++) {		// across
-			L = RGBColor::black;
+    for (int r = 0; r < w.vp.vres; r++)         // up
+        for (int c = 0; c < w.vp.hres; c++) {       // across
+            L = RGBColor::black;
 
-			for (int n = 0; n < w.vp.num_samples; n++) {
-				sp = w.vp.sampler_ptr->sample_unit_square();
-				pp.x = s * (c - w.vp.hres / 2.0f + sp.x) + x;
-				pp.y = s * (r - w.vp.vres / 2.0f + sp.y);
+            for (int n = 0; n < w.vp.num_samples; n++) {
+                sp = w.vp.sampler_ptr->sample_unit_square();
+                pp.x = s * (c - w.vp.hres / 2.0f + sp.x) + x;
+                pp.y = s * (r - w.vp.vres / 2.0f + sp.y);
 
-				dp = sampler_ptr->sample_unit_disk();
-				lp = dp * lens_radius;
+                dp = sampler_ptr->sample_unit_disk();
+                lp = dp * lens_radius;
 
-				ray.o = eye + lp.x * u + lp.y * v;
-				ray.d = ray_direction(pp, lp);
-				L += w.tracer_ptr->trace_ray(ray, depth);
-			}
+                ray.o = eye + lp.x * u + lp.y * v;
+                ray.d = ray_direction(pp, lp);
+                L += w.tracer_ptr->trace_ray(ray, depth);
+            }
 
-			L *= inv_num_samples;
-			L *= exposure_time;
-			w.display_pixel(r, c + offset, L);
-		}
+            L *= inv_num_samples;
+            L *= exposure_time;
+            w.display_pixel(r, c + offset, L);
+        }
 }

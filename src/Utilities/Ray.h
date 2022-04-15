@@ -17,14 +17,14 @@
 #include "Vector3D.h"
 
 class Ray {
-	public:
-	
-		Point3D o = Point3D(0.0);
-		Vector3D d = Vector3D(0.0, 0.0, 1.0);
-		
-		Ray(void) = default;			
-		
-		explicit Ray(const Point3D& origin, const Vector3D& dir);
+    public:
+
+        Point3D o = Point3D(0.0);
+        Vector3D d = Vector3D(0.0, 0.0, 1.0);
+
+        Ray(void) = default;
+
+        explicit Ray(const Point3D& origin, const Vector3D& dir);
 };
 
 #endif

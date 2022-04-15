@@ -15,8 +15,8 @@
 
 
 Ray::Ray (const Point3D& origin, const Vector3D& dir)
-	: 	o(origin), 
-		d(dir) 
+    :   o(origin),
+        d(dir)
 {}
 
 

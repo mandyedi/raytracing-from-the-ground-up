@@ -17,29 +17,29 @@
 
 
 Tracer::Tracer(World* _worldPtr)
-	: world_ptr(_worldPtr)
+    : world_ptr(_worldPtr)
 {}
 
 
 Tracer::~Tracer(void) {
-	if (world_ptr) {
-		world_ptr = nullptr;
-	}
+    if (world_ptr) {
+        world_ptr = nullptr;
+    }
 }
 
 
 
 
-RGBColor	
+RGBColor
 Tracer::trace_ray([[maybe_unused]] const Ray& ray) const {
-	return (RGBColor::black);
+    return (RGBColor::black);
 }
 
 
 
-RGBColor	
+RGBColor
 Tracer::trace_ray([[maybe_unused]] const Ray& ray, [[maybe_unused]] const int depth) const {
-	return (RGBColor::black);
+    return (RGBColor::black);
 }
 
 

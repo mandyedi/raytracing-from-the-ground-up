@@ -18,39 +18,39 @@
 #include "Point3D.h"
 
 class BBox {
-	public:
-		double x0 = -1.0;
-		double x1 = 1.0;
-		double y0 = -1.0;
-		double y1 = 1.0;
-		double z0 = -1.0;
-		double z1 = 1.0;
+    public:
+        double x0 = -1.0;
+        double x1 = 1.0;
+        double y0 = -1.0;
+        double y1 = 1.0;
+        double z0 = -1.0;
+        double z1 = 1.0;
 
-		BBox(void) = default;
+        BBox(void) = default;
 
-		explicit BBox(	const double x0, const double x1,
-				const double y0, const double y1,
-				const double z0, const double z1);
+        explicit BBox(  const double x0, const double x1,
+                const double y0, const double y1,
+                const double z0, const double z1);
 
-		explicit BBox(const Point3D p0, const Point3D p1);
+        explicit BBox(const Point3D p0, const Point3D p1);
 
-		~BBox(void) = default;
+        ~BBox(void) = default;
 
-		BBox(const BBox& bbox);
+        BBox(const BBox& bbox);
 
-		BBox(BBox&& bbox) noexcept;
+        BBox(BBox&& bbox) noexcept;
 
-		BBox&
-		operator= (const BBox& rhs);
+        BBox&
+        operator= (const BBox& rhs);
 
-		BBox &
-		operator= (BBox&& rhs) noexcept;
+        BBox &
+        operator= (BBox&& rhs) noexcept;
 
-		bool
-		hit(const Ray& ray) const;
+        bool
+        hit(const Ray& ray) const;
 
-		bool
-		inside(const Point3D& p) const;
+        bool
+        inside(const Point3D& p) const;
 };
 
 #endif

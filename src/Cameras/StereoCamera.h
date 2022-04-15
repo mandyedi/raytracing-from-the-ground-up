@@ -15,75 +15,75 @@
 #include "../World/World.h"
 
 class StereoCamera: public Camera {
-	public:
+    public:
 
-		StereoCamera();
+        StereoCamera();
 
-		StereoCamera(Camera* left_camera, Camera* right_camera);
+        StereoCamera(Camera* left_camera, Camera* right_camera);
 
-		~StereoCamera();
+        ~StereoCamera();
 
-		StereoCamera(const StereoCamera& sc);
+        StereoCamera(const StereoCamera& sc);
 
-		StereoCamera(StereoCamera&& sc) noexcept;
+        StereoCamera(StereoCamera&& sc) noexcept;
 
-		StereoCamera&
-		operator= (const StereoCamera& sc);
+        StereoCamera&
+        operator= (const StereoCamera& sc);
 
-		StereoCamera&
-		operator= (StereoCamera&& sc) noexcept;
+        StereoCamera&
+        operator= (StereoCamera&& sc) noexcept;
 
-		Camera*
-		clone(void) const override;
+        Camera*
+        clone(void) const override;
 
-		void
-		setup_cameras(void);
+        void
+        setup_cameras(void);
 
-		void
-		render_scene(const World& w, float x = 0, int offset = 0) override;
+        void
+        render_scene(const World& w, float x = 0, int offset = 0) override;
 
-		void
-		use_parallel_viewing();
+        void
+        use_parallel_viewing();
 
-		void
-		use_transverse_viewing();
+        void
+        use_transverse_viewing();
 
-		void
-		set_pixel_gap(int gap);
+        void
+        set_pixel_gap(int gap);
 
-		void
-		set_stereo_angle(float angle);
+        void
+        set_stereo_angle(float angle);
 
-	private:
+    private:
 
-		enum class ViewingType {
-			Parallel,
-			Transverse
-		};
+        enum class ViewingType {
+            Parallel,
+            Transverse
+        };
 
-		ViewingType	viewing_type 		= ViewingType::Parallel;	// parallel or transverse viewing
-		int			pixel_gap 			= 5;						// gap in pixels between the left and right images
-		float		beta 				= 5.0f;						// stereo separation angle
-		Camera*		left_camera_ptr 	= nullptr;					// left eye camera
-		Camera*		right_camera_ptr	= nullptr;					// right eye camera
+        ViewingType viewing_type        = ViewingType::Parallel;    // parallel or transverse viewing
+        int         pixel_gap           = 5;                        // gap in pixels between the left and right images
+        float       beta                = 5.0f;                     // stereo separation angle
+        Camera*     left_camera_ptr     = nullptr;                  // left eye camera
+        Camera*     right_camera_ptr    = nullptr;                  // right eye camera
 };
 
 inline void
 StereoCamera::use_parallel_viewing() {
-	viewing_type = ViewingType::Parallel;
+    viewing_type = ViewingType::Parallel;
 }
 
 inline void
 StereoCamera::use_transverse_viewing() {
-	viewing_type = ViewingType::Transverse;
+    viewing_type = ViewingType::Transverse;
 }
 
 inline void
 StereoCamera::set_pixel_gap(int gap) {
-	pixel_gap = gap;
+    pixel_gap = gap;
 }
 
 inline void
 StereoCamera::set_stereo_angle(float angle) {
-	beta = angle;
+    beta = angle;
 }

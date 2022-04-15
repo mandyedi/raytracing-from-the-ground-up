@@ -16,37 +16,37 @@
 #include "GeometricObject.h"
 
 class Disk: public GeometricObject {
-	public:
+    public:
 
-		Disk(void) = default;
+        Disk(void) = default;
 
-		explicit Disk(const Point3D &p, const Normal &n, float r);
+        explicit Disk(const Point3D &p, const Normal &n, float r);
 
-		~Disk(void) = default;
+        ~Disk(void) = default;
 
-		Disk(const Disk& r);
+        Disk(const Disk& r);
 
-		Disk(Disk&& r) noexcept;
+        Disk(Disk&& r) noexcept;
 
-		Disk&
-		operator= (const Disk& rhs);
+        Disk&
+        operator= (const Disk& rhs);
 
-		Disk&
-		operator= (Disk&& rhs) noexcept;
+        Disk&
+        operator= (Disk&& rhs) noexcept;
 
-		Disk*
-		clone(void) const override;
+        Disk*
+        clone(void) const override;
 
-		bool
-		hit(const Ray& ray, double& t, ShadeRec& s) const;
+        bool
+        hit(const Ray& ray, double& t, ShadeRec& s) const;
 
-	private:
+    private:
 
-		Point3D center		= Point3D(0.0);
-    Normal normal			= Normal(0.0, 1.0, 0.0);
-    float r_squared		= 1.0f;
+        Point3D center      = Point3D(0.0);
+    Normal normal           = Normal(0.0, 1.0, 0.0);
+    float r_squared     = 1.0f;
 
-		static const double kEpsilon;
+        static const double kEpsilon;
 };
 
 #endif

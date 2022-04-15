@@ -2,10 +2,10 @@
 #define __REGULAR__
 
 
-// 	Copyright (C) Kevin Suffern 2000-2007.
-//	This C++ code is for non-commercial purposes only.
-//	This C++ code is licensed under the GNU General Public License Version 2.
-//	See the file COPYING.txt for the full license.
+//  Copyright (C) Kevin Suffern 2000-2007.
+//  This C++ code is for non-commercial purposes only.
+//  This C++ code is licensed under the GNU General Public License Version 2.
+//  See the file COPYING.txt for the full license.
 
 //  Copyright notice for changes since the originally published version:
 //  Copyright (C) Eduárd Mándy 2019-2021
@@ -17,31 +17,31 @@
 #include "Sampler.h"
 
 class Regular: public Sampler {
-	public:
-		
-		Regular(void) = delete;							
-		
-		explicit Regular(const int num);								
+    public:
 
-		~Regular(void) = default;					
+        Regular(void) = delete;
 
-		Regular(const Regular& r)  = default;
+        explicit Regular(const int num);
 
-		Regular(Regular&& r) = default;
+        ~Regular(void) = default;
 
-		Regular& 
-		operator= (const Regular& rhs) = default;
+        Regular(const Regular& r)  = default;
 
-		Regular& 
-		operator= (Regular&& rhs) = default;
+        Regular(Regular&& r) = default;
 
-		virtual Regular*						
-		clone(void) const override;			
+        Regular&
+        operator= (const Regular& rhs) = default;
 
-	private:
-		
-		virtual void
-		generate_samples(void) override;
+        Regular&
+        operator= (Regular&& rhs) = default;
+
+        virtual Regular*
+        clone(void) const override;
+
+    private:
+
+        virtual void
+        generate_samples(void) override;
 };
 
 #endif

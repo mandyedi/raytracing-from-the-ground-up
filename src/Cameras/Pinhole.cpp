@@ -25,48 +25,48 @@ Pinhole::~Pinhole(void) {}
 
 
 Pinhole::Pinhole(const Pinhole& p)
-	: 	Camera(p),
-		d(p.d),
-		zoom(p.zoom)
+    :   Camera(p),
+        d(p.d),
+        zoom(p.zoom)
 {}
 
 
 
 Pinhole::Pinhole(Pinhole&& p) noexcept
-	: 	Camera(std::move(p)),
-		d(std::exchange(p.d, 0.0f)),
-		zoom(std::exchange(p.zoom, 0.0f))
+    :   Camera(std::move(p)),
+        d(std::exchange(p.d, 0.0f)),
+        zoom(std::exchange(p.zoom, 0.0f))
 {}
 
 
 
 Pinhole&
 Pinhole::operator= (const Pinhole& p) {
-	Camera::operator= (p);
+    Camera::operator= (p);
 
-	d 		= p.d;
-	zoom	= p.zoom;
+    d       = p.d;
+    zoom    = p.zoom;
 
-	return (*this);
+    return (*this);
 }
 
 
 
 Pinhole&
 Pinhole::operator= (Pinhole&& p) noexcept {
-	Camera::operator= (std::move(p));
+    Camera::operator= (std::move(p));
 
-	d 		= std::exchange(p.d, 0.0f);
-	zoom	= std::exchange(p.zoom, 0.0f);
+    d       = std::exchange(p.d, 0.0f);
+    zoom    = std::exchange(p.zoom, 0.0f);
 
-	return (*this);
+    return (*this);
 }
 
 
 
 Camera*
 Pinhole::clone(void) const {
-	return (new Pinhole(*this));
+    return (new Pinhole(*this));
 }
 
 
@@ -75,10 +75,10 @@ Pinhole::clone(void) const {
 
 Vector3D
 Pinhole::get_direction(const Point2D& p) const {
-	Vector3D dir = p.x * u + p.y * v - d * w;
-	dir.normalize();
+    Vector3D dir = p.x * u + p.y * v - d * w;
+    dir.normalize();
 
-	return(dir);
+    return(dir);
 }
 
 
@@ -86,34 +86,34 @@ Pinhole::get_direction(const Point2D& p) const {
 
 void
 Pinhole::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) {
-	RGBColor	L;
-	Ray			ray;
-	int 		depth = 0;
-	Point2D		sp;		// sample point in [0, 1] x [0, 1]
-	Point2D 	pp;		// sample point on a pixel
+    RGBColor    L;
+    Ray         ray;
+    int         depth = 0;
+    Point2D     sp;     // sample point in [0, 1] x [0, 1]
+    Point2D     pp;     // sample point on a pixel
 
-	float s = w.vp.s / zoom;
-	ray.o = eye;
+    float s = w.vp.s / zoom;
+    ray.o = eye;
 
-	float inv_num_samples = 1.0f / static_cast<float>(w.vp.num_samples);
+    float inv_num_samples = 1.0f / static_cast<float>(w.vp.num_samples);
 
-	for (int row = 0; row < w.vp.vres; row++) {			// up
-		for (int column = 0; column < w.vp.hres; column++) {		// across
-			L = RGBColor::black;
+    for (int row = 0; row < w.vp.vres; row++) {         // up
+        for (int column = 0; column < w.vp.hres; column++) {        // across
+            L = RGBColor::black;
 
-			for (int j = 0; j < w.vp.num_samples; j++) {
-				sp = w.vp.sampler_ptr->sample_unit_square();
-				pp.x = s * (column - 0.5f * w.vp.hres + sp.x) + x;
-				pp.y = s * (row - 0.5f * w.vp.vres + sp.y);
-				ray.d = get_direction(pp);
-				L += w.tracer_ptr->trace_ray(ray, depth);
-			}
+            for (int j = 0; j < w.vp.num_samples; j++) {
+                sp = w.vp.sampler_ptr->sample_unit_square();
+                pp.x = s * (column - 0.5f * w.vp.hres + sp.x) + x;
+                pp.y = s * (row - 0.5f * w.vp.vres + sp.y);
+                ray.d = get_direction(pp);
+                L += w.tracer_ptr->trace_ray(ray, depth);
+            }
 
-			L *= inv_num_samples;
-			L *= exposure_time;
-			w.display_pixel(row, column + offset, L);
-		}
-	}
+            L *= inv_num_samples;
+            L *= exposure_time;
+            w.display_pixel(row, column + offset, L);
+        }
+    }
 
-	w.save_to_ppm();
+    w.save_to_ppm();
 }

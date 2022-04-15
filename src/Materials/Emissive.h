@@ -16,48 +16,48 @@
 #include "../Materials/Material.h"
 
 class Emissive: public Material {
-	
-	public:
-	
-		Emissive(void) = default;
 
-		~Emissive(void);
+    public:
 
-		Emissive(const Emissive& e);
+        Emissive(void) = default;
 
-		Emissive(Emissive&& e) noexcept;
+        ~Emissive(void);
 
-		Emissive& 
-		operator= (const Emissive& e);
+        Emissive(const Emissive& e);
 
-		Emissive& 
-		operator= (Emissive&& e) noexcept;
+        Emissive(Emissive&& e) noexcept;
 
-		virtual Material*
-		clone(void) const override;
-	
-		virtual RGBColor
-		shade(ShadeRec& sr);
-	
-		virtual RGBColor
-		area_light_shade(ShadeRec& sr);
+        Emissive&
+        operator= (const Emissive& e);
 
-		void
-		set_ce(float r, float g, float b);
+        Emissive&
+        operator= (Emissive&& e) noexcept;
 
-		void
-		set_ce(const RGBColor &color);
-		
-		virtual RGBColor
-		get_Le(ShadeRec& sr) const;
+        virtual Material*
+        clone(void) const override;
 
-		void
-		scale_radiance(float _ls);
+        virtual RGBColor
+        shade(ShadeRec& sr);
 
-	private:
-	
-		float		ls 	= 1.0f;				// radiance scaling factor
-		RGBColor 	ce 	= RGBColor::black;
+        virtual RGBColor
+        area_light_shade(ShadeRec& sr);
+
+        void
+        set_ce(float r, float g, float b);
+
+        void
+        set_ce(const RGBColor &color);
+
+        virtual RGBColor
+        get_Le(ShadeRec& sr) const;
+
+        void
+        scale_radiance(float _ls);
+
+    private:
+
+        float       ls  = 1.0f;             // radiance scaling factor
+        RGBColor    ce  = RGBColor::black;
 };
 
 inline void

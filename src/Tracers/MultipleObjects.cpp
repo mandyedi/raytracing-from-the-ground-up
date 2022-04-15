@@ -14,22 +14,22 @@
 #include "../World/World.h"
 
 
-		
+
 MultipleObjects::MultipleObjects(World* _worldPtr)
-	: Tracer(_worldPtr)
+    : Tracer(_worldPtr)
 {}
 
 MultipleObjects::~MultipleObjects(void) {}
 
-RGBColor	
+RGBColor
 MultipleObjects::trace_ray(const Ray& ray) const {
-	ShadeRec sr(world_ptr->hit_bare_bones_objects(ray));
-		
-	if (sr.hit_an_object) {
-		return (sr.color);
-	}  
-	else {
-		return (world_ptr->background_color);
-	}
+    ShadeRec sr(world_ptr->hit_bare_bones_objects(ray));
+
+    if (sr.hit_an_object) {
+        return (sr.color);
+    }
+    else {
+        return (world_ptr->background_color);
+    }
 }
 

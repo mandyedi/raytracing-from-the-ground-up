@@ -24,7 +24,7 @@
 //   // see Knuth section 4.2.2 pages 217-218
 // }
 #define EQN_EPS 1e-90
-#define	IsZero(x) ((x) > -EQN_EPS && (x) < EQN_EPS)
+#define IsZero(x) ((x) > -EQN_EPS && (x) < EQN_EPS)
 
 inline double
 max(double x0, double x1);

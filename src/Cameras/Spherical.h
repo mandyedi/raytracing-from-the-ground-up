@@ -17,44 +17,44 @@
 #include "../World/World.h"
 
 class Spherical: public Camera {
-	public:
+    public:
 
-    	Spherical() = default;
+        Spherical() = default;
 
-		~Spherical();
+        ~Spherical();
 
-		Spherical(const Spherical& s);
+        Spherical(const Spherical& s);
 
-		Spherical(Spherical&& s) noexcept;
+        Spherical(Spherical&& s) noexcept;
 
-		Spherical&
-		operator= (const Spherical& s);
+        Spherical&
+        operator= (const Spherical& s);
 
-		Spherical&
-		operator= (Spherical&& s) noexcept;
+        Spherical&
+        operator= (Spherical&& s) noexcept;
 
-		Camera*
-		clone(void) const override;
+        Camera*
+        clone(void) const override;
 
-		Vector3D
-		ray_direction(	const Point2D& pp,
-						const int 	hres,
-						const int 	vres,
-						const float s) const;
+        Vector3D
+        ray_direction(  const Point2D& pp,
+                        const int   hres,
+                        const int   vres,
+                        const float s) const;
 
-		void
-		render_scene(const World& w, float x = 0, int offset = 0) override;
+        void
+        render_scene(const World& w, float x = 0, int offset = 0) override;
 
-	    void
-		set_horizontal_fov(const float fov);
+        void
+        set_horizontal_fov(const float fov);
 
-		void
-		set_vertical_fov(const float fov);
+        void
+        set_vertical_fov(const float fov);
 
-	private:
+    private:
 
-		float   lambda_max = 120.0f;		// in degrees
-		float	psi_max = 120.0f;	// in degrees
+        float   lambda_max = 120.0f;        // in degrees
+        float   psi_max = 120.0f;   // in degrees
 };
 
 inline void
@@ -66,7 +66,7 @@ Spherical::set_horizontal_fov(const float fov)
 inline void
 Spherical::set_vertical_fov(const float fov)
 {
-	psi_max = fov / 2.0f;
+    psi_max = fov / 2.0f;
 }
 
 #endif

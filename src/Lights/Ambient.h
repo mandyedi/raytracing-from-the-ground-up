@@ -16,47 +16,47 @@
 #include "Light.h"
 
 class Ambient: public Light {
-	public:
-	
-		Ambient(void) = default;
+    public:
 
-		~Ambient(void);
+        Ambient(void) = default;
 
-		Ambient(const Ambient& a);
+        ~Ambient(void);
 
-		Ambient(Ambient&& a) noexcept;
+        Ambient(const Ambient& a);
 
-		Ambient&
-		operator= (const Ambient& a);
+        Ambient(Ambient&& a) noexcept;
 
-		Ambient&
-		operator= (Ambient&& a) noexcept;
-	
-		Light* 									
-		clone(void) const override;
-				
-		void
-		scale_radiance(const float b);
-		
-		void
-		set_color(const float c);
-		
-		void
-		set_color(const RGBColor& c);
-		
-		void
-		set_color(const float r, const float g, const float b); 
-		
-		virtual Vector3D								
-		get_direction(ShadeRec& s) override; 
-		
-		virtual RGBColor
-		L(ShadeRec& s) override;
-	
-	private:
-	
-		float		ls 			= 1.0f;
-		RGBColor	color 		= RGBColor::white;
+        Ambient&
+        operator= (const Ambient& a);
+
+        Ambient&
+        operator= (Ambient&& a) noexcept;
+
+        Light*
+        clone(void) const override;
+
+        void
+        scale_radiance(const float b);
+
+        void
+        set_color(const float c);
+
+        void
+        set_color(const RGBColor& c);
+
+        void
+        set_color(const float r, const float g, const float b);
+
+        virtual Vector3D
+        get_direction(ShadeRec& s) override;
+
+        virtual RGBColor
+        L(ShadeRec& s) override;
+
+    private:
+
+        float       ls          = 1.0f;
+        RGBColor    color       = RGBColor::white;
 };
 
 
@@ -64,28 +64,28 @@ class Ambient: public Light {
 
 
 inline void
-Ambient::scale_radiance(const float b) { 
-	ls = b;
+Ambient::scale_radiance(const float b) {
+    ls = b;
 }
 
 
 inline void
 Ambient::set_color(const float c) {
-	color.r = c; color.g = c; color.b = c;
+    color.r = c; color.g = c; color.b = c;
 }
 
 
 
 inline void
 Ambient::set_color(const RGBColor& c) {
-	color = c;
+    color = c;
 }
 
 
 
 inline void
 Ambient::set_color(const float r, const float g, const float b) {
-	color.r = r; color.g = g; color.b = b;
+    color.r = r; color.g = g; color.b = b;
 }
 
 

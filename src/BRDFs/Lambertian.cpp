@@ -19,55 +19,55 @@ Lambertian::~Lambertian(void) {}
 
 
 Lambertian::Lambertian(const Lambertian& l)
-	:	BRDF(l),
-		kd(l.kd),
-		cd(l.cd)
+    :   BRDF(l),
+        kd(l.kd),
+        cd(l.cd)
 {}
 
 
 
 Lambertian::Lambertian(Lambertian&& l) noexcept
-	:	BRDF(std::move(l)),
-		kd(std::exchange(l.kd, 0.0f)),
-		cd(std::move(l.cd))
+    :   BRDF(std::move(l)),
+        kd(std::exchange(l.kd, 0.0f)),
+        cd(std::move(l.cd))
 {}
 
 
 
 Lambertian&
 Lambertian::operator= (const Lambertian& l) {
-	BRDF::operator= (l);
+    BRDF::operator= (l);
 
-	kd = l.kd;
-	cd = l.cd;
+    kd = l.kd;
+    cd = l.cd;
 
-	return (*this);
+    return (*this);
 }
 
 
 
 Lambertian&
 Lambertian::operator= (Lambertian&& l) noexcept {
-	BRDF::operator= (std::move(l));
+    BRDF::operator= (std::move(l));
 
-	kd = std::exchange(l.kd, 0.0f);
-	cd = std::move(l.cd);
+    kd = std::exchange(l.kd, 0.0f);
+    cd = std::move(l.cd);
 
-	return (*this);
+    return (*this);
 }
 
 
 
 Lambertian*
 Lambertian::clone(void) const {
-	return (new Lambertian(*this));
+    return (new Lambertian(*this));
 }
 
 
 
 RGBColor
 Lambertian::f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo, [[maybe_unused]] const Vector3D& wi) const {
-	return (kd * cd * invPI);
+    return (kd * cd * invPI);
 }
 
 
@@ -79,22 +79,22 @@ Lambertian::f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector
 RGBColor
 Lambertian::sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const {
 
-	Vector3D w(sr.normal);
-	Vector3D v = Vector3D(0.0034, 1, 0.0071) ^ w;
-	v.normalize();
-	Vector3D u = v ^ w;
+    Vector3D w(sr.normal);
+    Vector3D v = Vector3D(0.0034, 1, 0.0071) ^ w;
+    v.normalize();
+    Vector3D u = v ^ w;
 
-	Point3D sp = sampler_ptr->sample_hemisphere();
-	wi = sp.x * u + sp.y * v + sp.z * w;
-	wi.normalize();
+    Point3D sp = sampler_ptr->sample_hemisphere();
+    wi = sp.x * u + sp.y * v + sp.z * w;
+    wi.normalize();
 
-	pdf = sr.normal * wi * invPI;
+    pdf = sr.normal * wi * invPI;
 
-	return (kd * cd * invPI);
+    return (kd * cd * invPI);
 }
 
 
 RGBColor
 Lambertian::rho([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo) const {
-	return (kd * cd);
+    return (kd * cd);
 }

@@ -13,49 +13,49 @@
 #ifndef __MATERIAL__
 #define __MATERIAL__
 
-#include "../World/World.h"			// required for the shade function in all derived classes
+#include "../World/World.h"         // required for the shade function in all derived classes
 #include "../Utilities/RGBColor.h"
 #include "../Utilities/ShadeRec.h"
 
-class Material {	
-	public:
-	
-		Material(void) = default;						
-		
-		virtual 								
-		~Material(void);
+class Material {
+    public:
 
-		Material(const Material& material);
+        Material(void) = default;
 
-		Material(Material&& material) noexcept;
+        virtual
+        ~Material(void);
 
-		Material& 								
-		operator= (const Material& material);
+        Material(const Material& material);
 
-		Material& 								
-		operator= (Material&& material) noexcept;
-		
-		virtual Material*								
-		clone(void) const = 0;	
-				
-		virtual RGBColor
-		shade(ShadeRec& sr);
+        Material(Material&& material) noexcept;
 
-		// 18.6 Other Materials
-		// It has to be defined for every material tha we want to render with area-light shading
-		virtual RGBColor
-		area_light_shade(ShadeRec &sr);
+        Material&
+        operator= (const Material& material);
 
-		virtual RGBColor
-    	get_Le(ShadeRec& sr) const;
-		
-	protected:
+        Material&
+        operator= (Material&& material) noexcept;
 
-		// From the book, chapter 16.7 Shadowing Options
-		// Allows us to specify whether a material has shadows cast on it or not.
-		// This is sometimes necessary for shading objects inside transparent objects
-		// without having to render caustics (see Sections 28.7 and 28.8)
-		bool shadows = true;
+        virtual Material*
+        clone(void) const = 0;
+
+        virtual RGBColor
+        shade(ShadeRec& sr);
+
+        // 18.6 Other Materials
+        // It has to be defined for every material tha we want to render with area-light shading
+        virtual RGBColor
+        area_light_shade(ShadeRec &sr);
+
+        virtual RGBColor
+        get_Le(ShadeRec& sr) const;
+
+    protected:
+
+        // From the book, chapter 16.7 Shadowing Options
+        // Allows us to specify whether a material has shadows cast on it or not.
+        // This is sometimes necessary for shading objects inside transparent objects
+        // without having to render caustics (see Sections 28.7 and 28.8)
+        bool shadows = true;
 };
 
 #endif

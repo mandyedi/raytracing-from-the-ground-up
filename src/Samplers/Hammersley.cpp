@@ -1,7 +1,7 @@
-// 	Copyright (C) Kevin Suffern 2000-2007.
-//	This C++ code is for non-commercial purposes only.
-//	This C++ code is licensed under the GNU General Public License Version 2.
-//	See the file COPYING.txt for the full license.
+//  Copyright (C) Kevin Suffern 2000-2007.
+//  This C++ code is for non-commercial purposes only.
+//  This C++ code is licensed under the GNU General Public License Version 2.
+//  See the file COPYING.txt for the full license.
 
 //  Copyright notice for changes since the originally published version:
 //  Copyright (C) Eduárd Mándy 2019-2021
@@ -17,32 +17,32 @@
 
 
 Hammersley::Hammersley(const int num)
-	: 	Sampler(num) {
-	generate_samples();
+    :   Sampler(num) {
+    generate_samples();
 }
 
 
 
-Hammersley*										
+Hammersley*
 Hammersley::clone(void) const {
-	return (new Hammersley(*this));
+    return (new Hammersley(*this));
 }
 
 
 
- 
-double 
+
+double
 Hammersley::phi(int j) {
-	double x = 0.0;
-	double f = 0.5; 
-	
-	while (j) {
-		x += f * (double) (j % 2);
-		j /= 2;
-		f *= 0.5; 
-	}
-	
-	return (x);
+    double x = 0.0;
+    double f = 0.5;
+
+    while (j) {
+        x += f * (double) (j % 2);
+        j /= 2;
+        f *= 0.5;
+    }
+
+    return (x);
 }
 
 
@@ -50,12 +50,12 @@ Hammersley::phi(int j) {
 
 void
 Hammersley::generate_samples(void) {
-	for (int p = 0; p < num_sets; p++) {
-		for (int j = 0; j < num_samples; j++) {
-			Point2D pv((float) j / (float) num_samples, (float) phi(j));
-			samples.push_back(pv);
-		}
-	}
+    for (int p = 0; p < num_sets; p++) {
+        for (int j = 0; j < num_samples; j++) {
+            Point2D pv((float) j / (float) num_samples, (float) phi(j));
+            samples.push_back(pv);
+        }
+    }
 }
 
 

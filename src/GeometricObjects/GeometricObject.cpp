@@ -18,76 +18,76 @@
 
 
 GeometricObject::~GeometricObject (void) {
-	if (material_ptr != nullptr) {
-		delete material_ptr;
-		material_ptr = nullptr;
-	}
+    if (material_ptr != nullptr) {
+        delete material_ptr;
+        material_ptr = nullptr;
+    }
 
-	if (sampler_ptr != nullptr) {
-		delete sampler_ptr;
-		sampler_ptr = nullptr;
-	}
+    if (sampler_ptr != nullptr) {
+        delete sampler_ptr;
+        sampler_ptr = nullptr;
+    }
 }
 
 
 
 GeometricObject::GeometricObject (const GeometricObject& go)
-	:	color(go.color),
-		shadows(go.shadows)
+    :   color(go.color),
+        shadows(go.shadows)
 {
-	material_ptr = go.material_ptr->clone();
-	sampler_ptr = go.sampler_ptr->clone();
+    material_ptr = go.material_ptr->clone();
+    sampler_ptr = go.sampler_ptr->clone();
 }
 
 
 
 GeometricObject::GeometricObject (GeometricObject&& go) noexcept
-	:	color(std::move(go.color)),
-		shadows(std::exchange(go.shadows, true)),
-		material_ptr(std::exchange(go.material_ptr, nullptr)),
-		sampler_ptr(std::exchange(go.sampler_ptr, nullptr))
+    :   color(std::move(go.color)),
+        shadows(std::exchange(go.shadows, true)),
+        material_ptr(std::exchange(go.material_ptr, nullptr)),
+        sampler_ptr(std::exchange(go.sampler_ptr, nullptr))
 {}
 
 
 
 GeometricObject&
 GeometricObject::operator= (const GeometricObject& go) {
-	color = go.color;
-	shadows = go.shadows;
+    color = go.color;
+    shadows = go.shadows;
 
-	if (material_ptr != nullptr) {
-		delete material_ptr;
-	}
-	material_ptr = go.material_ptr->clone();
+    if (material_ptr != nullptr) {
+        delete material_ptr;
+    }
+    material_ptr = go.material_ptr->clone();
 
-	if (sampler_ptr != nullptr) {
-		delete sampler_ptr;
-	}
-	sampler_ptr = go.sampler_ptr->clone();
+    if (sampler_ptr != nullptr) {
+        delete sampler_ptr;
+    }
+    sampler_ptr = go.sampler_ptr->clone();
 
-	return (*this);
+    return (*this);
 }
 
 
 
 GeometricObject&
 GeometricObject::operator= (GeometricObject&& go) noexcept {
-	color = std::move(go.color);
-	shadows = std::exchange(go.shadows, true);
+    color = std::move(go.color);
+    shadows = std::exchange(go.shadows, true);
 
-	if (material_ptr != nullptr) {
-		delete material_ptr;
-	}
-	material_ptr = go.material_ptr;
-	go.material_ptr = nullptr;
+    if (material_ptr != nullptr) {
+        delete material_ptr;
+    }
+    material_ptr = go.material_ptr;
+    go.material_ptr = nullptr;
 
-	if (sampler_ptr != nullptr) {
-		delete sampler_ptr;
-	}
-	sampler_ptr = go.sampler_ptr;
-	go.sampler_ptr = nullptr;
+    if (sampler_ptr != nullptr) {
+        delete sampler_ptr;
+    }
+    sampler_ptr = go.sampler_ptr;
+    go.sampler_ptr = nullptr;
 
-	return (*this);
+    return (*this);
 }
 
 
@@ -99,31 +99,31 @@ GeometricObject::shadow_hit(const Ray &ray, float &tmin) const {
 
 void
 GeometricObject::set_material(Material* mPtr) {
-	material_ptr = mPtr;
+    material_ptr = mPtr;
 }
 
 void
 GeometricObject::set_sampler(Sampler* sPtr) {
-	sampler_ptr = sPtr;
-	sampler_ptr->map_samples_to_hemisphere(1);  // for perfect diffuse
+    sampler_ptr = sPtr;
+    sampler_ptr->map_samples_to_hemisphere(1);  // for perfect diffuse
 }
 
 BBox
 GeometricObject::get_bounding_box() const {
-	return BBox();
+    return BBox();
 }
 
 Point3D
 GeometricObject::sample(void) {
-	return Point3D();
+    return Point3D();
 }
 
 Normal
 GeometricObject::get_normal(const Point3D& p) {
-	return Normal();
+    return Normal();
 }
 
 float
 GeometricObject::pdf(const ShadeRec& sr) {
-	return 0.0f;
+    return 0.0f;
 }

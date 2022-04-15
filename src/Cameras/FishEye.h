@@ -17,41 +17,41 @@
 #include "../World/World.h"
 
 class FishEye: public Camera {
-	public:
+    public:
 
-    	FishEye() = default;
+        FishEye() = default;
 
-		~FishEye();
+        ~FishEye();
 
-		FishEye(const FishEye& fe);
+        FishEye(const FishEye& fe);
 
-		FishEye(FishEye&& fe) noexcept;
+        FishEye(FishEye&& fe) noexcept;
 
-		FishEye&
-		operator= (const FishEye& fe);
+        FishEye&
+        operator= (const FishEye& fe);
 
-		FishEye&
-		operator= (FishEye&& fe) noexcept;
+        FishEye&
+        operator= (FishEye&& fe) noexcept;
 
-		Camera*
-		clone(void) const override;
+        Camera*
+        clone(void) const override;
 
-		Vector3D
-		ray_direction(	const Point2D& pp,
-						const int 	hres,
-						const int 	vres,
-						const float s,
-						float& 		r_squared) const;
+        Vector3D
+        ray_direction(  const Point2D& pp,
+                        const int   hres,
+                        const int   vres,
+                        const float s,
+                        float&      r_squared) const;
 
-		void
-		render_scene(const World& w, float x = 0, int offset = 0) override;
+        void
+        render_scene(const World& w, float x = 0, int offset = 0) override;
 
-	    void
-	    set_fov(const float fov);
+        void
+        set_fov(const float fov);
 
-	private:
+    private:
 
-		float	psi_max = 120.0f;	// in degrees
+        float   psi_max = 120.0f;   // in degrees
 };
 
 inline void

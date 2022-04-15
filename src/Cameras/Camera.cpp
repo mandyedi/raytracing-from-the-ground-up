@@ -16,57 +16,57 @@
 Camera::~Camera(void) {}
 
 
-Camera::Camera(const Camera& c)   		
-	: 	eye(c.eye),
-		lookat(c.lookat),
-		ra(c.ra),
-		up(c.up),
-		u(c.u),
-		v(c.v),
-		w(c.w),
-		exposure_time(c.exposure_time)
+Camera::Camera(const Camera& c)
+    :   eye(c.eye),
+        lookat(c.lookat),
+        ra(c.ra),
+        up(c.up),
+        u(c.u),
+        v(c.v),
+        w(c.w),
+        exposure_time(c.exposure_time)
 {}
 
 
-Camera::Camera(Camera&& c) noexcept   		
-	: 	eye(std::move(c.eye)),
-		lookat(std::move(c.lookat)),
-		ra(std::exchange(c.ra, 0.0f)),
-		up(std::move(c.up)),
-		u(std::move(c.u)),
-		v(std::move(c.v)),
-		w(std::move(c.w)),
-		exposure_time(std::exchange(c.exposure_time, 0.0f))
+Camera::Camera(Camera&& c) noexcept
+    :   eye(std::move(c.eye)),
+        lookat(std::move(c.lookat)),
+        ra(std::exchange(c.ra, 0.0f)),
+        up(std::move(c.up)),
+        u(std::move(c.u)),
+        v(std::move(c.v)),
+        w(std::move(c.w)),
+        exposure_time(std::exchange(c.exposure_time, 0.0f))
 {}
 
 
-Camera& 
+Camera&
 Camera::operator= (const Camera& c) {
-	eye				= c.eye;
-	lookat			= c.lookat;
-	ra				= c.ra;
-	up				= c.up;
-	u				= c.u;
-	v				= c.v;
-	w				= c.w;
-	exposure_time 	= c.exposure_time;
+    eye             = c.eye;
+    lookat          = c.lookat;
+    ra              = c.ra;
+    up              = c.up;
+    u               = c.u;
+    v               = c.v;
+    w               = c.w;
+    exposure_time   = c.exposure_time;
 
-	return (*this);
+    return (*this);
 }
 
 
-Camera& 
+Camera&
 Camera::operator= (Camera&& c) noexcept {
-	eye				= std::move(c.eye);
-	lookat			= std::move(c.lookat);
-	ra				= std::exchange(c.ra, 0.0f);
-	up				= std::move(c.up);
-	u				= std::move(c.u);
-	v				= std::move(c.v);
-	w				= std::move(c.w);
-	exposure_time 	= std::exchange(c.exposure_time, 0.0f);
+    eye             = std::move(c.eye);
+    lookat          = std::move(c.lookat);
+    ra              = std::exchange(c.ra, 0.0f);
+    up              = std::move(c.up);
+    u               = std::move(c.u);
+    v               = std::move(c.v);
+    w               = std::move(c.w);
+    exposure_time   = std::exchange(c.exposure_time, 0.0f);
 
-	return (*this);
+    return (*this);
 }
 
 
@@ -74,25 +74,25 @@ Camera::operator= (Camera&& c) noexcept {
 
 void
 Camera::compute_uvw(void) {
-	w = eye - lookat;
-	w.normalize();
-	u = up ^ w; 
-	u.normalize();
-	v = w ^ u;
+    w = eye - lookat;
+    w.normalize();
+    u = up ^ w;
+    u.normalize();
+    v = w ^ u;
 
-	// take care of the singularity by hardwiring in specific camera orientations
-	
-	if (eye.x == lookat.x && eye.z == lookat.z && eye.y > lookat.y) { // camera looking vertically down
-		u = Vector3D(0, 0, 1);
-		v = Vector3D(1, 0, 0);
-		w = Vector3D(0, 1, 0);	
-	}
-	
-	if (eye.x == lookat.x && eye.z == lookat.z && eye.y < lookat.y) { // camera looking vertically up
-		u = Vector3D(1, 0, 0);
-		v = Vector3D(0, 0, 1);
-		w = Vector3D(0, -1, 0);
-	}
+    // take care of the singularity by hardwiring in specific camera orientations
+
+    if (eye.x == lookat.x && eye.z == lookat.z && eye.y > lookat.y) { // camera looking vertically down
+        u = Vector3D(0, 0, 1);
+        v = Vector3D(1, 0, 0);
+        w = Vector3D(0, 1, 0);
+    }
+
+    if (eye.x == lookat.x && eye.z == lookat.z && eye.y < lookat.y) { // camera looking vertically up
+        u = Vector3D(1, 0, 0);
+        v = Vector3D(0, 0, 1);
+        w = Vector3D(0, -1, 0);
+    }
 }
 
 

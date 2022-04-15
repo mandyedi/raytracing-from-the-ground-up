@@ -19,149 +19,149 @@
 
 
 EnvironmentLight::~EnvironmentLight(void) {
-	if (sampler_ptr != nullptr) {
-		delete sampler_ptr;
-		sampler_ptr = nullptr;
-	}
+    if (sampler_ptr != nullptr) {
+        delete sampler_ptr;
+        sampler_ptr = nullptr;
+    }
 
-	if (material_ptr != nullptr) {
-		delete material_ptr;
-		material_ptr = nullptr;
-	}
+    if (material_ptr != nullptr) {
+        delete material_ptr;
+        material_ptr = nullptr;
+    }
 }
 
 EnvironmentLight::EnvironmentLight(const EnvironmentLight& el)
-	: 	Light(el),
-		u(el.u),
-		v(el.v),
-		w(el.w),
-		wi(el.wi)
+    :   Light(el),
+        u(el.u),
+        v(el.v),
+        w(el.w),
+        wi(el.wi)
 {
-	sampler_ptr = el.sampler_ptr->clone();
-	material_ptr = el.material_ptr->clone();
+    sampler_ptr = el.sampler_ptr->clone();
+    material_ptr = el.material_ptr->clone();
 }
 
 EnvironmentLight::EnvironmentLight(EnvironmentLight&& el) noexcept
-	: 	Light(std::move(el)),
-		u(std::move(el.u)),
-		v(std::move(el.v)),
-		w(std::move(el.w)),
-		wi(std::move(el.wi))
+    :   Light(std::move(el)),
+        u(std::move(el.u)),
+        v(std::move(el.v)),
+        w(std::move(el.w)),
+        wi(std::move(el.wi))
 {
-	sampler_ptr = el.sampler_ptr;
-	el.sampler_ptr = nullptr;
-	material_ptr = el.material_ptr;
-	el.material_ptr = nullptr;
+    sampler_ptr = el.sampler_ptr;
+    el.sampler_ptr = nullptr;
+    material_ptr = el.material_ptr;
+    el.material_ptr = nullptr;
 }
 
 EnvironmentLight&
 EnvironmentLight::operator= (const EnvironmentLight& el) {
-	Light::operator=(el);
+    Light::operator=(el);
 
-	if (sampler_ptr != nullptr) {
-		delete sampler_ptr;
-	}
-	sampler_ptr = el.sampler_ptr->clone();
+    if (sampler_ptr != nullptr) {
+        delete sampler_ptr;
+    }
+    sampler_ptr = el.sampler_ptr->clone();
 
-	if (material_ptr != nullptr) {
-		delete material_ptr;
-	}
-	material_ptr = el.material_ptr->clone();
+    if (material_ptr != nullptr) {
+        delete material_ptr;
+    }
+    material_ptr = el.material_ptr->clone();
 
-	u = el.u;
-	v = el.v;
-	w = el.w;
-	wi = el.wi;
+    u = el.u;
+    v = el.v;
+    w = el.w;
+    wi = el.wi;
 
-	return *this;
+    return *this;
 }
 
 EnvironmentLight&
 EnvironmentLight::operator= (EnvironmentLight&& el) noexcept {
-	Light::operator=(std::move(el));
+    Light::operator=(std::move(el));
 
-	if (sampler_ptr != nullptr) {
-		delete sampler_ptr;
-	}
-	sampler_ptr = el.sampler_ptr;
-	el.sampler_ptr = nullptr;
+    if (sampler_ptr != nullptr) {
+        delete sampler_ptr;
+    }
+    sampler_ptr = el.sampler_ptr;
+    el.sampler_ptr = nullptr;
 
-	if (material_ptr != nullptr) {
-		delete material_ptr;
-	}
-	material_ptr = el.material_ptr;
-	el.material_ptr = nullptr;
+    if (material_ptr != nullptr) {
+        delete material_ptr;
+    }
+    material_ptr = el.material_ptr;
+    el.material_ptr = nullptr;
 
-	u = std::move(el.u);
-	v = std::move(el.v);
-	w = std::move(el.w);
-	wi = std::move(el.wi);
+    u = std::move(el.u);
+    v = std::move(el.v);
+    w = std::move(el.w);
+    wi = std::move(el.wi);
 
-	return *this;
+    return *this;
 }
 
 
 Light*
 EnvironmentLight::clone(void) const {
-	return (new EnvironmentLight(*this));
+    return (new EnvironmentLight(*this));
 }
 
 void
 EnvironmentLight::set_sampler(Sampler* s_ptr) {
-	if (sampler_ptr) {
-		delete sampler_ptr;
-		sampler_ptr = nullptr;
-	}
-	
-	sampler_ptr = s_ptr;
-	sampler_ptr->map_samples_to_hemisphere(1);
+    if (sampler_ptr) {
+        delete sampler_ptr;
+        sampler_ptr = nullptr;
+    }
+
+    sampler_ptr = s_ptr;
+    sampler_ptr->map_samples_to_hemisphere(1);
 }
 
 void
 EnvironmentLight::set_material(Material* m_ptr) {
-	if (material_ptr) {
-		delete material_ptr;
-		material_ptr = nullptr;
-	}
-	
-	material_ptr = m_ptr;
+    if (material_ptr) {
+        delete material_ptr;
+        material_ptr = nullptr;
+    }
+
+    material_ptr = m_ptr;
 }
 
-Vector3D								
+Vector3D
 EnvironmentLight::get_direction(ShadeRec& sr) {
-	w = sr.normal;
-	v = Vector3D(0.0034, 1, 0.0071) ^ w;
-	v.normalize();
-	u = v ^ w;
-	Point3D sp = sampler_ptr->sample_hemisphere();	
-	wi = sp.x * u + sp.y * v + sp.z * w;
+    w = sr.normal;
+    v = Vector3D(0.0034, 1, 0.0071) ^ w;
+    v.normalize();
+    u = v ^ w;
+    Point3D sp = sampler_ptr->sample_hemisphere();
+    wi = sp.x * u + sp.y * v + sp.z * w;
 
-	return (wi);
+    return (wi);
 }
 
-RGBColor								
+RGBColor
 EnvironmentLight::L(ShadeRec& sr) {
-	return (material_ptr->get_Le(sr));
+    return (material_ptr->get_Le(sr));
 }
 
-bool									
+bool
 EnvironmentLight::in_shadow(const Ray& ray, const ShadeRec& sr) const {
-	float 	t;
-	int 	num_objects = sr.w.objects.size();
-	
-	for (int j = 0; j < num_objects; j++) {
-		if (sr.w.objects[j]->shadow_hit(ray, t)) {
-			return true;  
-		}
-	}
-	
-	return false;  
+    float   t;
+    int     num_objects = sr.w.objects.size();
+
+    for (int j = 0; j < num_objects; j++) {
+        if (sr.w.objects[j]->shadow_hit(ray, t)) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 // The following function is not in the book.
 // It uses Equation 18.6
 
-float									
+float
 EnvironmentLight::pdf(const ShadeRec& sr) const {
-	return (sr.normal * wi * invPI);
+    return (sr.normal * wi * invPI);
 }

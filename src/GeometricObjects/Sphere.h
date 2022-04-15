@@ -17,69 +17,69 @@
 #include "GeometricObject.h"
 
 
-class Sphere: public GeometricObject {	
-								  	
-	public:
-		
-		Sphere(void) = default;
-				
-		explicit Sphere(const Point3D& center, double r);
+class Sphere: public GeometricObject {
 
-		~Sphere(void);
+    public:
 
-		Sphere(const Sphere &s);
+        Sphere(void) = default;
 
-		Sphere(Sphere &&s) noexcept;
+        explicit Sphere(const Point3D& center, double r);
 
-		Sphere&
-		operator= (const Sphere& s);
+        ~Sphere(void);
 
-		Sphere&
-		operator= (Sphere&& s) noexcept;
+        Sphere(const Sphere &s);
 
-		Sphere*
-		clone(void) const override;
-																					
-		void
-		set_center(const Point3D& c);
-		
-		void
-		set_center(const double x, const double y, const double z);
-		
-		void
-		set_radius(const double r);
-						
-		bool 												 
-		hit(const Ray& ray, double& t, ShadeRec& s) const override;
+        Sphere(Sphere &&s) noexcept;
 
-		bool
-		shadow_hit(const Ray &ray, float &tmin) const override;
-		
-	private:
-	
-		Point3D 	center = Point3D(0.0);
-		double 		radius = 1.0;
+        Sphere&
+        operator= (const Sphere& s);
 
-		static const double kEpsilon;   // for shadows and secondary rays
+        Sphere&
+        operator= (Sphere&& s) noexcept;
+
+        Sphere*
+        clone(void) const override;
+
+        void
+        set_center(const Point3D& c);
+
+        void
+        set_center(const double x, const double y, const double z);
+
+        void
+        set_radius(const double r);
+
+        bool
+        hit(const Ray& ray, double& t, ShadeRec& s) const override;
+
+        bool
+        shadow_hit(const Ray &ray, float &tmin) const override;
+
+    private:
+
+        Point3D     center = Point3D(0.0);
+        double      radius = 1.0;
+
+        static const double kEpsilon;   // for shadows and secondary rays
 };
 
 
 
 inline void
 Sphere::set_center(const Point3D& c) {
-	center = c;
+    center = c;
 }
-		
+
 inline void
 Sphere::set_center(const double x, const double y, const double z) {
-	center.x = x;
-	center.y = y;
-	center.z = z;
+    center.x = x;
+    center.y = y;
+    center.z = z;
 }
-		
+
 inline void
 Sphere::set_radius(const double r) {
-	radius = r;
+    radius = r;
 }
 
 #endif

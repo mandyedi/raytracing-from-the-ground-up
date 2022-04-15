@@ -16,52 +16,52 @@
 
 
 Directional::Directional(const Directional& dl)
-	: 	Light(dl),
-		ls(dl.ls),
-		color(dl.color),
-		dir(dl.dir)  		
+    :   Light(dl),
+        ls(dl.ls),
+        color(dl.color),
+        dir(dl.dir)
 {}
 
 
 
 Directional::Directional(Directional&& dl) noexcept
-	: 	Light(std::move(dl)),
-		ls(std::exchange(dl.ls, 1.0f)),
-		color(std::move(dl.color)),
-		dir(std::move(dl.dir))
+    :   Light(std::move(dl)),
+        ls(std::exchange(dl.ls, 1.0f)),
+        color(std::move(dl.color)),
+        dir(std::move(dl.dir))
 {}
 
 
 
-Directional& 
+Directional&
 Directional::operator= (const Directional& dl) {
-	Light::operator= (dl);
-	
-	ls		= dl.ls;
-	color 	= dl.color;
-	dir 	= dl.dir;
+    Light::operator= (dl);
 
-	return (*this);
+    ls      = dl.ls;
+    color   = dl.color;
+    dir     = dl.dir;
+
+    return (*this);
 }
 
 
 
-Directional& 
+Directional&
 Directional::operator= (Directional&& dl) noexcept {
-	Light::operator= (std::move(dl));
-	
-	ls		= std::exchange(dl.ls, 1.0f);
-	color 	= std::move(dl.color);
-	dir 	= std::move(dl.dir);
+    Light::operator= (std::move(dl));
 
-	return (*this);
+    ls      = std::exchange(dl.ls, 1.0f);
+    color   = std::move(dl.color);
+    dir     = std::move(dl.dir);
+
+    return (*this);
 }
 
 
 
-Light* 
+Light*
 Directional::clone(void) const {
-	return (new Directional(*this));
+    return (new Directional(*this));
 }
 
 
@@ -69,15 +69,15 @@ Directional::clone(void) const {
 Directional::~Directional(void) {}
 
 
-Vector3D								
+Vector3D
 Directional::get_direction([[maybe_unused]] ShadeRec& sr) {
-	return (dir);
-}	
+    return (dir);
+}
 
 
 RGBColor
-Directional::L([[maybe_unused]] ShadeRec& s) {	
-	return (ls * color);
+Directional::L([[maybe_unused]] ShadeRec& s) {
+    return (ls * color);
 }
 
 

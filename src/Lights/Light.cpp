@@ -21,38 +21,38 @@ Light::~Light(void) {}
 
 
 Light::Light(const Light& l)
-	: shadows(l.shadows)
+    : shadows(l.shadows)
 {}
 
 
 
 Light::Light(Light&& l) noexcept
-	: shadows(std::exchange(l.shadows, false))
+    : shadows(std::exchange(l.shadows, false))
 {}
 
 
 
-Light& 
+Light&
 Light::operator= (const Light& l) {
-	shadows = l.shadows;
+    shadows = l.shadows;
 
-	return (*this);
+    return (*this);
 }
 
 
 
-Light& 
+Light&
 Light::operator= (Light&& l) noexcept {
-	shadows = std::exchange(l.shadows, false);
+    shadows = std::exchange(l.shadows, false);
 
-	return (*this);
+    return (*this);
 }
 
 
 
-RGBColor								
+RGBColor
 Light::L([[maybe_unused]] ShadeRec& s) {
-	return (RGBColor::black);
+    return (RGBColor::black);
 }
 
 
@@ -63,7 +63,7 @@ Light::in_shadow(const Ray &ray, const ShadeRec &sr) const{
 
 float
 Light::G(const ShadeRec& sr) const {
-	return 1.0f;
+    return 1.0f;
 };
 
 float

@@ -24,105 +24,105 @@ class Sampler;
 
 class GeometricObject {
 
-	public:
+    public:
 
-		GeometricObject(void) = default;
+        GeometricObject(void) = default;
 
-		virtual
-		~GeometricObject (void);
+        virtual
+        ~GeometricObject (void);
 
-		GeometricObject(const GeometricObject& go);
+        GeometricObject(const GeometricObject& go);
 
-		GeometricObject(GeometricObject&& go) noexcept;
+        GeometricObject(GeometricObject&& go) noexcept;
 
-		GeometricObject&
-		operator= (const GeometricObject& go);
+        GeometricObject&
+        operator= (const GeometricObject& go);
 
-		GeometricObject&
-		operator= (GeometricObject&& go) noexcept;
+        GeometricObject&
+        operator= (GeometricObject&& go) noexcept;
 
-		virtual GeometricObject*
-		clone(void) const = 0;
+        virtual GeometricObject*
+        clone(void) const = 0;
 
-		virtual bool
-		hit(const Ray& ray, double& t, ShadeRec& s) const = 0;
+        virtual bool
+        hit(const Ray& ray, double& t, ShadeRec& s) const = 0;
 
-		virtual bool
-    	shadow_hit(const Ray& ray, float& tmin) const;
+        virtual bool
+        shadow_hit(const Ray& ray, float& tmin) const;
 
-		Material*
-		get_material(void) const;
+        Material*
+        get_material(void) const;
 
-		void
-		set_material(Material* mPtr);
+        void
+        set_material(Material* mPtr);
 
-		void
-		set_color(const RGBColor &c);
+        void
+        set_color(const RGBColor &c);
 
-		void
-		set_color(const float r, const float g, const float b);
+        void
+        set_color(const float r, const float g, const float b);
 
-		RGBColor
-		get_color(void);
+        RGBColor
+        get_color(void);
 
-		virtual BBox
-		get_bounding_box() const;
+        virtual BBox
+        get_bounding_box() const;
 
-		void
-    	set_shadows(bool _shadows);
+        void
+        set_shadows(bool _shadows);
 
-    	// the following functions are used when the rectangle is a light source
-    	// todo: implement them in rectangle, disk and sphere
+        // the following functions are used when the rectangle is a light source
+        // todo: implement them in rectangle, disk and sphere
 
-    	virtual void
-		set_sampler(Sampler* sampler);
+        virtual void
+        set_sampler(Sampler* sampler);
 
-		virtual Point3D
-		sample(void);
+        virtual Point3D
+        sample(void);
 
-		virtual Normal
-		get_normal(const Point3D& p);
+        virtual Normal
+        get_normal(const Point3D& p);
 
-		virtual float
-		pdf(const ShadeRec& sr);
+        virtual float
+        pdf(const ShadeRec& sr);
 
-	protected:
+    protected:
 
-		RGBColor   			color = RGBColor::black;
+        RGBColor            color = RGBColor::black;
 
-		// From the book, chapter 16.7 Shadowing Options
-		// Specify whether an object casts shadows or not.
-		// This is essential for performing ambient occlusion with environment lights (see Section 18.10).
-		bool shadows = true;
+        // From the book, chapter 16.7 Shadowing Options
+        // Specify whether an object casts shadows or not.
+        // This is essential for performing ambient occlusion with environment lights (see Section 18.10).
+        bool shadows = true;
 
-		// mutable allows Compound::hit, Instance::hit and Grid::hit to assign to material_ptr. hit functions are const
-		mutable Material*   material_ptr = nullptr;
+        // mutable allows Compound::hit, Instance::hit and Grid::hit to assign to material_ptr. hit functions are const
+        mutable Material*   material_ptr = nullptr;
 
-		Sampler* sampler_ptr = nullptr;
+        Sampler* sampler_ptr = nullptr;
 };
 
 
 
 inline Material*
 GeometricObject::get_material(void) const {
-	return (material_ptr);
+    return (material_ptr);
 }
 
 inline void
 GeometricObject::set_color(const RGBColor &c) {
-	color = c;
+    color = c;
 }
 
 inline void
 GeometricObject::set_color(const float r, const float g, const float b) {
-	color.r = r;
-	color.b = b;
-	color.g = g;
+    color.r = r;
+    color.b = b;
+    color.g = g;
 }
 
 inline RGBColor
 GeometricObject::get_color(void) {
-	return (color);
+    return (color);
 }
 
 inline void

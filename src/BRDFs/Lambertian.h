@@ -16,53 +16,53 @@
 #include "BRDF.h"
 
 class Lambertian: public BRDF {
-	public:
+    public:
 
-		Lambertian(void) = default;
+        Lambertian(void) = default;
 
-		~Lambertian(void);
+        ~Lambertian(void);
 
-		Lambertian(const Lambertian& l);
+        Lambertian(const Lambertian& l);
 
-		Lambertian(Lambertian&& l) noexcept;
+        Lambertian(Lambertian&& l) noexcept;
 
-		Lambertian&
-		operator= (const Lambertian& l);
+        Lambertian&
+        operator= (const Lambertian& l);
 
-		Lambertian&
-		operator= (Lambertian&& l) noexcept;
+        Lambertian&
+        operator= (Lambertian&& l) noexcept;
 
-		Lambertian*
-		clone(void) const override;
+        Lambertian*
+        clone(void) const override;
 
-		RGBColor
-		f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const override;
+        RGBColor
+        f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const override;
 
-		RGBColor
-		sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const override;
+        RGBColor
+        sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const override;
 
-		RGBColor
-		rho(const ShadeRec& sr, const Vector3D& wo) const override;
+        RGBColor
+        rho(const ShadeRec& sr, const Vector3D& wo) const override;
 
-		void
-		set_ka(const float ka);
+        void
+        set_ka(const float ka);
 
-		void
-		set_kd(const float kd);
+        void
+        set_kd(const float kd);
 
-		void
-		set_cd(const RGBColor& c);
+        void
+        set_cd(const RGBColor& c);
 
-		void
-		set_cd(const float r, const float g, const float b);
+        void
+        set_cd(const float r, const float g, const float b);
 
-		void
-		set_cd(const float c);
+        void
+        set_cd(const float c);
 
-	private:
+    private:
 
-		float		kd = 0.0f;
-		RGBColor 	cd = RGBColor::black;
+        float       kd = 0.0f;
+        RGBColor    cd = RGBColor::black;
 };
 
 
@@ -71,7 +71,7 @@ class Lambertian: public BRDF {
 
 inline void
 Lambertian::set_ka(const float k) {
-	kd = k;
+    kd = k;
 }
 
 
@@ -79,28 +79,28 @@ Lambertian::set_ka(const float k) {
 
 inline void
 Lambertian::set_kd(const float k) {
-	kd = k;
+    kd = k;
 }
 
 
 
 inline void
 Lambertian::set_cd(const RGBColor& c) {
-	cd = c;
+    cd = c;
 }
 
 
 
 inline void
 Lambertian::set_cd(const float r, const float g, const float b) {
-	cd.r = r; cd.g = g; cd.b = b;
+    cd.r = r; cd.g = g; cd.b = b;
 }
 
 
 
 inline void
 Lambertian::set_cd(const float c) {
-	cd.r = c; cd.g = c; cd.b = c;
+    cd.r = c; cd.g = c; cd.b = c;
 }
 
 #endif

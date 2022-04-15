@@ -2,10 +2,10 @@
 #define __MULTI_JITTERED__
 
 
-// 	Copyright (C) Kevin Suffern 2000-2007.
-//	This C++ code is for non-commercial purposes only.
-//	This C++ code is licensed under the GNU General Public License Version 2.
-//	See the file COPYING.txt for the full license.
+//  Copyright (C) Kevin Suffern 2000-2007.
+//  This C++ code is for non-commercial purposes only.
+//  This C++ code is licensed under the GNU General Public License Version 2.
+//  See the file COPYING.txt for the full license.
 
 //  Copyright notice for changes since the originally published version:
 //  Copyright (C) Eduárd Mándy 2019-2021
@@ -18,33 +18,33 @@
 #include "Sampler.h"
 
 class MultiJittered: public Sampler {
-	public:
-		
-		MultiJittered(void) = default;					
-		
-		explicit MultiJittered(const int num_samples);				
-		
-		explicit MultiJittered(const int num_samples, const int m);
+    public:
 
-		~MultiJittered(void) = default;					
+        MultiJittered(void) = default;
 
-		MultiJittered(const MultiJittered& r)  = default;
+        explicit MultiJittered(const int num_samples);
 
-		MultiJittered(MultiJittered&& r) = default;
+        explicit MultiJittered(const int num_samples, const int m);
 
-		MultiJittered& 
-		operator= (const MultiJittered& rhs) = default;
+        ~MultiJittered(void) = default;
 
-		MultiJittered& 
-		operator= (MultiJittered&& rhs) = default;
+        MultiJittered(const MultiJittered& r)  = default;
 
-		virtual MultiJittered*								
-		clone(void) const override;									
-		
-	private:
-		
-		virtual void										
-		generate_samples(void) override;		
+        MultiJittered(MultiJittered&& r) = default;
+
+        MultiJittered&
+        operator= (const MultiJittered& rhs) = default;
+
+        MultiJittered&
+        operator= (MultiJittered&& rhs) = default;
+
+        virtual MultiJittered*
+        clone(void) const override;
+
+    private:
+
+        virtual void
+        generate_samples(void) override;
 };
 
 #endif

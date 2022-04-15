@@ -18,19 +18,19 @@ PointLight::~PointLight(void) {}
 
 
 PointLight::PointLight(const PointLight& pl)
-	: 	Light(pl),
-		ls(pl.ls),
-		color(pl.color),
-		location(pl.location)
+    :   Light(pl),
+        ls(pl.ls),
+        color(pl.color),
+        location(pl.location)
 {}
 
 
 
 PointLight::PointLight(PointLight&& pl) noexcept
-	: 	Light(std::move(pl)),
-		ls(std::exchange(pl.ls, 1.0f)),
-		color(std::move(pl.color)),
-		location(std::move(pl.location))
+    :   Light(std::move(pl)),
+        ls(std::exchange(pl.ls, 1.0f)),
+        color(std::move(pl.color)),
+        location(std::move(pl.location))
 {}
 
 
@@ -38,13 +38,13 @@ PointLight::PointLight(PointLight&& pl) noexcept
 PointLight&
 PointLight::operator= (const PointLight& pl)
 {
-	Light::operator= (pl);
+    Light::operator= (pl);
 
-	ls		= pl.ls;
-	color 	= pl.color;
-	location 	= pl.location;
+    ls      = pl.ls;
+    color   = pl.color;
+    location    = pl.location;
 
-	return (*this);
+    return (*this);
 }
 
 
@@ -52,33 +52,33 @@ PointLight::operator= (const PointLight& pl)
 PointLight&
 PointLight::operator= (PointLight&& pl) noexcept
 {
-	Light::operator= (std::move(pl));
+    Light::operator= (std::move(pl));
 
-	ls		= std::exchange(pl.ls, 1.0f);
-	color 	= std::move(pl.color);
-	location 	= std::move(pl.location);
+    ls      = std::exchange(pl.ls, 1.0f);
+    color   = std::move(pl.color);
+    location    = std::move(pl.location);
 
-	return (*this);
+    return (*this);
 }
 
 
 
 Light*
 PointLight::clone(void) const {
-	return (new PointLight(*this));
+    return (new PointLight(*this));
 }
 
 
 
 Vector3D
 PointLight::get_direction(ShadeRec& sr) {
-	return (location - sr.hit_point).hat();
+    return (location - sr.hit_point).hat();
 }
 
 
 RGBColor
 PointLight::L([[maybe_unused]] ShadeRec& s) {
-	return (ls * color);
+    return (ls * color);
 }
 
 bool

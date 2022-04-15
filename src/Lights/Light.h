@@ -21,52 +21,52 @@ class ShadeRec;
 
 
 
-class Light {	
-	public:
-	
-		Light(void) = default;
+class Light {
+    public:
 
-		virtual 							
-		~Light(void);
-								
-		Light(const Light& ls);
+        Light(void) = default;
 
-		Light(Light&& ls) noexcept;
+        virtual
+        ~Light(void);
 
-		Light& 								
-		operator= (const Light& rhs);
+        Light(const Light& ls);
 
-		Light& 								
-		operator= (Light&& rhs) noexcept; 
+        Light(Light&& ls) noexcept;
 
-		virtual Light* 						
-		clone(void) const = 0;
-						
-		virtual Vector3D								
-		get_direction(ShadeRec& sr) = 0;				
-																
-		virtual RGBColor														
-		L(ShadeRec& sr);
+        Light&
+        operator= (const Light& rhs);
 
-		virtual bool
-    	in_shadow(const Ray& ray, const ShadeRec& sr) const;
+        Light&
+        operator= (Light&& rhs) noexcept;
 
-    	virtual float
-		G(const ShadeRec& sr) const;
+        virtual Light*
+        clone(void) const = 0;
 
-		virtual float
-		pdf(const ShadeRec &sr) const;
+        virtual Vector3D
+        get_direction(ShadeRec& sr) = 0;
 
-		void
-    	set_shadows(bool _shadows);
+        virtual RGBColor
+        L(ShadeRec& sr);
 
-    
-	    bool
-	    casts_shadows();
+        virtual bool
+        in_shadow(const Ray& ray, const ShadeRec& sr) const;
 
-	protected:
+        virtual float
+        G(const ShadeRec& sr) const;
 
-		bool shadows = false;
+        virtual float
+        pdf(const ShadeRec &sr) const;
+
+        void
+        set_shadows(bool _shadows);
+
+
+        bool
+        casts_shadows();
+
+    protected:
+
+        bool shadows = false;
 };
 
 inline void

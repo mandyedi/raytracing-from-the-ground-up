@@ -24,17 +24,17 @@ class Texture {
       ~Texture(void);
 
       Texture(const Texture& t);
-      
+
       Texture(Texture&& t) noexcept;
-      
+
       Texture&
       operator= (const Texture& t);
-      
+
       Texture&
       operator= (Texture&& t) noexcept;
 
       virtual Texture*
-      clone(void) const = 0;      
+      clone(void) const = 0;
 
       virtual RGBColor
       get_color(const ShadeRec& sr) const = 0;

@@ -18,37 +18,37 @@
 
 
 ViewPlane::~ViewPlane(void) {
-	if (sampler_ptr) {
-		delete sampler_ptr;
-		sampler_ptr = nullptr;
-	}
+    if (sampler_ptr) {
+        delete sampler_ptr;
+        sampler_ptr = nullptr;
+    }
 }
 
 void
 ViewPlane::set_samples(const int n) {
-	num_samples = n;
-	
-	if (sampler_ptr) {
-		delete sampler_ptr;
-		sampler_ptr = nullptr;
-	}
-	
-	if (num_samples > 1) {
-		sampler_ptr = new MultiJittered(num_samples);
-	}
-	else {
-		sampler_ptr = new Regular(1);
-	}
+    num_samples = n;
+
+    if (sampler_ptr) {
+        delete sampler_ptr;
+        sampler_ptr = nullptr;
+    }
+
+    if (num_samples > 1) {
+        sampler_ptr = new MultiJittered(num_samples);
+    }
+    else {
+        sampler_ptr = new Regular(1);
+    }
 }
 
 void
 ViewPlane::set_sampler(Sampler* sp) {
-	
-	if (sampler_ptr) {
-		delete sampler_ptr;
-		sampler_ptr = nullptr;
-	}
-	
-	num_samples = sp->get_num_samples();
-	sampler_ptr = sp;
+
+    if (sampler_ptr) {
+        delete sampler_ptr;
+        sampler_ptr = nullptr;
+    }
+
+    num_samples = sp->get_num_samples();
+    sampler_ptr = sp;
 }

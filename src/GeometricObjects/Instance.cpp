@@ -24,102 +24,102 @@ Instance::forward_matrix;
 
 
 Instance::Instance(void)
-	: 	GeometricObject(),
-		object_ptr(nullptr),
-		inv_matrix(),
-		bbox(),
-		transform_the_texture(true)
+    :   GeometricObject(),
+        object_ptr(nullptr),
+        inv_matrix(),
+        bbox(),
+        transform_the_texture(true)
 {
-	forward_matrix.set_identity();
+    forward_matrix.set_identity();
 }
 
 
 
 
 Instance::Instance(GeometricObject* obj_ptr)
-	:	GeometricObject(),
-		object_ptr(obj_ptr),
-		inv_matrix(),
-		bbox(),
-		transform_the_texture(true)
+    :   GeometricObject(),
+        object_ptr(obj_ptr),
+        inv_matrix(),
+        bbox(),
+        transform_the_texture(true)
 {
-	forward_matrix.set_identity();
+    forward_matrix.set_identity();
 }
 
 
 
 Instance::~Instance(void) {
-	if (object_ptr) {
-		delete object_ptr;
-		object_ptr = nullptr;
-	}
+    if (object_ptr) {
+        delete object_ptr;
+        object_ptr = nullptr;
+    }
 }
 
 
 
 
 Instance::Instance (const Instance& instance)
-	: 	GeometricObject(instance),
-		inv_matrix(instance.inv_matrix),
-		transform_the_texture(instance.transform_the_texture)
+    :   GeometricObject(instance),
+        inv_matrix(instance.inv_matrix),
+        transform_the_texture(instance.transform_the_texture)
 {
-	object_ptr = instance.object_ptr->clone();
+    object_ptr = instance.object_ptr->clone();
 }
 
 
 
 Instance::Instance (Instance&& instance) noexcept
-	: 	GeometricObject(std::move(instance)),
-		inv_matrix(std::move(instance.inv_matrix)),
-		bbox(std::move(instance.bbox)),
-		transform_the_texture(std::exchange(instance.transform_the_texture, true))
+    :   GeometricObject(std::move(instance)),
+        inv_matrix(std::move(instance.inv_matrix)),
+        bbox(std::move(instance.bbox)),
+        transform_the_texture(std::exchange(instance.transform_the_texture, true))
 {
-	object_ptr = instance.object_ptr;
-	instance.object_ptr = nullptr;
+    object_ptr = instance.object_ptr;
+    instance.object_ptr = nullptr;
 }
 
 
 
 Instance&
 Instance::operator= (const Instance& instance) {
-	GeometricObject::operator=(instance);
+    GeometricObject::operator=(instance);
 
-	if(object_ptr != nullptr) {
-		delete object_ptr;
-	}
-	object_ptr = instance.object_ptr->clone();
+    if(object_ptr != nullptr) {
+        delete object_ptr;
+    }
+    object_ptr = instance.object_ptr->clone();
 
-	inv_matrix				= instance.inv_matrix;
-	bbox					= instance.bbox;
-	transform_the_texture 	= instance.transform_the_texture;
+    inv_matrix              = instance.inv_matrix;
+    bbox                    = instance.bbox;
+    transform_the_texture   = instance.transform_the_texture;
 
-	return (*this);
+    return (*this);
 }
 
 
 
 Instance&
 Instance::operator= (Instance&& instance) noexcept {
-	GeometricObject::operator=(std::move(instance));
+    GeometricObject::operator=(std::move(instance));
 
-	if (object_ptr != nullptr) {
-		delete object_ptr;
-	}
-	object_ptr = instance.object_ptr;
-	instance.object_ptr = nullptr;
+    if (object_ptr != nullptr) {
+        delete object_ptr;
+    }
+    object_ptr = instance.object_ptr;
+    instance.object_ptr = nullptr;
 
-	inv_matrix				= std::move(instance.inv_matrix);
-	bbox					= std::move(instance.bbox);
-	transform_the_texture 	= std::exchange(instance.transform_the_texture, true);
+    inv_matrix              = std::move(instance.inv_matrix);
+    bbox                    = std::move(instance.bbox);
+    transform_the_texture   = std::exchange(instance.transform_the_texture, true);
 
-	return (*this);
+    return (*this);
 }
 
 
 
 Instance*
 Instance::clone(void) const {
-	return (new Instance(*this));
+    return (new Instance(*this));
 }
 
 
@@ -127,7 +127,7 @@ Instance::clone(void) const {
 
 void
 Instance::set_object(GeometricObject* obj_ptr) {
-	object_ptr = obj_ptr;
+    object_ptr = obj_ptr;
 }
 
 
@@ -137,103 +137,103 @@ Instance::set_object(GeometricObject* obj_ptr) {
 void
 Instance::compute_bounding_box(void) {
 
-	// First get the object's untransformed BBox
-	BBox object_bbox = object_ptr->get_bounding_box();
+    // First get the object's untransformed BBox
+    BBox object_bbox = object_ptr->get_bounding_box();
 
 
-	// Now apply the affine transformations to the box.
-	// We must apply the transformations to all 8 vertices of the orginal box
-	// and then work out the new minimum and maximum values
+    // Now apply the affine transformations to the box.
+    // We must apply the transformations to all 8 vertices of the orginal box
+    // and then work out the new minimum and maximum values
 
-	// Construct the eight vertices as 3D points:
+    // Construct the eight vertices as 3D points:
 
-	Point3D v[8];
+    Point3D v[8];
 
-	v[0].x = object_bbox.x0; v[0].y = object_bbox.y0; v[0].z = object_bbox.z0;
-	v[1].x = object_bbox.x1; v[1].y = object_bbox.y0; v[1].z = object_bbox.z0;
-	v[2].x = object_bbox.x1; v[2].y = object_bbox.y1; v[2].z = object_bbox.z0;
-	v[3].x = object_bbox.x0; v[3].y = object_bbox.y1; v[3].z = object_bbox.z0;
+    v[0].x = object_bbox.x0; v[0].y = object_bbox.y0; v[0].z = object_bbox.z0;
+    v[1].x = object_bbox.x1; v[1].y = object_bbox.y0; v[1].z = object_bbox.z0;
+    v[2].x = object_bbox.x1; v[2].y = object_bbox.y1; v[2].z = object_bbox.z0;
+    v[3].x = object_bbox.x0; v[3].y = object_bbox.y1; v[3].z = object_bbox.z0;
 
-	v[4].x = object_bbox.x0; v[4].y = object_bbox.y0; v[4].z = object_bbox.z1;
-	v[5].x = object_bbox.x1; v[5].y = object_bbox.y0; v[5].z = object_bbox.z1;
-	v[6].x = object_bbox.x1; v[6].y = object_bbox.y1; v[6].z = object_bbox.z1;
-	v[7].x = object_bbox.x0; v[7].y = object_bbox.y1; v[7].z = object_bbox.z1;
-
-
-	// Transform these using the forward matrix
-
-	v[0] = forward_matrix * v[0];
-	v[1] = forward_matrix * v[1];
-	v[2] = forward_matrix * v[2];
-	v[3] = forward_matrix * v[3];
-	v[4] = forward_matrix * v[4];
-	v[5] = forward_matrix * v[5];
-	v[6] = forward_matrix * v[6];
-	v[7] = forward_matrix * v[7];
+    v[4].x = object_bbox.x0; v[4].y = object_bbox.y0; v[4].z = object_bbox.z1;
+    v[5].x = object_bbox.x1; v[5].y = object_bbox.y0; v[5].z = object_bbox.z1;
+    v[6].x = object_bbox.x1; v[6].y = object_bbox.y1; v[6].z = object_bbox.z1;
+    v[7].x = object_bbox.x0; v[7].y = object_bbox.y1; v[7].z = object_bbox.z1;
 
 
-	// Since forward_matrix is a static variable, we must now set it to the unit matrix
-	// This sets it up correctly for the next instance object
+    // Transform these using the forward matrix
 
-	forward_matrix.set_identity();
+    v[0] = forward_matrix * v[0];
+    v[1] = forward_matrix * v[1];
+    v[2] = forward_matrix * v[2];
+    v[3] = forward_matrix * v[3];
+    v[4] = forward_matrix * v[4];
+    v[5] = forward_matrix * v[5];
+    v[6] = forward_matrix * v[6];
+    v[7] = forward_matrix * v[7];
 
 
-	// Compute the minimum values
+    // Since forward_matrix is a static variable, we must now set it to the unit matrix
+    // This sets it up correctly for the next instance object
 
-	float x0 = kHugeValue;
-	float y0 = kHugeValue;
-	float z0 = kHugeValue;
+    forward_matrix.set_identity();
 
-	for (int j = 0; j <= 7; j++)  {
-		if (v[j].x < x0) {
-			x0 = v[j].x;
-		}
-	}
 
-	for (int j = 0; j <= 7; j++) {
-		if (v[j].y < y0) {
-			y0 = v[j].y;
-		}
-	}
+    // Compute the minimum values
 
-	for (int j = 0; j <= 7; j++) {
-		if (v[j].z < z0) {
-			z0 = v[j].z;
-		}
-	}
+    float x0 = kHugeValue;
+    float y0 = kHugeValue;
+    float z0 = kHugeValue;
 
-	// Compute the minimum values
+    for (int j = 0; j <= 7; j++)  {
+        if (v[j].x < x0) {
+            x0 = v[j].x;
+        }
+    }
 
-	float x1 = -kHugeValue;
-	float y1 = -kHugeValue;
-	float z1 = -kHugeValue;
+    for (int j = 0; j <= 7; j++) {
+        if (v[j].y < y0) {
+            y0 = v[j].y;
+        }
+    }
 
-	for (int j = 0; j <= 7; j++) {
-		if (v[j].x > x1) {
-			x1 = v[j].x;
-		}
-	}
+    for (int j = 0; j <= 7; j++) {
+        if (v[j].z < z0) {
+            z0 = v[j].z;
+        }
+    }
 
-	for (int j = 0; j <= 7; j++) {
-		if (v[j].y > y1) {
-			y1 = v[j].y;
-		}
-	}
+    // Compute the minimum values
 
-	for (int j = 0; j <= 7; j++) {
-		if (v[j].z > z1) {
-			z1 = v[j].z;
-		}
-	}
+    float x1 = -kHugeValue;
+    float y1 = -kHugeValue;
+    float z1 = -kHugeValue;
 
-	// Assign values to the bounding box
+    for (int j = 0; j <= 7; j++) {
+        if (v[j].x > x1) {
+            x1 = v[j].x;
+        }
+    }
 
-	bbox.x0 = x0;
-	bbox.y0 = y0;
-	bbox.z0 = z0;
-	bbox.x1 = x1;
-	bbox.y1 = y1;
-	bbox.z1 = z1;
+    for (int j = 0; j <= 7; j++) {
+        if (v[j].y > y1) {
+            y1 = v[j].y;
+        }
+    }
+
+    for (int j = 0; j <= 7; j++) {
+        if (v[j].z > z1) {
+            z1 = v[j].z;
+        }
+    }
+
+    // Assign values to the bounding box
+
+    bbox.x0 = x0;
+    bbox.y0 = y0;
+    bbox.z0 = z0;
+    bbox.x1 = x1;
+    bbox.y1 = y1;
+    bbox.z1 = z1;
 }
 
 
@@ -241,14 +241,14 @@ Instance::compute_bounding_box(void) {
 
 BBox
 Instance::get_bounding_box(void) {
-	return (bbox);
+    return (bbox);
 }
 
 
 
 Material*
 Instance::get_material(void) const {
-	return (material_ptr);
+    return (material_ptr);
 }
 
 
@@ -257,7 +257,7 @@ Instance::get_material(void) const {
 
 void
 Instance::set_material(Material* m_ptr) {
-	material_ptr = m_ptr;
+    material_ptr = m_ptr;
 }
 
 
@@ -266,26 +266,26 @@ Instance::set_material(Material* m_ptr) {
 
 bool
 Instance::hit(const Ray& ray, double& t, ShadeRec& sr) const {
-	Ray inv_ray(ray);
-	inv_ray.o = inv_matrix * inv_ray.o;
-	inv_ray.d = inv_matrix * inv_ray.d;
+    Ray inv_ray(ray);
+    inv_ray.o = inv_matrix * inv_ray.o;
+    inv_ray.d = inv_matrix * inv_ray.d;
 
-	if (object_ptr->hit(inv_ray, t, sr)) {
-		sr.normal = inv_matrix * sr.normal;
-		sr.normal.normalize();
+    if (object_ptr->hit(inv_ray, t, sr)) {
+        sr.normal = inv_matrix * sr.normal;
+        sr.normal.normalize();
 
-		if (object_ptr->get_material()) {
-			material_ptr = object_ptr->get_material();
-		}
+        if (object_ptr->get_material()) {
+            material_ptr = object_ptr->get_material();
+        }
 
-		if (!transform_the_texture) {
-			sr.local_hit_point = ray.o + t * ray.d;
-		}
+        if (!transform_the_texture) {
+            sr.local_hit_point = ray.o + t * ray.d;
+        }
 
-		return (true);
-	}
+        return (true);
+    }
 
-	return (false);
+    return (false);
 }
 
 
@@ -294,21 +294,21 @@ Instance::hit(const Ray& ray, double& t, ShadeRec& sr) const {
 void
 Instance::scale(const Vector3D& s) {
 
-	Matrix	inv_scaling_matrix;
+    Matrix  inv_scaling_matrix;
 
-	inv_scaling_matrix.m[0][0] = 1.0 / s.x;
-	inv_scaling_matrix.m[1][1] = 1.0 / s.y;
-	inv_scaling_matrix.m[2][2] = 1.0 / s.z;
+    inv_scaling_matrix.m[0][0] = 1.0 / s.x;
+    inv_scaling_matrix.m[1][1] = 1.0 / s.y;
+    inv_scaling_matrix.m[2][2] = 1.0 / s.z;
 
-	inv_matrix = inv_matrix * inv_scaling_matrix;
+    inv_matrix = inv_matrix * inv_scaling_matrix;
 
-	Matrix	scaling_matrix;
+    Matrix  scaling_matrix;
 
-	scaling_matrix.m[0][0] = s.x;
-	scaling_matrix.m[1][1] = s.y;
-	scaling_matrix.m[2][2] = s.z;
+    scaling_matrix.m[0][0] = s.x;
+    scaling_matrix.m[1][1] = s.y;
+    scaling_matrix.m[2][2] = s.z;
 
-	forward_matrix = scaling_matrix * forward_matrix;
+    forward_matrix = scaling_matrix * forward_matrix;
 }
 
 
@@ -317,21 +317,21 @@ Instance::scale(const Vector3D& s) {
 void
 Instance::scale(const double a, const double b, const double c) {
 
-	Matrix inv_scaling_matrix;
+    Matrix inv_scaling_matrix;
 
-	inv_scaling_matrix.m[0][0] = 1.0 / a;
-	inv_scaling_matrix.m[1][1] = 1.0 / b;
-	inv_scaling_matrix.m[2][2] = 1.0 / c;
+    inv_scaling_matrix.m[0][0] = 1.0 / a;
+    inv_scaling_matrix.m[1][1] = 1.0 / b;
+    inv_scaling_matrix.m[2][2] = 1.0 / c;
 
-	inv_matrix = inv_matrix * inv_scaling_matrix;
+    inv_matrix = inv_matrix * inv_scaling_matrix;
 
-	Matrix scaling_matrix;
+    Matrix scaling_matrix;
 
-	scaling_matrix.m[0][0] = a;
-	scaling_matrix.m[1][1] = b;
-	scaling_matrix.m[2][2] = c;
+    scaling_matrix.m[0][0] = a;
+    scaling_matrix.m[1][1] = b;
+    scaling_matrix.m[2][2] = c;
 
-	forward_matrix = scaling_matrix * forward_matrix;
+    forward_matrix = scaling_matrix * forward_matrix;
 }
 
 
@@ -340,21 +340,21 @@ Instance::scale(const double a, const double b, const double c) {
 void
 Instance::translate(const Vector3D& trans) {
 
-	Matrix inv_translation_matrix;
+    Matrix inv_translation_matrix;
 
-	inv_translation_matrix.m[0][3] = -trans.x;
-	inv_translation_matrix.m[1][3] = -trans.y;
-	inv_translation_matrix.m[2][3] = -trans.z;
+    inv_translation_matrix.m[0][3] = -trans.x;
+    inv_translation_matrix.m[1][3] = -trans.y;
+    inv_translation_matrix.m[2][3] = -trans.z;
 
-	inv_matrix = inv_matrix * inv_translation_matrix;
+    inv_matrix = inv_matrix * inv_translation_matrix;
 
-	Matrix translation_matrix;
+    Matrix translation_matrix;
 
-	translation_matrix.m[0][3] = trans.x;
-	translation_matrix.m[1][3] = trans.y;
-	translation_matrix.m[2][3] = trans.z;
+    translation_matrix.m[0][3] = trans.x;
+    translation_matrix.m[1][3] = trans.y;
+    translation_matrix.m[2][3] = trans.z;
 
-	forward_matrix = translation_matrix * forward_matrix;
+    forward_matrix = translation_matrix * forward_matrix;
 }
 
 
@@ -363,21 +363,21 @@ Instance::translate(const Vector3D& trans) {
 void
 Instance::translate(const double dx, const double dy, const double dz) {
 
-	Matrix inv_translation_matrix;
+    Matrix inv_translation_matrix;
 
-	inv_translation_matrix.m[0][3] = -dx;
-	inv_translation_matrix.m[1][3] = -dy;
-	inv_translation_matrix.m[2][3] = -dz;
+    inv_translation_matrix.m[0][3] = -dx;
+    inv_translation_matrix.m[1][3] = -dy;
+    inv_translation_matrix.m[2][3] = -dz;
 
-	inv_matrix = inv_matrix * inv_translation_matrix;
+    inv_matrix = inv_matrix * inv_translation_matrix;
 
-	Matrix translation_matrix;
+    Matrix translation_matrix;
 
-	translation_matrix.m[0][3] = dx;
-	translation_matrix.m[1][3] = dy;
-	translation_matrix.m[2][3] = dz;
+    translation_matrix.m[0][3] = dx;
+    translation_matrix.m[1][3] = dy;
+    translation_matrix.m[2][3] = dz;
 
-	forward_matrix = translation_matrix * forward_matrix;
+    forward_matrix = translation_matrix * forward_matrix;
 }
 
 
@@ -387,26 +387,26 @@ Instance::translate(const double dx, const double dy, const double dz) {
 void
 Instance::rotate_x(const double theta) {
 
-	double sin_theta = sin(theta * PI_ON_180);
-	double cos_theta = cos(theta * PI_ON_180);
+    double sin_theta = sin(theta * PI_ON_180);
+    double cos_theta = cos(theta * PI_ON_180);
 
-	Matrix inv_x_rotation_matrix;
+    Matrix inv_x_rotation_matrix;
 
-	inv_x_rotation_matrix.m[1][1] = cos_theta;
-	inv_x_rotation_matrix.m[1][2] = sin_theta;
-	inv_x_rotation_matrix.m[2][1] = -sin_theta;
-	inv_x_rotation_matrix.m[2][2] = cos_theta;
+    inv_x_rotation_matrix.m[1][1] = cos_theta;
+    inv_x_rotation_matrix.m[1][2] = sin_theta;
+    inv_x_rotation_matrix.m[2][1] = -sin_theta;
+    inv_x_rotation_matrix.m[2][2] = cos_theta;
 
-	inv_matrix = inv_matrix * inv_x_rotation_matrix;
+    inv_matrix = inv_matrix * inv_x_rotation_matrix;
 
-	Matrix x_rotation_matrix;
+    Matrix x_rotation_matrix;
 
-	x_rotation_matrix.m[1][1] = cos_theta;
-	x_rotation_matrix.m[1][2] = -sin_theta;
-	x_rotation_matrix.m[2][1] = sin_theta;
-	x_rotation_matrix.m[2][2] = cos_theta;
+    x_rotation_matrix.m[1][1] = cos_theta;
+    x_rotation_matrix.m[1][2] = -sin_theta;
+    x_rotation_matrix.m[2][1] = sin_theta;
+    x_rotation_matrix.m[2][2] = cos_theta;
 
-	forward_matrix = x_rotation_matrix * forward_matrix;
+    forward_matrix = x_rotation_matrix * forward_matrix;
 }
 
 
@@ -415,26 +415,26 @@ Instance::rotate_x(const double theta) {
 void
 Instance::rotate_y(const double theta) {
 
-	double sin_theta = sin(theta * PI / 180.0);
-	double cos_theta = cos(theta * PI / 180.0);
+    double sin_theta = sin(theta * PI / 180.0);
+    double cos_theta = cos(theta * PI / 180.0);
 
-	Matrix inv_y_rotation_matrix;
+    Matrix inv_y_rotation_matrix;
 
-	inv_y_rotation_matrix.m[0][0] = cos_theta;
-	inv_y_rotation_matrix.m[0][2] = -sin_theta;
-	inv_y_rotation_matrix.m[2][0] = sin_theta;
-	inv_y_rotation_matrix.m[2][2] = cos_theta;
+    inv_y_rotation_matrix.m[0][0] = cos_theta;
+    inv_y_rotation_matrix.m[0][2] = -sin_theta;
+    inv_y_rotation_matrix.m[2][0] = sin_theta;
+    inv_y_rotation_matrix.m[2][2] = cos_theta;
 
-	inv_matrix = inv_matrix * inv_y_rotation_matrix;
+    inv_matrix = inv_matrix * inv_y_rotation_matrix;
 
-	Matrix y_rotation_matrix;
+    Matrix y_rotation_matrix;
 
-	y_rotation_matrix.m[0][0] = cos_theta;
-	y_rotation_matrix.m[0][2] = sin_theta;
-	y_rotation_matrix.m[2][0] = -sin_theta;
-	y_rotation_matrix.m[2][2] = cos_theta;
+    y_rotation_matrix.m[0][0] = cos_theta;
+    y_rotation_matrix.m[0][2] = sin_theta;
+    y_rotation_matrix.m[2][0] = -sin_theta;
+    y_rotation_matrix.m[2][2] = cos_theta;
 
-	forward_matrix = y_rotation_matrix * forward_matrix;
+    forward_matrix = y_rotation_matrix * forward_matrix;
 }
 
 
@@ -443,26 +443,26 @@ Instance::rotate_y(const double theta) {
 
 void
 Instance::rotate_z(const double theta) {
-	double sin_theta = sin(theta * PI / 180.0);
-	double cos_theta = cos(theta * PI / 180.0);
+    double sin_theta = sin(theta * PI / 180.0);
+    double cos_theta = cos(theta * PI / 180.0);
 
-	Matrix inv_z_rotation_matrix;
+    Matrix inv_z_rotation_matrix;
 
-	inv_z_rotation_matrix.m[0][0] = cos_theta;
-	inv_z_rotation_matrix.m[0][1] = sin_theta;
-	inv_z_rotation_matrix.m[1][0] = -sin_theta;
-	inv_z_rotation_matrix.m[1][1] = cos_theta;
+    inv_z_rotation_matrix.m[0][0] = cos_theta;
+    inv_z_rotation_matrix.m[0][1] = sin_theta;
+    inv_z_rotation_matrix.m[1][0] = -sin_theta;
+    inv_z_rotation_matrix.m[1][1] = cos_theta;
 
-	inv_matrix = inv_matrix * inv_z_rotation_matrix;
+    inv_matrix = inv_matrix * inv_z_rotation_matrix;
 
-	Matrix z_rotation_matrix;
+    Matrix z_rotation_matrix;
 
-	z_rotation_matrix.m[0][0] = cos_theta;
-	z_rotation_matrix.m[0][1] = -sin_theta;
-	z_rotation_matrix.m[1][0] = sin_theta;
-	z_rotation_matrix.m[1][1] = cos_theta;
+    z_rotation_matrix.m[0][0] = cos_theta;
+    z_rotation_matrix.m[0][1] = -sin_theta;
+    z_rotation_matrix.m[1][0] = sin_theta;
+    z_rotation_matrix.m[1][1] = cos_theta;
 
-	forward_matrix = z_rotation_matrix * forward_matrix;
+    forward_matrix = z_rotation_matrix * forward_matrix;
 }
 
 
@@ -471,38 +471,38 @@ Instance::rotate_z(const double theta) {
 void
 Instance::shear(const Matrix& s) {
 
-	Matrix inverse_shearing_matrix;
+    Matrix inverse_shearing_matrix;
 
-	// discriminant
+    // discriminant
 
-	double d = 1.0 	- s.m[1][0] * s.m[0][1] - s.m[2][0] * s.m[0][2]  - s.m[2][1] * s.m[1][2]
-					+ s.m[1][0] * s.m[2][1] * s.m[0][2] + s.m[2][0] * s.m[0][1] * s.m[2][1];
+    double d = 1.0  - s.m[1][0] * s.m[0][1] - s.m[2][0] * s.m[0][2]  - s.m[2][1] * s.m[1][2]
+                    + s.m[1][0] * s.m[2][1] * s.m[0][2] + s.m[2][0] * s.m[0][1] * s.m[2][1];
 
-	// diagonals
+    // diagonals
 
-	inverse_shearing_matrix.m[0][0] = 1.0 - s.m[2][1] * s.m[1][2];
-	inverse_shearing_matrix.m[1][1] = 1.0 - s.m[2][0] * s.m[0][2];
-	inverse_shearing_matrix.m[2][2] = 1.0 - s.m[1][0] * s.m[0][1];
-	inverse_shearing_matrix.m[3][3] = d;
+    inverse_shearing_matrix.m[0][0] = 1.0 - s.m[2][1] * s.m[1][2];
+    inverse_shearing_matrix.m[1][1] = 1.0 - s.m[2][0] * s.m[0][2];
+    inverse_shearing_matrix.m[2][2] = 1.0 - s.m[1][0] * s.m[0][1];
+    inverse_shearing_matrix.m[3][3] = d;
 
-	// first row
+    // first row
 
-	inverse_shearing_matrix.m[0][1] = -s.m[1][0] + s.m[2][0] * s.m[1][2];
-	inverse_shearing_matrix.m[0][2] = -s.m[2][0] + s.m[1][0] * s.m[2][1];
+    inverse_shearing_matrix.m[0][1] = -s.m[1][0] + s.m[2][0] * s.m[1][2];
+    inverse_shearing_matrix.m[0][2] = -s.m[2][0] + s.m[1][0] * s.m[2][1];
 
-	// second row
+    // second row
 
-	inverse_shearing_matrix.m[1][0] = -s.m[0][1] + s.m[2][1] * s.m[0][2];
-	inverse_shearing_matrix.m[1][2] = -s.m[2][1] + s.m[2][0] * s.m[0][1];
+    inverse_shearing_matrix.m[1][0] = -s.m[0][1] + s.m[2][1] * s.m[0][2];
+    inverse_shearing_matrix.m[1][2] = -s.m[2][1] + s.m[2][0] * s.m[0][1];
 
-	// third row
+    // third row
 
-	inverse_shearing_matrix.m[2][0] = -s.m[0][2] + s.m[0][1] * s.m[1][2];
-	inverse_shearing_matrix.m[2][1] = -s.m[1][2] + s.m[1][0] * s.m[0][2];
+    inverse_shearing_matrix.m[2][0] = -s.m[0][2] + s.m[0][1] * s.m[1][2];
+    inverse_shearing_matrix.m[2][1] = -s.m[1][2] + s.m[1][0] * s.m[0][2];
 
-	inverse_shearing_matrix = inverse_shearing_matrix / d;
+    inverse_shearing_matrix = inverse_shearing_matrix / d;
 
-	inv_matrix = inv_matrix * inverse_shearing_matrix;
+    inv_matrix = inv_matrix * inverse_shearing_matrix;
 
-	forward_matrix = s * forward_matrix;
+    forward_matrix = s * forward_matrix;
 }

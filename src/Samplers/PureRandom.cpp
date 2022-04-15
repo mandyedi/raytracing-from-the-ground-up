@@ -1,7 +1,7 @@
-// 	Copyright (C) Kevin Suffern 2000-2007.
-//	This C++ code is for non-commercial purposes only.
-//	This C++ code is licensed under the GNU General Public License Version 2.
-//	See the file COPYING.txt for the full license.
+//  Copyright (C) Kevin Suffern 2000-2007.
+//  This C++ code is for non-commercial purposes only.
+//  This C++ code is licensed under the GNU General Public License Version 2.
+//  See the file COPYING.txt for the full license.
 
 //  Copyright notice for changes since the originally published version:
 //  Copyright (C) Eduárd Mándy 2019-2021
@@ -16,26 +16,26 @@
 
 
 PureRandom::PureRandom(const int num)
-	: Sampler(num) {
-	generate_samples();
+    : Sampler(num) {
+    generate_samples();
 }
 
 
 
-PureRandom*										
+PureRandom*
 PureRandom::clone(void) const {
-	return (new PureRandom(*this));
+    return (new PureRandom(*this));
 }
 
 
 
 void
 PureRandom::generate_samples(void) {
-	for (int p = 0; p < num_sets; p++) {
-		for (int q = 0; q < num_samples; q++) {
-			samples.push_back(Point2D(rand_float(), rand_float()));
-		}
-	}
+    for (int p = 0; p < num_sets; p++) {
+        for (int q = 0; q < num_samples; q++) {
+            samples.push_back(Point2D(rand_float(), rand_float()));
+        }
+    }
 }
 
 

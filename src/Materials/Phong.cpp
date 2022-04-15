@@ -14,118 +14,118 @@
 
 
 Phong::Phong (void)
-	:	Material(),
-		ambient_brdf(new Lambertian),
-		diffuse_brdf(new Lambertian),
-		specular_brdf(new GlossySpecular)
+    :   Material(),
+        ambient_brdf(new Lambertian),
+        diffuse_brdf(new Lambertian),
+        specular_brdf(new GlossySpecular)
 {}
 
 
 
 Phong::~Phong(void) {
 
-	if (ambient_brdf != nullptr) {
-		delete ambient_brdf;
-		ambient_brdf = nullptr;
-	}
+    if (ambient_brdf != nullptr) {
+        delete ambient_brdf;
+        ambient_brdf = nullptr;
+    }
 
-	if (diffuse_brdf != nullptr) {
-		delete diffuse_brdf;
-		diffuse_brdf = nullptr;
-	}
+    if (diffuse_brdf != nullptr) {
+        delete diffuse_brdf;
+        diffuse_brdf = nullptr;
+    }
 
-	if (specular_brdf != nullptr) {
-		delete specular_brdf;
-		specular_brdf = nullptr;
-	}
+    if (specular_brdf != nullptr) {
+        delete specular_brdf;
+        specular_brdf = nullptr;
+    }
 }
 
 
 
 Phong::Phong(const Phong& p)
-	: 	Material(p)
+    :   Material(p)
 {
-	ambient_brdf = p.ambient_brdf->clone();
-	diffuse_brdf = p.diffuse_brdf->clone();
-	specular_brdf = p.specular_brdf->clone();
+    ambient_brdf = p.ambient_brdf->clone();
+    diffuse_brdf = p.diffuse_brdf->clone();
+    specular_brdf = p.specular_brdf->clone();
 }
 
 
 
 Phong::Phong(Phong&& p) noexcept
-	: 	Material(std::move(p))
+    :   Material(std::move(p))
 {
-	ambient_brdf = p.ambient_brdf;
-	p.ambient_brdf = nullptr;
-	diffuse_brdf = p.diffuse_brdf;
-	p.diffuse_brdf = nullptr;
-	specular_brdf = p.specular_brdf;
-	p.specular_brdf = nullptr;
+    ambient_brdf = p.ambient_brdf;
+    p.ambient_brdf = nullptr;
+    diffuse_brdf = p.diffuse_brdf;
+    p.diffuse_brdf = nullptr;
+    specular_brdf = p.specular_brdf;
+    p.specular_brdf = nullptr;
 }
 
 
 
 Phong&
 Phong::operator= (const Phong& p) {
-	Material::operator=(p);
+    Material::operator=(p);
 
-	if (ambient_brdf != nullptr) {
-		delete ambient_brdf;
-	}
-	ambient_brdf = p.ambient_brdf->clone();
+    if (ambient_brdf != nullptr) {
+        delete ambient_brdf;
+    }
+    ambient_brdf = p.ambient_brdf->clone();
 
-	if (diffuse_brdf != nullptr) {
-		delete diffuse_brdf;
-	}
-	diffuse_brdf = p.diffuse_brdf->clone();
+    if (diffuse_brdf != nullptr) {
+        delete diffuse_brdf;
+    }
+    diffuse_brdf = p.diffuse_brdf->clone();
 
-	if (specular_brdf != nullptr) {
-		delete specular_brdf;
-	}
-	specular_brdf = p.specular_brdf->clone();
+    if (specular_brdf != nullptr) {
+        delete specular_brdf;
+    }
+    specular_brdf = p.specular_brdf->clone();
 
-	return (*this);
+    return (*this);
 }
 
 
 
 Phong&
 Phong::operator= (Phong&& p) noexcept {
-	Material::operator=(std::move(p));
+    Material::operator=(std::move(p));
 
-	if (ambient_brdf != nullptr) {
-		delete ambient_brdf;
-	}
-	ambient_brdf = p.ambient_brdf;
-	p.ambient_brdf = nullptr;
+    if (ambient_brdf != nullptr) {
+        delete ambient_brdf;
+    }
+    ambient_brdf = p.ambient_brdf;
+    p.ambient_brdf = nullptr;
 
-	if (diffuse_brdf != nullptr) {
-		delete diffuse_brdf;
-	}
-	diffuse_brdf = p.diffuse_brdf;
-	p.diffuse_brdf = nullptr;
+    if (diffuse_brdf != nullptr) {
+        delete diffuse_brdf;
+    }
+    diffuse_brdf = p.diffuse_brdf;
+    p.diffuse_brdf = nullptr;
 
-	if (specular_brdf != nullptr) {
-		delete specular_brdf;
-	}
-	specular_brdf = p.specular_brdf;
-	p.specular_brdf = nullptr;
+    if (specular_brdf != nullptr) {
+        delete specular_brdf;
+    }
+    specular_brdf = p.specular_brdf;
+    p.specular_brdf = nullptr;
 
-	return (*this);
+    return (*this);
 }
 
 
 
 Material*
 Phong::clone(void) const {
-	return (new Phong(*this));
+    return (new Phong(*this));
 }
 
 
 
 RGBColor
 Phong::shade(ShadeRec& sr) {
-	Vector3D wo = -sr.ray.d;
+    Vector3D wo = -sr.ray.d;
     RGBColor L = ambient_brdf->rho(sr, wo) * sr.w.ambient_ptr->L(sr);
     int num_lights = sr.w.lights.size();
 

@@ -18,59 +18,59 @@
 #include "../Utilities/Point3D.h"
 #include "../Utilities/RGBColor.h"
 
-#include "../World/World.h"			// you will need this later on for shadows
+#include "../World/World.h"         // you will need this later on for shadows
 #include "../Utilities/ShadeRec.h"
 
 class Sampler;
 
 class AmbientOccluder: public Light {
-	public:
-	
-		AmbientOccluder(void) = default;
+    public:
 
-		virtual
-		~AmbientOccluder(void);
+        AmbientOccluder(void) = default;
 
-		AmbientOccluder(const AmbientOccluder& a);
+        virtual
+        ~AmbientOccluder(void);
 
-		AmbientOccluder(AmbientOccluder&& a) noexcept;
+        AmbientOccluder(const AmbientOccluder& a);
 
-		AmbientOccluder&
-		operator= (const AmbientOccluder& a);
+        AmbientOccluder(AmbientOccluder&& a) noexcept;
 
-		AmbientOccluder&
-		operator= (AmbientOccluder&& a) noexcept;
+        AmbientOccluder&
+        operator= (const AmbientOccluder& a);
 
-		virtual Light*
-		clone(void) const override;
-	
-		void
-		set_sampler(Sampler* s_ptr);
-	
-		virtual Vector3D						
-		get_direction(ShadeRec& sr);
-	
-		virtual bool									
-		in_shadow(const Ray& ray, const ShadeRec& sr) const;
-	
-		virtual RGBColor
-		L(ShadeRec& sr);
+        AmbientOccluder&
+        operator= (AmbientOccluder&& a) noexcept;
 
-		void
-	    scale_radiance(const float s);
+        virtual Light*
+        clone(void) const override;
 
-	    void
-	    set_min_amount(const float f);
-	
-	private:
-	
-		float		ls 				= 1.0f;
-		RGBColor	color 			= RGBColor::white;
-		float 		min_amount 		= 0.0f;	    
-		Vector3D 	u 				= Vector3D(1.0, 0.0, 0.0);
-		Vector3D 	v 				= Vector3D(0.0, 1.0, 0.0);
-		Vector3D    w 				= Vector3D(0.0, 0.0, 1.0);		
-		Sampler*	sampler_ptr 	= nullptr;
+        void
+        set_sampler(Sampler* s_ptr);
+
+        virtual Vector3D
+        get_direction(ShadeRec& sr);
+
+        virtual bool
+        in_shadow(const Ray& ray, const ShadeRec& sr) const;
+
+        virtual RGBColor
+        L(ShadeRec& sr);
+
+        void
+        scale_radiance(const float s);
+
+        void
+        set_min_amount(const float f);
+
+    private:
+
+        float       ls              = 1.0f;
+        RGBColor    color           = RGBColor::white;
+        float       min_amount      = 0.0f;
+        Vector3D    u               = Vector3D(1.0, 0.0, 0.0);
+        Vector3D    v               = Vector3D(0.0, 1.0, 0.0);
+        Vector3D    w               = Vector3D(0.0, 0.0, 1.0);
+        Sampler*    sampler_ptr     = nullptr;
 };
 
 inline void

@@ -22,22 +22,22 @@ class World;
 #include "RGBColor.h"
 
 class ShadeRec {
-	public:
-	
-		bool				hit_an_object;
-		Material* 			material_ptr = nullptr;		// Pointer to the nearest object's material
-		Point3D 			hit_point;			// World coordinates of intersection
-		Point3D				local_hit_point;	// World coordinates of hit point on generic object (used for texture transformations)
-		Normal				normal;				// Normal at hit point
-		Ray					ray;
-		int					depth;				// recursion depth
-		double				t;					// ray parameter
-		World&				w;
-		RGBColor            color;
+    public:
 
-		ShadeRec() = delete;
-				
-		explicit ShadeRec(World& wr);
+        bool                hit_an_object;
+        Material*           material_ptr = nullptr;     // Pointer to the nearest object's material
+        Point3D             hit_point;          // World coordinates of intersection
+        Point3D             local_hit_point;    // World coordinates of hit point on generic object (used for texture transformations)
+        Normal              normal;             // Normal at hit point
+        Ray                 ray;
+        int                 depth;              // recursion depth
+        double              t;                  // ray parameter
+        World&              w;
+        RGBColor            color;
+
+        ShadeRec() = delete;
+
+        explicit ShadeRec(World& wr);
 };
 
 #endif

@@ -25,30 +25,30 @@
 class World;
 
 class Tracer {
-	public:
+    public:
 
-		Tracer(void) = delete;
+        Tracer(void) = delete;
 
-		explicit Tracer(World* _world_ptr);
+        explicit Tracer(World* _world_ptr);
 
-		virtual
-		~Tracer(void);
+        virtual
+        ~Tracer(void);
 
-		// For the sake of simplicity I prevent copy and move
-		Tracer(const Tracer& t) = delete;
-		Tracer(Tracer&& t) = delete;
-		Tracer& operator= (const Tracer& t) = delete;
-		Tracer& operator= (Tracer&& t) = delete;
+        // For the sake of simplicity I prevent copy and move
+        Tracer(const Tracer& t) = delete;
+        Tracer(Tracer&& t) = delete;
+        Tracer& operator= (const Tracer& t) = delete;
+        Tracer& operator= (Tracer&& t) = delete;
 
-		virtual RGBColor
-		trace_ray(const Ray& ray) const;
+        virtual RGBColor
+        trace_ray(const Ray& ray) const;
 
-		virtual RGBColor
-		trace_ray(const Ray& ray, const int depth) const;
+        virtual RGBColor
+        trace_ray(const Ray& ray, const int depth) const;
 
-	protected:
+    protected:
 
-		World* world_ptr;
+        World* world_ptr;
 };
 
 #endif

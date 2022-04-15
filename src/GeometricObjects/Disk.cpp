@@ -27,73 +27,73 @@ Disk::Disk(const Point3D& p, const Normal& n, float r)
 
 
 Disk::Disk (const Disk& d)
-	:	GeometricObject(d),
-		center(d.center),
-		normal(d.normal),
-		r_squared(d.r_squared)
+  : GeometricObject(d),
+    center(d.center),
+    normal(d.normal),
+    r_squared(d.r_squared)
 {}
 
 
 
 Disk::Disk (Disk&& d) noexcept
-	:	GeometricObject(std::move(d)),
-		center(std::move(d.center)),
-		normal(std::move(d.normal)),
-		r_squared(std::exchange(d.r_squared, 1.0))
+  : GeometricObject(std::move(d)),
+    center(std::move(d.center)),
+    normal(std::move(d.normal)),
+    r_squared(std::exchange(d.r_squared, 1.0))
 {}
 
 
 
 Disk&
 Disk::operator= (const Disk& d) {
-	GeometricObject::operator=(d);
+  GeometricObject::operator=(d);
 
-	center				= d.center;
-	normal				= d.normal;
-	r_squared			= d.r_squared;
+  center        = d.center;
+  normal        = d.normal;
+  r_squared     = d.r_squared;
 
-	return (*this);
+  return (*this);
 }
 
 
 
 Disk&
 Disk::operator= (Disk&& d) noexcept {
-	GeometricObject::operator=(std::move(d));
+  GeometricObject::operator=(std::move(d));
 
-	center				= std::move(d.center);
-	normal				= std::move(d.normal);
-	r_squared			= std::exchange(d.r_squared, 1.0);
+  center        = std::move(d.center);
+  normal        = std::move(d.normal);
+  r_squared     = std::exchange(d.r_squared, 1.0);
 
-	return (*this);
+  return (*this);
 }
 
 
 
 Disk*
 Disk::clone(void) const {
-	return (new Disk(*this));
+  return (new Disk(*this));
 }
 
 
 
 bool
 Disk::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
-	double t = (center - ray.o) * normal / (ray.d * normal);
+  double t = (center - ray.o) * normal / (ray.d * normal);
 
-	if (t <= kEpsilon) {
-		return (false);
-	}
+  if (t <= kEpsilon) {
+    return (false);
+  }
 
-	Point3D p = ray.o + t * ray.d;
+  Point3D p = ray.o + t * ray.d;
 
-	if (center.d_squared(p) < r_squared) {
-		tmin 				= t;
-		sr.normal 			= normal;
-		sr.local_hit_point	= p;
-		return (true);
-	}
-	else {
-		return (false);
-	}
+  if (center.d_squared(p) < r_squared) {
+    tmin        = t;
+    sr.normal       = normal;
+    sr.local_hit_point  = p;
+    return (true);
+  }
+  else {
+    return (false);
+  }
 }

@@ -19,100 +19,100 @@
 FishEye::~FishEye(void) {}
 
 FishEye::FishEye(const FishEye& fe)
-	: Camera(fe),
-	  psi_max(fe.psi_max)
+    : Camera(fe),
+      psi_max(fe.psi_max)
 {}
 
 FishEye::FishEye(FishEye&& fe) noexcept
-	: Camera(std::move(fe)),
-	  psi_max(std::exchange(fe.psi_max, 0.0f))
+    : Camera(std::move(fe)),
+      psi_max(std::exchange(fe.psi_max, 0.0f))
 {}
 
 FishEye&
 FishEye::operator= (const FishEye& fe) {
-	Camera::operator= (fe);
+    Camera::operator= (fe);
 
-	psi_max = fe.psi_max;
+    psi_max = fe.psi_max;
 
-	return (*this);
+    return (*this);
 }
 
 FishEye&
 FishEye::operator= (FishEye&& fe) noexcept {
-	Camera::operator= (std::move(fe));
+    Camera::operator= (std::move(fe));
 
-	psi_max = std::exchange(fe.psi_max, 0.0f);
+    psi_max = std::exchange(fe.psi_max, 0.0f);
 
-	return (*this);
+    return (*this);
 }
 
 Camera*
 FishEye::clone(void) const {
-	return (new FishEye(*this));
+    return (new FishEye(*this));
 }
 
 Vector3D
-FishEye::ray_direction(	const Point2D& 	pp,
-						const int 		hres,
-						const int 		vres,
-						const float 	s,
-						float& 			r_squared) const {
+FishEye::ray_direction( const Point2D&  pp,
+                        const int       hres,
+                        const int       vres,
+                        const float     s,
+                        float&          r_squared) const {
 
-	// compute the normalized device coordinates
+    // compute the normalized device coordinates
 
-	Point2D pn(2.0f / (s * static_cast<float>(hres)) * pp.x, 2.0f / (s * static_cast<float>(vres)) * pp.y);
-	r_squared = pn.x * pn.x + pn.y * pn.y;
+    Point2D pn(2.0f / (s * static_cast<float>(hres)) * pp.x, 2.0f / (s * static_cast<float>(vres)) * pp.y);
+    r_squared = pn.x * pn.x + pn.y * pn.y;
 
-	if (r_squared <= 1.0) {
-		float r 		= sqrtf(r_squared);
-		float psi 		= r * psi_max * PI_ON_180;
-		float sin_psi 	= sinf(psi);
-		float cos_psi 	= cosf(psi);
-		float sin_alpha = pn.y / r;
-		float cos_alpha = pn.x / r;
-		Vector3D dir 	= sin_psi * cos_alpha * u +  sin_psi * sin_alpha * v - cos_psi * w;
+    if (r_squared <= 1.0) {
+        float r         = sqrtf(r_squared);
+        float psi       = r * psi_max * PI_ON_180;
+        float sin_psi   = sinf(psi);
+        float cos_psi   = cosf(psi);
+        float sin_alpha = pn.y / r;
+        float cos_alpha = pn.x / r;
+        Vector3D dir    = sin_psi * cos_alpha * u +  sin_psi * sin_alpha * v - cos_psi * w;
 
-		return (dir);
-	}
-	else
-		return (Vector3D(0.0));
+        return (dir);
+    }
+    else
+        return (Vector3D(0.0));
 }
 
 void
 FishEye::render_scene(const World& wr, float x /*= 0*/, int offset /*= 0*/) {
-	RGBColor	L;
-	int 		hres		= wr.vp.hres;
-	int 		vres 		= wr.vp.vres;
-	float		s 			= wr.vp.s;
-	Ray			ray;
-	int 		depth 		= 0;
-	Point2D 	sp; 					// sample point in [0, 1] X [0, 1]
-	Point2D 	pp;						// sample point on the pixel
-	float		r_squared;				// sum of squares of normalised device coordinates
+    RGBColor    L;
+    int         hres        = wr.vp.hres;
+    int         vres        = wr.vp.vres;
+    float       s           = wr.vp.s;
+    Ray         ray;
+    int         depth       = 0;
+    Point2D     sp;                     // sample point in [0, 1] X [0, 1]
+    Point2D     pp;                     // sample point on the pixel
+    float       r_squared;              // sum of squares of normalised device coordinates
 
-	ray.o = eye;
-	float inv_num_samples = 1.0f / static_cast<float>(wr.vp.num_samples);
+    ray.o = eye;
+    float inv_num_samples = 1.0f / static_cast<float>(wr.vp.num_samples);
 
-	for (int r = 0; r < vres; r++)		// up
-		for (int c = 0; c < hres; c++) {	// across
-			L = RGBColor::black;
+    for (int r = 0; r < vres; r++)      // up
+        for (int c = 0; c < hres; c++) {    // across
+            L = RGBColor::black;
 
-			for (int j = 0; j < wr.vp.num_samples; j++) {
-				sp = wr.vp.sampler_ptr->sample_unit_square();
-				pp.x = s * (c - 0.5f * hres + sp.x) + x;
-				pp.y = s * (r - 0.5f * vres + sp.y);
-				ray.d = ray_direction(pp, hres, vres, s, r_squared);
+            for (int j = 0; j < wr.vp.num_samples; j++) {
+                sp = wr.vp.sampler_ptr->sample_unit_square();
+                pp.x = s * (c - 0.5f * hres + sp.x) + x;
+                pp.y = s * (r - 0.5f * vres + sp.y);
+                ray.d = ray_direction(pp, hres, vres, s, r_squared);
 
-				if (r_squared <= 1.0) {
-					L += wr.tracer_ptr->trace_ray(ray, depth);
-				}
-			}
+                if (r_squared <= 1.0) {
+                    L += wr.tracer_ptr->trace_ray(ray, depth);
+                }
+            }
 
-			L *= inv_num_samples;
-			L *= exposure_time;
-			wr.display_pixel(r, c + offset, L);
-		}
+            L *= inv_num_samples;
+            L *= exposure_time;
+            wr.display_pixel(r, c + offset, L);
+        }
 
 
-	wr.save_to_ppm();
+    wr.save_to_ppm();
 }

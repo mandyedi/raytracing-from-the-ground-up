@@ -20,46 +20,46 @@
 class ShadeRec;
 
 class Box : public GeometricObject {
-	public:
-		double x0 = -1.0;
-		double x1 = 1.0;
-		double y0 = -1.0;
-		double y1 = 1.0;
-		double z0 = -1.0;
-		double z1 = 1.0;
+    public:
+        double x0 = -1.0;
+        double x1 = 1.0;
+        double y0 = -1.0;
+        double y1 = 1.0;
+        double z0 = -1.0;
+        double z1 = 1.0;
 
-		Box(void) = default;
+        Box(void) = default;
 
-		explicit Box(	const double x0, const double x1,
-				const double y0, const double y1,
-				const double z0, const double z1);
+        explicit Box(   const double x0, const double x1,
+                const double y0, const double y1,
+                const double z0, const double z1);
 
-		explicit Box(const Point3D p0, const Point3D p1);
+        explicit Box(const Point3D p0, const Point3D p1);
 
-		~Box(void) = default;
+        ~Box(void) = default;
 
-		Box(const Box& box);
+        Box(const Box& box);
 
-		Box(Box&& box) noexcept;
+        Box(Box&& box) noexcept;
 
-		Box&
-		operator= (const Box& box);
+        Box&
+        operator= (const Box& box);
 
-		Box &
-		operator= (Box&& box) noexcept;
+        Box &
+        operator= (Box&& box) noexcept;
 
-		Box*
-		clone(void) const override;
+        Box*
+        clone(void) const override;
 
-		bool
-		hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+        bool
+        hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
 
-		bool
-		inside(const Point3D& point) const;
+        bool
+        inside(const Point3D& point) const;
 
-	private:
-		Normal
-		get_normal(const int face_hit) const;
+    private:
+        Normal
+        get_normal(const int face_hit) const;
 };
 
 #endif

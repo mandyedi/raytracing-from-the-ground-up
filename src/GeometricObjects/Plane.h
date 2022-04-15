@@ -17,40 +17,40 @@
 
 
 class Plane: public GeometricObject {
-	
-	public:
-	
-		Plane(void) = default;
 
-		explicit Plane(const Point3D& point, const Normal& normal);
+    public:
 
-		~Plane(void);
-	
-		Plane(const Plane& p);
+        Plane(void) = default;
 
-		Plane(Plane&& p) noexcept;
+        explicit Plane(const Point3D& point, const Normal& normal);
 
-		Plane&
-		operator= (const Plane& p);
+        ~Plane(void);
 
-		Plane&
-		operator= (Plane&& p) noexcept;
-		
-		Plane*
-		clone(void) const override;
-					
-		bool 																								 
-		hit(const Ray& ray, double& tmin, ShadeRec& sr) const override;
+        Plane(const Plane& p);
 
-		bool
-		shadow_hit(const Ray &ray, float &tmin) const override;
-		
-	private:
-	
-		Point3D 	a = Point3D(0.0);			// point through which plane passes 
-		Normal 		n = Normal(0.0, 1.0, 0.0);	// normal to the plane
-				
-		static const double kEpsilon;   // for shadows and secondary rays
+        Plane(Plane&& p) noexcept;
+
+        Plane&
+        operator= (const Plane& p);
+
+        Plane&
+        operator= (Plane&& p) noexcept;
+
+        Plane*
+        clone(void) const override;
+
+        bool
+        hit(const Ray& ray, double& tmin, ShadeRec& sr) const override;
+
+        bool
+        shadow_hit(const Ray &ray, float &tmin) const override;
+
+    private:
+
+        Point3D     a = Point3D(0.0);           // point through which plane passes
+        Normal      n = Normal(0.0, 1.0, 0.0);  // normal to the plane
+
+        static const double kEpsilon;   // for shadows and secondary rays
 };
 
 #endif

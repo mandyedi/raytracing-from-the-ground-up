@@ -46,7 +46,7 @@ Checker3D::operator= (const Checker3D& c) {
 Checker3D&
 Checker3D::operator= (Checker3D&& c) noexcept {
     Texture::operator=(std::move(c));
-    
+
     color1      = std::move(c.color1);
     color2      = std::move(c.color2);
     size        = std::exchange(c.size, 0);
@@ -61,7 +61,7 @@ Checker3D::clone(void) const {
 
 RGBColor
 Checker3D::get_color(const ShadeRec& sr) const {
-    double eps = -0.000187453738;	// small random number
+    double eps = -0.000187453738;   // small random number
     double x = sr.local_hit_point.x + eps;
     double y = sr.local_hit_point.y + eps;
     double z = sr.local_hit_point.z + eps;

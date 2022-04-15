@@ -20,9 +20,9 @@ const double Sphere::kEpsilon = 0.001;
 
 
 Sphere::Sphere(const Point3D& c, double r)
-	: 	GeometricObject(),
-		center(c),
-		radius(r)
+    :   GeometricObject(),
+        center(c),
+        radius(r)
 {}
 
 
@@ -32,106 +32,106 @@ Sphere::~Sphere(void) {}
 
 
 
-Sphere::Sphere(const Sphere& s) 
-	:	GeometricObject(s),
-		center(s.center),
-		radius(s.radius)
+Sphere::Sphere(const Sphere& s)
+    :   GeometricObject(s),
+        center(s.center),
+        radius(s.radius)
 {}
 
 
 
 Sphere::Sphere(Sphere&& s) noexcept
-	:	GeometricObject(std::move(s)),
-		center(std::move(s.center)),
-		radius(std::exchange(s.radius, 1.0)) 			
+    :   GeometricObject(std::move(s)),
+        center(std::move(s.center)),
+        radius(std::exchange(s.radius, 1.0))
 {}
 
-Sphere& 
+Sphere&
 Sphere::operator= (const Sphere& s) {
-	GeometricObject::operator= (s);
+    GeometricObject::operator= (s);
 
-	center 	= s.center;
-	radius	= s.radius;
+    center  = s.center;
+    radius  = s.radius;
 
-	return (*this);
+    return (*this);
 }
 
 
 
 Sphere&
 Sphere::operator= (Sphere&& s) noexcept {
-	GeometricObject::operator= (std::move(s));
+    GeometricObject::operator= (std::move(s));
 
-	center 	= std::move(s.center);
-	radius	= std::exchange(s.radius, 1.0);
+    center  = std::move(s.center);
+    radius  = std::exchange(s.radius, 1.0);
 
-	return (*this);
+    return (*this);
 }
 
 
 
 
-Sphere* 
+Sphere*
 Sphere::clone(void) const {
-	return (new Sphere(*this));
+    return (new Sphere(*this));
 }
 
 
 
 bool
 Sphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
-	Vector3D	temp 	= ray.o - center;
-	double 		a 		= ray.d * ray.d;
-	double 		b 		= 2.0 * temp * ray.d;
-	double 		c 		= temp * temp - radius * radius;
-	double 		disc	= b * b - 4.0 * a * c;
-	
-	if (disc < 0.0) {
-		return(false);
-	}
-	else {
-		double t;
-		double e = sqrt(disc);
-		double denom = 2.0 * a;
-		t = (-b - e) / denom;    // smaller root
-	
-		if (t > kEpsilon) {
-			tmin = t;
-			sr.normal 	 = (temp + t * ray.d) / radius;
-			sr.local_hit_point = ray.o + t * ray.d;
-			return (true);
-		} 
-	
-		t = (-b + e) / denom;    // larger root
-	
-		if (t > kEpsilon) {
-			tmin = t;
-			sr.normal   = (temp + t * ray.d) / radius;
-			sr.local_hit_point = ray.o + t * ray.d;
-			return (true);
-		} 
-	}
-	
-	return (false);
+    Vector3D    temp    = ray.o - center;
+    double      a       = ray.d * ray.d;
+    double      b       = 2.0 * temp * ray.d;
+    double      c       = temp * temp - radius * radius;
+    double      disc    = b * b - 4.0 * a * c;
+
+    if (disc < 0.0) {
+        return(false);
+    }
+    else {
+        double t;
+        double e = sqrt(disc);
+        double denom = 2.0 * a;
+        t = (-b - e) / denom;    // smaller root
+
+        if (t > kEpsilon) {
+            tmin = t;
+            sr.normal    = (temp + t * ray.d) / radius;
+            sr.local_hit_point = ray.o + t * ray.d;
+            return (true);
+        }
+
+        t = (-b + e) / denom;    // larger root
+
+        if (t > kEpsilon) {
+            tmin = t;
+            sr.normal   = (temp + t * ray.d) / radius;
+            sr.local_hit_point = ray.o + t * ray.d;
+            return (true);
+        }
+    }
+
+    return (false);
 }
 
 bool
 Sphere::shadow_hit(const Ray& ray, float& tmin) const {
-	if (!shadows) {
-		return false;
-	}
+    if (!shadows) {
+        return false;
+    }
 
-    Vector3D	temp 	= ray.o - center;
-    double 		a 		= ray.d * ray.d;
-    double 		b 		= 2.0 * temp * ray.d;
-    double 		c 		= temp * temp - radius * radius;
-    double 		disc	= b * b - 4.0 * a * c;
+    Vector3D    temp    = ray.o - center;
+    double      a       = ray.d * ray.d;
+    double      b       = 2.0 * temp * ray.d;
+    double      c       = temp * temp - radius * radius;
+    double      disc    = b * b - 4.0 * a * c;
 
     if (disc < 0.0){
         return(false);
     }
     else {
-    	double t;
+        double t;
         double e = sqrt(disc);
         double denom = 2.0 * a;
         t = (-b - e) / denom;    // smaller root

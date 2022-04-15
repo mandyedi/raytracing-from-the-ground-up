@@ -18,45 +18,45 @@
 #include "GeometricObject.h"
 
 class Triangle: public GeometricObject {
-	public:
+    public:
 
-		Triangle(void) = default;
+        Triangle(void) = default;
 
-		explicit Triangle(const Point3D& a, const Point3D& b, const Point3D& c);
+        explicit Triangle(const Point3D& a, const Point3D& b, const Point3D& c);
 
-		~Triangle(void) = default;
+        ~Triangle(void) = default;
 
-		Triangle(const Triangle& triangle);
+        Triangle(const Triangle& triangle);
 
-		Triangle(Triangle&& triangle) noexcept;
+        Triangle(Triangle&& triangle) noexcept;
 
-		Triangle&
-		operator= (const Triangle& triangle);
+        Triangle&
+        operator= (const Triangle& triangle);
 
-		Triangle&
-		operator= (Triangle&& triangle) noexcept;
+        Triangle&
+        operator= (Triangle&& triangle) noexcept;
 
-		virtual Triangle*
-		clone(void) const;
+        virtual Triangle*
+        clone(void) const;
 
-		virtual BBox
-		get_bounding_box(void);
+        virtual BBox
+        get_bounding_box(void);
 
-		void
-		compute_normal(void);
+        void
+        compute_normal(void);
 
-		virtual bool
-		hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+        virtual bool
+        hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
 
-		virtual bool
-		shadow_hit(const Ray& ray, double& tmin) const;
+        virtual bool
+        shadow_hit(const Ray& ray, double& tmin) const;
 
-	private:
+    private:
 
-		Point3D	v0 = Point3D(0.0, 0.0, 0.0);
-		Point3D	v1 = Point3D(0.0, 0.0, 1.0);
-		Point3D	v2 = Point3D(1.0, 0.0, 0.0);
-		Normal	normal = Normal(0.0, 1.0, 0.0);
+        Point3D v0 = Point3D(0.0, 0.0, 0.0);
+        Point3D v1 = Point3D(0.0, 0.0, 1.0);
+        Point3D v2 = Point3D(1.0, 0.0, 0.0);
+        Normal  normal = Normal(0.0, 1.0, 0.0);
 };
 
 #endif

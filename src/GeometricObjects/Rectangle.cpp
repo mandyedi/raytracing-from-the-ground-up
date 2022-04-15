@@ -19,143 +19,143 @@ const double Rectangle::kEpsilon = 0.001;
 
 
 Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b)
-	:	GeometricObject(),
-		p0(_p0),
-		a(_a),
-		b(_b),
-		a_len_squared(a.len_squared()),
-		b_len_squared(b.len_squared()),
-		area(a.length() * b.length()),
-		inv_area(1.0 / area),
-		sampler_ptr(nullptr)
+    :   GeometricObject(),
+        p0(_p0),
+        a(_a),
+        b(_b),
+        a_len_squared(a.len_squared()),
+        b_len_squared(b.len_squared()),
+        area(a.length() * b.length()),
+        inv_area(1.0 / area),
+        sampler_ptr(nullptr)
 {
-	normal = a ^ b;
-	normal.normalize();
+    normal = a ^ b;
+    normal.normalize();
 }
 
 
 
 
 Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b, const Normal& n)
-	:	GeometricObject(),
-		p0(_p0),
-		a(_a),
-		b(_b),
-		a_len_squared(a.len_squared()),
-		b_len_squared(b.len_squared()),
-		area(a.length() * b.length()),
-		inv_area(1.0 / area),
-		normal(n),
-		sampler_ptr(nullptr)
+    :   GeometricObject(),
+        p0(_p0),
+        a(_a),
+        b(_b),
+        a_len_squared(a.len_squared()),
+        b_len_squared(b.len_squared()),
+        area(a.length() * b.length()),
+        inv_area(1.0 / area),
+        normal(n),
+        sampler_ptr(nullptr)
 {
-	normal.normalize();
+    normal.normalize();
 }
 
 
 
 Rectangle::~Rectangle (void) {
-	if (sampler_ptr != nullptr) {
-		delete sampler_ptr;
-		sampler_ptr = nullptr;
-	}
+    if (sampler_ptr != nullptr) {
+        delete sampler_ptr;
+        sampler_ptr = nullptr;
+    }
 }
 
 
 
 Rectangle::Rectangle (const Rectangle& r)
-	:	GeometricObject(r),
-		p0(r.p0),
-		a(r.a),
-		b(r.b),
-		a_len_squared(r.a_len_squared),
-		b_len_squared(r.b_len_squared),
-		normal(r.normal),
-		area(r.area),
-		inv_area(r.inv_area)
+    :   GeometricObject(r),
+        p0(r.p0),
+        a(r.a),
+        b(r.b),
+        a_len_squared(r.a_len_squared),
+        b_len_squared(r.b_len_squared),
+        normal(r.normal),
+        area(r.area),
+        inv_area(r.inv_area)
 {
-	sampler_ptr	= r.sampler_ptr->clone();
+    sampler_ptr = r.sampler_ptr->clone();
 }
 
 
 
 Rectangle::Rectangle (Rectangle&& r) noexcept
-	:	GeometricObject(std::move(r)),
-		p0(std::move(r.p0)),
-		a(std::move(r.a)),
-		b(std::move(r.b)),
-		a_len_squared(std::exchange(r.a_len_squared, 4.0)),
-		b_len_squared(std::exchange(r.b_len_squared, 4.0)),
-		normal(std::move(r.normal)),
-		area(std::exchange(r.area, 4.0f)),
-		inv_area(std::exchange(r.inv_area, 0.25f))
+    :   GeometricObject(std::move(r)),
+        p0(std::move(r.p0)),
+        a(std::move(r.a)),
+        b(std::move(r.b)),
+        a_len_squared(std::exchange(r.a_len_squared, 4.0)),
+        b_len_squared(std::exchange(r.b_len_squared, 4.0)),
+        normal(std::move(r.normal)),
+        area(std::exchange(r.area, 4.0f)),
+        inv_area(std::exchange(r.inv_area, 0.25f))
 {
-	sampler_ptr	= r.sampler_ptr;
-	r.sampler_ptr = nullptr;
+    sampler_ptr = r.sampler_ptr;
+    r.sampler_ptr = nullptr;
 }
 
 
 
 Rectangle&
 Rectangle::operator= (const Rectangle& r) {
-	GeometricObject::operator=(r);
+    GeometricObject::operator=(r);
 
-	p0				= r.p0;
-	a				= r.a;
-	b				= r.b;
-	a_len_squared	= r.a_len_squared;
-	b_len_squared	= r.b_len_squared;
-	normal			= r.normal;
-	area			= r.area;
-	inv_area		= r.inv_area;
+    p0              = r.p0;
+    a               = r.a;
+    b               = r.b;
+    a_len_squared   = r.a_len_squared;
+    b_len_squared   = r.b_len_squared;
+    normal          = r.normal;
+    area            = r.area;
+    inv_area        = r.inv_area;
 
-	if (sampler_ptr != nullptr) {
-		delete sampler_ptr;
-	}
-	sampler_ptr = r.sampler_ptr->clone();
+    if (sampler_ptr != nullptr) {
+        delete sampler_ptr;
+    }
+    sampler_ptr = r.sampler_ptr->clone();
 
-	return (*this);
+    return (*this);
 }
 
 
 
 Rectangle&
 Rectangle::operator= (Rectangle&& r) noexcept {
-	GeometricObject::operator=(std::move(r));
+    GeometricObject::operator=(std::move(r));
 
-	p0				= std::move(r.p0);
-	a				= std::move(r.a);
-	b				= std::move(r.b);
-	a_len_squared	= std::exchange(r.a_len_squared, 4.0);
-	b_len_squared	= std::exchange(r.b_len_squared, 4.0);
-	normal			= std::move(r.normal);
-	area			= std::exchange(r.area, 4.0f);
-	inv_area		= std::exchange(r.inv_area, 0.25f);
+    p0              = std::move(r.p0);
+    a               = std::move(r.a);
+    b               = std::move(r.b);
+    a_len_squared   = std::exchange(r.a_len_squared, 4.0);
+    b_len_squared   = std::exchange(r.b_len_squared, 4.0);
+    normal          = std::move(r.normal);
+    area            = std::exchange(r.area, 4.0f);
+    inv_area        = std::exchange(r.inv_area, 0.25f);
 
-	if (sampler_ptr != nullptr) {
-		delete sampler_ptr;
-	}
-	sampler_ptr = r.sampler_ptr;
-	r.sampler_ptr = nullptr;
+    if (sampler_ptr != nullptr) {
+        delete sampler_ptr;
+    }
+    sampler_ptr = r.sampler_ptr;
+    r.sampler_ptr = nullptr;
 
-	return (*this);
+    return (*this);
 }
 
 
 
 Rectangle*
 Rectangle::clone(void) const {
-	return (new Rectangle(*this));
+    return (new Rectangle(*this));
 }
 
 
 
  BBox
  Rectangle::get_bounding_box() const {
- 	double delta = 0.0001;
+    double delta = 0.0001;
 
- 	return(BBox(std::min(p0.x, p0.x + a.x + b.x) - delta, std::max(p0.x, p0.x + a.x + b.x) + delta,
-				std::min(p0.y, p0.y + a.y + b.y) - delta, std::max(p0.y, p0.y + a.y + b.y) + delta,
-				std::min(p0.z, p0.z + a.z + b.z) - delta, std::max(p0.z, p0.z + a.z + b.z) + delta));
+    return(BBox(std::min(p0.x, p0.x + a.x + b.x) - delta, std::max(p0.x, p0.x + a.x + b.x) + delta,
+                std::min(p0.y, p0.y + a.y + b.y) - delta, std::max(p0.y, p0.y + a.y + b.y) + delta,
+                std::min(p0.z, p0.z + a.z + b.z) - delta, std::max(p0.z, p0.z + a.z + b.z) + delta));
  }
 
 
@@ -164,29 +164,29 @@ Rectangle::clone(void) const {
 bool
 Rectangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
-	double t = (p0 - ray.o) * normal / (ray.d * normal);
+    double t = (p0 - ray.o) * normal / (ray.d * normal);
 
-	if (t <= kEpsilon)
-		return (false);
+    if (t <= kEpsilon)
+        return (false);
 
-	Point3D p = ray.o + t * ray.d;
-	Vector3D d = p - p0;
+    Point3D p = ray.o + t * ray.d;
+    Vector3D d = p - p0;
 
-	double ddota = d * a;
+    double ddota = d * a;
 
-	if (ddota < 0.0 || ddota > a_len_squared)
-		return (false);
+    if (ddota < 0.0 || ddota > a_len_squared)
+        return (false);
 
-	double ddotb = d * b;
+    double ddotb = d * b;
 
-	if (ddotb < 0.0 || ddotb > b_len_squared)
-		return (false);
+    if (ddotb < 0.0 || ddotb > b_len_squared)
+        return (false);
 
-	tmin 				= t;
-	sr.normal 			= normal;
-	sr.local_hit_point 	= p;
+    tmin                = t;
+    sr.normal           = normal;
+    sr.local_hit_point  = p;
 
-	return (true);
+    return (true);
 }
 
 
@@ -194,8 +194,8 @@ Rectangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
 Point3D
 Rectangle::sample(void) {
-	Point2D sample_point = sampler_ptr->sample_unit_square();
-	return (p0 + sample_point.x * a + sample_point.y * b);
+    Point2D sample_point = sampler_ptr->sample_unit_square();
+    return (p0 + sample_point.x * a + sample_point.y * b);
 }
 
 
@@ -203,7 +203,7 @@ Rectangle::sample(void) {
 
 Normal
 Rectangle::get_normal(const Point3D& p) {
-	return (normal);
+    return (normal);
 }
 
 
@@ -211,5 +211,5 @@ Rectangle::get_normal(const Point3D& p) {
 
 float
 Rectangle::pdf(const ShadeRec& sr) {
-	return (inv_area);
+    return (inv_area);
 }

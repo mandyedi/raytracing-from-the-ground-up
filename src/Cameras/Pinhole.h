@@ -19,41 +19,41 @@
 
 
 class Pinhole: public Camera {
-	public:
+    public:
 
-		Pinhole() = default;
+        Pinhole() = default;
 
-		~Pinhole();
+        ~Pinhole();
 
-		Pinhole(const Pinhole& p);
+        Pinhole(const Pinhole& p);
 
-		Pinhole(Pinhole&& p) noexcept;		
+        Pinhole(Pinhole&& p) noexcept;
 
-		Pinhole&
-		operator= (const Pinhole& p);
+        Pinhole&
+        operator= (const Pinhole& p);
 
-		Pinhole&
-		operator= (Pinhole&& p) noexcept;
+        Pinhole&
+        operator= (Pinhole&& p) noexcept;
 
-		Camera*
-		clone(void) const override;
+        Camera*
+        clone(void) const override;
 
-		void
-		set_view_distance(const float vpd);
+        void
+        set_view_distance(const float vpd);
 
-		void
-		set_zoom(const float zoom_factor);
+        void
+        set_zoom(const float zoom_factor);
 
-		Vector3D
-		get_direction(const Point2D& p) const;
+        Vector3D
+        get_direction(const Point2D& p) const;
 
-		void
-		render_scene(const World& w, float x = 0, int offset = 0) override;
+        void
+        render_scene(const World& w, float x = 0, int offset = 0) override;
 
-	private:
+    private:
 
-		float	d = 500.0f;		// view plane distance
-		float	zoom = 1.0f;
+        float   d = 500.0f;     // view plane distance
+        float   zoom = 1.0f;
 
 };
 
@@ -63,7 +63,7 @@ class Pinhole: public Camera {
 
 inline void
 Pinhole::set_view_distance(float _d) {
-	d = _d;
+    d = _d;
 }
 
 
@@ -71,7 +71,7 @@ Pinhole::set_view_distance(float _d) {
 
 inline void
 Pinhole::set_zoom(float zoom_factor) {
-	zoom = zoom_factor;
+    zoom = zoom_factor;
 }
 
 #endif

@@ -15,26 +15,26 @@
 
 
 class Matrix {
-	
-	public:
-	
-		double	m[4][4] = {
-			{1.0, 0.0, 0.0, 0.0},
-			{0.0, 1.0, 0.0, 0.0},
-			{0.0, 0.0, 1.0, 0.0},
-			{0.0, 0.0, 0.0, 1.0} };
-	
-		
-		Matrix(void) = default;
-			
-		Matrix
-		operator* (const Matrix& mat) const;
 
-		Matrix
-		operator/ (const double d);
+    public:
 
-		void
-		set_identity(void);
+        double  m[4][4] = {
+            {1.0, 0.0, 0.0, 0.0},
+            {0.0, 1.0, 0.0, 0.0},
+            {0.0, 0.0, 1.0, 0.0},
+            {0.0, 0.0, 0.0, 1.0} };
+
+
+        Matrix(void) = default;
+
+        Matrix
+        operator* (const Matrix& mat) const;
+
+        Matrix
+        operator/ (const double d);
+
+        void
+        set_identity(void);
 };
 
 
