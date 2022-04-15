@@ -52,6 +52,8 @@ set (SOURCE_GEOMETRICOBJECTS
   src/GeometricObjects/Disk.h
   src/GeometricObjects/GeometricObject.cpp
   src/GeometricObjects/GeometricObject.h
+  src/GeometricObjects/Instance.cpp
+  src/GeometricObjects/Instance.h
   src/GeometricObjects/OpenCylinder.cpp
   src/GeometricObjects/OpenCylinder.h
   src/GeometricObjects/Plane.cpp
