@@ -21,7 +21,7 @@ Matrix::operator* (const Matrix& mat) const {
 
     for (int y = 0; y < 4; y++) {
         for (int x = 0; x < 4; x++) {
-            double sum = 0.0;
+            float sum = 0.0f;
 
             for (int j = 0; j < 4; j++) {
                 sum += m[x][j] * mat.m[j][y];
@@ -36,7 +36,7 @@ Matrix::operator* (const Matrix& mat) const {
 
 
 Matrix
-Matrix::operator/ (const double d) {
+Matrix::operator/ (const float d) {
     for (int x = 0; x < 4; x++) {
         for (int y = 0; y < 4; y++) {
             m[x][y] = m[x][y] / d;
@@ -53,10 +53,10 @@ Matrix::set_identity(void) {
     for (int x = 0; x < 4; x++) {
         for (int y = 0; y < 4; y++) {
             if (x == y) {
-                m[x][y] = 1.0;
+                m[x][y] = 1.0f;
             }
             else {
-                m[x][y] = 0.0;
+                m[x][y] = 0.0f;
             }
         }
     }

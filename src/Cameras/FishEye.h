@@ -37,14 +37,14 @@ class FishEye: public Camera {
         clone(void) const override;
 
         Vector3D
-        ray_direction(  const Point2D& pp,
-                        const int   hres,
-                        const int   vres,
-                        const float s,
-                        float&      r_squared) const;
+        ray_direction(  const  Point2D& pp,
+                        const  int   hres,
+                        const  int   vres,
+                        const  float s,
+                        float& r_squared) const;
 
         void
-        render_scene(const World& w, float x = 0, int offset = 0) override;
+        render_scene(const World& w, float x = 0.0f, int offset = 0) override;
 
         void
         set_fov(const float fov);

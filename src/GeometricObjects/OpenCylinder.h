@@ -20,7 +20,7 @@ class OpenCylinder: public GeometricObject {
 
         OpenCylinder(void) = default;
 
-        explicit OpenCylinder(double bottom, double top, double radius);
+        explicit OpenCylinder(float bottom, float top, float radius);
 
         ~OpenCylinder(void) = default;
 
@@ -38,16 +38,16 @@ class OpenCylinder: public GeometricObject {
         clone(void) const override;
 
         bool
-        hit(const Ray& ray, double& t, ShadeRec& s) const;
+        hit(const Ray& ray, float& t, ShadeRec& s) const;
 
     private:
 
-        double y0           = 0.0;
-        double y1           = 0.0;
-        double radius       = 1.0;
-        double inv_radius   = 1.0;
+        float y0           = 0.0f;
+        float y1           = 0.0f;
+        float radius       = 1.0f;
+        float inv_radius   = 1.0f;
 
-        static const double kEpsilon;
+        static const float kEpsilon;
 };
 
 #endif

@@ -80,7 +80,7 @@ RGBColor
 Lambertian::sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const {
 
     Vector3D w(sr.normal);
-    Vector3D v = Vector3D(0.0034, 1, 0.0071) ^ w;
+    Vector3D v = Vector3D(0.0034f, 1.0f, 0.0071f) ^ w;
     v.normalize();
     Vector3D u = v ^ w;
 

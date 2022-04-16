@@ -136,7 +136,7 @@ RGBColor
 AreaLight::L(ShadeRec& sr) {
     float ndotd = -light_normal * wi;
 
-    if (ndotd > 0.0) {
+    if (ndotd > 0.0f) {
         return (material_ptr->get_Le(sr));
     }
     else {

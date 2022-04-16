@@ -13,7 +13,7 @@
 #include <utility>
 #include "Plane.h"
 
-const double Plane::kEpsilon = 0.001;
+const float Plane::kEpsilon = 0.001f;
 
 
 
@@ -80,8 +80,8 @@ Plane::clone(void) const {
 
 
 bool
-Plane::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
-    double t = (a - ray.o) * n / (ray.d * n);
+Plane::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
+    float t = (a - ray.o) * n / (ray.d * n);
 
     if (t > kEpsilon) {
         tmin = t;

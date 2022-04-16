@@ -114,8 +114,8 @@ StereoCamera::clone(void) const {
 
 void
 StereoCamera::setup_cameras(void) {
-    double r = eye.distance(lookat);
-    double x = r * tan(0.5 * degreeToRadian(beta));  //  half the camera separation distance
+    float r = eye.distance(lookat);
+    float x = r * tan(0.5 * degreeToRadian(beta));  //  half the camera separation distance
 
     left_camera_ptr->set_eye(eye - x * u);
     left_camera_ptr->set_lookat(lookat - x * u);
@@ -131,8 +131,8 @@ StereoCamera::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) 
     int         hres    = w.vp.hres;
     int         vres    = w.vp.vres;
 
-    double r = eye.distance(lookat);
-    float x2 = static_cast<float>(r * tan(0.5 * degreeToRadian(beta)));
+    float r = eye.distance(lookat);
+    float x2 = r * tanf(0.5f * degreeToRadian(beta));
 
     if (viewing_type == ViewingType::Parallel) {
         left_camera_ptr->render_scene(w, x2, 0);                        // left view on left

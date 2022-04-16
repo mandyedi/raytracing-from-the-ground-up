@@ -22,15 +22,15 @@ class Normal
 {
     public:
 
-        double x = 0.0;
-        double y = 0.0;
-        double z = 0.0;
+        float x = 0.0f;
+        float y = 0.0f;
+        float z = 0.0f;
 
     public:
 
         Normal(void) = default;
-        explicit Normal(double a);
-        explicit Normal(double _x, double _y, double _z);
+        explicit Normal(float a);
+        explicit Normal(float _x, float _y, float _z);
         explicit Normal(const Vector3D& v);
 
         Normal&
@@ -48,11 +48,11 @@ class Normal
         Normal&
         operator+= (const Normal& n);
 
-        double
+        float
         operator* (const Vector3D& v) const;
 
         Normal
-        operator* (const double a) const;
+        operator* (const float a) const;
 
         void
         normalize(void);
@@ -90,7 +90,7 @@ Normal::operator+= (const Normal& n) {
 
 
 
-inline double
+inline float
 Normal::operator* (const Vector3D& v) const {
     return (x * v.x + y * v.y + z * v.z);
 }
@@ -99,7 +99,7 @@ Normal::operator* (const Vector3D& v) const {
 
 
 inline Normal
-Normal::operator* (const double a) const {
+Normal::operator* (const float a) const {
     return (Normal(x * a, y * a, z * a));
 }
 
@@ -109,10 +109,10 @@ Normal::operator* (const double a) const {
 
 
 Normal
-operator* (const double a, const Normal& n);
+operator* (const float a, const Normal& n);
 
 inline Normal
-operator*(const double f, const Normal& n) {
+operator*(const float f, const Normal& n) {
     return (Normal(f * n.x, f * n.y,f * n.z));
 }
 
@@ -141,10 +141,10 @@ operator- (const Vector3D& v, const Normal& n) {
 
 
 
-double
+float
 operator* (const Vector3D& v, const Normal& n);
 
-inline double
+inline float
 operator* (const Vector3D& v, const Normal& n) {
     return (v.x * n.x + v.y * n.y + v.z * n.z);
 }

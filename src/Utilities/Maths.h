@@ -54,12 +54,12 @@ radianToDegree(float radian) {
 }
 
 int
-SolveQuadric(double c[3], double s[2]);
+SolveQuadric(float c[3], float s[2]);
 
 int
-SolveCubic(double c[4], double s[3]);
+SolveCubic(float c[4], float s[3]);
 
 int
-SolveQuartic(double c[5], double s[4]);
+SolveQuartic(float c[5], float s[4]);
 
 #endif

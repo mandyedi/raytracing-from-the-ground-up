@@ -162,7 +162,7 @@ Phong::area_light_shade(ShadeRec &sr) {
         Vector3D wi = sr.w.lights[j]->get_direction(sr);
         float ndotwi = sr.normal * wi;
 
-        if (ndotwi > 0.0){
+        if (ndotwi > 0.0f){
             bool in_shadow = false;
 
             if (sr.w.lights[j]->casts_shadows()) {

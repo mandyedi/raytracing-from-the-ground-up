@@ -60,10 +60,10 @@ class EnvironmentLight: public Light {
 
         Sampler*    sampler_ptr     = nullptr;
         Material*   material_ptr    = nullptr;
-        Vector3D    u               = Vector3D(1.0, 0.0, 0.0);
-        Vector3D    v               = Vector3D(0.0, 1.0, 0.0);
-        Vector3D    w               = Vector3D(0.0, 0.0, 1.0);
-        Vector3D    wi              = Vector3D(0.0, 0.0, 0.0);
+        Vector3D    u               = Vector3D(1.0f, 0.0f, 0.0f);
+        Vector3D    v               = Vector3D(0.0f, 1.0f, 0.0f);
+        Vector3D    w               = Vector3D(0.0f, 0.0f, 1.0f);
+        Vector3D    wi              = Vector3D(0.0f, 0.0f, 0.0f);
 };
 
 #endif

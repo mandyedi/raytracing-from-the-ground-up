@@ -112,9 +112,9 @@ Matte::shade(ShadeRec& sr) {
 
     for (size_t j = 0; j < num_lights; j++) {
         Vector3D wi = sr.w.lights[j]->get_direction(sr);
-        double ndotwi = sr.normal * wi;
+        float ndotwi = sr.normal * wi;
 
-        if (ndotwi > 0.0) {
+        if (ndotwi > 0.0f) {
             bool in_shadow = false;
 
             if (sr.w.lights[j]->casts_shadows()) {
@@ -143,7 +143,7 @@ Matte::area_light_shade(ShadeRec& sr) {
         Vector3D    wi      = sr.w.lights[j]->get_direction(sr);
         float       ndotwi  = sr.normal * wi;
 
-        if (ndotwi > 0.0) {
+        if (ndotwi > 0.0f) {
             bool in_shadow = false;
 
             if (sr.w.lights[j]->casts_shadows()) {

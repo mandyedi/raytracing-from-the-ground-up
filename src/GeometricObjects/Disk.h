@@ -38,15 +38,15 @@ class Disk: public GeometricObject {
         clone(void) const override;
 
         bool
-        hit(const Ray& ray, double& t, ShadeRec& s) const;
+        hit(const Ray& ray, float& t, ShadeRec& s) const;
 
     private:
 
-        Point3D center      = Point3D(0.0);
-    Normal normal           = Normal(0.0, 1.0, 0.0);
+        Point3D center      = Point3D(0.0f);
+    Normal normal           = Normal(0.0f, 1.0f, 0.0f);
     float r_squared     = 1.0f;
 
-        static const double kEpsilon;
+        static const float kEpsilon;
 };
 
 #endif

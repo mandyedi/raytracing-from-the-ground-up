@@ -14,6 +14,7 @@
 #include <ctime>
 #include <iomanip>
 #include <sstream>
+#include <limits>
 
 #include "World.h"
 #include "../Utilities/Constants.h"
@@ -84,7 +85,7 @@ RGBColor
 World::max_to_one(const RGBColor& c) const  {
     float max_value = max(c.r, max(c.g, c.b));
 
-    if (max_value > 1.0) {
+    if (max_value > 1.0f) {
         return (c / max_value);
     }
     else {
@@ -99,8 +100,8 @@ RGBColor
 World::clamp_to_color(const RGBColor& raw_color) const {
     RGBColor c(raw_color);
 
-    if (raw_color.r > 1.0 || raw_color.g > 1.0 || raw_color.b > 1.0) {
-        c.r = 1.0; c.g = 0.0; c.b = 0.0;
+    if (raw_color.r > 1.0f || raw_color.g > 1.0f || raw_color.b > 1.0f) {
+        c.r = 1.0f; c.g = 0.0f; c.b = 0.0f;
     }
 
     return (c);
@@ -128,7 +129,7 @@ World::display_pixel([[maybe_unused]] const int row, [[maybe_unused]] const int 
         mapped_color = max_to_one(raw_color);
     }
 
-    if (vp.gamma != 1.0) {
+    if (vp.gamma != 1.0f) {
         mapped_color = mapped_color.powc(vp.inv_gamma);
     }
 
@@ -142,10 +143,10 @@ ShadeRec
 World::hit_objects(const Ray& ray) {
 
     ShadeRec    sr(*this);
-    double      t;
-    Normal normal;
-    Point3D local_hit_point;
-    double      tmin            = static_cast<double>(kHugeValue);
+    float       t;
+    Normal      normal;
+    Point3D     local_hit_point;
+    float       tmin            = std::numeric_limits<float>::max();
     size_t      num_objects     = objects.size();
 
     for (size_t j = 0; j < num_objects; j++) {
@@ -171,8 +172,8 @@ World::hit_objects(const Ray& ray) {
 ShadeRec
 World::hit_bare_bones_objects(const Ray &ray) {
     ShadeRec    sr(*this);
-    double      t;
-    double      tmin = kHugeValue;
+    float       t;
+    float       tmin = std::numeric_limits<float>::max();
     size_t      num_objects = objects.size();
 
     for ( size_t j = 0; j < num_objects; j++ ) {
@@ -226,7 +227,7 @@ World::build(void) {
     // constructor, and can therefore be left out
 
     Ambient *ambient_ptr = new Ambient;
-    ambient_ptr->scale_radiance(1.0);
+    ambient_ptr->scale_radiance(1.0f);
     set_ambient_light(ambient_ptr);
 
     background_color = RGBColor::black;         // default color - this can be left out
@@ -238,8 +239,8 @@ World::build(void) {
 
     Pinhole *pinhole_ptr = new Pinhole;
     pinhole_ptr->set_eye(0, 0, 500);
-    pinhole_ptr->set_lookat(Point3D(0.0));
-    pinhole_ptr->set_view_distance(600.0);
+    pinhole_ptr->set_lookat(Point3D(0.0f));
+    pinhole_ptr->set_view_distance(600.0f);
     pinhole_ptr->compute_uvw();
     set_camera(pinhole_ptr);
 
@@ -248,7 +249,7 @@ World::build(void) {
 
     Directional *light_ptr1 = new Directional;
     light_ptr1->set_direction(100, 100, 200);
-    light_ptr1->scale_radiance(3.0);
+    light_ptr1->scale_radiance(3.0f);
     add_light(light_ptr1);
 
     // Matte material reflection coefficients - common to all materials
@@ -562,13 +563,13 @@ World::render_scene(void) const {
     int         hres    = vp.hres;
     int         vres    = vp.vres;
     float       s       = vp.s;
-    float       zw      = 100.0;                // hardwired in
+    float       zw      = 100.0f;                // hardwired in
 
     ray.d = Vector3D(0, 0, -1);
 
     for (int r = 0; r < vres; r++)          // up
         for (int c = 0; c <= hres; c++) {   // across
-            ray.o = Point3D(s * (c - hres / 2.0 + 0.5), s * (r - vres / 2.0 + 0.5), zw);
+            ray.o = Point3D(s * (c - hres / 2.0 + 0.5f), s * (r - vres / 2.0 + 0.5f), zw);
             pixel_color = tracer_ptr->trace_ray(ray);
             display_pixel(r, c, pixel_color);
         }

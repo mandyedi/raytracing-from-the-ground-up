@@ -15,17 +15,17 @@
 
 
 
-Point3D::Point3D(const double a)
+Point3D::Point3D(const float a)
     :x(a), y(a), z(a)
 {}
 
 
-Point3D::Point3D(const double a, const double b, const double c)
+Point3D::Point3D(const float a, const float b, const float c)
     :x(a), y(b), z(c)
 {}
 
 
-double
+float
 Point3D::distance(const Point3D& p) const {
     return (sqrt(       (x - p.x) * (x - p.x)
                     +   (y - p.y) * (y - p.y)

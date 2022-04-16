@@ -31,13 +31,13 @@ Hammersley::clone(void) const {
 
 
 
-double
+float
 Hammersley::phi(int j) {
-    double x = 0.0;
-    double f = 0.5;
+    float x = 0.0f;
+    float f = 0.5f;
 
     while (j) {
-        x += f * (double) (j % 2);
+        x += f * (float) (j % 2);
         j /= 2;
         f *= 0.5;
     }

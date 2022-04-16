@@ -19,8 +19,8 @@
 class Ray {
     public:
 
-        Point3D o = Point3D(0.0);
-        Vector3D d = Vector3D(0.0, 0.0, 1.0);
+        Point3D o = Point3D(0.0f);
+        Vector3D d = Vector3D(0.0f, 0.0f, 1.0f);
 
         Ray(void) = default;
 

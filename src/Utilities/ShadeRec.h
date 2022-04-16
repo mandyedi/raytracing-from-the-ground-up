@@ -31,7 +31,7 @@ class ShadeRec {
         Normal              normal;             // Normal at hit point
         Ray                 ray;
         int                 depth;              // recursion depth
-        double              t;                  // ray parameter
+        float              t;                  // ray parameter
         World&              w;
         RGBColor            color;
 

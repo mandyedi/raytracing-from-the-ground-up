@@ -67,9 +67,9 @@ class AmbientOccluder: public Light {
         float       ls              = 1.0f;
         RGBColor    color           = RGBColor::white;
         float       min_amount      = 0.0f;
-        Vector3D    u               = Vector3D(1.0, 0.0, 0.0);
-        Vector3D    v               = Vector3D(0.0, 1.0, 0.0);
-        Vector3D    w               = Vector3D(0.0, 0.0, 1.0);
+        Vector3D    u               = Vector3D(1.0f, 0.0f, 0.0f);
+        Vector3D    v               = Vector3D(0.0f, 1.0f, 0.0f);
+        Vector3D    w               = Vector3D(0.0f, 0.0f, 1.0f);
         Sampler*    sampler_ptr     = nullptr;
 };
 

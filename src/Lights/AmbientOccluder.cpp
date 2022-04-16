@@ -141,7 +141,7 @@ AmbientOccluder::in_shadow(const Ray& ray, const ShadeRec& sr) const {
 RGBColor
 AmbientOccluder::L(ShadeRec& sr) {
     w = sr.normal;
-    v = w ^ Vector3D(0.0072, 1.0, 0.0034); // jitter the up vector in case normal is vertical
+    v = w ^ Vector3D(0.0072, 1.0f, 0.0034); // jitter the up vector in case normal is vertical
     v.normalize();
     u = v ^ w;
 

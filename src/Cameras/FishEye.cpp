@@ -63,7 +63,7 @@ FishEye::ray_direction( const Point2D&  pp,
     Point2D pn(2.0f / (s * static_cast<float>(hres)) * pp.x, 2.0f / (s * static_cast<float>(vres)) * pp.y);
     r_squared = pn.x * pn.x + pn.y * pn.y;
 
-    if (r_squared <= 1.0) {
+    if (r_squared <= 1.0f) {
         float r         = sqrtf(r_squared);
         float psi       = r * psi_max * PI_ON_180;
         float sin_psi   = sinf(psi);
@@ -75,7 +75,7 @@ FishEye::ray_direction( const Point2D&  pp,
         return (dir);
     }
     else
-        return (Vector3D(0.0));
+        return (Vector3D(0.0f));
 }
 
 void
@@ -103,7 +103,7 @@ FishEye::render_scene(const World& wr, float x /*= 0*/, int offset /*= 0*/) {
                 pp.y = s * (r - 0.5f * vres + sp.y);
                 ray.d = ray_direction(pp, hres, vres, s, r_squared);
 
-                if (r_squared <= 1.0) {
+                if (r_squared <= 1.0f) {
                     L += wr.tracer_ptr->trace_ray(ray, depth);
                 }
             }

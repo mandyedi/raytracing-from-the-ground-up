@@ -83,7 +83,7 @@ TEST(RGBColorTest, MathOperations) {
     EXPECT_FLOAT_EQ(9.0f, c10.b);
 
     float c11 = c0.average();
-    EXPECT_FLOAT_EQ(2.0, c11);
+    EXPECT_FLOAT_EQ(2.0f, c11);
 
     // Non-member
     RGBColor c12 = 3.0f * c10;

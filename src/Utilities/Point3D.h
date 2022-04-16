@@ -20,13 +20,13 @@
 class Point3D {
     public:
 
-        double x = 0.0;
-        double y = 0.0;
-        double z = 0.0;
+        float x = 0.0f;
+        float y = 0.0f;
+        float z = 0.0f;
 
         Point3D() = default;
-        explicit Point3D(const double a);
-        explicit Point3D(const double a, const double b, const double c);
+        explicit Point3D(const float a);
+        explicit Point3D(const float a, const float b, const float c);
 
         Point3D
         operator- (void) const;
@@ -41,12 +41,12 @@ class Point3D {
         operator- (const Vector3D& v) const;
 
         Point3D
-        operator* (const double a) const;
+        operator* (const float a) const;
 
-        double
+        float
         d_squared(const Point3D& p) const;
 
-        double
+        float
         distance(const Point3D& p) const;
 };
 
@@ -78,12 +78,12 @@ Point3D::operator- (const Vector3D& v) const {
 
 
 inline Point3D
-Point3D::operator* (const double a) const {
+Point3D::operator* (const float a) const {
     return (Point3D(x * a,y * a,z * a));
 }
 
 
-inline double
+inline float
 Point3D::d_squared(const Point3D& p) const {
     return (    (x - p.x) * (x - p.x)
             +   (y - p.y) * (y - p.y)
@@ -95,10 +95,10 @@ Point3D::d_squared(const Point3D& p) const {
 
 
 Point3D
-operator* (double a, const Point3D& p);
+operator* (float a, const Point3D& p);
 
 inline Point3D
-operator* (double a, const Point3D& p) {
+operator* (float a, const Point3D& p) {
     return (Point3D(a * p.x, a * p.y, a * p.z));
 }
 

@@ -38,7 +38,7 @@ class Hammersley: public Sampler {
         virtual Hammersley*
         clone(void) const override;
 
-        double
+        float
         phi(int j);
 
     private:

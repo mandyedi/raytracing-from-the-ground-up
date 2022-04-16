@@ -18,11 +18,11 @@ class Matrix {
 
     public:
 
-        double  m[4][4] = {
-            {1.0, 0.0, 0.0, 0.0},
-            {0.0, 1.0, 0.0, 0.0},
-            {0.0, 0.0, 1.0, 0.0},
-            {0.0, 0.0, 0.0, 1.0} };
+        float  m[4][4] = {
+            {1.0f, 0.0f, 0.0f, 0.0f},
+            {0.0f, 1.0f, 0.0f, 0.0f},
+            {0.0f, 0.0f, 1.0f, 0.0f},
+            {0.0f, 0.0f, 0.0f, 1.0f} };
 
 
         Matrix(void) = default;
@@ -31,7 +31,7 @@ class Matrix {
         operator* (const Matrix& mat) const;
 
         Matrix
-        operator/ (const double d);
+        operator/ (const float d);
 
         void
         set_identity(void);

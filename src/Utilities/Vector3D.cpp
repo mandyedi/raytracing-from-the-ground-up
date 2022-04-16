@@ -18,12 +18,12 @@
 
 
 
-Vector3D::Vector3D(double a)
+Vector3D::Vector3D(float a)
      : x(a), y(a), z(a)
 {}
 
 
-Vector3D::Vector3D(double _x, double _y, double _z)
+Vector3D::Vector3D(float _x, float _y, float _z)
     : x(_x), y(_y), z(_z)
 {}
 
@@ -59,7 +59,7 @@ Vector3D::operator= (const Point3D& rhs) {
 
 
 
-double
+float
 Vector3D::length(void) {
     return (sqrt(x * x + y * y + z * z));
 }
@@ -68,7 +68,7 @@ Vector3D::length(void) {
 
 void
 Vector3D::normalize(void) {
-    double length = sqrt(x * x + y * y + z * z);
+    float length = sqrt(x * x + y * y + z * z);
     x /= length; y /= length; z /= length;
 }
 
@@ -76,7 +76,7 @@ Vector3D::normalize(void) {
 
 Vector3D&
 Vector3D::hat(void) {
-    double length = sqrt(x * x + y * y + z * z);
+    float length = sqrt(x * x + y * y + z * z);
     x /= length; y /= length; z /= length;
     return (*this);
 }

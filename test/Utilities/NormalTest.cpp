@@ -6,21 +6,21 @@
 class NormalTest : public testing::Test {
 protected:
     void SetUp() override {
-        n1.x = 0.0;
-        n1.y = 1.0;
-        n1.z = 2.0;
+        n1.x = 0.0f;
+        n1.y = 1.0f;
+        n1.z = 2.0f;
 
-        n2.x = 0.0;
-        n2.y = 1.0;
-        n2.z = 2.0;
+        n2.x = 0.0f;
+        n2.y = 1.0f;
+        n2.z = 2.0f;
 
-        v1.x = 0.0;
-        v1.y = 1.0;
-        v1.z = 2.0;
+        v1.x = 0.0f;
+        v1.y = 1.0f;
+        v1.z = 2.0f;
 
-        p1.x = 0.0;
-        p1.y = 1.0;
-        p1.z = 2.0;
+        p1.x = 0.0f;
+        p1.y = 1.0f;
+        p1.z = 2.0f;
     }
 
     Normal n0;
@@ -31,113 +31,113 @@ protected:
 };
 
 TEST_F(NormalTest, Initialization) {
-    EXPECT_DOUBLE_EQ(0.0, n0.x);
-    EXPECT_DOUBLE_EQ(0.0, n0.y);
-    EXPECT_DOUBLE_EQ(0.0, n0.z);
+    EXPECT_FLOAT_EQ(0.0f, n0.x);
+    EXPECT_FLOAT_EQ(0.0f, n0.y);
+    EXPECT_FLOAT_EQ(0.0f, n0.z);
 
     Normal single(1.0);
-    EXPECT_DOUBLE_EQ(1.0, single.x);
-    EXPECT_DOUBLE_EQ(1.0, single.y);
-    EXPECT_DOUBLE_EQ(1.0, single.z);
+    EXPECT_FLOAT_EQ(1.0f, single.x);
+    EXPECT_FLOAT_EQ(1.0f, single.y);
+    EXPECT_FLOAT_EQ(1.0f, single.z);
 
-    Normal all(1.0, 2.0, 3.0);
-    EXPECT_DOUBLE_EQ(1.0, all.x);
-    EXPECT_DOUBLE_EQ(2.0, all.y);
-    EXPECT_DOUBLE_EQ(3.0, all.z);
+    Normal all(1.0f, 2.0f, 3.0);
+    EXPECT_FLOAT_EQ(1.0f, all.x);
+    EXPECT_FLOAT_EQ(2.0f, all.y);
+    EXPECT_FLOAT_EQ(3.0f, all.z);
 
     Normal nCopy(n1);
-    EXPECT_DOUBLE_EQ(0.0, nCopy.x);
-    EXPECT_DOUBLE_EQ(1.0, nCopy.y);
-    EXPECT_DOUBLE_EQ(2.0, nCopy.z);
+    EXPECT_FLOAT_EQ(0.0f, nCopy.x);
+    EXPECT_FLOAT_EQ(1.0f, nCopy.y);
+    EXPECT_FLOAT_EQ(2.0f, nCopy.z);
 
     Normal nAssign = n1;
-    EXPECT_DOUBLE_EQ(0.0, nAssign.x);
-    EXPECT_DOUBLE_EQ(1.0, nAssign.y);
-    EXPECT_DOUBLE_EQ(2.0, nAssign.z);
+    EXPECT_FLOAT_EQ(0.0f, nAssign.x);
+    EXPECT_FLOAT_EQ(1.0f, nAssign.y);
+    EXPECT_FLOAT_EQ(2.0f, nAssign.z);
 
     Normal vCopy(v1);
-    EXPECT_DOUBLE_EQ(0.0, vCopy.x);
-    EXPECT_DOUBLE_EQ(1.0, vCopy.y);
-    EXPECT_DOUBLE_EQ(2.0, vCopy.z);
+    EXPECT_FLOAT_EQ(0.0f, vCopy.x);
+    EXPECT_FLOAT_EQ(1.0f, vCopy.y);
+    EXPECT_FLOAT_EQ(2.0f, vCopy.z);
 
     Normal vAssign;
     vAssign = v1;
-    EXPECT_DOUBLE_EQ(0.0, vAssign.x);
-    EXPECT_DOUBLE_EQ(1.0, vAssign.y);
-    EXPECT_DOUBLE_EQ(2.0, vAssign.z);
+    EXPECT_FLOAT_EQ(0.0f, vAssign.x);
+    EXPECT_FLOAT_EQ(1.0f, vAssign.y);
+    EXPECT_FLOAT_EQ(2.0f, vAssign.z);
 
     Normal pAssign;
     pAssign = p1;
-    EXPECT_DOUBLE_EQ(0.0, pAssign.x);
-    EXPECT_DOUBLE_EQ(1.0, pAssign.y);
-    EXPECT_DOUBLE_EQ(2.0, pAssign.z);
+    EXPECT_FLOAT_EQ(0.0f, pAssign.x);
+    EXPECT_FLOAT_EQ(1.0f, pAssign.y);
+    EXPECT_FLOAT_EQ(2.0f, pAssign.z);
 }
 
 TEST_F(NormalTest, MathOperations) {
     Normal u = -n1;
-    EXPECT_DOUBLE_EQ(-0.0, u.x);
-    EXPECT_DOUBLE_EQ(-1.0, u.y);
-    EXPECT_DOUBLE_EQ(-2.0, u.z);
+    EXPECT_FLOAT_EQ(-0.0f, u.x);
+    EXPECT_FLOAT_EQ(-1.0f, u.y);
+    EXPECT_FLOAT_EQ(-2.0f, u.z);
 
     Normal a = n1 + n2;
-    EXPECT_DOUBLE_EQ(0.0, a.x);
-    EXPECT_DOUBLE_EQ(2.0, a.y);
-    EXPECT_DOUBLE_EQ(4.0, a.z);
+    EXPECT_FLOAT_EQ(0.0f, a.x);
+    EXPECT_FLOAT_EQ(2.0f, a.y);
+    EXPECT_FLOAT_EQ(4.0f, a.z);
 
     a += n1;
-    EXPECT_DOUBLE_EQ(0.0, a.x);
-    EXPECT_DOUBLE_EQ(3.0, a.y);
-    EXPECT_DOUBLE_EQ(6.0, a.z);
+    EXPECT_FLOAT_EQ(0.0f, a.x);
+    EXPECT_FLOAT_EQ(3.0f, a.y);
+    EXPECT_FLOAT_EQ(6.0f, a.z);
 
     double m = a * v1;
-    EXPECT_DOUBLE_EQ(15.0, m);
+    EXPECT_FLOAT_EQ(15.0f, m);
 
-    Normal m2 = a * 3.0;
-    EXPECT_DOUBLE_EQ(0.0, m2.x);
-    EXPECT_DOUBLE_EQ(9.0, m2.y);
-    EXPECT_DOUBLE_EQ(18.0, m2.z);
+    Normal m2 = a * 3.0f;
+    EXPECT_FLOAT_EQ(0.0f, m2.x);
+    EXPECT_FLOAT_EQ(9.0f, m2.y);
+    EXPECT_FLOAT_EQ(18.0f, m2.z);
 
     Normal norm(1.0);
     norm.normalize();
-    EXPECT_DOUBLE_EQ(0.5773502691896258, norm.x);
-    EXPECT_DOUBLE_EQ(0.5773502691896258, norm.y);
-    EXPECT_DOUBLE_EQ(0.5773502691896258, norm.z);
+    EXPECT_FLOAT_EQ(0.5773502691896258, norm.x);
+    EXPECT_FLOAT_EQ(0.5773502691896258, norm.y);
+    EXPECT_FLOAT_EQ(0.5773502691896258, norm.z);
 }
 
 TEST_F(NormalTest, MathOperationsNonMember) {
     Normal m = 3.0 * n1;
-    EXPECT_DOUBLE_EQ(0.0, m.x);
-    EXPECT_DOUBLE_EQ(3.0, m.y);
-    EXPECT_DOUBLE_EQ(6.0, m.z);
+    EXPECT_FLOAT_EQ(0.0f, m.x);
+    EXPECT_FLOAT_EQ(3.0f, m.y);
+    EXPECT_FLOAT_EQ(6.0f, m.z);
 
     Vector3D addVN = v1 + n1;
-    EXPECT_DOUBLE_EQ(0.0, addVN.x);
-    EXPECT_DOUBLE_EQ(2.0, addVN.y);
-    EXPECT_DOUBLE_EQ(4.0, addVN.z);
+    EXPECT_FLOAT_EQ(0.0f, addVN.x);
+    EXPECT_FLOAT_EQ(2.0f, addVN.y);
+    EXPECT_FLOAT_EQ(4.0f, addVN.z);
 
     Vector3D subVN = v1 - n1;
-    EXPECT_DOUBLE_EQ(0.0, subVN.x);
-    EXPECT_DOUBLE_EQ(0.0, subVN.y);
-    EXPECT_DOUBLE_EQ(0.0, subVN.z);
+    EXPECT_FLOAT_EQ(0.0f, subVN.x);
+    EXPECT_FLOAT_EQ(0.0f, subVN.y);
+    EXPECT_FLOAT_EQ(0.0f, subVN.z);
 
     double dot = v1 * n1;
-    EXPECT_DOUBLE_EQ(5.0, dot);
+    EXPECT_FLOAT_EQ(5.0f, dot);
 
     Matrix m0;
-    m0.m[0][0] = 1.0;
-    m0.m[0][1] = 2.0;
-    m0.m[0][2] = 3.0;
+    m0.m[0][0] = 1.0f;
+    m0.m[0][1] = 2.0f;
+    m0.m[0][2] = 3.0f;
 
-    m0.m[1][0] = 1.0;
-    m0.m[1][1] = 2.0;
-    m0.m[1][2] = 3.0;
+    m0.m[1][0] = 1.0f;
+    m0.m[1][1] = 2.0f;
+    m0.m[1][2] = 3.0f;
 
-    m0.m[2][0] = 1.0;
-    m0.m[2][1] = 2.0;
-    m0.m[2][2] = 3.0;
+    m0.m[2][0] = 1.0f;
+    m0.m[2][1] = 2.0f;
+    m0.m[2][2] = 3.0f;
 
     Normal t = m0 * n1;
-    EXPECT_DOUBLE_EQ(3.0, t.x);
-    EXPECT_DOUBLE_EQ(6.0, t.y);
-    EXPECT_DOUBLE_EQ(9.0, t.z);
+    EXPECT_FLOAT_EQ(3.0f, t.x);
+    EXPECT_FLOAT_EQ(6.0f, t.y);
+    EXPECT_FLOAT_EQ(9.0f, t.z);
 }

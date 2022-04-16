@@ -14,7 +14,7 @@
 #include "Rectangle.h"
 #include "../Samplers/Sampler.h"
 
-const double Rectangle::kEpsilon = 0.001;
+const float Rectangle::kEpsilon = 0.001f;
 
 
 
@@ -26,7 +26,7 @@ Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b)
         a_len_squared(a.len_squared()),
         b_len_squared(b.len_squared()),
         area(a.length() * b.length()),
-        inv_area(1.0 / area),
+        inv_area(1.0f / area),
         sampler_ptr(nullptr)
 {
     normal = a ^ b;
@@ -44,7 +44,7 @@ Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b,
         a_len_squared(a.len_squared()),
         b_len_squared(b.len_squared()),
         area(a.length() * b.length()),
-        inv_area(1.0 / area),
+        inv_area(1.0f / area),
         normal(n),
         sampler_ptr(nullptr)
 {
@@ -83,8 +83,8 @@ Rectangle::Rectangle (Rectangle&& r) noexcept
         p0(std::move(r.p0)),
         a(std::move(r.a)),
         b(std::move(r.b)),
-        a_len_squared(std::exchange(r.a_len_squared, 4.0)),
-        b_len_squared(std::exchange(r.b_len_squared, 4.0)),
+        a_len_squared(std::exchange(r.a_len_squared, 4.0f)),
+        b_len_squared(std::exchange(r.b_len_squared, 4.0f)),
         normal(std::move(r.normal)),
         area(std::exchange(r.area, 4.0f)),
         inv_area(std::exchange(r.inv_area, 0.25f))
@@ -125,8 +125,8 @@ Rectangle::operator= (Rectangle&& r) noexcept {
     p0              = std::move(r.p0);
     a               = std::move(r.a);
     b               = std::move(r.b);
-    a_len_squared   = std::exchange(r.a_len_squared, 4.0);
-    b_len_squared   = std::exchange(r.b_len_squared, 4.0);
+    a_len_squared   = std::exchange(r.a_len_squared, 4.0f);
+    b_len_squared   = std::exchange(r.b_len_squared, 4.0f);
     normal          = std::move(r.normal);
     area            = std::exchange(r.area, 4.0f);
     inv_area        = std::exchange(r.inv_area, 0.25f);
@@ -151,7 +151,7 @@ Rectangle::clone(void) const {
 
  BBox
  Rectangle::get_bounding_box() const {
-    double delta = 0.0001;
+    float delta = 0.0001;
 
     return(BBox(std::min(p0.x, p0.x + a.x + b.x) - delta, std::max(p0.x, p0.x + a.x + b.x) + delta,
                 std::min(p0.y, p0.y + a.y + b.y) - delta, std::max(p0.y, p0.y + a.y + b.y) + delta,
@@ -162,9 +162,9 @@ Rectangle::clone(void) const {
 
 
 bool
-Rectangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+Rectangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
 
-    double t = (p0 - ray.o) * normal / (ray.d * normal);
+    float t = (p0 - ray.o) * normal / (ray.d * normal);
 
     if (t <= kEpsilon)
         return (false);
@@ -172,14 +172,14 @@ Rectangle::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
     Point3D p = ray.o + t * ray.d;
     Vector3D d = p - p0;
 
-    double ddota = d * a;
+    float ddota = d * a;
 
-    if (ddota < 0.0 || ddota > a_len_squared)
+    if (ddota < 0.0f || ddota > a_len_squared)
         return (false);
 
-    double ddotb = d * b;
+    float ddotb = d * b;
 
-    if (ddotb < 0.0 || ddotb > b_len_squared)
+    if (ddotb < 0.0f || ddotb > b_len_squared)
         return (false);
 
     tmin                = t;

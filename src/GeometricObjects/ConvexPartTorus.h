@@ -22,9 +22,9 @@ public:
 
     ConvexPartTorus();
 
-    explicit ConvexPartTorus(const double _a,      const double _b,
-                             const double _phi1,   const double _phi2,
-                             const double _theta1, const double _theta2);
+    explicit ConvexPartTorus(const float _a,      const float _b,
+                             const float _phi1,   const float _phi2,
+                             const float _theta1, const float _theta2);
 
     ~ConvexPartTorus() = default;
 
@@ -42,16 +42,16 @@ public:
     clone() const override;
 
     bool
-    hit(const Ray& ray, double& tmin, ShadeRec& sr) const override;
+    hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 
 private:
 
-    double a;
-    double b;
-    double phi1;
-    double phi2;
-    double theta1;
-    double theta2;
+    float a;
+    float b;
+    float phi1;
+    float phi2;
+    float theta1;
+    float theta2;
     BBox   bbox;
 
     Normal

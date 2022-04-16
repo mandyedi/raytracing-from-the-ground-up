@@ -40,17 +40,17 @@ class Plane: public GeometricObject {
         clone(void) const override;
 
         bool
-        hit(const Ray& ray, double& tmin, ShadeRec& sr) const override;
+        hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 
         bool
         shadow_hit(const Ray &ray, float &tmin) const override;
 
     private:
 
-        Point3D     a = Point3D(0.0);           // point through which plane passes
-        Normal      n = Normal(0.0, 1.0, 0.0);  // normal to the plane
+        Point3D     a = Point3D(0.0f);           // point through which plane passes
+        Normal      n = Normal(0.0f, 1.0f, 0.0f);  // normal to the plane
 
-        static const double kEpsilon;   // for shadows and secondary rays
+        static const float kEpsilon;   // for shadows and secondary rays
 };
 
 #endif

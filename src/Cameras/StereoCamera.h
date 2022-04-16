@@ -40,7 +40,7 @@ class StereoCamera: public Camera {
         setup_cameras(void);
 
         void
-        render_scene(const World& w, float x = 0, int offset = 0) override;
+        render_scene(const World& w, float x = 0.0f, int offset = 0) override;
 
         void
         use_parallel_viewing();

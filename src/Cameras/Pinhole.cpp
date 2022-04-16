@@ -103,8 +103,8 @@ Pinhole::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) {
 
             for (int j = 0; j < w.vp.num_samples; j++) {
                 sp = w.vp.sampler_ptr->sample_unit_square();
-                pp.x = s * (column - 0.5f * w.vp.hres + sp.x) + x;
-                pp.y = s * (row - 0.5f * w.vp.vres + sp.y);
+                pp.x = s * (static_cast<float>(column) - 0.5f * static_cast<float>(w.vp.hres) + sp.x) + x;
+                pp.y = s * (row - 0.5f * static_cast<float>(w.vp.vres) + sp.y);
                 ray.d = get_direction(pp);
                 L += w.tracer_ptr->trace_ray(ray, depth);
             }

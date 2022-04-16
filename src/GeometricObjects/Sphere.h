@@ -23,7 +23,7 @@ class Sphere: public GeometricObject {
 
         Sphere(void) = default;
 
-        explicit Sphere(const Point3D& center, double r);
+        explicit Sphere(const Point3D& center, float r);
 
         ~Sphere(void);
 
@@ -44,23 +44,23 @@ class Sphere: public GeometricObject {
         set_center(const Point3D& c);
 
         void
-        set_center(const double x, const double y, const double z);
+        set_center(const float x, const float y, const float z);
 
         void
-        set_radius(const double r);
+        set_radius(const float r);
 
         bool
-        hit(const Ray& ray, double& t, ShadeRec& s) const override;
+        hit(const Ray& ray, float& t, ShadeRec& s) const override;
 
         bool
         shadow_hit(const Ray &ray, float &tmin) const override;
 
     private:
 
-        Point3D     center = Point3D(0.0);
-        double      radius = 1.0;
+        Point3D     center = Point3D(0.0f);
+        float      radius = 1.0f;
 
-        static const double kEpsilon;   // for shadows and secondary rays
+        static const float kEpsilon;   // for shadows and secondary rays
 };
 
 
@@ -71,14 +71,14 @@ Sphere::set_center(const Point3D& c) {
 }
 
 inline void
-Sphere::set_center(const double x, const double y, const double z) {
+Sphere::set_center(const float x, const float y, const float z) {
     center.x = x;
     center.y = y;
     center.z = z;
 }
 
 inline void
-Sphere::set_radius(const double r) {
+Sphere::set_radius(const float r) {
     radius = r;
 }
 

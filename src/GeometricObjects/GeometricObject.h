@@ -45,7 +45,7 @@ class GeometricObject {
         clone(void) const = 0;
 
         virtual bool
-        hit(const Ray& ray, double& t, ShadeRec& s) const = 0;
+        hit(const Ray& ray, float& t, ShadeRec& s) const = 0;
 
         virtual bool
         shadow_hit(const Ray& ray, float& tmin) const;

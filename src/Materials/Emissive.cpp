@@ -67,7 +67,7 @@ Emissive::clone(void) const {
 
 RGBColor
 Emissive::area_light_shade(ShadeRec& sr) {
-    if (-sr.normal * sr.ray.d > 0.0) {
+    if (-sr.normal * sr.ray.d > 0.0f) {
         return (ls * ce);
     }
     else {

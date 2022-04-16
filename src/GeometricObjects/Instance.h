@@ -58,28 +58,28 @@ class Instance: public GeometricObject {
         set_material(Material* materialPtr);
 
         virtual bool
-        hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+        hit(const Ray& ray, float& tmin, ShadeRec& sr) const;
 
         void
         translate(const Vector3D& trans);
 
         void
-        translate(const double dx, const double dy, const double dz);
+        translate(const float dx, const float dy, const float dz);
 
         void
         scale(const Vector3D& s);
 
         void
-        scale(const double a, const double b, const double c);
+        scale(const float a, const float b, const float c);
 
         virtual void
-        rotate_x(const double r);
+        rotate_x(const float r);
 
         virtual void
-        rotate_y(const double r);
+        rotate_y(const float r);
 
         virtual void
-        rotate_z(const double r);
+        rotate_z(const float r);
 
         void
         shear(const Matrix& m);

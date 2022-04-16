@@ -72,7 +72,7 @@ class Directional: public Light {
 
         float       ls      = 1.0f;
         RGBColor    color   = RGBColor::white;
-        Vector3D    dir     = Vector3D(0.0, 1.0, 0.0);      // direction the light comes from
+        Vector3D    dir     = Vector3D(0.0f, 1.0f, 0.0f);      // direction the light comes from
 };
 
 

@@ -30,7 +30,7 @@ BRDF::BRDF (const BRDF& b) {
 
 
 
-BRDF::BRDF (BRDF&& b) noexcept 
+BRDF::BRDF (BRDF&& b) noexcept
     :   sampler_ptr(std::exchange(b.sampler_ptr, nullptr))
 {}
 

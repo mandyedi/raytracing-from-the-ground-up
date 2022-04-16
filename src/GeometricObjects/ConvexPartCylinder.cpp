@@ -16,12 +16,12 @@
 #include "ConvexPartCylinder.h"
 #include "../Utilities/Constants.h"
 
-ConvexPartCylinder::ConvexPartCylinder(const double bottom, const double top, const double r, double phi1, double phi2)
+ConvexPartCylinder::ConvexPartCylinder(const float bottom, const float top, const float r, float phi1, float phi2)
     :   GeometricObject(),
         y0(bottom),
         y1(top),
         radius(r),
-        inv_radius(1.0 / r),
+        inv_radius(1.0f / r),
         phi_min(phi1),
         phi_max(phi2)
 {}
@@ -40,12 +40,12 @@ ConvexPartCylinder::ConvexPartCylinder (const ConvexPartCylinder& c)
 
 ConvexPartCylinder::ConvexPartCylinder (ConvexPartCylinder&& c) noexcept
     :    GeometricObject(std::move(c)),
-         y0(std::exchange(c.y0, -1.0)),
-         y1(std::exchange(c.y1, 1.0)),
-         radius(std::exchange(c.radius, 1.0)),
-         inv_radius(std::exchange(c.inv_radius, 1.0)),
-         phi_min(std::exchange(c.phi_min, 0.0)),
-         phi_max(std::exchange(c.phi_max, 180.0))
+         y0(std::exchange(c.y0, -1.0f)),
+         y1(std::exchange(c.y1, 1.0f)),
+         radius(std::exchange(c.radius, 1.0f)),
+         inv_radius(std::exchange(c.inv_radius, 1.0f)),
+         phi_min(std::exchange(c.phi_min, 0.0f)),
+         phi_max(std::exchange(c.phi_max, 180.0f))
 {
 
 }
@@ -68,12 +68,12 @@ ConvexPartCylinder&
 ConvexPartCylinder::operator= (ConvexPartCylinder&& c) noexcept {
     GeometricObject::operator=(std::move(c));
 
-    y0         = std::exchange(c.y0, -1.0);
-    y1         = std::exchange(c.y1, 1.0);
-    radius     = std::exchange(c.radius, 1.0);
-    inv_radius = std::exchange(c.inv_radius, 1.0);
-    phi_min    = std::exchange(c.phi_min, 0.0);
-    phi_max    = std::exchange(c.phi_max, 180.0);
+    y0         = std::exchange(c.y0, -1.0f);
+    y1         = std::exchange(c.y1, 1.0f);
+    radius     = std::exchange(c.radius, 1.0f);
+    inv_radius = std::exchange(c.inv_radius, 1.0f);
+    phi_min    = std::exchange(c.phi_min, 0.0f);
+    phi_max    = std::exchange(c.phi_max, 180.0f);
 
     return *this;
 }
@@ -84,47 +84,47 @@ ConvexPartCylinder::clone() const {
 }
 
 bool
-ConvexPartCylinder::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+ConvexPartCylinder::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
 
-    double t;
-    double ox = ray.o.x;
-    double oy = ray.o.y;
-    double oz = ray.o.z;
-    double dx = ray.d.x;
-    double dy = ray.d.y;
-    double dz = ray.d.z;
+    float t;
+    float ox = ray.o.x;
+    float oy = ray.o.y;
+    float oz = ray.o.z;
+    float dx = ray.d.x;
+    float dy = ray.d.y;
+    float dz = ray.d.z;
 
-    double a = dx * dx + dz * dz;
-    double b = 2.0 * (ox * dx + oz * dz);
-    double c = ox * ox + oz * oz - radius * radius;
-    double disc = b * b - 4.0 * a * c ;
+    float a = dx * dx + dz * dz;
+    float b = 2.0 * (ox * dx + oz * dz);
+    float c = ox * ox + oz * oz - radius * radius;
+    float disc = b * b - 4.0 * a * c ;
 
 
-    if (disc < 0.0){
+    if (disc < 0.0f){
         return false;
     }
     else {
-        double e = sqrt(disc);
-        double denom = 2.0 * a;
+        float e = sqrt(disc);
+        float denom = 2.0 * a;
         t = (-b - e) / denom;    // smaller root
 
         for(int ii = 0; ii < 2; ii++){
-            if (t > std::numeric_limits<double>::epsilon()) {
+            if (t > std::numeric_limits<float>::epsilon()) {
 
-                double yhit = oy + t * dy;
+                float yhit = oy + t * dy;
 
                 if (yhit > y0 && yhit < y1) {
-                    double xhit = ox + t * dx, zhit = oz + t * dz;
-                    sr.normal = Normal(xhit * inv_radius, 0.0, zhit * inv_radius);
+                    float xhit = ox + t * dx, zhit = oz + t * dz;
+                    sr.normal = Normal(xhit * inv_radius, 0.0f, zhit * inv_radius);
 
-                    double phi = atan2(xhit, zhit);
-                    if (phi < 0.0) {
+                    float phi = atan2(xhit, zhit);
+                    if (phi < 0.0f) {
                         phi += TWO_PI;
                     }
 
                     if (phi >= phi_min*PI_ON_180 && phi <= phi_max*PI_ON_180) {
                         tmin = t;
-                        if (-ray.d * sr.normal < 0.0){
+                        if (-ray.d * sr.normal < 0.0f){
                             sr.normal = -sr.normal;
                         }
 

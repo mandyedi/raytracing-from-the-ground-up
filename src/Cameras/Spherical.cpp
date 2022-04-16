@@ -71,10 +71,10 @@ Spherical::clone(void) const {
 
 
 Vector3D
-Spherical::ray_direction(   const Point2D&  pp,
-                        const int       hres,
-                        const int       vres,
-                        const float     s) const {
+Spherical::ray_direction(const Point2D&  pp,
+                         const int       hres,
+                         const int       vres,
+                         const float     s) const {
 
     // compute the normalized device coordinates
 
@@ -83,15 +83,15 @@ Spherical::ray_direction(   const Point2D&  pp,
     // compute the angles lambda and psi in radians
 
     float lambda = pn.x * degreeToRadian(lambda_max);
-    float psi = pn.y * degreeToRadian(psi_max);
+    float psi    = pn.y * degreeToRadian(psi_max);
 
     // compute the sherical azimuth and polar angles
 
-    float phi = PI - lambda;
+    float phi   = PI - lambda;
     float theta = 0.5f * PI - psi;
 
-    float sin_phi = sinf(phi);
-    float cos_phi = cosf(phi);
+    float sin_phi   = sinf(phi);
+    float cos_phi   = cosf(phi);
     float sin_theta = sinf(theta);
     float cos_theta = cosf(theta);
 
@@ -120,8 +120,8 @@ Spherical::render_scene(const World& wr, float x /*= 0*/, int offset /*= 0*/) {
 
             for (int j = 0; j < wr.vp.num_samples; j++) {
                 sp = wr.vp.sampler_ptr->sample_unit_square();
-                pp.x = s * (c - 0.5f * hres + sp.x) + x;
-                pp.y = s * (r - 0.5f * vres + sp.y);
+                pp.x = s * (static_cast<float>(c) - 0.5f * static_cast<float>(hres) + sp.x) + x;
+                pp.y = s * (static_cast<float>(r) - 0.5f * static_cast<float>(vres) + sp.y);
                 ray.d = ray_direction(pp, hres, vres, s);
 
                 L += wr.tracer_ptr->trace_ray(ray, depth);

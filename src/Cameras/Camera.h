@@ -47,7 +47,7 @@ class Camera {
         // Pinhole::render_stereo(World& w, float, int offset)
         // I found it simpler to just extend the original Camera::render_scene method with the x and offset arguments.
         virtual void
-        render_scene(const World& w, float x = 0, int offset = 0) = 0;
+        render_scene(const World& w, float x = 0.0f, int offset = 0) = 0;
 
         void
         set_eye(const Point3D& p);
@@ -79,13 +79,13 @@ class Camera {
 
     protected:
 
-        Point3D         eye = Point3D(0.0, 0.0, 500.0);             // eye point
-        Point3D         lookat = Point3D(0.0);                      // lookat point
+        Point3D         eye = Point3D(0.0f, 0.0f, 500.0f);             // eye point
+        Point3D         lookat = Point3D(0.0f);                      // lookat point
         float           ra = 0.0f;                                  // roll angle
-        Vector3D        up = Vector3D(0.0, 0.1, 0.0);               // up vector
-        Vector3D        u = Vector3D(1.0, 0.0, 0.0);                // orthonormal basis vectors
-        Vector3D        v = Vector3D(0.0, 0.1, 0.0);
-        Vector3D        w = Vector3D(0.0, 0.0, 1.0);
+        Vector3D        up = Vector3D(0.0f, 0.1f, 0.0f);               // up vector
+        Vector3D        u = Vector3D(1.0f, 0.0f, 0.0f);                // orthonormal basis vectors
+        Vector3D        v = Vector3D(0.0f, 0.1f, 0.0f);
+        Vector3D        w = Vector3D(0.0f, 0.0f, 1.0f);
         float           exposure_time = 1.0f;
 };
 

@@ -21,18 +21,18 @@ class ShadeRec;
 
 class Box : public GeometricObject {
     public:
-        double x0 = -1.0;
-        double x1 = 1.0;
-        double y0 = -1.0;
-        double y1 = 1.0;
-        double z0 = -1.0;
-        double z1 = 1.0;
+        float x0 = -1.0f;
+        float x1 = 1.0f;
+        float y0 = -1.0f;
+        float y1 = 1.0f;
+        float z0 = -1.0f;
+        float z1 = 1.0f;
 
         Box(void) = default;
 
-        explicit Box(   const double x0, const double x1,
-                const double y0, const double y1,
-                const double z0, const double z1);
+        explicit Box(   const float x0, const float x1,
+                const float y0, const float y1,
+                const float z0, const float z1);
 
         explicit Box(const Point3D p0, const Point3D p1);
 
@@ -52,7 +52,7 @@ class Box : public GeometricObject {
         clone(void) const override;
 
         bool
-        hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+        hit(const Ray& ray, float& tmin, ShadeRec& sr) const;
 
         bool
         inside(const Point3D& point) const;

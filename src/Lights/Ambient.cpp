@@ -69,7 +69,7 @@ Ambient::~Ambient (void) {}
 
 Vector3D
 Ambient::get_direction([[maybe_unused]] ShadeRec& s) {
-    return (Vector3D(0.0));
+    return (Vector3D(0.0f));
 }
 
 

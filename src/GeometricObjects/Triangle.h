@@ -46,17 +46,17 @@ class Triangle: public GeometricObject {
         compute_normal(void);
 
         virtual bool
-        hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
+        hit(const Ray& ray, float& tmin, ShadeRec& sr) const;
 
         virtual bool
-        shadow_hit(const Ray& ray, double& tmin) const;
+        shadow_hit(const Ray& ray, float& tmin) const;
 
     private:
 
-        Point3D v0 = Point3D(0.0, 0.0, 0.0);
-        Point3D v1 = Point3D(0.0, 0.0, 1.0);
-        Point3D v2 = Point3D(1.0, 0.0, 0.0);
-        Normal  normal = Normal(0.0, 1.0, 0.0);
+        Point3D v0 = Point3D(0.0f, 0.0f, 0.0f);
+        Point3D v1 = Point3D(0.0f, 0.0f, 1.0f);
+        Point3D v2 = Point3D(1.0f, 0.0f, 0.0f);
+        Normal  normal = Normal(0.0f, 1.0f, 0.0f);
 };
 
 #endif

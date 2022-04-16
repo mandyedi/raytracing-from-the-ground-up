@@ -45,7 +45,7 @@ class Rectangle: public GeometricObject {
         get_bounding_box(void) const override;
 
         bool
-        hit(const Ray& ray, double& t, ShadeRec& s) const;
+        hit(const Ray& ray, float& t, ShadeRec& s) const;
 
 
         // the following functions are used when the rectangle is a light source
@@ -62,18 +62,18 @@ class Rectangle: public GeometricObject {
 
     private:
 
-        Point3D     p0              = Point3D(-1.0, 0.0, -1.0);     // corner vertex
-        Vector3D    a               = Vector3D(0.0, 0.0, 2.0);      // side
-        Vector3D    b               = Vector3D(2.0, 0.0, 0.0);      // side
-        double      a_len_squared   = 4.0;                          // square of the length of side a
-        double      b_len_squared   = 4.0;                          // square of the length of side b
-        Normal      normal          = Normal(0.0, 1.0, 0.0);
+        Point3D     p0              = Point3D(-1.0f, 0.0f, -1.0f);     // corner vertex
+        Vector3D    a               = Vector3D(0.0f, 0.0f, 2.0f);      // side
+        Vector3D    b               = Vector3D(2.0f, 0.0f, 0.0f);      // side
+        float      a_len_squared   = 4.0f;                          // square of the length of side a
+        float      b_len_squared   = 4.0f;                          // square of the length of side b
+        Normal      normal          = Normal(0.0f, 1.0f, 0.0f);
 
         float       area            = 4.0f;                         // for rectangular lights
         float       inv_area        = 0.25f;                        // for rectangular lights
         Sampler*    sampler_ptr     = nullptr;                      // for rectangular lights
 
-        static const double kEpsilon;
+        static const float kEpsilon;
 };
 
 #endif

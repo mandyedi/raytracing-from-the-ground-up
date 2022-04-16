@@ -13,7 +13,7 @@
 #include <utility>
 #include "Disk.h"
 
-const double Disk::kEpsilon = 0.001;
+const float Disk::kEpsilon = 0.001f;
 
 
 
@@ -39,7 +39,7 @@ Disk::Disk (Disk&& d) noexcept
   : GeometricObject(std::move(d)),
     center(std::move(d.center)),
     normal(std::move(d.normal)),
-    r_squared(std::exchange(d.r_squared, 1.0))
+    r_squared(std::exchange(d.r_squared, 1.0f))
 {}
 
 
@@ -63,7 +63,7 @@ Disk::operator= (Disk&& d) noexcept {
 
   center        = std::move(d.center);
   normal        = std::move(d.normal);
-  r_squared     = std::exchange(d.r_squared, 1.0);
+  r_squared     = std::exchange(d.r_squared, 1.0f);
 
   return (*this);
 }
@@ -78,8 +78,8 @@ Disk::clone(void) const {
 
 
 bool
-Disk::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
-  double t = (center - ray.o) * normal / (ray.d * normal);
+Disk::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
+  float t = (center - ray.o) * normal / (ray.d * normal);
 
   if (t <= kEpsilon) {
     return (false);

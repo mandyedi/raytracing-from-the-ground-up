@@ -220,16 +220,16 @@ Sampler::map_samples_to_unit_disk(void) {
             }
             else {                  // sector 4
                 r = -sp.y;
-                if (sp.y != 0.0) {  // avoid division by zero at origin
+                if (sp.y != 0.0f) {  // avoid division by zero at origin
                     phi = 6 - sp.x / sp.y;
                 }
                 else {
-                    phi  = 0.0;
+                    phi  = 0.0f;
                 }
             }
         }
 
-        phi *= PI / 4.0;
+        phi *= PI / 4.0f;
 
         disk_samples[j].x = r * (float)cos(phi);
         disk_samples[j].y = r * (float)sin(phi);
@@ -249,13 +249,13 @@ Sampler::map_samples_to_hemisphere(const float exp) {
     hemisphere_samples.reserve(num_samples * num_sets);
 
     for (int j = 0; j < size; j++) {
-        double cos_phi = cos(2.0 * PI * samples[j].x);
-        double sin_phi = sin(2.0 * PI * samples[j].x);
-        double cos_theta = pow((1.0 - samples[j].y), 1.0 / (exp + 1.0));
-        double sin_theta = sqrt (1.0 - cos_theta * cos_theta);
-        double pu = sin_theta * cos_phi;
-        double pv = sin_theta * sin_phi;
-        double pw = cos_theta;
+        float cos_phi = cos(2.0 * PI * samples[j].x);
+        float sin_phi = sin(2.0 * PI * samples[j].x);
+        float cos_theta = pow((1.0f - samples[j].y), 1.0f / (exp + 1.0f));
+        float sin_theta = sqrt (1.0f - cos_theta * cos_theta);
+        float pu = sin_theta * cos_phi;
+        float pv = sin_theta * sin_phi;
+        float pw = cos_theta;
         hemisphere_samples.push_back(Point3D((float)pu, (float)pv, (float)pw));
     }
 }
@@ -274,7 +274,7 @@ Sampler::map_samples_to_sphere(void) {
         float r1    = samples[j].x;
         float r2    = samples[j].y;
         float z     = 1.0f - 2.0f * r1;
-        float r     = (float)sqrt(1.0 - z * z);
+        float r     = (float)sqrt(1.0f - z * z);
         float phi = TWO_PI * r2;
         float x     = r * (float)cos(phi);
         float y     = r * (float)sin(phi);

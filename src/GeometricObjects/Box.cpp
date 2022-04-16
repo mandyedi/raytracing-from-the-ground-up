@@ -17,9 +17,9 @@
 
 
 
-Box::Box (  const double _x0, const double _x1,
-                const double _y0, const double _y1,
-                const double _z0, const double _z1)
+Box::Box (  const float _x0, const float _x1,
+                const float _y0, const float _y1,
+                const float _z0, const float _z1)
     : x0(_x0), x1(_x1), y0(_y0), y1(_y1), z0(_z0), z1(_z1)
 {}
 
@@ -38,12 +38,12 @@ Box::Box (const Box& box)
 
 Box::Box(Box&& box) noexcept
     :   GeometricObject(std::move(box)),
-        x0(std::exchange(box.x0, -1.0)),
-        x1(std::exchange(box.x1, 1.0)),
-        y0(std::exchange(box.y0, -1.0)),
-        y1(std::exchange(box.y1, 1.0)),
-        z0(std::exchange(box.z0, -1.0)),
-        z1(std::exchange(box.z1, 1.0))
+        x0(std::exchange(box.x0, -1.0f)),
+        x1(std::exchange(box.x1, 1.0f)),
+        y0(std::exchange(box.y0, -1.0f)),
+        y1(std::exchange(box.y1, 1.0f)),
+        z0(std::exchange(box.z0, -1.0f)),
+        z1(std::exchange(box.z1, 1.0f))
 {}
 
 
@@ -65,12 +65,12 @@ Box::operator= (const Box& box) {
 Box &
 Box::operator= (Box&& box) noexcept {
     GeometricObject::operator=(std::move(box));
-    x0 = std::exchange(box.x0, -1.0);
-    x1 = std::exchange(box.x1, 1.0);
-    y0 = std::exchange(box.y0, -1.0);
-    y1 = std::exchange(box.y1, 1.0);
-    z0 = std::exchange(box.z0, -1.0);
-    z1 = std::exchange(box.z1, 1.0);
+    x0 = std::exchange(box.x0, -1.0f);
+    x1 = std::exchange(box.x1, 1.0f);
+    y0 = std::exchange(box.y0, -1.0f);
+    y1 = std::exchange(box.y1, 1.0f);
+    z0 = std::exchange(box.z0, -1.0f);
+    z1 = std::exchange(box.z1, 1.0f);
 
     return (*this);
 }
@@ -85,15 +85,15 @@ Box::clone(void) const {
 
 
 bool
-Box::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+Box::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     // this is the same as Listing 19.1 down to the statement float t0, t1;
-    double ox = ray.o.x; double oy = ray.o.y; double oz = ray.o.z;
-    double dx = ray.d.x; double dy = ray.d.y; double dz = ray.d.z;
+    float ox = ray.o.x; float oy = ray.o.y; float oz = ray.o.z;
+    float dx = ray.d.x; float dy = ray.d.y; float dz = ray.d.z;
 
-    double tx_min, ty_min, tz_min;
-    double tx_max, ty_max, tz_max;
+    float tx_min, ty_min, tz_min;
+    float tx_max, ty_max, tz_max;
 
-    double a = 1.0 / dx;
+    float a = 1.0f / dx;
     if (a >= 0) {
         tx_min = (x0 - ox) * a;
         tx_max = (x1 - ox) * a;
@@ -103,7 +103,7 @@ Box::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
         tx_max = (x0 - ox) * a;
     }
 
-    double b = 1.0 / dy;
+    float b = 1.0f / dy;
     if (b >= 0) {
         ty_min = (y0 - oy) * b;
         ty_max = (y1 - oy) * b;
@@ -113,7 +113,7 @@ Box::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
         ty_max = (y0 - oy) * b;
     }
 
-    double c = 1.0 / dz;
+    float c = 1.0f / dz;
     if (c >= 0) {
         tz_min = (z0 - oz) * c;
         tz_max = (z1 - oz) * c;
@@ -126,42 +126,42 @@ Box::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
     // ends here (this is the same as Listing 19.1 down to the statement float t0, t1;)
 
     int face_in, face_out;
-    double t0, t1;
+    float t0, t1;
 
     // find largest entering t value
 
     if (tx_min > ty_min) {
         t0 = tx_min;
-        face_in = (a >= 0.0) ? 0 : 3;
+        face_in = (a >= 0.0f) ? 0 : 3;
     }
     else {
         t0 = ty_min;
-        face_in = (b >= 0.0) ? 1 : 4;
+        face_in = (b >= 0.0f) ? 1 : 4;
     }
 
     if (tz_min > t0) {
         t0 = tz_min;
-        face_in = (c >= 0.0) ? 2 : 5;
+        face_in = (c >= 0.0f) ? 2 : 5;
     }
 
     // find smallest exiting t value
 
     if (tx_max < ty_max) {
         t1 = tx_max;
-        face_out = (a >= 0.0) ? 3 : 0;
+        face_out = (a >= 0.0f) ? 3 : 0;
     }
     else {
         t1 = ty_max;
-        face_out = (b >= 0.0) ? 4 : 1;
+        face_out = (b >= 0.0f) ? 4 : 1;
     }
 
     if (tz_max < t1) {
         t1 = tz_max;
-        face_out = (c >= 0.0) ? 5 : 2;
+        face_out = (c >= 0.0f) ? 5 : 2;
     }
 
-    if (t0 < t1 && t1 > std::numeric_limits<double>::epsilon()) {  // condition for a hit
-        if (t0 > std::numeric_limits<double>::epsilon()) {
+    if (t0 < t1 && t1 > std::numeric_limits<float>::epsilon()) {  // condition for a hit
+        if (t0 > std::numeric_limits<float>::epsilon()) {
             tmin = t0;              // ray hits outside surface
             sr.normal = get_normal(face_in);
         }
@@ -195,6 +195,6 @@ Box::get_normal(const int face_hit) const {
         case 3: return (Normal(1, 0, 0));   // +x face
         case 4: return (Normal(0, 1, 0));   // +y face
         case 5: return (Normal(0, 0, 1));   // +z face
-        default: return Normal(1.0, 1.0, 1.0);
+        default: return Normal(1.0f, 1.0f, 1.0f);
     }
 }

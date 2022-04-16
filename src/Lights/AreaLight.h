@@ -68,9 +68,9 @@ class AreaLight: public Light {
 
         GeometricObject*    object_ptr      = nullptr;
         Material*           material_ptr    = nullptr;                  // will be an emissive material
-        Point3D             sample_point    = Point3D(0.0);
-        Normal              light_normal    = Normal(1.0, 0.0, 0.0);    // assigned in get_direction - which therefore can't be const for any light
-        Vector3D            wi              = Vector3D(0.0);            // unit direction from hit point being shaded to sample point on light surface
+        Point3D             sample_point    = Point3D(0.0f);
+        Normal              light_normal    = Normal(1.0f, 0.0f, 0.0f);    // assigned in get_direction - which therefore can't be const for any light
+        Vector3D            wi              = Vector3D(0.0f);            // unit direction from hit point being shaded to sample point on light surface
 
 };
 

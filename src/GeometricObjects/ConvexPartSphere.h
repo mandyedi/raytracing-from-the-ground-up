@@ -23,13 +23,13 @@ public:
     ConvexPartSphere() = default;
 
     ConvexPartSphere(   const Point3D   c,
-                        const double    r,
-                        const double    azimuth_min,    // in degrees
-                        const double    azimuth_max,    // in degrees
-                        const double    polar_min,      // in degrees measured from top
-                        const double    polar_max);     // in degrees measured from top
+                        const float    r,
+                        const float    azimuth_min,    // in degrees
+                        const float    azimuth_max,    // in degrees
+                        const float    polar_min,      // in degrees measured from top
+                        const float    polar_max);     // in degrees measured from top
 
-    ConvexPartSphere(const Point3D c, const double radius);
+    ConvexPartSphere(const Point3D c, const float radius);
 
     ~ConvexPartSphere() = default;
 
@@ -47,18 +47,18 @@ public:
     clone() const override;
 
     bool
-    hit(const Ray& ray, double& tmin, ShadeRec& sr) const override;
+    hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 
 private:
 
-    Point3D center        = Point3D(0.0);
-    double  radius        = 1.0;
-    double  phi_min       = 0.0;
-    double  phi_max       = TWO_PI;
-    double  theta_min     = 0.0;             // measured from top
-    double  theta_max     = PI;              // measured from top
-    double  cos_theta_min = 1.0;
-    double  cos_theta_max = -1.0;
+    Point3D center        = Point3D(0.0f);
+    float  radius        = 1.0f;
+    float  phi_min       = 0.0f;
+    float  phi_max       = TWO_PI;
+    float  theta_min     = 0.0f;             // measured from top
+    float  theta_max     = PI;              // measured from top
+    float  cos_theta_min = 1.0f;
+    float  cos_theta_max = -1.0f;
 };
 
 #endif

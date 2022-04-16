@@ -23,15 +23,15 @@ class Point3D;
 class Vector3D {
     public:
 
-        double x = 0.0;
-        double y = 0.0;
-        double z = 0.0;
+        float x = 0.0f;
+        float y = 0.0f;
+        float z = 0.0f;
 
     public:
 
         Vector3D(void) = default;
-        explicit Vector3D(double a);
-        explicit Vector3D(double _x, double _y, double _z);
+        explicit Vector3D(float a);
+        explicit Vector3D(float _x, float _y, float _z);
 
         explicit Vector3D(const Normal& n);
         explicit Vector3D(const Point3D& p);
@@ -45,17 +45,17 @@ class Vector3D {
         Vector3D
         operator- (void) const;
 
-        double
+        float
         length(void);
 
-        double
+        float
         len_squared(void);
 
         Vector3D
-        operator* (const double a) const;
+        operator* (const float a) const;
 
         Vector3D
-        operator/ (const double a) const;
+        operator/ (const float a) const;
 
         Vector3D
         operator+ (const Vector3D& v) const;
@@ -66,7 +66,7 @@ class Vector3D {
         Vector3D
         operator- (const Vector3D& v) const;
 
-        double
+        float
         operator* (const Vector3D& b) const;
 
         Vector3D
@@ -88,7 +88,7 @@ Vector3D::operator- (void) const {
 
 
 
-inline double
+inline float
 Vector3D::len_squared(void) {
     return (x * x + y * y + z * z);
 }
@@ -96,13 +96,13 @@ Vector3D::len_squared(void) {
 
 
 inline Vector3D
-Vector3D::operator* (const double a) const {
+Vector3D::operator* (const float a) const {
     return (Vector3D(x * a, y * a, z * a));
 }
 
 
 inline Vector3D
-Vector3D::operator/ (const double a) const {
+Vector3D::operator/ (const float a) const {
     return (Vector3D(x / a, y / a, z / a));
 }
 
@@ -122,7 +122,7 @@ Vector3D::operator- (const Vector3D& v) const {
 
 
 
-inline double
+inline float
 Vector3D::operator* (const Vector3D& v) const {
     return (x * v.x + y * v.y + z * v.z);
 }
@@ -148,10 +148,10 @@ Vector3D::operator+= (const Vector3D& v) {
 
 
 Vector3D
-operator* (const double a, const Vector3D& v);
+operator* (const float a, const Vector3D& v);
 
 inline Vector3D
-operator* (const double a, const Vector3D& v) {
+operator* (const float a, const Vector3D& v) {
     return (Vector3D(a * v.x, a * v.y, a * v.z));
 }
 

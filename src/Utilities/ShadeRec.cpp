@@ -27,6 +27,6 @@ ShadeRec::ShadeRec(World& wr)
         normal(),
         ray(),
         depth(0),
-        t(0.0),
+        t(0.0f),
         w(wr)
 {}

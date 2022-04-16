@@ -265,7 +265,7 @@ Instance::set_material(Material* m_ptr) {
 
 
 bool
-Instance::hit(const Ray& ray, double& t, ShadeRec& sr) const {
+Instance::hit(const Ray& ray, float& t, ShadeRec& sr) const {
     Ray inv_ray(ray);
     inv_ray.o = inv_matrix * inv_ray.o;
     inv_ray.d = inv_matrix * inv_ray.d;
@@ -296,9 +296,9 @@ Instance::scale(const Vector3D& s) {
 
     Matrix  inv_scaling_matrix;
 
-    inv_scaling_matrix.m[0][0] = 1.0 / s.x;
-    inv_scaling_matrix.m[1][1] = 1.0 / s.y;
-    inv_scaling_matrix.m[2][2] = 1.0 / s.z;
+    inv_scaling_matrix.m[0][0] = 1.0f / s.x;
+    inv_scaling_matrix.m[1][1] = 1.0f / s.y;
+    inv_scaling_matrix.m[2][2] = 1.0f / s.z;
 
     inv_matrix = inv_matrix * inv_scaling_matrix;
 
@@ -315,13 +315,13 @@ Instance::scale(const Vector3D& s) {
 
 
 void
-Instance::scale(const double a, const double b, const double c) {
+Instance::scale(const float a, const float b, const float c) {
 
     Matrix inv_scaling_matrix;
 
-    inv_scaling_matrix.m[0][0] = 1.0 / a;
-    inv_scaling_matrix.m[1][1] = 1.0 / b;
-    inv_scaling_matrix.m[2][2] = 1.0 / c;
+    inv_scaling_matrix.m[0][0] = 1.0f / a;
+    inv_scaling_matrix.m[1][1] = 1.0f / b;
+    inv_scaling_matrix.m[2][2] = 1.0f / c;
 
     inv_matrix = inv_matrix * inv_scaling_matrix;
 
@@ -361,7 +361,7 @@ Instance::translate(const Vector3D& trans) {
 
 
 void
-Instance::translate(const double dx, const double dy, const double dz) {
+Instance::translate(const float dx, const float dy, const float dz) {
 
     Matrix inv_translation_matrix;
 
@@ -385,10 +385,10 @@ Instance::translate(const double dx, const double dy, const double dz) {
 
 
 void
-Instance::rotate_x(const double theta) {
+Instance::rotate_x(const float theta) {
 
-    double sin_theta = sin(theta * PI_ON_180);
-    double cos_theta = cos(theta * PI_ON_180);
+    float sin_theta = sin(theta * PI_ON_180);
+    float cos_theta = cos(theta * PI_ON_180);
 
     Matrix inv_x_rotation_matrix;
 
@@ -413,10 +413,10 @@ Instance::rotate_x(const double theta) {
 
 
 void
-Instance::rotate_y(const double theta) {
+Instance::rotate_y(const float theta) {
 
-    double sin_theta = sin(theta * PI / 180.0);
-    double cos_theta = cos(theta * PI / 180.0);
+    float sin_theta = sin(theta * PI / 180.0f);
+    float cos_theta = cos(theta * PI / 180.0f);
 
     Matrix inv_y_rotation_matrix;
 
@@ -442,9 +442,9 @@ Instance::rotate_y(const double theta) {
 
 
 void
-Instance::rotate_z(const double theta) {
-    double sin_theta = sin(theta * PI / 180.0);
-    double cos_theta = cos(theta * PI / 180.0);
+Instance::rotate_z(const float theta) {
+    float sin_theta = sin(theta * PI / 180.0f);
+    float cos_theta = cos(theta * PI / 180.0f);
 
     Matrix inv_z_rotation_matrix;
 
@@ -475,14 +475,14 @@ Instance::shear(const Matrix& s) {
 
     // discriminant
 
-    double d = 1.0  - s.m[1][0] * s.m[0][1] - s.m[2][0] * s.m[0][2]  - s.m[2][1] * s.m[1][2]
+    float d = 1.0f  - s.m[1][0] * s.m[0][1] - s.m[2][0] * s.m[0][2]  - s.m[2][1] * s.m[1][2]
                     + s.m[1][0] * s.m[2][1] * s.m[0][2] + s.m[2][0] * s.m[0][1] * s.m[2][1];
 
     // diagonals
 
-    inverse_shearing_matrix.m[0][0] = 1.0 - s.m[2][1] * s.m[1][2];
-    inverse_shearing_matrix.m[1][1] = 1.0 - s.m[2][0] * s.m[0][2];
-    inverse_shearing_matrix.m[2][2] = 1.0 - s.m[1][0] * s.m[0][1];
+    inverse_shearing_matrix.m[0][0] = 1.0f - s.m[2][1] * s.m[1][2];
+    inverse_shearing_matrix.m[1][1] = 1.0f - s.m[2][0] * s.m[0][2];
+    inverse_shearing_matrix.m[2][2] = 1.0f - s.m[1][0] * s.m[0][1];
     inverse_shearing_matrix.m[3][3] = d;
 
     // first row

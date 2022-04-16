@@ -44,7 +44,7 @@ class ThinLens: public Camera {
         ray_direction(const Point2D& pixel_point, const Point2D& lens_point) const;
 
         void
-        render_scene(const World& w, float x = 0, int offset = 0) override;
+        render_scene(const World& w, float x = 0.0f, int offset = 0) override;
 
         void
         set_view_distance(float distance);

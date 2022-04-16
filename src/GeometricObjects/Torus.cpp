@@ -21,12 +21,12 @@
 
 Torus::Torus (void)
     :   GeometricObject(),
-    a(2.0),
-    b(0.5),
+    a(2.0f),
+    b(0.5f),
     bbox(-a - b, a + b, -b, b, -a - b, a + b)
 {}
 
-Torus::Torus (const double _a, const double _b)
+Torus::Torus (const float _a, const float _b)
     :   GeometricObject(),
     a(_a),
     b(_b),
@@ -44,8 +44,8 @@ Torus::Torus (const Torus& t)
 
 Torus::Torus (Torus&& t) noexcept
     :    GeometricObject(std::move(t)),
-         a(std::exchange(t.a, 2.0)),
-         b(std::exchange(t.b, 0.5)),
+         a(std::exchange(t.a, 2.0f)),
+         b(std::exchange(t.b, 0.5f)),
          bbox(std::move(t.bbox))
 {
 
@@ -66,8 +66,8 @@ Torus&
 Torus::operator= (Torus&& t) noexcept {
     GeometricObject::operator=(std::move(t));
 
-    a    = std::exchange(t.a, 2.0);
-    b    = std::exchange(t.b, 0.5);
+    a    = std::exchange(t.a, 2.0f);
+    b    = std::exchange(t.b, 0.5f);
     bbox = std::move(t.bbox);
 
     return *this;
@@ -76,16 +76,16 @@ Torus::operator= (Torus&& t) noexcept {
 Normal
 Torus::compute_normal(const Point3D& p) const {
     Normal normal;
-    double param_squared = a * a + b * b;
+    float param_squared = a * a + b * b;
 
-    double x = p.x;
-    double y = p.y;
-    double z = p.z;
-    double sum_squared = x * x + y * y + z * z;
+    float x = p.x;
+    float y = p.y;
+    float z = p.z;
+    float sum_squared = x * x + y * y + z * z;
 
-    normal.x = 4.0 * x * (sum_squared - param_squared);
-    normal.y = 4.0 * y * (sum_squared - param_squared + 2.0 * a * a);
-    normal.z = 4.0 * z * (sum_squared - param_squared);
+    normal.x = 4.0f * x * (sum_squared - param_squared);
+    normal.y = 4.0f * y * (sum_squared - param_squared + 2.0f * a * a);
+    normal.z = 4.0f * z * (sum_squared - param_squared);
     normal.normalize();
 
     return (normal);
@@ -94,29 +94,29 @@ Torus::compute_normal(const Point3D& p) const {
 
 
 bool
-Torus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
+Torus::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     if (!bbox.hit(ray))
     {
         return (false);
     }
 
-    double x1 = ray.o.x; double y1 = ray.o.y; double z1 = ray.o.z;
-    double d1 = ray.d.x; double d2 = ray.d.y; double d3 = ray.d.z;
+    float x1 = ray.o.x; float y1 = ray.o.y; float z1 = ray.o.z;
+    float d1 = ray.d.x; float d2 = ray.d.y; float d3 = ray.d.z;
 
-    double coeffs[5];    // coefficient array for the quartic equation
-    double roots[4];    // solution array for the quartic equation
+    float coeffs[5];    // coefficient array for the quartic equation
+    float roots[4];    // solution array for the quartic equation
 
     // define the coefficients of the quartic equation
 
-    double sum_d_sqrd     = d1 * d1 + d2 * d2 + d3 * d3;
-    double e            = x1 * x1 + y1 * y1 + z1 * z1 - a * a - b * b;
-    double f            = x1 * d1 + y1 * d2 + z1 * d3;
-    double four_a_sqrd    = 4.0 * a * a;
+    float sum_d_sqrd     = d1 * d1 + d2 * d2 + d3 * d3;
+    float e            = x1 * x1 + y1 * y1 + z1 * z1 - a * a - b * b;
+    float f            = x1 * d1 + y1 * d2 + z1 * d3;
+    float four_a_sqrd    = 4.0f * a * a;
 
     coeffs[0] = e * e - four_a_sqrd * (b * b - y1 * y1);     // constant term
-    coeffs[1] = 4.0 * f * e + 2.0 * four_a_sqrd * y1 * d2;
-    coeffs[2] = 2.0 * sum_d_sqrd * e + 4.0 * f * f + four_a_sqrd * d2 * d2;
-    coeffs[3] = 4.0 * sum_d_sqrd * f;
+    coeffs[1] = 4.0f * f * e + 2.0f * four_a_sqrd * y1 * d2;
+    coeffs[2] = 2.0f * sum_d_sqrd * e + 4.0f * f * f + four_a_sqrd * d2 * d2;
+    coeffs[3] = 4.0f * sum_d_sqrd * f;
     coeffs[4] = sum_d_sqrd * sum_d_sqrd;                      // coefficient of t^4
 
     // find roots of the quartic equation
@@ -124,7 +124,7 @@ Torus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
     int num_real_roots = SolveQuartic(coeffs, roots);
 
     bool    intersected = false;
-    double  t           = std::numeric_limits<double>::max();
+    float  t           = std::numeric_limits<float>::max();
 
     if (num_real_roots == 0)  // ray misses the torus
     {
@@ -135,7 +135,7 @@ Torus::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
     // the roots array is not sorted
 
     for (int j = 0; j < num_real_roots; j++)
-        if (roots[j] > std::numeric_limits<double>::epsilon()) {
+        if (roots[j] > std::numeric_limits<float>::epsilon()) {
             intersected = true;
             if (roots[j] < t)
             {

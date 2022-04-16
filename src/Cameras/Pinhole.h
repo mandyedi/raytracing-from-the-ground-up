@@ -48,7 +48,7 @@ class Pinhole: public Camera {
         get_direction(const Point2D& p) const;
 
         void
-        render_scene(const World& w, float x = 0, int offset = 0) override;
+        render_scene(const World& w, float x = 0.0f, int offset = 0) override;
 
     private:
 

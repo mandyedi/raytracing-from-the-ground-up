@@ -16,13 +16,13 @@
 
 
 
-Normal::Normal(double a)
+Normal::Normal(float a)
      : x(a), y(a), z(a)
 {}
 
 
 
-Normal::Normal(double _x, double _y, double _z)
+Normal::Normal(float _x, float _y, float _z)
     : x(_x), y(_y), z(_z)
 {}
 
@@ -51,7 +51,7 @@ Normal::operator= (const Point3D& rhs) {
 
 void
 Normal::normalize(void) {
-    double length = sqrt(x * x + y * y + z * z);
+    float length = sqrt(x * x + y * y + z * z);
     x /= length; y /= length; z /= length;
 }
 

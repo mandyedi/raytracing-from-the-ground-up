@@ -21,7 +21,7 @@ public:
 
     Torus();
 
-    explicit Torus(const double _a, const double _b);
+    explicit Torus(const float _a, const float _b);
 
     ~Torus() = default;
 
@@ -39,12 +39,12 @@ public:
     compute_normal(const Point3D& p) const;
 
     bool
-    hit(const Ray& ray, double& tmin, ShadeRec& sr) const override;
+    hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 
 private:
 
-    double a;
-    double b;
+    float a;
+    float b;
     BBox   bbox;
 };
 

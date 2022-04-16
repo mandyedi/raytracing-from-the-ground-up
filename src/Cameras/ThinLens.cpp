@@ -122,7 +122,7 @@ void
 ThinLens::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) {
     RGBColor    L;
     Ray         ray;
-    int         depth       = 0;
+    int         depth = 0;
 
     Point2D sp;         // sample point in [0, 1] X [0, 1]
     Point2D pp;         // sample point on a pixel
@@ -139,8 +139,8 @@ ThinLens::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) {
 
             for (int n = 0; n < w.vp.num_samples; n++) {
                 sp = w.vp.sampler_ptr->sample_unit_square();
-                pp.x = s * (c - w.vp.hres / 2.0f + sp.x) + x;
-                pp.y = s * (r - w.vp.vres / 2.0f + sp.y);
+                pp.x = s * (static_cast<float>(c) - static_cast<float>(w.vp.hres) / 2.0f + sp.x) + x;
+                pp.y = s * (static_cast<float>(r) - static_cast<float>(w.vp.vres) / 2.0f + sp.y);
 
                 dp = sampler_ptr->sample_unit_disk();
                 lp = dp * lens_radius;

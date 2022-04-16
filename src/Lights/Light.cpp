@@ -68,5 +68,5 @@ Light::G(const ShadeRec& sr) const {
 
 float
 Light::pdf(const ShadeRec &sr) const {
-    return 1.0;
+    return 1.0f;
 }

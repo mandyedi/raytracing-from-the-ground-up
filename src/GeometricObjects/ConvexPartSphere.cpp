@@ -16,11 +16,11 @@
 #include "ConvexPartSphere.h"
 
 ConvexPartSphere::ConvexPartSphere (const Point3D     c,
-                                    const double     r,
-                                    const double     azimuth_min,    // in degrees
-                                    const double     azimuth_max,    // in degrees
-                                    const double     polar_min,      // in degrees measured from top
-                                    const double     polar_max)      // in degrees measured from top
+                                    const float     r,
+                                    const float     azimuth_min,    // in degrees
+                                    const float     azimuth_max,    // in degrees
+                                    const float     polar_min,      // in degrees measured from top
+                                    const float     polar_max)      // in degrees measured from top
     :    GeometricObject(),
          center(c),
          radius(r),
@@ -32,16 +32,16 @@ ConvexPartSphere::ConvexPartSphere (const Point3D     c,
          cos_theta_max(cos(theta_max))
 {}
 
-ConvexPartSphere::ConvexPartSphere (const Point3D c, const double r)
+ConvexPartSphere::ConvexPartSphere (const Point3D c, const float r)
     :    GeometricObject(),
          center(c),
          radius(r),
-         phi_min(0.0),
+         phi_min(0.0f),
          phi_max(TWO_PI),
-         theta_min(0.0),
+         theta_min(0.0f),
          theta_max(PI),
-         cos_theta_min(1.0),
-         cos_theta_max(-1.0)
+         cos_theta_min(1.0f),
+         cos_theta_max(-1.0f)
 {}
 
 ConvexPartSphere::ConvexPartSphere (const ConvexPartSphere& c)
@@ -61,13 +61,13 @@ ConvexPartSphere::ConvexPartSphere (const ConvexPartSphere& c)
 ConvexPartSphere::ConvexPartSphere (ConvexPartSphere&& c) noexcept
     :    GeometricObject(std::move(c)),
          center(std::move(c.center)),
-         radius(std::exchange(c.radius, 1.0)),
-         phi_min(std::exchange(c.phi_min, 0.0)),
+         radius(std::exchange(c.radius, 1.0f)),
+         phi_min(std::exchange(c.phi_min, 0.0f)),
          phi_max(std::exchange(c.phi_max, TWO_PI)),
-         theta_min(std::exchange(c.theta_min, 0.0)),
+         theta_min(std::exchange(c.theta_min, 0.0f)),
          theta_max(std::exchange(c.theta_max, PI)),
-         cos_theta_min(std::exchange(c.cos_theta_min, 1.0)),
-         cos_theta_max(std::exchange(c.cos_theta_max, -1.0))
+         cos_theta_min(std::exchange(c.cos_theta_min, 1.0f)),
+         cos_theta_max(std::exchange(c.cos_theta_max, -1.0f))
 {
 
 }
@@ -93,13 +93,13 @@ ConvexPartSphere::operator= (ConvexPartSphere&& c) noexcept {
     GeometricObject::operator=(std::move(c));
 
     center        = std::move(c.center);
-    radius        = std::exchange(c.radius, 1.0);
-    phi_min       = std::exchange(c.phi_min, 0.0);
+    radius        = std::exchange(c.radius, 1.0f);
+    phi_min       = std::exchange(c.phi_min, 0.0f);
     phi_max       = std::exchange(c.phi_max, TWO_PI);
-    theta_min     = std::exchange(c.theta_min, 0.0);
+    theta_min     = std::exchange(c.theta_min, 0.0f);
     theta_max     = std::exchange(c.theta_max, PI);
-    cos_theta_min = std::exchange(c.cos_theta_min, 1.0);
-    cos_theta_max = std::exchange(c.cos_theta_max, -1.0);
+    cos_theta_min = std::exchange(c.cos_theta_min, 1.0f);
+    cos_theta_max = std::exchange(c.cos_theta_max, -1.0f);
 
     return *this;
 }
@@ -110,27 +110,27 @@ ConvexPartSphere::clone() const {
 }
 
 bool
-ConvexPartSphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
-    double          t;
+ConvexPartSphere::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
+    float          t;
     Vector3D        temp      = ray.o - center;
-    double          a         = ray.d * ray.d;
-    double          b         = 2.0 * temp * ray.d;
-    double          c         = temp * temp - radius * radius;
-    double          disc      = b * b - 4.0 * a * c;
+    float          a         = ray.d * ray.d;
+    float          b         = 2.0 * temp * ray.d;
+    float          c         = temp * temp - radius * radius;
+    float          disc      = b * b - 4.0 * a * c;
 
-    if (disc < 0.0) {
+    if (disc < 0.0f) {
         return(false);
     }
     else {
-        double e = sqrt(disc);
-        double denom = 2.0 * a;
+        float e = sqrt(disc);
+        float denom = 2.0 * a;
         t = (-b - e) / denom;    // smaller root
 
-        if (t > std::numeric_limits<double>::epsilon()) {
+        if (t > std::numeric_limits<float>::epsilon()) {
             Vector3D hit = ray.o + t * ray.d - center;
 
-            double phi = atan2(hit.x, hit.z);
-            if (phi < 0.0) {
+            float phi = atan2(hit.x, hit.z);
+            if (phi < 0.0f) {
                 phi += TWO_PI;
             }
 
@@ -147,11 +147,11 @@ ConvexPartSphere::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
 
         t = (-b + e) / denom;    // larger root
 
-        if (t > std::numeric_limits<double>::epsilon()) {
+        if (t > std::numeric_limits<float>::epsilon()) {
             Vector3D hit = ray.o + t * ray.d - center;
 
-            double phi = atan2(hit.x, hit.z);
-            if (phi < 0.0) {
+            float phi = atan2(hit.x, hit.z);
+            if (phi < 0.0f) {
                 phi += TWO_PI;
             }
 

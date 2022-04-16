@@ -16,9 +16,9 @@
 
 
 
-BBox::BBox (    const double _x0, const double _x1,
-                const double _y0, const double _y1,
-                const double _z0, const double _z1)
+BBox::BBox (    const float _x0, const float _x1,
+                const float _y0, const float _y1,
+                const float _z0, const float _z1)
     : x0(_x0), x1(_x1), y0(_y0), y1(_y1), z0(_z0), z1(_z1)
 {}
 
@@ -36,12 +36,12 @@ BBox::BBox (const BBox& bbox)
 
 
 BBox::BBox(BBox&& bbox) noexcept
-    :   x0(std::exchange(bbox.x0, -1.0)),
-        x1(std::exchange(bbox.x1, 1.0)),
-        y0(std::exchange(bbox.y0, -1.0)),
-        y1(std::exchange(bbox.y1, 1.0)),
-        z0(std::exchange(bbox.z0, -1.0)),
-        z1(std::exchange(bbox.z1, 1.0))
+    :   x0(std::exchange(bbox.x0, -1.0f)),
+        x1(std::exchange(bbox.x1, 1.0f)),
+        y0(std::exchange(bbox.y0, -1.0f)),
+        y1(std::exchange(bbox.y1, 1.0f)),
+        z0(std::exchange(bbox.z0, -1.0f)),
+        z1(std::exchange(bbox.z1, 1.0f))
 {}
 
 
@@ -61,12 +61,12 @@ BBox::operator= (const BBox& bbox) {
 
 BBox &
 BBox::operator= (BBox&& bbox) noexcept {
-    x0 = std::exchange(bbox.x0, -1.0);
-    x1 = std::exchange(bbox.x1, 1.0);
-    y0 = std::exchange(bbox.y0, -1.0);
-    y1 = std::exchange(bbox.y1, 1.0);
-    z0 = std::exchange(bbox.z0, -1.0);
-    z1 = std::exchange(bbox.z1, 1.0);
+    x0 = std::exchange(bbox.x0, -1.0f);
+    x1 = std::exchange(bbox.x1, 1.0f);
+    y0 = std::exchange(bbox.y0, -1.0f);
+    y1 = std::exchange(bbox.y1, 1.0f);
+    z0 = std::exchange(bbox.z0, -1.0f);
+    z1 = std::exchange(bbox.z1, 1.0f);
 
     return (*this);
 }
@@ -75,13 +75,13 @@ BBox::operator= (BBox&& bbox) noexcept {
 
 bool
 BBox::hit(const Ray& ray) const {
-    double ox = ray.o.x; double oy = ray.o.y; double oz = ray.o.z;
-    double dx = ray.d.x; double dy = ray.d.y; double dz = ray.d.z;
+    float ox = ray.o.x; float oy = ray.o.y; float oz = ray.o.z;
+    float dx = ray.d.x; float dy = ray.d.y; float dz = ray.d.z;
 
-    double tx_min, ty_min, tz_min;
-    double tx_max, ty_max, tz_max;
+    float tx_min, ty_min, tz_min;
+    float tx_max, ty_max, tz_max;
 
-    double a = 1.0 / dx;
+    float a = 1.0f / dx;
     if (a >= 0) {
         tx_min = (x0 - ox) * a;
         tx_max = (x1 - ox) * a;
@@ -91,7 +91,7 @@ BBox::hit(const Ray& ray) const {
         tx_max = (x0 - ox) * a;
     }
 
-    double b = 1.0 / dy;
+    float b = 1.0f / dy;
     if (b >= 0) {
         ty_min = (y0 - oy) * b;
         ty_max = (y1 - oy) * b;
@@ -101,7 +101,7 @@ BBox::hit(const Ray& ray) const {
         ty_max = (y0 - oy) * b;
     }
 
-    double c = 1.0 / dz;
+    float c = 1.0f / dz;
     if (c >= 0) {
         tz_min = (z0 - oz) * c;
         tz_max = (z1 - oz) * c;
@@ -111,7 +111,7 @@ BBox::hit(const Ray& ray) const {
         tz_max = (z0 - oz) * c;
     }
 
-    double t0, t1;
+    float t0, t1;
 
     // find largest entering t value
 
@@ -133,7 +133,7 @@ BBox::hit(const Ray& ray) const {
     if (tz_max < t1)
         t1 = tz_max;
 
-    return (t0 < t1 && t1 > std::numeric_limits<double>::epsilon());
+    return (t0 < t1 && t1 > std::numeric_limits<float>::epsilon());
 }
 
 
