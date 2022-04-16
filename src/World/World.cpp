@@ -197,9 +197,19 @@ World::save_to_ppm(void) const {
     std::ofstream ofs;
     ofs.open(imageFile.str().c_str(), std::ios::out | std::ios::binary);
     ofs << "P6\n" << vp.hres << " " << vp.vres << "\n255\n";
-    for (int i : pixels) {
-        ofs << static_cast<unsigned char>(i);
+
+    // The view plane's origin is on the bottom left
+    // PPM image format goes from top to bottom
+    int numberOfPixels = pixels.size();
+    for (int rowIndex = 1; rowIndex <= vp.vres; rowIndex++)
+    {
+        for (int columnIndex = 0; columnIndex < vp.hres * 3; columnIndex++)
+        {
+            int pixel = pixels[numberOfPixels - (vp.hres * 3 * rowIndex) + columnIndex];
+            ofs << static_cast<unsigned char>(pixel);
+        }
     }
+
     ofs.close();
 }
 
