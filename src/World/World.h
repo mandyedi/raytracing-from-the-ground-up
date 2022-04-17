@@ -100,14 +100,10 @@ class World {
 
         mutable std::vector<int> pixels;
 
-        void
-        build_ch_03_page_one_image();
-
-        void
-        build_figure_03_18();
-
-        void
-        build_figure_03_20();
+        void build_ch_03_page_one_image();
+        void build_figure_03_18();
+        void build_figure_03_20();
+        void build_figure_04_04();
 
         RGBColor
         max_to_one(const RGBColor& c) const;

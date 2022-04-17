@@ -29,6 +29,8 @@ set (SOURCE_CAMERAS
   src/Cameras/Camera.h
   src/Cameras/FishEye.cpp
   src/Cameras/FishEye.h
+  src/Cameras/Orthographic.cpp
+  src/Cameras/Orthographic.h
   src/Cameras/Pinhole.cpp
   src/Cameras/Pinhole.h
   src/Cameras/Spherical.cpp
@@ -117,6 +119,7 @@ set (SOURCE_SCENEBUILDERS
   src/SceneBuilders/BuildCh03PageOneImage.cpp
   src/SceneBuilders/BuildFigure03.18.cpp
   src/SceneBuilders/BuildFigure03.20.cpp
+  src/SceneBuilders/BuildFigure04.04.cpp
 )
 
 set (SOURCE_TEXTURES

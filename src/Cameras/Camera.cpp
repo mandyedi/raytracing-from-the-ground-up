@@ -71,7 +71,7 @@ Camera::operator= (Camera&& c) noexcept {
 
 
 // This computes an orthornormal basis given the view point, lookat point, and up vector
-
+// TODO: call it everytime eye or lookat is updated
 void
 Camera::compute_uvw(void) {
     w = eye - lookat;

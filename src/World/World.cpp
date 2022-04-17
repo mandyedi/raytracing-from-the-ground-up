@@ -47,9 +47,10 @@ World::~World(void) {
 
 void
 World::build(void) {
-    build_ch_03_page_one_image();
+    // build_ch_03_page_one_image();
     // build_figure_03_18();
     // build_figure_03_20();
+    build_figure_04_04();
 }
 
 
@@ -64,12 +65,12 @@ World::render_scene(void) const {
     float       x       = 0.0f;
     float       y       = 0.0f;
 
-    ray.d = Vector3D(0, 0, -1);
+    ray.d = Vector3D(0.0f, 0.0f, -1.0f);
 
     for (int r = 0; r < vres; r++) {                    // up
-        for (int c = 0; c < hres; c++) {               // across
-            x = vp.s * ((float)c - 0.5f * ((float)vp.hres - 1.0f));
-            y = vp.s * ((float)r - 0.5f * ((float)vp.vres - 1.0f));
+        for (int c = 0; c < hres; c++) {                // across
+            x = vp.s * (static_cast<float>(c) - 0.5f * (static_cast<float>(vp.hres) - 1.0f));
+            y = vp.s * (static_cast<float>(r) - 0.5f * (static_cast<float>(vp.vres) - 1.0f));
             ray.o = Point3D(x, y, zw);
             pixel_color = tracer_ptr->trace_ray(ray);
             display_pixel(r, c, pixel_color);
