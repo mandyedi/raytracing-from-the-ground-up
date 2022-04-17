@@ -114,7 +114,8 @@ set (SOURCE_SAMPLERS
 )
 
 set (SOURCE_SCENEBUILDERS
-  src/SceneBuilders/WorldBuildChapter03PageOne.cpp
+  src/SceneBuilders/BuildCh03PageOneImage.cpp
+  src/SceneBuilders/BuildFigure03.18.cpp
 )
 
 set (SOURCE_TEXTURES

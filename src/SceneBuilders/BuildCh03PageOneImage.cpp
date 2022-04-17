@@ -16,7 +16,7 @@
 #include "../Utilities/RGBColor.h"
 
 void
-World::worldBuildChapter03PageOne() {
+World::build_ch_03_page_one_image() {
     vp.set_hres(400);
     vp.set_vres(400);
     vp.set_pixel_size(0.5f);

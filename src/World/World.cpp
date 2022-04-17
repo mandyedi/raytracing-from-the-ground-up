@@ -20,7 +20,7 @@
 #include "../Tracers/Tracer.h"
 #include "../Lights/Light.h"
 #include "../Cameras/Camera.h"
-
+#include "../GeometricObjects/GeometricObject.h"
 
 World::~World(void) {
 
@@ -47,29 +47,35 @@ World::~World(void) {
 
 void
 World::build(void) {
-    worldBuildChapter03PageOne();
+    // build_ch_03_page_one_image();
+    build_figure_03_18();
 }
 
-// This uses orthographic viewing along the zw axis
 
 void
-World::render_scene(void) const {
-
+World::render_figure_03_18(void) const {
     RGBColor    pixel_color;
     Ray         ray;
     int         hres    = vp.hres;
     int         vres    = vp.vres;
     float       s       = vp.s;
     float       zw      = 100.0f;
+    float       x       = 0.0f;
+    float       y       = 0.0f;
 
     ray.d = Vector3D(0, 0, -1);
 
-    for (int r = 0; r < vres; r++)          // up
-        for (int c = 0; c <= hres; c++) {   // across
-            ray.o = Point3D(s * (c - hres / 2.0 + 0.5f), s * (r - vres / 2.0 + 0.5f), zw);
+    for (int r = 0; r < vres; r++) {                    // up
+        for (int c = 0; c < hres; c++) {               // across
+            x = vp.s * ((float)c - 0.5f * ((float)vp.hres - 1.0f));
+            y = vp.s * ((float)r - 0.5f * ((float)vp.vres - 1.0f));
+            ray.o = Point3D(x, y, zw);
             pixel_color = tracer_ptr->trace_ray(ray);
             display_pixel(r, c, pixel_color);
         }
+    }
+
+    save_to_ppm();
 }
 
 ShadeRec
@@ -172,6 +178,10 @@ World::save_to_ppm(void) const {
             ofs << static_cast<unsigned char>(pixel);
         }
     }
+
+    // for (int i : pixels) {
+    //     ofs << static_cast<unsigned char>(i);
+    // }
 
     ofs.close();
 }

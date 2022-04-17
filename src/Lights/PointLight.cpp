@@ -11,7 +11,7 @@
 //  See the file COPYING.txt for the full license.
 
 #include "PointLight.h"
-
+#include "../GeometricObjects/GeometricObject.h"
 
 PointLight::~PointLight(void) {}
 

@@ -12,7 +12,7 @@
 
 #include "AmbientOccluder.h"
 #include "../Samplers/Sampler.h"
-
+#include "../GeometricObjects/GeometricObject.h"
 
 
 AmbientOccluder::~AmbientOccluder(void) {

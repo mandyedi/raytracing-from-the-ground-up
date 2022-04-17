@@ -27,7 +27,7 @@
 
 #include "ViewPlane.h"
 #include "../Utilities/RGBColor.h"
-#include "../GeometricObjects/Sphere.h"
+#include "../Utilities/ShadeRec.h"
 
 class Tracer;
 class Ray;
@@ -47,11 +47,10 @@ class World {
         // todo: Fix this, reference: C.41: A constructor should create a fully initialized object.
 
         ViewPlane                   vp = ViewPlane();
-        RGBColor                    background_color = RGBColor::black;
+        RGBColor                    background_color = RGBColor::black; // TODO: Is world the best class to own this?
         Tracer*                     tracer_ptr = nullptr;
         Light*                      ambient_ptr = nullptr;
         Camera*                     camera_ptr = nullptr;
-        Sphere                      sphere;     // for Chapter 3 only
         vector<GeometricObject*>    objects;
         vector<Light*>              lights;
 
@@ -80,8 +79,10 @@ class World {
         void
         build(void);
 
+        // Chapter 3.6
+        // Render single sphere
         void
-        render_scene(void) const;
+        render_figure_03_18(void) const;
 
         ShadeRec
         hit_objects(const Ray& ray);
@@ -100,7 +101,10 @@ class World {
         mutable std::vector<int> pixels;
 
         void
-        worldBuildChapter03PageOne();
+        build_ch_03_page_one_image();
+
+        void
+        build_figure_03_18();
 
         RGBColor
         max_to_one(const RGBColor& c) const;

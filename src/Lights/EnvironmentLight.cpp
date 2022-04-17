@@ -15,7 +15,7 @@
 #include "../Utilities/ShadeRec.h"
 #include "../Materials/Material.h"
 #include "../World/World.h"
-
+#include "../GeometricObjects/GeometricObject.h"
 
 
 EnvironmentLight::~EnvironmentLight(void) {
