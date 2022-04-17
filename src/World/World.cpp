@@ -47,9 +47,9 @@ World::~World(void) {
 
 void
 World::build(void) {
-    // build_ch_03_page_one_image();
+    build_ch_03_page_one_image();
     // build_figure_03_18();
-    build_figure_03_20();
+    // build_figure_03_20();
 }
 
 
