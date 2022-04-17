@@ -77,14 +77,11 @@ class World {
         void
         set_camera(Camera* c_ptr);
 
-        RGBColor
-        max_to_one(const RGBColor& c) const;
-
-        RGBColor
-        clamp_to_color(const RGBColor& c) const;
+        void
+        build(void);
 
         void
-        display_pixel(const int row, const int column, const RGBColor& pixel_color) const;
+        render_scene(void) const;
 
         ShadeRec
         hit_objects(const Ray& ray);
@@ -93,26 +90,29 @@ class World {
         hit_bare_bones_objects(const Ray &ray);
 
         void
+        display_pixel(const int row, const int column, const RGBColor& pixel_color) const;
+
+        void
         save_to_ppm(void) const;
-
-        void
-        build(void);
-
-        void
-        render_scene(void) const;
 
     private:
 
         mutable std::vector<int> pixels;
 
         void
+        worldBuildChapter03PageOne();
+
+        RGBColor
+        max_to_one(const RGBColor& c) const;
+
+        RGBColor
+        clamp_to_color(const RGBColor& c) const;
+
+        void
         delete_objects(void);
 
         void
         delete_lights(void);
-
-        void
-        worldBuildChapter03PageOne();
 };
 
 

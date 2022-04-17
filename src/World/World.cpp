@@ -45,64 +45,32 @@ World::~World(void) {
     delete_lights();
 }
 
-
-RGBColor
-World::max_to_one(const RGBColor& c) const  {
-    float max_value = max(c.r, max(c.g, c.b));
-
-    if (max_value > 1.0f) {
-        return (c / max_value);
-    }
-    else {
-        return (c);
-    }
+void
+World::build(void) {
+    worldBuildChapter03PageOne();
 }
 
-
-// Set color to red if any component is greater than one
-
-RGBColor
-World::clamp_to_color(const RGBColor& raw_color) const {
-    RGBColor c(raw_color);
-
-    if (raw_color.r > 1.0f || raw_color.g > 1.0f || raw_color.b > 1.0f) {
-        c.r = 1.0f; c.g = 0.0f; c.b = 0.0f;
-    }
-
-    return (c);
-}
-
-
-// raw_color is the pixel color computed by the ray tracer
-// its RGB floating point components can be arbitrarily large
-// mapped_color has all components in the range [0, 1], but still floating point
-// display color has integer components for computer display
-// the Mac's components are in the range [0, 65535]
-// a PC's components will probably be in the range [0, 255]
-// the system-dependent code is in the function convert_to_display_color
-// the function SetCPixel is a Mac OS function
-
+// This uses orthographic viewing along the zw axis
 
 void
-World::display_pixel([[maybe_unused]] const int row, [[maybe_unused]] const int column, const RGBColor& raw_color) const {
-    RGBColor mapped_color;
+World::render_scene(void) const {
 
-    if (vp.show_out_of_gamut) {
-        mapped_color = clamp_to_color(raw_color);
-    }
-    else {
-        mapped_color = max_to_one(raw_color);
-    }
+    RGBColor    pixel_color;
+    Ray         ray;
+    int         hres    = vp.hres;
+    int         vres    = vp.vres;
+    float       s       = vp.s;
+    float       zw      = 100.0f;
 
-    if (vp.gamma != 1.0f) {
-        mapped_color = mapped_color.powc(vp.inv_gamma);
-    }
+    ray.d = Vector3D(0, 0, -1);
 
-    pixels.push_back((int)(mapped_color.r * 255));
-    pixels.push_back((int)(mapped_color.g * 255));
-    pixels.push_back((int)(mapped_color.b * 255));
+    for (int r = 0; r < vres; r++)          // up
+        for (int c = 0; c <= hres; c++) {   // across
+            ray.o = Point3D(s * (c - hres / 2.0 + 0.5f), s * (r - vres / 2.0 + 0.5f), zw);
+            pixel_color = tracer_ptr->trace_ray(ray);
+            display_pixel(r, c, pixel_color);
+        }
 }
-
 
 ShadeRec
 World::hit_objects(const Ray& ray) {
@@ -152,6 +120,36 @@ World::hit_bare_bones_objects(const Ray &ray) {
     return(sr);
 }
 
+// raw_color is the pixel color computed by the ray tracer
+// its RGB floating point components can be arbitrarily large
+// mapped_color has all components in the range [0, 1], but still floating point
+// display color has integer components for computer display
+// the Mac's components are in the range [0, 65535]
+// a PC's components will probably be in the range [0, 255]
+// the system-dependent code is in the function convert_to_display_color
+// the function SetCPixel is a Mac OS function
+
+
+void
+World::display_pixel([[maybe_unused]] const int row, [[maybe_unused]] const int column, const RGBColor& raw_color) const {
+    RGBColor mapped_color;
+
+    if (vp.show_out_of_gamut) {
+        mapped_color = clamp_to_color(raw_color);
+    }
+    else {
+        mapped_color = max_to_one(raw_color);
+    }
+
+    if (vp.gamma != 1.0f) {
+        mapped_color = mapped_color.powc(vp.inv_gamma);
+    }
+
+    pixels.push_back((int)(mapped_color.r * 255));
+    pixels.push_back((int)(mapped_color.g * 255));
+    pixels.push_back((int)(mapped_color.b * 255));
+}
+
 void
 World::save_to_ppm(void) const {
     std::time_t t = std::time(nullptr);
@@ -178,31 +176,31 @@ World::save_to_ppm(void) const {
     ofs.close();
 }
 
-void
-World::build(void) {
-    worldBuildChapter03PageOne();
+
+RGBColor
+World::max_to_one(const RGBColor& c) const  {
+    float max_value = max(c.r, max(c.g, c.b));
+
+    if (max_value > 1.0f) {
+        return (c / max_value);
+    }
+    else {
+        return (c);
+    }
 }
 
-// This uses orthographic viewing along the zw axis
 
-void
-World::render_scene(void) const {
+// Set color to red if any component is greater than one
 
-    RGBColor    pixel_color;
-    Ray         ray;
-    int         hres    = vp.hres;
-    int         vres    = vp.vres;
-    float       s       = vp.s;
-    float       zw      = 100.0f;                // hardwired in
+RGBColor
+World::clamp_to_color(const RGBColor& raw_color) const {
+    RGBColor c(raw_color);
 
-    ray.d = Vector3D(0, 0, -1);
+    if (raw_color.r > 1.0f || raw_color.g > 1.0f || raw_color.b > 1.0f) {
+        c.r = 1.0f; c.g = 0.0f; c.b = 0.0f;
+    }
 
-    for (int r = 0; r < vres; r++)          // up
-        for (int c = 0; c <= hres; c++) {   // across
-            ray.o = Point3D(s * (c - hres / 2.0 + 0.5f), s * (r - vres / 2.0 + 0.5f), zw);
-            pixel_color = tracer_ptr->trace_ray(ray);
-            display_pixel(r, c, pixel_color);
-        }
+    return (c);
 }
 
 // Deletes the objects in the objects array, and erases the array.
