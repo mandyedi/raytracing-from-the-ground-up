@@ -11,20 +11,29 @@
 //  See the file COPYING.txt for the full license.
 
 #include "../World/World.h"
-#include "../Tracers/SingleSphere.h"
+#include "../Tracers/MultipleObjects.h"
 #include "../GeometricObjects/Sphere.h"
+#include "../GeometricObjects/Plane.h"
 
 void
-World::build_figure_03_18() {
+World::build_figure_03_20(void) {
     vp.set_hres(200);
     vp.set_vres(200);
-    vp.set_gamma(1.0f);
 
     background_color = RGBColor::black;
-    tracer_ptr = new SingleSphere(this);
+    tracer_ptr = new MultipleObjects(this);
 
-    Sphere *sphere = new Sphere;
-    sphere->set_center(Point3D(0.0f));
-    sphere->set_radius(85.0f);
-    add_object(sphere);
+    Sphere* sphere_ptr = new Sphere;
+    sphere_ptr->set_center(Point3D(0.0f, -25.0f, 0.0f));
+    sphere_ptr->set_radius(80.0f);
+    sphere_ptr->set_color(RGBColor::red);
+    add_object(sphere_ptr);
+
+    sphere_ptr = new Sphere(Point3D(0.0f, 30.0f, 0.0f), 60.0f);
+    sphere_ptr->set_color(RGBColor::yellow);
+    add_object(sphere_ptr);
+
+    Plane* plane_ptr = new Plane(Point3D(0.0f), Normal(0.0f, 1.0f, 1.0f));
+    plane_ptr->set_color(RGBColor::darkGreen);
+    add_object(plane_ptr);
 }

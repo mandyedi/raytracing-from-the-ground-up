@@ -9,7 +9,7 @@ int main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[])
 
     World *world = new World;
     world->build();
-    world->render_figure_03_18();
+    world->render_scene();
     // world->camera_ptr->render_scene(*world);
     delete world;
 

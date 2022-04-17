@@ -116,6 +116,7 @@ set (SOURCE_SAMPLERS
 set (SOURCE_SCENEBUILDERS
   src/SceneBuilders/BuildCh03PageOneImage.cpp
   src/SceneBuilders/BuildFigure03.18.cpp
+  src/SceneBuilders/BuildFigure03.20.cpp
 )
 
 set (SOURCE_TEXTURES

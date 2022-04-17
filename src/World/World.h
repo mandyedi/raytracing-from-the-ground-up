@@ -79,10 +79,10 @@ class World {
         void
         build(void);
 
-        // Chapter 3.6
-        // Render single sphere
+        // Chapter 3.6, Render single sphere
+        // Chapter 3.9, Render multiple objects
         void
-        render_figure_03_18(void) const;
+        render_scene(void) const;
 
         ShadeRec
         hit_objects(const Ray& ray);
@@ -105,6 +105,9 @@ class World {
 
         void
         build_figure_03_18();
+
+        void
+        build_figure_03_20();
 
         RGBColor
         max_to_one(const RGBColor& c) const;

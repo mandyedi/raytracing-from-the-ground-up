@@ -48,12 +48,13 @@ World::~World(void) {
 void
 World::build(void) {
     // build_ch_03_page_one_image();
-    build_figure_03_18();
+    // build_figure_03_18();
+    build_figure_03_20();
 }
 
 
 void
-World::render_figure_03_18(void) const {
+World::render_scene(void) const {
     RGBColor    pixel_color;
     Ray         ray;
     int         hres    = vp.hres;
