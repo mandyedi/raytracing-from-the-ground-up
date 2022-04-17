@@ -11,7 +11,7 @@
 //  See the file COPYING.txt for the full license.
 
 #include "Phong.h"
-
+#include "../Lights/Light.h"
 
 Phong::Phong (void)
     :   Material(),

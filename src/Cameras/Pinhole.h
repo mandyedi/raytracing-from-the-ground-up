@@ -13,9 +13,10 @@
 #ifndef __PINHOLE__
 #define __PINHOLE__
 
-
+#include "Camera.h"
 #include "../Utilities/Point2D.h"
-#include "../World/World.h"
+
+class World;
 
 
 class Pinhole: public Camera {

@@ -113,6 +113,10 @@ set (SOURCE_SAMPLERS
   src/Samplers/Sampler.h
 )
 
+set (SOURCE_SCENEBUILDERS
+  src/SceneBuilders/WorldBuildChapter03PageOne.cpp
+)
+
 set (SOURCE_TEXTURES
   src/Textures/Checker3D.cpp
   src/Textures/Checker3D.h
@@ -169,6 +173,7 @@ source_group ("src/GeometricObjects" FILES ${SOURCE_GEOMETRICOBJECTS})
 source_group ("src/Lights" FILES ${SOURCE_LIGHTS})
 source_group ("src/Materials" FILES ${SOURCE_MATERIALS})
 source_group ("src/Samplers" FILES ${SOURCE_SAMPLERS})
+source_group ("src/SceneBuilders" FILES ${SOURCE_SCENEBUILDERS})
 source_group ("src/Textures" FILES ${SOURCE_TEXTURES})
 source_group ("src/Tracers" FILES ${SOURCE_TRACERS})
 source_group ("src/Utilities" FILES ${SOURCE_UTILITIES})
@@ -181,6 +186,7 @@ add_library (libRTF STATIC
   ${SOURCE_LIGHTS}
   ${SOURCE_MATERIALS}
   ${SOURCE_SAMPLERS}
+  ${SOURCE_SCENEBUILDERS}
   ${SOURCE_TEXTURES}
   ${SOURCE_TRACERS}
   ${SOURCE_UTILITIES}

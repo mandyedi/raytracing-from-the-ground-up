@@ -13,8 +13,11 @@
 #ifndef __THINLENS__
 #define __THINLENS__
 
-#include "../Utilities/Point2D.h"
-#include "../World/World.h"
+#include "Camera.h"
+
+class Point2D;
+class World;
+class Sampler;
 
 class ThinLens: public Camera {
 

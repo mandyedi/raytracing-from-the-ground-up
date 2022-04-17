@@ -11,6 +11,7 @@
 //  See the file COPYING.txt for the full license.
 
 #include "Matte.h"
+#include "../Lights/Light.h"
 
 
 Matte::Matte (void)

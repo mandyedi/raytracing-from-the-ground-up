@@ -13,8 +13,10 @@
 #ifndef __SPHERICAL__
 #define __SPHERICAL__
 
+#include "Camera.h"
 #include "../Utilities/Point2D.h"
-#include "../World/World.h"
+
+class World;
 
 class Spherical: public Camera {
     public:

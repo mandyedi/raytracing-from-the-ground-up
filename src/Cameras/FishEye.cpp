@@ -11,10 +11,12 @@
 //  See the file COPYING.txt for the full license.
 
 #include "FishEye.h"
+#include "../World/World.h"
 #include "../Utilities/RGBColor.h"
 #include "../Utilities/Point3D.h"
 #include "../Utilities/Vector3D.h"
 #include "../Samplers/Sampler.h"
+#include "../Tracers/Tracer.h"
 
 FishEye::~FishEye(void) {}
 

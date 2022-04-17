@@ -13,8 +13,10 @@
 #ifndef __FISHEYE__
 #define __FISHEYE__
 
+#include "Camera.h"
 #include "../Utilities/Point2D.h"
-#include "../World/World.h"
+
+class World;
 
 class FishEye: public Camera {
     public:

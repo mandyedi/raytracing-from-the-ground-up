@@ -11,12 +11,9 @@
 //  See the file COPYING.txt for the full license.
 
 #include "ThinLens.h"
-#include "../Utilities/RGBColor.h"
-#include "../Utilities/Point3D.h"
-#include "../Utilities/Vector3D.h"
+#include "../World/World.h"
 #include "../Samplers/Sampler.h"
-
-
+#include "../Tracers/Tracer.h"
 
 ThinLens::~ThinLens(void) {
     if (sampler_ptr != nullptr) {

@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "src/World/World.h"
-#include "src/Tracers/RayCast.h"
+#include "src/Cameras/Camera.h"
 
 int main([[maybe_unused]] int argc, [[maybe_unused]] char *argv[])
 {

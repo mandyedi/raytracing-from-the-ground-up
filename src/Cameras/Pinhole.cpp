@@ -11,14 +11,13 @@
 //  See the file COPYING.txt for the full license.
 
 #include <math.h>
-
 #include "Pinhole.h"
+#include "../World/World.h"
 #include "../Utilities/RGBColor.h"
 #include "../Utilities/Point3D.h"
 #include "../Utilities/Vector3D.h"
 #include "../Samplers/Sampler.h"
-
-
+#include "../Tracers/Tracer.h"
 
 Pinhole::~Pinhole(void) {}
 

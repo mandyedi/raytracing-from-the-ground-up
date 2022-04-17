@@ -27,15 +27,13 @@
 
 #include "ViewPlane.h"
 #include "../Utilities/RGBColor.h"
-#include "../Tracers/Tracer.h"
-#include "../GeometricObjects/GeometricObject.h"
 #include "../GeometricObjects/Sphere.h"
-#include "../Utilities/Ray.h"
-#include "../Tracers/SingleSphere.h"
 
-#include "../Cameras/Camera.h"
-#include "../Lights/Light.h"
-#include "../Lights/Ambient.h"
+class Tracer;
+class Ray;
+class GeometricObject;
+class Camera;
+class Light;
 
 using namespace std;
 
@@ -112,6 +110,9 @@ class World {
 
         void
         delete_lights(void);
+
+        void
+        worldBuildChapter03PageOne();
 };
 
 

@@ -10,14 +10,11 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
+#include <cmath>
 #include "StereoCamera.h"
 #include "Pinhole.h"
-#include "../Utilities/RGBColor.h"
-#include "../Utilities/Point3D.h"
-#include "../Utilities/Vector3D.h"
+#include "../World/World.h"
 #include "../Utilities/Maths.h"
-#include "../Samplers/Sampler.h"
-#include "../World/ViewPlane.h"
 
 StereoCamera::StereoCamera(void)
     :   Camera(),
@@ -90,14 +87,6 @@ StereoCamera::operator= (StereoCamera&& sc) noexcept {
     viewing_type = std::exchange(sc.viewing_type, ViewingType::Parallel);
     pixel_gap = std::exchange(sc.pixel_gap, 0);
     beta = std::exchange(sc.beta, 0.0f);
-
-    if (left_camera_ptr != nullptr) {
-        delete left_camera_ptr;
-    }
-    left_camera_ptr = sc.left_camera_ptr;
-    sc.left_camera_ptr = nullptr;
-
-
     if (right_camera_ptr != nullptr) {
         delete right_camera_ptr;
     }
@@ -115,7 +104,7 @@ StereoCamera::clone(void) const {
 void
 StereoCamera::setup_cameras(void) {
     float r = eye.distance(lookat);
-    float x = r * tan(0.5 * degreeToRadian(beta));  //  half the camera separation distance
+    float x = r * tanf(0.5f * degreeToRadian(beta));  //  half the camera separation distance
 
     left_camera_ptr->set_eye(eye - x * u);
     left_camera_ptr->set_lookat(lookat - x * u);

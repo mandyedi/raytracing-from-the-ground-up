@@ -11,13 +11,13 @@
 //  See the file COPYING.txt for the full license.
 
 #include "Spherical.h"
+#include "../World/World.h"
 #include "../Utilities/RGBColor.h"
 #include "../Utilities/Point3D.h"
 #include "../Utilities/Vector3D.h"
 #include "../Utilities/Maths.h"
 #include "../Samplers/Sampler.h"
-
-
+#include "../Tracers/Tracer.h"
 
 Spherical::~Spherical(void) {}
 
