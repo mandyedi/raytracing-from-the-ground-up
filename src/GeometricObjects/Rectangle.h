@@ -45,7 +45,7 @@ class Rectangle: public GeometricObject {
         get_bounding_box(void) const override;
 
         bool
-        hit(const Ray& ray, float& t, ShadeRec& s) const;
+        hit(const Ray& ray, float& t, ShadeRec& s) const override;
 
 
         // the following functions are used when the rectangle is a light source

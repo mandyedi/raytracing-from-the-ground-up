@@ -44,6 +44,10 @@ set (SOURCE_CAMERAS
 set (SOURCE_GEOMETRICOBJECTS
   src/GeometricObjects/Box.cpp
   src/GeometricObjects/Box.h
+  src/GeometricObjects/Compound.cpp
+  src/GeometricObjects/Compound.h
+  src/GeometricObjects/CompoundSolidCylinder.cpp
+  src/GeometricObjects/CompoundSolidCylinder.h
   src/GeometricObjects/ConvexPartCylinder.cpp
   src/GeometricObjects/ConvexPartCylinder.h
   src/GeometricObjects/ConvexPartSphere.cpp
