@@ -42,6 +42,8 @@ set (SOURCE_CAMERAS
 )
 
 set (SOURCE_GEOMETRICOBJECTS
+  src/GeometricObjects/BeveledBox.h
+  src/GeometricObjects/BeveledBox.cpp
   src/GeometricObjects/Box.cpp
   src/GeometricObjects/Box.h
   src/GeometricObjects/Compound.cpp
