@@ -11,8 +11,8 @@
 //  See the file COPYING.txt for the full license.
 
 #include "CompoundSolidCylinder.h"
-#include "OpenCylinder.h"
-#include "Disk.h"
+#include "../Primitives/OpenCylinder.h"
+#include "../Primitives/Disk.h"
 
 CompoundSolidCylinder::CompoundSolidCylinder()
     : Compound()

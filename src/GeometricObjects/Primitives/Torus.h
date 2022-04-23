@@ -13,7 +13,7 @@
 #ifndef __TORUS__
 #define __TORUS__
 
-#include "GeometricObject.h"
+#include "../GeometricObject.h"
 
 class Torus: public GeometricObject {
 

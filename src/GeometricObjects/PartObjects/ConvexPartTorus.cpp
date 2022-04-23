@@ -14,8 +14,8 @@
 #include <limits>
 #include <cmath>
 #include "ConvexPartTorus.h"
-#include "../Utilities/Constants.h"
-#include "../Utilities/Maths.h"
+#include "../../Utilities/Constants.h"
+#include "../../Utilities/Maths.h"
 
 ConvexPartTorus::ConvexPartTorus()
     :     GeometricObject(),

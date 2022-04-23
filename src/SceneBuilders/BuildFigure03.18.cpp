@@ -12,7 +12,7 @@
 
 #include "../World/World.h"
 #include "../Tracers/SingleSphere.h"
-#include "../GeometricObjects/Sphere.h"
+#include "../GeometricObjects/Primitives/Sphere.h"
 
 void
 World::build_figure_03_18() {

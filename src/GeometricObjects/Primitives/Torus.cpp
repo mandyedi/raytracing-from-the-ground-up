@@ -17,7 +17,7 @@
 #include <utility>
 #include <limits>
 #include "Torus.h"
-#include "../Utilities/Maths.h"
+#include "../../Utilities/Maths.h"
 
 Torus::Torus (void)
     :   GeometricObject(),

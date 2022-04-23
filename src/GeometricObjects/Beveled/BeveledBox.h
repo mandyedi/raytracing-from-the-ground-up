@@ -13,9 +13,9 @@
 #ifndef __BEVELED_BOX__
 #define __BEVELED_BOX__
 
-#include "Compound.h"
-#include "../Utilities/Point3D.h"
-#include "../Utilities/BBox.h"
+#include "../Compound/Compound.h"
+#include "../../Utilities/BBox.h"
+#include "../../Utilities/Point3D.h"
 
 class BeveledBox: public Compound {
     public:

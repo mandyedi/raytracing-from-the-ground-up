@@ -13,9 +13,9 @@
 #ifndef __BOX__
 #define __BOX__
 
-#include "GeometricObject.h"
-#include "../Utilities/Ray.h"
-#include "../Utilities/Point3D.h"
+#include "../GeometricObject.h"
+#include "../../Utilities/Ray.h"
+#include "../../Utilities/Point3D.h"
 
 class ShadeRec;
 

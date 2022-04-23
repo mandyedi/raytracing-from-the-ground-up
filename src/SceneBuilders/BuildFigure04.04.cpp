@@ -17,7 +17,7 @@
 #include "../Lights/Ambient.h"
 #include "../Lights/PointLight.h"
 #include "../Materials/Matte.h"
-#include "../GeometricObjects/Sphere.h"
+#include "../GeometricObjects/Primitives/Sphere.h"
 
 void
 World::build_figure_04_04(void) {

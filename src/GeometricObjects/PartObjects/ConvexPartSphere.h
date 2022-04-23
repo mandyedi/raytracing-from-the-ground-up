@@ -13,8 +13,8 @@
 #ifndef __CONVEXPARTSPHERE__
 #define __CONVEXPARTSPHERE__
 
-#include "GeometricObject.h"
-#include "../Utilities/Constants.h"
+#include "../GeometricObject.h"
+#include "../../Utilities/Constants.h"
 
 class ConvexPartSphere: public GeometricObject {
 

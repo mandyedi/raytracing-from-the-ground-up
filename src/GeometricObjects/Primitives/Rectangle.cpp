@@ -12,7 +12,7 @@
 
 
 #include "Rectangle.h"
-#include "../Samplers/Sampler.h"
+#include "../../Samplers/Sampler.h"
 
 const float Rectangle::kEpsilon = 0.001f;
 

@@ -11,12 +11,12 @@
 //  See the file COPYING.txt for the full license.
 
 #include "BeveledBox.h"
-#include "OpenCylinder.h"
-#include "Rectangle.h"
-#include "Sphere.h"
-#include "Instance.h"
-#include "../Utilities/Vector3D.h"
-#include "../Utilities/Normal.h"
+#include "../Primitives/OpenCylinder.h"
+#include "../Primitives/Rectangle.h"
+#include "../Primitives/Sphere.h"
+#include "../Instance.h"
+#include "../../Utilities/Vector3D.h"
+#include "../../Utilities/Normal.h"
 
 
 

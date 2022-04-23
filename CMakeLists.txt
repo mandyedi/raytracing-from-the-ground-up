@@ -42,40 +42,55 @@ set (SOURCE_CAMERAS
 )
 
 set (SOURCE_GEOMETRICOBJECTS
-  src/GeometricObjects/BeveledBox.h
-  src/GeometricObjects/BeveledBox.cpp
-  src/GeometricObjects/Box.cpp
-  src/GeometricObjects/Box.h
-  src/GeometricObjects/Compound.cpp
-  src/GeometricObjects/Compound.h
-  src/GeometricObjects/CompoundSolidCylinder.cpp
-  src/GeometricObjects/CompoundSolidCylinder.h
-  src/GeometricObjects/ConvexPartCylinder.cpp
-  src/GeometricObjects/ConvexPartCylinder.h
-  src/GeometricObjects/ConvexPartSphere.cpp
-  src/GeometricObjects/ConvexPartSphere.h
-  src/GeometricObjects/ConvexPartTorus.cpp
-  src/GeometricObjects/ConvexPartTorus.h
-  src/GeometricObjects/Disk.cpp
-  src/GeometricObjects/Disk.h
   src/GeometricObjects/GeometricObject.cpp
   src/GeometricObjects/GeometricObject.h
-  src/GeometricObjects/Grid.cpp
-  src/GeometricObjects/Grid.h
   src/GeometricObjects/Instance.cpp
   src/GeometricObjects/Instance.h
-  src/GeometricObjects/OpenCylinder.cpp
-  src/GeometricObjects/OpenCylinder.h
-  src/GeometricObjects/Plane.cpp
-  src/GeometricObjects/Plane.h
-  src/GeometricObjects/Rectangle.cpp
-  src/GeometricObjects/Rectangle.h
-  src/GeometricObjects/Sphere.cpp
-  src/GeometricObjects/Sphere.h
-  src/GeometricObjects/Torus.cpp
-  src/GeometricObjects/Torus.h
-  src/GeometricObjects/Triangle.cpp
-  src/GeometricObjects/Triangle.h
+)
+
+set (SOURCE_BEVELED
+  src/GeometricObjects/Beveled/BeveledBox.h
+  src/GeometricObjects/Beveled/BeveledBox.cpp
+)
+
+set (SOURCE_COMPOUND
+  src/GeometricObjects/Compound/Compound.cpp
+  src/GeometricObjects/Compound/Compound.h
+  src/GeometricObjects/Compound/CompoundSolidCylinder.cpp
+  src/GeometricObjects/Compound/CompoundSolidCylinder.h
+  src/GeometricObjects/Compound/Grid.cpp
+  src/GeometricObjects/Compound/Grid.h
+)
+
+set (SOURCE_PARTOBJECTS
+  src/GeometricObjects/PartObjects/ConvexPartCylinder.cpp
+  src/GeometricObjects/PartObjects/ConvexPartCylinder.h
+  src/GeometricObjects/PartObjects/ConvexPartSphere.cpp
+  src/GeometricObjects/PartObjects/ConvexPartSphere.h
+  src/GeometricObjects/PartObjects/ConvexPartTorus.cpp
+  src/GeometricObjects/PartObjects/ConvexPartTorus.h
+)
+
+set (SOURCE_PRIMITIVES
+  src/GeometricObjects/Primitives/Box.cpp
+  src/GeometricObjects/Primitives/Box.h
+  src/GeometricObjects/Primitives/Disk.cpp
+  src/GeometricObjects/Primitives/Disk.h
+  src/GeometricObjects/Primitives/OpenCylinder.cpp
+  src/GeometricObjects/Primitives/OpenCylinder.h
+  src/GeometricObjects/Primitives/Plane.cpp
+  src/GeometricObjects/Primitives/Plane.h
+  src/GeometricObjects/Primitives/Rectangle.cpp
+  src/GeometricObjects/Primitives/Rectangle.h
+  src/GeometricObjects/Primitives/Sphere.cpp
+  src/GeometricObjects/Primitives/Sphere.h
+  src/GeometricObjects/Primitives/Torus.cpp
+  src/GeometricObjects/Primitives/Torus.h
+)
+
+set (SOURCE_TRIANGLES
+  src/GeometricObjects/Triangles/Triangle.cpp
+  src/GeometricObjects/Triangles/Triangle.h
 )
 
 set (SOURCE_LIGHTS
@@ -183,6 +198,11 @@ set (SOURCE_WORLD
 source_group ("src/BRDFs" FILES ${SOURCE_BRDFS})
 source_group ("src/Cameras" FILES ${SOURCE_CAMERAS})
 source_group ("src/GeometricObjects" FILES ${SOURCE_GEOMETRICOBJECTS})
+source_group ("src/GeometricObjects/Beveled" FILES ${SOURCE_BEVELED})
+source_group ("src/GeometricObjects/Compound" FILES ${SOURCE_COMPOUND})
+source_group ("src/GeometricObjects/PartObjects" FILES ${SOURCE_PARTOBJECTS})
+source_group ("src/GeometricObjects/Primitives" FILES ${SOURCE_PRIMITIVES})
+source_group ("src/GeometricObjects/Triangles" FILES ${SOURCE_TRIANGLES})
 source_group ("src/Lights" FILES ${SOURCE_LIGHTS})
 source_group ("src/Materials" FILES ${SOURCE_MATERIALS})
 source_group ("src/Samplers" FILES ${SOURCE_SAMPLERS})
@@ -196,6 +216,11 @@ add_library (libRTF STATIC
   ${SOURCE_BRDFS}
   ${SOURCE_CAMERAS}
   ${SOURCE_GEOMETRICOBJECTS}
+  ${SOURCE_BEVELED}
+  ${SOURCE_COMPOUND}
+  ${SOURCE_PARTOBJECTS}
+  ${SOURCE_PRIMITIVES}
+  ${SOURCE_TRIANGLES}
   ${SOURCE_LIGHTS}
   ${SOURCE_MATERIALS}
   ${SOURCE_SAMPLERS}

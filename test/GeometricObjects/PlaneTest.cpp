@@ -1,5 +1,5 @@
 #include "gtest/gtest.h"
-#include "../../src/GeometricObjects/Plane.h"
+#include "../../src/GeometricObjects/Primitives/Plane.h"
 #include "../../src/Utilities/Ray.h"
 #include "../../src/Utilities/ShadeRec.h"
 #include "../../src/World/World.h"

@@ -13,7 +13,7 @@
 #ifndef __CONVEXPARTTORUS__
 #define __CONVEXPARTTORUS__
 
-#include "GeometricObject.h"
+#include "../GeometricObject.h"
 
 
 class ConvexPartTorus: public GeometricObject {

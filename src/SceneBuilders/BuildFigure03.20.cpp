@@ -12,8 +12,8 @@
 
 #include "../World/World.h"
 #include "../Tracers/MultipleObjects.h"
-#include "../GeometricObjects/Sphere.h"
-#include "../GeometricObjects/Plane.h"
+#include "../GeometricObjects/Primitives/Sphere.h"
+#include "../GeometricObjects/Primitives/Plane.h"
 
 void
 World::build_figure_03_20(void) {

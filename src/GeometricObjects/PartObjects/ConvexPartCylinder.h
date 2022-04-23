@@ -13,8 +13,8 @@
 #ifndef __CONVEXPARTCYLINDER__
 #define __CONVEXPARTCYLINDER__
 
-#include "GeometricObject.h"
-#include "../Utilities/BBox.h"
+#include "../GeometricObject.h"
+#include "../../Utilities/BBox.h"
 
 class ConvexPartCylinder: public GeometricObject {
 

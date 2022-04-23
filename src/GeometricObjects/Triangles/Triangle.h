@@ -15,7 +15,7 @@
 
 
 
-#include "GeometricObject.h"
+#include "../GeometricObject.h"
 
 class Triangle: public GeometricObject {
     public:

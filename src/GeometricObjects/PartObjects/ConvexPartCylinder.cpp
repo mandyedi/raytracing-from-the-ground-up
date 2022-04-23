@@ -14,7 +14,7 @@
 #include <cmath>
 #include <limits>
 #include "ConvexPartCylinder.h"
-#include "../Utilities/Constants.h"
+#include "../../Utilities/Constants.h"
 
 ConvexPartCylinder::ConvexPartCylinder(const float bottom, const float top, const float r, float phi1, float phi2)
     :   GeometricObject(),

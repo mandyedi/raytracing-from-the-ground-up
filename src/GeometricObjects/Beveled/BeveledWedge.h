@@ -29,7 +29,7 @@
 
 // There is no default constructor
 
-#include "Compound.h"
+#include "../Compound/Compound.h"
 
 //-------------------------------------------------------------------------------- class BeveledWedge
 

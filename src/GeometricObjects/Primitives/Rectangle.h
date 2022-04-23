@@ -13,7 +13,7 @@
 #ifndef __RECTANGLE__
 #define __RECTANGLE__
 
-#include "GeometricObject.h"
+#include "../GeometricObject.h"
 
 class Sampler;
 

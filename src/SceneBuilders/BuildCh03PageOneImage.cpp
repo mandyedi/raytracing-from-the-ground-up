@@ -11,7 +11,7 @@
 //  See the file COPYING.txt for the full license.
 
 #include "../World/World.h"
-#include "../GeometricObjects/Sphere.h"
+#include "../GeometricObjects/Primitives/Sphere.h"
 #include "../Tracers/MultipleObjects.h"
 #include "../Utilities/RGBColor.h"
 

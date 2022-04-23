@@ -10,31 +10,31 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#ifndef __DISK__
-#define __DISK__
+#ifndef __OPEN_CYLINDER__
+#define __OPEN_CYLINDER__
 
-#include "GeometricObject.h"
+#include "../GeometricObject.h"
 
-class Disk: public GeometricObject {
+class OpenCylinder: public GeometricObject {
     public:
 
-        Disk(void) = default;
+        OpenCylinder(void) = default;
 
-        explicit Disk(const Point3D &p, const Normal &n, float r);
+        explicit OpenCylinder(float bottom, float top, float radius);
 
-        ~Disk(void) = default;
+        ~OpenCylinder(void) = default;
 
-        Disk(const Disk& r);
+        OpenCylinder(const OpenCylinder& oc);
 
-        Disk(Disk&& r) noexcept;
+        OpenCylinder(OpenCylinder&& oc) noexcept;
 
-        Disk&
-        operator= (const Disk& rhs);
+        OpenCylinder&
+        operator= (const OpenCylinder& oc);
 
-        Disk&
-        operator= (Disk&& rhs) noexcept;
+        OpenCylinder&
+        operator= (OpenCylinder&& oc) noexcept;
 
-        Disk*
+        OpenCylinder*
         clone(void) const override;
 
         bool
@@ -42,9 +42,10 @@ class Disk: public GeometricObject {
 
     private:
 
-        Point3D center      = Point3D(0.0f);
-    Normal normal           = Normal(0.0f, 1.0f, 0.0f);
-    float r_squared     = 1.0f;
+        float y0           = 0.0f;
+        float y1           = 0.0f;
+        float radius       = 1.0f;
+        float inv_radius   = 1.0f;
 
         static const float kEpsilon;
 };
