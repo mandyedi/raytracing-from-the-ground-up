@@ -41,7 +41,7 @@ class Compound: public GeometricObject {
         set_material(Material* material_ptr);
 
         void
-        add_object(GeometricObject* object_ptr);
+        add_object(GeometricObject* object_ptr) override;
 
         int
         get_num_objects(void);

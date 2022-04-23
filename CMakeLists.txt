@@ -60,6 +60,8 @@ set (SOURCE_GEOMETRICOBJECTS
   src/GeometricObjects/Disk.h
   src/GeometricObjects/GeometricObject.cpp
   src/GeometricObjects/GeometricObject.h
+  src/GeometricObjects/Grid.cpp
+  src/GeometricObjects/Grid.h
   src/GeometricObjects/Instance.cpp
   src/GeometricObjects/Instance.h
   src/GeometricObjects/OpenCylinder.cpp

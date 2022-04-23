@@ -113,6 +113,9 @@ GeometricObject::get_bounding_box() const {
     return BBox();
 }
 
+void
+GeometricObject::add_object(GeometricObject* object_ptr) {}
+
 Point3D
 GeometricObject::sample(void) {
     return Point3D();

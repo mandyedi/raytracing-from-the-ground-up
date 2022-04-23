@@ -68,8 +68,12 @@ class GeometricObject {
         virtual BBox
         get_bounding_box() const;
 
+        // TODO: virtual? pure or implemented here?
         void
         set_shadows(bool _shadows);
+
+        virtual void
+        add_object(GeometricObject* object_ptr);
 
         // the following functions are used when the rectangle is a light source
         // todo: implement them in rectangle, disk and sphere
