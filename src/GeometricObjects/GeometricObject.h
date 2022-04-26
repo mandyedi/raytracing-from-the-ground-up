@@ -85,6 +85,9 @@ class GeometricObject {
         sample(void);
 
         virtual Normal
+        get_normal(void) const;
+
+        virtual Normal
         get_normal(const Point3D& p);
 
         virtual float

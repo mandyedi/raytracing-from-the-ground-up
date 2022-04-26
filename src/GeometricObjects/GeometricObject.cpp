@@ -122,6 +122,11 @@ GeometricObject::sample(void) {
 }
 
 Normal
+GeometricObject::get_normal(void) const {
+    return Normal();
+}
+
+Normal
 GeometricObject::get_normal(const Point3D& p) {
     return Normal();
 }

@@ -2,7 +2,7 @@ cmake_minimum_required (VERSION 3.1)
 
 project (rtf VERSION 1.0
             DESCRIPTION "Ray Tracing from the Ground Up book example project"
-            LANGUAGES CXX
+            LANGUAGES C CXX
 )
 
 if (MSVC)
@@ -46,6 +46,8 @@ set (SOURCE_GEOMETRICOBJECTS
   src/GeometricObjects/GeometricObject.h
   src/GeometricObjects/Instance.cpp
   src/GeometricObjects/Instance.h
+  src/GeometricObjects/Mesh.cpp
+  src/GeometricObjects/Mesh.h
 )
 
 set (SOURCE_BEVELED
@@ -89,8 +91,16 @@ set (SOURCE_PRIMITIVES
 )
 
 set (SOURCE_TRIANGLES
+  src/GeometricObjects/Triangles/FlatMeshTriangle.cpp
+  src/GeometricObjects/Triangles/FlatMeshTriangle.h
   src/GeometricObjects/Triangles/Triangle.cpp
   src/GeometricObjects/Triangles/Triangle.h
+  src/GeometricObjects/Triangles/MeshTriangle.cpp
+  src/GeometricObjects/Triangles/MeshTriangle.h
+  src/GeometricObjects/Triangles/SmoothMeshTriangle.cpp
+  src/GeometricObjects/Triangles/SmoothMeshTriangle.h
+  src/GeometricObjects/Triangles/SmoothTriangle.cpp
+  src/GeometricObjects/Triangles/SmoothTriangle.h
 )
 
 set (SOURCE_LIGHTS
@@ -173,6 +183,8 @@ set (SOURCE_UTILITIES
   src/Utilities/Matrix.h
   src/Utilities/Normal.cpp
   src/Utilities/Normal.h
+  src/Utilities/ply.c
+  src/Utilities/ply.h
   src/Utilities/Point2D.cpp
   src/Utilities/Point2D.h
   src/Utilities/Point3D.cpp

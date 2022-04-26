@@ -34,18 +34,18 @@
 #include "Compound.h"
 
 class ShadeRec;
-// class Mesh;
+class Mesh;
 
 class Grid: public Compound {
     public:
 
         Grid(void);
 
-        // TODO: review and uncomment
-        // Grid(Mesh* _mesh_ptr);
+        Grid(Mesh* _mesh_ptr);
 
         ~Grid(void);
 
+        // Yes, I was lazy at this point
         Grid(const Grid& grid) = delete;
         Grid(const Grid&& grid) = delete;
         Grid& operator= (const Grid& grid) = delete;
@@ -57,33 +57,31 @@ class Grid: public Compound {
         bool
         hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 
-        // TODO: review and uncomment
-        // void
-        // read_flat_triangles(char* file_name);
-        //
-        // void
-        // read_smooth_triangles(char* file_name);
-        //
-        // void
-        // tessellate_flat_sphere(const int horizontal_steps, const int vertical_steps);
-        //
-        // void
-        // tessellate_smooth_sphere(const int horizontal_steps, const int vertical_steps);
-        //
-        // void
-        // reverse_mesh_normals(void);
-        //
-        // void
-        // store_material(Material* material, const int index);
+        void
+        read_flat_triangles(char* file_name);
+
+        void
+        read_smooth_triangles(char* file_name);
+
+        void
+        tessellate_flat_sphere(const int horizontal_steps, const int vertical_steps);
+
+        void
+        tessellate_smooth_sphere(const int horizontal_steps, const int vertical_steps);
+
+        void
+        reverse_mesh_normals(void);
+
+        void
+        store_material(Material* material, const int index);
 
     private:
 
         std::vector<GeometricObject*>    cells;
         int                              nx, ny, nz;         // number of cells in the x, y, and z directions
         BBox                             bbox;
-        // TODO: revie and uncomment
-        // Mesh*                       mesh_ptr;
-        // bool                        reverse_normal;     // some PLY files have normals that point inwards
+        Mesh*                            mesh_ptr;
+        bool                             reverse_normal;     // some PLY files have normals that point inwards
 
         Point3D
         find_min_bounds(void);
@@ -91,12 +89,11 @@ class Grid: public Compound {
         Point3D
         find_max_bounds(void);
 
-        // TODO: revie and uncomment
-        // void
-        // read_ply_file(char* file_name, const int triangle_type);
-        //
-        // void
-        // compute_mesh_normals(void);
+        void
+        read_ply_file(char* file_name, const int triangle_type);
+
+        void
+        compute_mesh_normals(void);
 
         BBox
         get_bounding_box(void);
@@ -106,19 +103,18 @@ class Grid: public Compound {
 };
 
 
-// TODO: revie and uncomment
-// inline void
-// Grid::reverse_mesh_normals(void) {
-//     reverse_normal = true;
-// }
-//
-//
-// // stores the material in the specified object
-// // this is called from the Rosette and Archway classes, which inherit from Grid
-//
-// inline void
-// Grid::store_material(Material* material_ptr, const int index) {
-//     objects[index]->set_material(material_ptr);
-// }
+
+inline void
+Grid::reverse_mesh_normals(void) {
+    reverse_normal = true;
+}
+
+
+// stores the material in the specified object
+// this is called from the Rosette and Archway classes, which inherit from Grid
+inline void
+Grid::store_material(Material* material_ptr, const int index) {
+    objects[index]->set_material(material_ptr);
+}
 
 #endif

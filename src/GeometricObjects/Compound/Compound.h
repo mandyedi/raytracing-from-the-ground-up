@@ -46,7 +46,7 @@ class Compound: public GeometricObject {
         int
         get_num_objects(void);
 
-        bool
+        virtual bool
         hit(const Ray& ray, float& tmin, ShadeRec& s) const override;
 
     protected:

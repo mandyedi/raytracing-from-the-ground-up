@@ -36,20 +36,20 @@ class Triangle: public GeometricObject {
         Triangle&
         operator= (Triangle&& triangle) noexcept;
 
-        virtual Triangle*
-        clone(void) const;
+        Triangle*
+        clone(void) const override;
 
-        virtual BBox
+        BBox
         get_bounding_box(void);
 
         void
         compute_normal(void);
 
-        virtual bool
-        hit(const Ray& ray, float& tmin, ShadeRec& sr) const;
+        bool
+        hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 
-        virtual bool
-        shadow_hit(const Ray& ray, float& tmin) const;
+        bool
+        shadow_hit(const Ray& ray, float& tmin) const override;
 
     private:
 
