@@ -20,7 +20,7 @@ class Lambertian: public BRDF {
 
         Lambertian(void) = default;
 
-        ~Lambertian(void);
+        ~Lambertian(void) = default;
 
         Lambertian(const Lambertian& l);
 

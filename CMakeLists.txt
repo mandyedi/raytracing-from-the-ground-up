@@ -22,6 +22,8 @@ set (SOURCE_BRDFS
   src/BRDFs/GlossySpecular.h
   src/BRDFs/Lambertian.cpp
   src/BRDFs/Lambertian.h
+  src/BRDFs/PerfectSpecular.cpp
+  src/BRDFs/PerfectSpecular.h
 )
 
 set (SOURCE_CAMERAS
@@ -129,6 +131,8 @@ set (SOURCE_MATERIALS
   src/Materials/Matte.h
   src/Materials/Phong.cpp
   src/Materials/Phong.h
+  src/Materials/Reflective.cpp
+  src/Materials/Reflective.h
 )
 
 set (SOURCE_SAMPLERS
@@ -171,6 +175,8 @@ set (SOURCE_TRACERS
   src/Tracers/SingleSphere.h
   src/Tracers/Tracer.cpp
   src/Tracers/Tracer.h
+  src/Tracers/Whitted.cpp
+  src/Tracers/Whitted.h
 )
 
 set (SOURCE_UTILITIES

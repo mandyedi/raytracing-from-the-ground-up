@@ -15,9 +15,6 @@
 
 
 
-Lambertian::~Lambertian(void) {}
-
-
 Lambertian::Lambertian(const Lambertian& l)
     :   BRDF(l),
         kd(l.kd),
