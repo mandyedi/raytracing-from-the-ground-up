@@ -125,6 +125,8 @@ set (SOURCE_LIGHTS
 set (SOURCE_MATERIALS
   src/Materials/Emissive.cpp
   src/Materials/Emissive.h
+  src/Materials/GlossyReflector.cpp
+  src/Materials/GlossyReflector.h
   src/Materials/Material.cpp
   src/Materials/Material.h
   src/Materials/Matte.cpp

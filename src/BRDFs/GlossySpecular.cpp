@@ -109,7 +109,7 @@ RGBColor
 GlossySpecular::f(const ShadeRec &sr, const Vector3D &wo, const Vector3D &wi) const {
     RGBColor    L;
     float      ndotwi = sr.normal * wi;
-    Vector3D    r(-wi + 2.0 * sr.normal * ndotwi); // mirror reflection direction
+    Vector3D    r(-wi + 2.0f * sr.normal * ndotwi); // mirror reflection direction
     float      rdotwo = r * wo;
 
     if (rdotwo > 0.0f) {
@@ -126,7 +126,7 @@ RGBColor
 GlossySpecular::sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const {
 
     float ndotwo = sr.normal * wo;
-    Vector3D r = -wo + 2.0 * sr.normal * ndotwo;     // direction of mirror reflection
+    Vector3D r = -wo + 2.0f * sr.normal * ndotwo;     // direction of mirror reflection
 
     Vector3D w = r;
     Vector3D u = Vector3D(0.00424f, 1.0f, 0.00764f) ^ w;

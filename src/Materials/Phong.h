@@ -72,7 +72,7 @@ class Phong: public Material {
         shade(ShadeRec& sr) override;
 
         virtual RGBColor
-        area_light_shade(ShadeRec &sr);
+        area_light_shade(ShadeRec &sr) override;
 
     private:
 
