@@ -1,18 +1,7 @@
 ### Dev Guide
 
-The following description is based on some suggestion from the book. Follow them please, even if there is a better solution.
+The following description is based on some suggestion from the book.
 
-* Floats or Doubles
-
-    Use doubles for all ray-object intersection calculations.
-    List of classes that use double:
-    
-    `GeometricObject` and all descendant. `Matrix, Normal, Point3D, Vector3D, ShadeRec`
-
-    Use floats for shading calculation.
-    List of classes that use float:
-    
-    `BRDF, Camera, Light, Material, Point2D, RGBColor, ViewPlane` 
 
 * Pass by Reference
 
@@ -33,11 +22,11 @@ The following description is based on some suggestion from the book. Follow them
 
     Floating-point division requires more machine cycles than a floating multiplication. Define constants such as
 
-    `const double invPI = 0.3183098861837906715;`
+    `const float invPI = 0.3183098861837906715f;`
 
     Also good practice to divide values, for example, with 2.0 as below.
 
-    `double x = 128.0 * 0.5`
+    `float x = 128.0f * 0.5f`
 
 * Inlining
 
@@ -46,7 +35,7 @@ The following description is based on some suggestion from the book. Follow them
 
 ### Styleguide
 
-Style guide is based on chapter 1.10 Coding Style. Any other guide that is listed below is based on the already implemented source code. For readability and consistency follow the suggested coding style please.
+Style guide is based on chapter 1.10 Coding Style and [Google C++ Style Guide](https://google.github.io/styleguide/cppguide.html). The latter have higher priority. For readability and consistency follow the suggested coding style please.  
 
 * Identifiers
 
@@ -57,7 +46,7 @@ Style guide is based on chapter 1.10 Coding Style. Any other guide that is liste
     ```
     * Member function name and data members are lower case and subsequent words are separated by underscore.
     ```cpp
-    RGBColor	
+    RGBColor
     trace_ray(const Ray& ray) const;
 
     class Sphere: public GeometricObject {
@@ -89,33 +78,33 @@ Style guide is based on chapter 1.10 Coding Style. Any other guide that is liste
     Follow this for consistency please.
     ```cpp
     Ray::Ray (const Ray& ray)
-	: 	o(ray.o), 
-		d(ray.d) 
+	: 	o(ray.o),
+		d(ray.d)
     {}
 
-    Ray& 
+    Ray&
     Ray::operator= (const Ray& rhs) {
-        
+
         if (this == &rhs)
             return (*this);
-            
-        o = rhs.o; 
-        d = rhs.d; 
 
-        return (*this);	
+        o = rhs.o;
+        d = rhs.d;
+
+        return (*this);
     }
 
     Ray::~Ray (void) {}
     ```
 
 * Encapsulation
-    
+
     As the book specifies "Class members are generally private or protected, but there are exceptions based on their frequency of access."
-    
+
     The following classes' data members are public: `BBox, Matrix, Normal, Point3D, Ray, RGBColor, ShadeRec, Vector3D, ViewPlane, World`
 
 * Function Signatures
-    
+
     The author suggest that we should avoid temporarily constructed parameters like the example below.
     ```cpp
     void
@@ -132,7 +121,7 @@ Style guide is based on chapter 1.10 Coding Style. Any other guide that is liste
     ```
 
 * Pure Virtual and Virtual Functions
-    
+
     Declare a function pure virtual in the base class if it has to be defined for every derived class.
     Otherwise declare a function as virtual in the base class and also define it here. It can do nothing or return a default value.
 
@@ -148,7 +137,7 @@ Style guide is based on chapter 1.10 Coding Style. Any other guide that is liste
         // data member and member function declarations...
     };
     #endif
-    ``` 
+    ```
 
 * Curly Braces
 
@@ -163,7 +152,7 @@ Style guide is based on chapter 1.10 Coding Style. Any other guide that is liste
 	}   
 	else
 		return (world_ptr->background_color);
-    
+
     // RIGHT
     if (sr.hit_an_object) {
 		sr.ray = ray;			// used for specular shading

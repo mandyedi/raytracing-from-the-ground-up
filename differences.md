@@ -2,6 +2,10 @@
 Here is a list of changes that makes the code more consistent or easier to use.  
 I do not present small changes like extending Utilities/Maths.h max(double x0, double x1); function with a version that accepts float arguments too.
 
+## Code Style
+I reformatted the whole source code because I didn't really liked it. I know it is quite subjective, but I found better not to have some original code styles.  
+I used clang-format with google style.
+
 ## World::build() Method
 For most of the chapters there is an example scene that you can render. These scenes and the related components (camera, tracer, geometric objects, etc.) are set up in a build method of the class World.  
 To keep it simple and well organized I declare bulid methods for every chapter in World.h and implement the definitions in separate build*.cpp files.  
@@ -12,6 +16,8 @@ World::build_single_sphere_3_6_5();
 
 ## CMake
 I am not supporting any IDE, rather I provide a CMake configuration file so you can code and build with your favorite IDE.
+
+## Using Floats Instead of Doubles
 
 ## Unit Tests
 Used framework: GoogleTest
