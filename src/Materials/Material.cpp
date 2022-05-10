@@ -53,6 +53,15 @@ Material::shade([[maybe_unused]] ShadeRec& sr) {
     return (RGBColor::black);
 }
 
+RGBColor
+Material::path_shade(ShadeRec &sr) {
+    return shade(sr);
+}
+
+RGBColor
+Material::global_shade(ShadeRec &sr) {
+    return shade(sr);
+}
 
 RGBColor
 Material::area_light_shade(ShadeRec &sr) {

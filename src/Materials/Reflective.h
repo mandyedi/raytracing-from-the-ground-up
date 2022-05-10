@@ -51,6 +51,12 @@ class Reflective: public Phong {
         RGBColor
         shade(ShadeRec& s) override;
 
+        RGBColor
+        path_shade(ShadeRec& sr) override;
+
+        RGBColor
+        global_shade(ShadeRec& sr);
+
     private:
 
         PerfectSpecular* reflective_brdf = new PerfectSpecular;

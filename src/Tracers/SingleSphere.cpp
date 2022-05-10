@@ -20,7 +20,7 @@ SingleSphere::SingleSphere(World* _worldPtr)
     : Tracer(_worldPtr)
 {}
 
-SingleSphere::~SingleSphere(void) {}
+
 
 RGBColor
 SingleSphere::trace_ray(const Ray& ray) const {
@@ -36,5 +36,3 @@ SingleSphere::trace_ray(const Ray& ray) const {
         return (RGBColor::black);
     }
 }
-
-

@@ -22,7 +22,7 @@ class SingleSphere: public Tracer {
 
         explicit SingleSphere(World* _worldPtr);
 
-        ~SingleSphere(void);
+        ~SingleSphere(void) = default;
 
         // For the sake of simplicity I prevent copy and move
         SingleSphere(const SingleSphere& ss) = delete;

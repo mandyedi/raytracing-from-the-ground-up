@@ -22,7 +22,7 @@ class RayCast: public Tracer {
 
         explicit RayCast(World* _worldPtr);
 
-        ~RayCast(void);
+        ~RayCast(void) = default;
 
         // For the sake of simplicity I prevent copy and move
         RayCast(const RayCast& rc) = delete;

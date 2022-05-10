@@ -33,14 +33,17 @@ class Emissive: public Material {
         Emissive&
         operator= (Emissive&& e) noexcept;
 
-        virtual Material*
+        Material*
         clone(void) const override;
 
-        virtual RGBColor
-        shade(ShadeRec& sr);
+        RGBColor
+        shade(ShadeRec& sr) override;
 
-        virtual RGBColor
-        area_light_shade(ShadeRec& sr);
+        RGBColor
+        global_shade(ShadeRec& sr) override;
+
+        RGBColor
+        area_light_shade(ShadeRec& sr) override;
 
         void
         set_ce(float r, float g, float b);
@@ -48,8 +51,8 @@ class Emissive: public Material {
         void
         set_ce(const RGBColor &color);
 
-        virtual RGBColor
-        get_Le(ShadeRec& sr) const;
+        RGBColor
+        get_Le(ShadeRec& sr) const override;
 
         void
         scale_radiance(float _ls);

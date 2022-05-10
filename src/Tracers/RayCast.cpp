@@ -21,9 +21,6 @@ RayCast::RayCast(World* _worldPtr)
     : Tracer(_worldPtr)
 {}
 
-RayCast::~RayCast(void) {}
-
-
 
 
 RGBColor
@@ -54,4 +51,3 @@ RayCast::trace_ray(const Ray& ray, [[maybe_unused]] const int depth) const {
         return (world_ptr->background_color);
     }
 }
-

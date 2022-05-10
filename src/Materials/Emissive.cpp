@@ -64,6 +64,28 @@ Emissive::clone(void) const {
 }
 
 
+RGBColor
+Emissive::shade(ShadeRec &sr) {
+    // TODO: implementation?
+    return RGBColor::black;
+}
+
+
+RGBColor
+Emissive::global_shade(ShadeRec& sr) {
+    if (sr.depth == 1) {
+        return RGBColor::black;
+    }
+
+    if (-sr.normal * sr.ray.d > 0.0) {
+        return (ls * ce);
+    }
+    else {
+        return RGBColor::black;
+    }
+}
+
+
 
 RGBColor
 Emissive::area_light_shade(ShadeRec& sr) {

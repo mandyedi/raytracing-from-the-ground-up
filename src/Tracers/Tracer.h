@@ -40,11 +40,15 @@ class Tracer {
         Tracer& operator= (const Tracer& t) = delete;
         Tracer& operator= (Tracer&& t) = delete;
 
+        // TODO: review usage of tracer functions, remove unused
         virtual RGBColor
         trace_ray(const Ray& ray) const;
 
         virtual RGBColor
         trace_ray(const Ray& ray, const int depth) const;
+
+        virtual RGBColor
+        trace_ray(const Ray ray, float& tmin, const int depth) const;
 
     protected:
 

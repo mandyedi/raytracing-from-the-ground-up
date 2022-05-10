@@ -169,8 +169,12 @@ set (SOURCE_TEXTURES
 )
 
 set (SOURCE_TRACERS
+  src/Tracers/GlobalTrace.cpp
+  src/Tracers/GlobalTrace.h
   src/Tracers/MultipleObjects.cpp
   src/Tracers/MultipleObjects.h
+  src/Tracers/PathTrace.cpp
+  src/Tracers/PathTrace.h
   src/Tracers/RayCast.cpp
   src/Tracers/RayCast.h
   src/Tracers/SingleSphere.cpp

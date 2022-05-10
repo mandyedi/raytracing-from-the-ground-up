@@ -41,6 +41,12 @@ class Material {
         virtual RGBColor
         shade(ShadeRec& sr);
 
+        virtual RGBColor
+        path_shade(ShadeRec& sr);
+
+        virtual RGBColor
+        global_shade(ShadeRec& sr);
+
         // 18.6 Other Materials
         // It has to be defined for every material tha we want to render with area-light shading
         virtual RGBColor

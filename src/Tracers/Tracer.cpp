@@ -44,3 +44,7 @@ Tracer::trace_ray([[maybe_unused]] const Ray& ray, [[maybe_unused]] const int de
 
 
 
+RGBColor
+Tracer::trace_ray(const Ray ray, float& tmin, const int depth) const {
+    return (RGBColor::black);
+}

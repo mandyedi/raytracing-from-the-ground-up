@@ -19,7 +19,7 @@ MultipleObjects::MultipleObjects(World* _worldPtr)
     : Tracer(_worldPtr)
 {}
 
-MultipleObjects::~MultipleObjects(void) {}
+
 
 RGBColor
 MultipleObjects::trace_ray(const Ray& ray) const {
@@ -32,4 +32,3 @@ MultipleObjects::trace_ray(const Ray& ray) const {
         return (world_ptr->background_color);
     }
 }
-
