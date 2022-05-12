@@ -11,79 +11,42 @@
 //  See the file COPYING.txt for the full license.
 
 #include "Directional.h"
+
 #include "../GeometricObjects/GeometricObject.h"
 
+Directional::Directional(const Directional& dl) : Light(dl), ls(dl.ls), color(dl.color), dir(dl.dir) {}
 
+Directional::Directional(Directional&& dl) noexcept : Light(std::move(dl)), ls(std::exchange(dl.ls, 1.0f)), color(std::move(dl.color)), dir(std::move(dl.dir)) {}
 
-Directional::Directional(const Directional& dl)
-    :   Light(dl),
-        ls(dl.ls),
-        color(dl.color),
-        dir(dl.dir)
-{}
+Directional& Directional::operator=(const Directional& dl) {
+    Light::operator=(dl);
 
-
-
-Directional::Directional(Directional&& dl) noexcept
-    :   Light(std::move(dl)),
-        ls(std::exchange(dl.ls, 1.0f)),
-        color(std::move(dl.color)),
-        dir(std::move(dl.dir))
-{}
-
-
-
-Directional&
-Directional::operator= (const Directional& dl) {
-    Light::operator= (dl);
-
-    ls      = dl.ls;
-    color   = dl.color;
-    dir     = dl.dir;
+    ls = dl.ls;
+    color = dl.color;
+    dir = dl.dir;
 
     return (*this);
 }
 
+Directional& Directional::operator=(Directional&& dl) noexcept {
+    Light::operator=(std::move(dl));
 
-
-Directional&
-Directional::operator= (Directional&& dl) noexcept {
-    Light::operator= (std::move(dl));
-
-    ls      = std::exchange(dl.ls, 1.0f);
-    color   = std::move(dl.color);
-    dir     = std::move(dl.dir);
+    ls = std::exchange(dl.ls, 1.0f);
+    color = std::move(dl.color);
+    dir = std::move(dl.dir);
 
     return (*this);
 }
 
-
-
-Light*
-Directional::clone(void) const {
-    return (new Directional(*this));
-}
-
-
+Light* Directional::clone(void) const { return (new Directional(*this)); }
 
 Directional::~Directional(void) {}
 
+Vector3D Directional::get_direction([[maybe_unused]] ShadeRec& sr) { return (dir); }
 
-Vector3D
-Directional::get_direction([[maybe_unused]] ShadeRec& sr) {
-    return (dir);
-}
+RGBColor Directional::L([[maybe_unused]] ShadeRec& s) { return (ls * color); }
 
-
-RGBColor
-Directional::L([[maybe_unused]] ShadeRec& s) {
-    return (ls * color);
-}
-
-
-bool
-Directional::in_shadow(const Ray &ray, const ShadeRec &sr) const
-{
+bool Directional::in_shadow(const Ray& ray, const ShadeRec& sr) const {
     float t;
     int num_objects = sr.w.objects.size();
 
@@ -94,5 +57,4 @@ Directional::in_shadow(const Ray &ray, const ShadeRec &sr) const
     }
 
     return false;
-
 }

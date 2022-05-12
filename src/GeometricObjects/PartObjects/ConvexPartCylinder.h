@@ -13,11 +13,10 @@
 #ifndef __CONVEXPARTCYLINDER__
 #define __CONVEXPARTCYLINDER__
 
-#include "../GeometricObject.h"
 #include "../../Utilities/BBox.h"
+#include "../GeometricObject.h"
 
-class ConvexPartCylinder: public GeometricObject {
-
+class ConvexPartCylinder : public GeometricObject {
 public:
 
     ConvexPartCylinder() = default;
@@ -30,29 +29,24 @@ public:
 
     ConvexPartCylinder(ConvexPartCylinder&& c) noexcept;
 
-    ConvexPartCylinder&
-    operator= (const ConvexPartCylinder& c);
+    ConvexPartCylinder& operator=(const ConvexPartCylinder& c);
 
-    ConvexPartCylinder&
-    operator= (ConvexPartCylinder&& c) noexcept;
+    ConvexPartCylinder& operator=(ConvexPartCylinder&& c) noexcept;
 
-    ConvexPartCylinder*
-    clone() const override;
+    ConvexPartCylinder* clone() const override;
 
-    bool
-    hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
+    bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 
-    BBox
-    get_bounding_box() const override;
+    BBox get_bounding_box() const override;
 
 private:
 
-    float y0         = -1.0f;
-    float y1         = 1.0f;
-    float radius     = 1.0f;
+    float y0 = -1.0f;
+    float y1 = 1.0f;
+    float radius = 1.0f;
     float inv_radius = 1.0f;
-    float phi_min    = 0.0f;
-    float phi_max    = 180.0f;
+    float phi_min = 0.0f;
+    float phi_max = 180.0f;
 };
 
 #endif

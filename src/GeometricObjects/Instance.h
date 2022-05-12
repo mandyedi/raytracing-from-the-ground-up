@@ -13,93 +13,67 @@
 #ifndef __INSTANCE__
 #define __INSTANCE__
 
-#include "GeometricObject.h"
 #include "../Utilities/Matrix.h"
+#include "GeometricObject.h"
 
-class Instance: public GeometricObject {
-    public:
+class Instance : public GeometricObject {
+public:
 
-        Instance(void);
+    Instance(void);
 
-        Instance(GeometricObject* obj_ptr);
+    Instance(GeometricObject* obj_ptr);
 
-        virtual
-        ~Instance(void);
+    virtual ~Instance(void);
 
-        Instance(const Instance& instance);
+    Instance(const Instance& instance);
 
-        Instance(Instance&& instance) noexcept;
+    Instance(Instance&& instance) noexcept;
 
-        Instance&
-        operator= (const Instance& instance);
+    Instance& operator=(const Instance& instance);
 
-        Instance&
-        operator= (Instance&& instance) noexcept;
+    Instance& operator=(Instance&& instance) noexcept;
 
-        virtual Instance*
-        clone(void) const;
+    virtual Instance* clone(void) const;
 
-        void
-        set_object(GeometricObject* obj_ptr);
+    void set_object(GeometricObject* obj_ptr);
 
-        void
-        transform_texture(const bool transform);
+    void transform_texture(const bool transform);
 
-        virtual void
-        compute_bounding_box(void);
+    virtual void compute_bounding_box(void);
 
-        virtual BBox
-        get_bounding_box(void);
+    virtual BBox get_bounding_box(void);
 
-        virtual Material*
-        get_material(void) const;
+    virtual Material* get_material(void) const;
 
-        virtual void
-        set_material(Material* materialPtr);
+    virtual void set_material(Material* materialPtr);
 
-        virtual bool
-        hit(const Ray& ray, float& tmin, ShadeRec& sr) const;
+    virtual bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const;
 
-        void
-        translate(const Vector3D& trans);
+    void translate(const Vector3D& trans);
 
-        void
-        translate(const float dx, const float dy, const float dz);
+    void translate(const float dx, const float dy, const float dz);
 
-        void
-        scale(const Vector3D& s);
+    void scale(const Vector3D& s);
 
-        void
-        scale(const float a, const float b, const float c);
+    void scale(const float a, const float b, const float c);
 
-        virtual void
-        rotate_x(const float r);
+    virtual void rotate_x(const float r);
 
-        virtual void
-        rotate_y(const float r);
+    virtual void rotate_y(const float r);
 
-        virtual void
-        rotate_z(const float r);
+    virtual void rotate_z(const float r);
 
-        void
-        shear(const Matrix& m);
+    void shear(const Matrix& m);
 
+private:
 
-    private:
-
-        GeometricObject*    object_ptr;             // object to be transformed
-        Matrix              inv_matrix;
-        static  Matrix      forward_matrix;         // transformation matrix
-        BBox                bbox;                   // transformed object's bounding box
-        bool                transform_the_texture;
-
-
+    GeometricObject* object_ptr;  // object to be transformed
+    Matrix inv_matrix;
+    static Matrix forward_matrix;  // transformation matrix
+    BBox bbox;                     // transformed object's bounding box
+    bool transform_the_texture;
 };
 
-
-inline void
-Instance::transform_texture(const bool transform) {
-    transform_the_texture = transform;
-}
+inline void Instance::transform_texture(const bool transform) { transform_the_texture = transform; }
 
 #endif

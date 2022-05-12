@@ -29,59 +29,47 @@
 #include "../GeometricObject.h"
 #include "../Mesh.h"
 
-class MeshTriangle: public GeometricObject {
+class MeshTriangle : public GeometricObject {
+public:
 
-    public:
+    MeshTriangle(void) = default;
 
-        MeshTriangle(void) = default;
+    explicit MeshTriangle(Mesh* _mesh_ptr, const int i1, const int i2, const int i3);
 
-        explicit MeshTriangle(Mesh* _mesh_ptr, const int i1, const int i2, const int i3);
+    virtual ~MeshTriangle(void);
 
-        virtual
-        ~MeshTriangle(void);
+    MeshTriangle(const MeshTriangle& mt);
 
-        MeshTriangle(const MeshTriangle& mt);
+    MeshTriangle(MeshTriangle&& mt) noexcept;
 
-        MeshTriangle(MeshTriangle&& mt) noexcept;
+    MeshTriangle& operator=(const MeshTriangle& rhs);
 
-        MeshTriangle&
-        operator= (const MeshTriangle& rhs);
+    MeshTriangle& operator=(MeshTriangle&& rhs) noexcept;
 
-        MeshTriangle&
-        operator= (MeshTriangle&& rhs) noexcept;
+    virtual MeshTriangle* clone(void) const = 0;
 
-        virtual MeshTriangle*
-        clone(void) const = 0;
+    virtual bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const = 0;
 
-        virtual bool
-        hit(const Ray& ray, float& tmin, ShadeRec& sr) const = 0;
+    bool shadow_hit(const Ray& ray, float& tmin) const override;
 
-        bool
-        shadow_hit(const Ray& ray, float& tmin) const override;
+    void compute_normal(const bool reverse_normal);
 
-        void
-        compute_normal(const bool reverse_normal);
+    virtual Normal get_normal(void) const override;
 
-        virtual Normal
-        get_normal(void) const override;
+    virtual BBox get_bounding_box(void);
 
-        virtual BBox
-        get_bounding_box(void);
+protected:
 
-    protected:
+    Mesh* mesh_ptr = nullptr;  // stores all the data
+    int index0 = 0;            // indices into the vertices array in the mesh
+    int index1 = 0;
+    int index2 = 0;
+    Normal normal = Normal();
+    float area = 0.0f;  // required for translucency
 
-        Mesh*       mesh_ptr    = nullptr;             // stores all the data
-        int         index0      = 0;                   // indices into the vertices array in the mesh
-        int         index1      = 0;
-        int         index2      = 0;
-        Normal      normal      = Normal();
-        float       area        = 0.0f;                // required for translucency
+    float interpolate_u(const float beta, const float gamma) const;
 
-        float
-        interpolate_u(const float beta, const float gamma) const;
-
-        float
-        interpolate_v(const float beta, const float gamma) const;
+    float interpolate_v(const float beta, const float gamma) const;
 };
 
 #endif

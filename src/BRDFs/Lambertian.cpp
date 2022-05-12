@@ -11,29 +11,15 @@
 //  See the file COPYING.txt for the full license.
 
 #include "../BRDFs/Lambertian.h"
+
 #include "../Utilities/Constants.h"
 
+Lambertian::Lambertian(const Lambertian& l) : BRDF(l), kd(l.kd), cd(l.cd) {}
 
+Lambertian::Lambertian(Lambertian&& l) noexcept : BRDF(std::move(l)), kd(std::exchange(l.kd, 0.0f)), cd(std::move(l.cd)) {}
 
-Lambertian::Lambertian(const Lambertian& l)
-    :   BRDF(l),
-        kd(l.kd),
-        cd(l.cd)
-{}
-
-
-
-Lambertian::Lambertian(Lambertian&& l) noexcept
-    :   BRDF(std::move(l)),
-        kd(std::exchange(l.kd, 0.0f)),
-        cd(std::move(l.cd))
-{}
-
-
-
-Lambertian&
-Lambertian::operator= (const Lambertian& l) {
-    BRDF::operator= (l);
+Lambertian& Lambertian::operator=(const Lambertian& l) {
+    BRDF::operator=(l);
 
     kd = l.kd;
     cd = l.cd;
@@ -41,11 +27,8 @@ Lambertian::operator= (const Lambertian& l) {
     return (*this);
 }
 
-
-
-Lambertian&
-Lambertian::operator= (Lambertian&& l) noexcept {
-    BRDF::operator= (std::move(l));
+Lambertian& Lambertian::operator=(Lambertian&& l) noexcept {
+    BRDF::operator=(std::move(l));
 
     kd = std::exchange(l.kd, 0.0f);
     cd = std::move(l.cd);
@@ -53,29 +36,15 @@ Lambertian::operator= (Lambertian&& l) noexcept {
     return (*this);
 }
 
+Lambertian* Lambertian::clone(void) const { return (new Lambertian(*this)); }
 
-
-Lambertian*
-Lambertian::clone(void) const {
-    return (new Lambertian(*this));
-}
-
-
-
-RGBColor
-Lambertian::f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo, [[maybe_unused]] const Vector3D& wi) const {
-    return (kd * cd * invPI);
-}
-
-
+RGBColor Lambertian::f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo, [[maybe_unused]] const Vector3D& wi) const { return (kd * cd * invPI); }
 
 // this generates a direction by sampling the hemisphere with a cosine distribution
 // this is called in path_shade for any material with a diffuse shading component
 // the samples have to be stored with a cosine distribution
 
-RGBColor
-Lambertian::sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const {
-
+RGBColor Lambertian::sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const {
     Vector3D w(sr.normal);
     Vector3D v = Vector3D(0.0034f, 1.0f, 0.0071f) ^ w;
     v.normalize();
@@ -90,8 +59,4 @@ Lambertian::sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float
     return (kd * cd * invPI);
 }
 
-
-RGBColor
-Lambertian::rho([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo) const {
-    return (kd * cd);
-}
+RGBColor Lambertian::rho([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo) const { return (kd * cd); }

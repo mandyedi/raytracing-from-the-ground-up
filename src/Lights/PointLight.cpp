@@ -11,79 +11,42 @@
 //  See the file COPYING.txt for the full license.
 
 #include "PointLight.h"
+
 #include "../GeometricObjects/GeometricObject.h"
 
 PointLight::~PointLight(void) {}
 
+PointLight::PointLight(const PointLight& pl) : Light(pl), ls(pl.ls), color(pl.color), location(pl.location) {}
 
+PointLight::PointLight(PointLight&& pl) noexcept : Light(std::move(pl)), ls(std::exchange(pl.ls, 1.0f)), color(std::move(pl.color)), location(std::move(pl.location)) {}
 
-PointLight::PointLight(const PointLight& pl)
-    :   Light(pl),
-        ls(pl.ls),
-        color(pl.color),
-        location(pl.location)
-{}
+PointLight& PointLight::operator=(const PointLight& pl) {
+    Light::operator=(pl);
 
-
-
-PointLight::PointLight(PointLight&& pl) noexcept
-    :   Light(std::move(pl)),
-        ls(std::exchange(pl.ls, 1.0f)),
-        color(std::move(pl.color)),
-        location(std::move(pl.location))
-{}
-
-
-
-PointLight&
-PointLight::operator= (const PointLight& pl)
-{
-    Light::operator= (pl);
-
-    ls      = pl.ls;
-    color   = pl.color;
-    location    = pl.location;
+    ls = pl.ls;
+    color = pl.color;
+    location = pl.location;
 
     return (*this);
 }
 
+PointLight& PointLight::operator=(PointLight&& pl) noexcept {
+    Light::operator=(std::move(pl));
 
-
-PointLight&
-PointLight::operator= (PointLight&& pl) noexcept
-{
-    Light::operator= (std::move(pl));
-
-    ls      = std::exchange(pl.ls, 1.0f);
-    color   = std::move(pl.color);
-    location    = std::move(pl.location);
+    ls = std::exchange(pl.ls, 1.0f);
+    color = std::move(pl.color);
+    location = std::move(pl.location);
 
     return (*this);
 }
 
+Light* PointLight::clone(void) const { return (new PointLight(*this)); }
 
+Vector3D PointLight::get_direction(ShadeRec& sr) { return (location - sr.hit_point).hat(); }
 
-Light*
-PointLight::clone(void) const {
-    return (new PointLight(*this));
-}
+RGBColor PointLight::L([[maybe_unused]] ShadeRec& s) { return (ls * color); }
 
-
-
-Vector3D
-PointLight::get_direction(ShadeRec& sr) {
-    return (location - sr.hit_point).hat();
-}
-
-
-RGBColor
-PointLight::L([[maybe_unused]] ShadeRec& s) {
-    return (ls * color);
-}
-
-bool
-PointLight::in_shadow(const Ray &ray, const ShadeRec &sr) const
-{
+bool PointLight::in_shadow(const Ray& ray, const ShadeRec& sr) const {
     float t;
     int num_objects = sr.w.objects.size();
     float d = location.distance(ray.o);
@@ -95,5 +58,4 @@ PointLight::in_shadow(const Ray &ray, const ShadeRec &sr) const
     }
 
     return false;
-
 }

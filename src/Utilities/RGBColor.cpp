@@ -10,29 +10,16 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#include <math.h>
-
 #include "RGBColor.h"
 
+#include <math.h>
 
+RGBColor::RGBColor(float c) : r(c), g(c), b(c) {}
 
-RGBColor::RGBColor(float c)
-    : r(c), g(c), b(c)
-{}
-
-
-
-RGBColor::RGBColor(float _r, float _g, float _b)
-    : r(_r), g(_g), b(_b)
-{}
-
-
+RGBColor::RGBColor(float _r, float _g, float _b) : r(_r), g(_g), b(_b) {}
 
 // used for color filtering in Chapter 28
-RGBColor
-RGBColor::powc(float p) const {
-    return (RGBColor(powf(r, p), powf(g, p), powf(b, p)));
-}
+RGBColor RGBColor::powc(float p) const { return (RGBColor(powf(r, p), powf(g, p), powf(b, p))); }
 
 const RGBColor RGBColor::black = RGBColor(0.0f);
 const RGBColor RGBColor::white = RGBColor(1.0f);

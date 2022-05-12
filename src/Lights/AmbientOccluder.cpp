@@ -11,9 +11,9 @@
 //  See the file COPYING.txt for the full license.
 
 #include "AmbientOccluder.h"
-#include "../Samplers/Sampler.h"
-#include "../GeometricObjects/GeometricObject.h"
 
+#include "../GeometricObjects/GeometricObject.h"
+#include "../Samplers/Sampler.h"
 
 AmbientOccluder::~AmbientOccluder(void) {
     if (sampler_ptr != nullptr) {
@@ -22,49 +22,23 @@ AmbientOccluder::~AmbientOccluder(void) {
     }
 }
 
-
-
-AmbientOccluder::AmbientOccluder(const AmbientOccluder& a)
-    :   Light(a),
-        ls(a.ls),
-        color(a.color),
-        min_amount(a.min_amount),
-        u(a.u),
-        v(a.v),
-        w(a.w)
-{
-    sampler_ptr = a.sampler_ptr->clone();
-}
-
-
+AmbientOccluder::AmbientOccluder(const AmbientOccluder& a) : Light(a), ls(a.ls), color(a.color), min_amount(a.min_amount), u(a.u), v(a.v), w(a.w) { sampler_ptr = a.sampler_ptr->clone(); }
 
 AmbientOccluder::AmbientOccluder(AmbientOccluder&& a) noexcept
-    :   Light(std::move(a)),
-        ls(std::exchange(a.ls, 1.0f)),
-        color(std::move(a.color)),
-        min_amount(std::exchange(a.min_amount, 0.0f)),
-        u(std::move(a.u)),
-        v(std::move(a.v)),
-        w(std::move(a.w))
-{
+    : Light(std::move(a)), ls(std::exchange(a.ls, 1.0f)), color(std::move(a.color)), min_amount(std::exchange(a.min_amount, 0.0f)), u(std::move(a.u)), v(std::move(a.v)), w(std::move(a.w)) {
     sampler_ptr = a.sampler_ptr;
     a.sampler_ptr = nullptr;
 }
 
-
-
-
-AmbientOccluder&
-AmbientOccluder::operator= (const AmbientOccluder& a)
-{
+AmbientOccluder& AmbientOccluder::operator=(const AmbientOccluder& a) {
     Light::operator=(a);
 
-    ls          = a.ls;
-    color       = a.color;
-    min_amount  = a.min_amount;
-    u           = a.u;
-    v           = a.v;
-    w           = a.w;
+    ls = a.ls;
+    color = a.color;
+    min_amount = a.min_amount;
+    u = a.u;
+    v = a.v;
+    w = a.w;
 
     if (sampler_ptr != nullptr) {
         delete sampler_ptr;
@@ -74,19 +48,15 @@ AmbientOccluder::operator= (const AmbientOccluder& a)
     return *this;
 }
 
-
-
-AmbientOccluder&
-AmbientOccluder::operator= (AmbientOccluder&& a) noexcept
-{
+AmbientOccluder& AmbientOccluder::operator=(AmbientOccluder&& a) noexcept {
     Light::operator=(std::move(a));
 
-    ls          = std::exchange(a.ls, 1.0f);
-    color       = std::move(a.color);
-    min_amount  = std::exchange(a.min_amount, 0.0f);
-    u           = std::move(a.u);
-    v           = std::move(a.v);
-    w           = std::move(a.w);
+    ls = std::exchange(a.ls, 1.0f);
+    color = std::move(a.color);
+    min_amount = std::exchange(a.min_amount, 0.0f);
+    u = std::move(a.u);
+    v = std::move(a.v);
+    w = std::move(a.w);
 
     if (sampler_ptr != nullptr) {
         delete sampler_ptr;
@@ -97,18 +67,9 @@ AmbientOccluder::operator= (AmbientOccluder&& a) noexcept
     return *this;
 }
 
+Light* AmbientOccluder::clone(void) const { return (new AmbientOccluder(*this)); }
 
-
-
-Light*
-AmbientOccluder::clone(void) const {
-    return (new AmbientOccluder(*this));
-}
-
-
-
-void
-AmbientOccluder::set_sampler(Sampler* s_ptr) {
+void AmbientOccluder::set_sampler(Sampler* s_ptr) {
     if (sampler_ptr) {
         delete sampler_ptr;
         sampler_ptr = nullptr;
@@ -118,16 +79,14 @@ AmbientOccluder::set_sampler(Sampler* s_ptr) {
     sampler_ptr->map_samples_to_hemisphere(1);
 }
 
-Vector3D
-AmbientOccluder::get_direction(ShadeRec& sr) {
+Vector3D AmbientOccluder::get_direction(ShadeRec& sr) {
     Point3D sp = sampler_ptr->sample_hemisphere();
     return (sp.x * u + sp.y * v + sp.z * w);
 }
 
-bool
-AmbientOccluder::in_shadow(const Ray& ray, const ShadeRec& sr) const {
-    float   t;
-    int     num_objects = sr.w.objects.size();
+bool AmbientOccluder::in_shadow(const Ray& ray, const ShadeRec& sr) const {
+    float t;
+    int num_objects = sr.w.objects.size();
 
     for (int j = 0; j < num_objects; j++) {
         if (sr.w.objects[j]->shadow_hit(ray, t)) {
@@ -138,10 +97,9 @@ AmbientOccluder::in_shadow(const Ray& ray, const ShadeRec& sr) const {
     return false;
 }
 
-RGBColor
-AmbientOccluder::L(ShadeRec& sr) {
+RGBColor AmbientOccluder::L(ShadeRec& sr) {
     w = sr.normal;
-    v = w ^ Vector3D(0.0072, 1.0f, 0.0034); // jitter the up vector in case normal is vertical
+    v = w ^ Vector3D(0.0072, 1.0f, 0.0034);  // jitter the up vector in case normal is vertical
     v.normalize();
     u = v ^ w;
 
@@ -151,8 +109,7 @@ AmbientOccluder::L(ShadeRec& sr) {
 
     if (in_shadow(shadow_ray, sr)) {
         return (min_amount * ls * color);
-    }
-    else {
+    } else {
         return (ls * color);
     }
 }

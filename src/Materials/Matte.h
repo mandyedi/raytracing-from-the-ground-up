@@ -13,100 +13,71 @@
 #ifndef __MATTE__
 #define __MATTE__
 
-#include "../Materials/Material.h"
 #include "../BRDFs/Lambertian.h"
+#include "../Materials/Material.h"
 
+class Matte : public Material {
+public:
 
-class Matte: public Material {
-    public:
+    Matte(void);
 
-        Matte(void);
+    ~Matte(void);
 
-        ~Matte(void);
+    Matte(const Matte& m);
 
-        Matte(const Matte& m);
+    Matte(Matte&& m) noexcept;
 
-        Matte(Matte&& m) noexcept;
+    Matte& operator=(const Matte& m);
 
-        Matte&
-        operator= (const Matte& m);
+    Matte& operator=(Matte&& m) noexcept;
 
-        Matte&
-        operator= (Matte&& m) noexcept;
+    Material* clone(void) const override;
 
-        Material*
-        clone(void) const override;
+    void set_ka(const float k);
 
-        void
-        set_ka(const float k);
+    void set_kd(const float k);
 
-        void
-        set_kd(const float k);
+    void set_cd(const RGBColor c);
 
-        void
-        set_cd(const RGBColor c);
+    void set_cd(const float r, const float g, const float b);
 
-        void
-        set_cd(const float r, const float g, const float b);
+    void set_cd(const float c);
 
-        void
-        set_cd(const float c);
+    RGBColor shade(ShadeRec& sr) override;
 
-        RGBColor
-        shade(ShadeRec& sr) override;
+    RGBColor path_shade(ShadeRec& sr) override;
 
-        RGBColor
-        path_shade(ShadeRec& sr) override;
+    RGBColor global_shade(ShadeRec& sr);
 
-        RGBColor
-        global_shade(ShadeRec& sr);
+    RGBColor area_light_shade(ShadeRec& sr) override;
 
-        RGBColor
-        area_light_shade(ShadeRec& sr) override;
+private:
 
-    private:
-
-        Lambertian*     ambient_brdf = nullptr;
-        Lambertian*     diffuse_brdf = nullptr;
+    Lambertian* ambient_brdf = nullptr;
+    Lambertian* diffuse_brdf = nullptr;
 };
-
 
 // this sets Lambertian::kd
 // there is no Lambertian::ka data member because ambient reflection
 // is diffuse reflection
 
-inline void
-Matte::set_ka(const float ka) {
-    ambient_brdf->set_kd(ka);
-}
-
+inline void Matte::set_ka(const float ka) { ambient_brdf->set_kd(ka); }
 
 // this also sets Lambertian::kd, but for a different Lambertian object
 
-inline void
-Matte::set_kd (const float kd) {
-    diffuse_brdf->set_kd(kd);
-}
+inline void Matte::set_kd(const float kd) { diffuse_brdf->set_kd(kd); }
 
-
-
-inline void
-Matte::set_cd(const RGBColor c) {
+inline void Matte::set_cd(const RGBColor c) {
     ambient_brdf->set_cd(c);
     diffuse_brdf->set_cd(c);
 }
 
-
-
-inline void
-Matte::set_cd(const float r, const float g, const float b) {
+inline void Matte::set_cd(const float r, const float g, const float b) {
     ambient_brdf->set_cd(r, g, b);
     diffuse_brdf->set_cd(r, g, b);
 }
 
-
-inline void
-Matte::set_cd(const float c) {
+inline void Matte::set_cd(const float c) {
     ambient_brdf->set_cd(c);
     diffuse_brdf->set_cd(c);
 }

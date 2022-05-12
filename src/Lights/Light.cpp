@@ -10,63 +10,34 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
+#include "Light.h"
 
 #include <utility>
-#include "Light.h"
-#include "../Utilities/RGBColor.h"
 
+#include "../Utilities/RGBColor.h"
 
 Light::~Light(void) {}
 
+Light::Light(const Light& l) : shadows(l.shadows) {}
 
+Light::Light(Light&& l) noexcept : shadows(std::exchange(l.shadows, false)) {}
 
-Light::Light(const Light& l)
-    : shadows(l.shadows)
-{}
-
-
-
-Light::Light(Light&& l) noexcept
-    : shadows(std::exchange(l.shadows, false))
-{}
-
-
-
-Light&
-Light::operator= (const Light& l) {
+Light& Light::operator=(const Light& l) {
     shadows = l.shadows;
 
     return (*this);
 }
 
-
-
-Light&
-Light::operator= (Light&& l) noexcept {
+Light& Light::operator=(Light&& l) noexcept {
     shadows = std::exchange(l.shadows, false);
 
     return (*this);
 }
 
+RGBColor Light::L([[maybe_unused]] ShadeRec& s) { return (RGBColor::black); }
 
+bool Light::in_shadow(const Ray& ray, const ShadeRec& sr) const { return false; }
 
-RGBColor
-Light::L([[maybe_unused]] ShadeRec& s) {
-    return (RGBColor::black);
-}
+float Light::G(const ShadeRec& sr) const { return 1.0f; };
 
-
-bool
-Light::in_shadow(const Ray &ray, const ShadeRec &sr) const{
-    return false;
-}
-
-float
-Light::G(const ShadeRec& sr) const {
-    return 1.0f;
-};
-
-float
-Light::pdf(const ShadeRec &sr) const {
-    return 1.0f;
-}
+float Light::pdf(const ShadeRec& sr) const { return 1.0f; }

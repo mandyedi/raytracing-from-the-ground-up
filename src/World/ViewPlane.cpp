@@ -11,11 +11,10 @@
 //  See the file COPYING.txt for the full license.
 
 #include "ViewPlane.h"
-#include "../Samplers/Sampler.h"
+
 #include "../Samplers/MultiJittered.h"
 #include "../Samplers/Regular.h"
-
-
+#include "../Samplers/Sampler.h"
 
 ViewPlane::~ViewPlane(void) {
     if (sampler_ptr) {
@@ -24,8 +23,7 @@ ViewPlane::~ViewPlane(void) {
     }
 }
 
-void
-ViewPlane::set_samples(const int n) {
+void ViewPlane::set_samples(const int n) {
     num_samples = n;
 
     if (sampler_ptr) {
@@ -35,15 +33,12 @@ ViewPlane::set_samples(const int n) {
 
     if (num_samples > 1) {
         sampler_ptr = new MultiJittered(num_samples);
-    }
-    else {
+    } else {
         sampler_ptr = new Regular(1);
     }
 }
 
-void
-ViewPlane::set_sampler(Sampler* sp) {
-
+void ViewPlane::set_sampler(Sampler* sp) {
     if (sampler_ptr) {
         delete sampler_ptr;
         sampler_ptr = nullptr;

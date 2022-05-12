@@ -18,89 +18,64 @@
 //    This C++ code is licensed under the GNU General Public License Version 2.
 //    See the file COPYING.txt for the full license.
 
-
 // this implements perfect specular reflection for indirect illumination
 // with reflective materials
 
 #include "BRDF.h"
 
-class PerfectSpecular: public BRDF
-{
-    public:
+class PerfectSpecular : public BRDF {
+public:
 
-        PerfectSpecular(void) = default;
+    PerfectSpecular(void) = default;
 
-        ~PerfectSpecular(void) = default;
+    ~PerfectSpecular(void) = default;
 
-        PerfectSpecular(const PerfectSpecular& l);
+    PerfectSpecular(const PerfectSpecular& l);
 
-        PerfectSpecular(PerfectSpecular&& l) noexcept;
+    PerfectSpecular(PerfectSpecular&& l) noexcept;
 
-        PerfectSpecular&
-        operator= (const PerfectSpecular& l);
+    PerfectSpecular& operator=(const PerfectSpecular& l);
 
-        PerfectSpecular&
-        operator= (PerfectSpecular&& l) noexcept;
+    PerfectSpecular& operator=(PerfectSpecular&& l) noexcept;
 
-        virtual PerfectSpecular*
-        clone(void) const;
+    virtual PerfectSpecular* clone(void) const;
 
-        void
-        set_kr(const float k);
+    void set_kr(const float k);
 
-        void
-        set_cr(const RGBColor& c);
+    void set_cr(const RGBColor& c);
 
-        void
-        set_cr(const float r, const float g, const float b);
+    void set_cr(const float r, const float g, const float b);
 
-        void
-        set_cr(const float c);
+    void set_cr(const float c);
 
-        virtual RGBColor
-        f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const;
+    virtual RGBColor f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const;
 
-        virtual RGBColor
-        sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi) const;
+    virtual RGBColor sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi) const;
 
-        virtual RGBColor
-        sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const;
+    virtual RGBColor sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi, float& pdf) const;
 
-        virtual RGBColor
-        rho(const ShadeRec& sr, const Vector3D& wo) const;
+    virtual RGBColor rho(const ShadeRec& sr, const Vector3D& wo) const;
 
-    private:
+private:
 
-        float        kr     = 0.0f;            // reflection coefficient
-        RGBColor     cr     = RGBColor::white;            // the reflection colour
+    float kr = 0.0f;                // reflection coefficient
+    RGBColor cr = RGBColor::white;  // the reflection colour
 };
 
+inline void PerfectSpecular::set_kr(const float k) { kr = k; }
 
+inline void PerfectSpecular::set_cr(const RGBColor& c) { cr = c; }
 
-inline void
-PerfectSpecular::set_kr(const float k) {
-    kr = k;
+inline void PerfectSpecular::set_cr(const float r, const float g, const float b) {
+    cr.r = r;
+    cr.g = g;
+    cr.b = b;
 }
 
-
-
-inline void
-PerfectSpecular::set_cr(const RGBColor& c) {
-    cr = c;
-}
-
-
-
-inline void
-PerfectSpecular::set_cr(const float r, const float g, const float b) {
-    cr.r = r; cr.g = g; cr.b = b;
-}
-
-
-
-inline void
-PerfectSpecular::set_cr(const float c) {
-    cr.r = c; cr.g = c; cr.b = c;
+inline void PerfectSpecular::set_cr(const float c) {
+    cr.r = c;
+    cr.g = c;
+    cr.b = c;
 }
 
 #endif

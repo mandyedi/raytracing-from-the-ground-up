@@ -13,31 +13,18 @@
 #ifndef __MATRIX__
 #define __MATRIX__
 
-
 class Matrix {
+public:
 
-    public:
+    float m[4][4] = {{1.0f, 0.0f, 0.0f, 0.0f}, {0.0f, 1.0f, 0.0f, 0.0f}, {0.0f, 0.0f, 1.0f, 0.0f}, {0.0f, 0.0f, 0.0f, 1.0f}};
 
-        float  m[4][4] = {
-            {1.0f, 0.0f, 0.0f, 0.0f},
-            {0.0f, 1.0f, 0.0f, 0.0f},
-            {0.0f, 0.0f, 1.0f, 0.0f},
-            {0.0f, 0.0f, 0.0f, 1.0f} };
+    Matrix(void) = default;
 
+    Matrix operator*(const Matrix& mat) const;
 
-        Matrix(void) = default;
+    Matrix operator/(const float d);
 
-        Matrix
-        operator* (const Matrix& mat) const;
-
-        Matrix
-        operator/ (const float d);
-
-        void
-        set_identity(void);
+    void set_identity(void);
 };
 
-
 #endif
-
-

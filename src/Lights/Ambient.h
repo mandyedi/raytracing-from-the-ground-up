@@ -15,78 +15,55 @@
 
 #include "Light.h"
 
-class Ambient: public Light {
-    public:
+class Ambient : public Light {
+public:
 
-        Ambient(void) = default;
+    Ambient(void) = default;
 
-        ~Ambient(void);
+    ~Ambient(void);
 
-        Ambient(const Ambient& a);
+    Ambient(const Ambient& a);
 
-        Ambient(Ambient&& a) noexcept;
+    Ambient(Ambient&& a) noexcept;
 
-        Ambient&
-        operator= (const Ambient& a);
+    Ambient& operator=(const Ambient& a);
 
-        Ambient&
-        operator= (Ambient&& a) noexcept;
+    Ambient& operator=(Ambient&& a) noexcept;
 
-        Light*
-        clone(void) const override;
+    Light* clone(void) const override;
 
-        void
-        scale_radiance(const float b);
+    void scale_radiance(const float b);
 
-        void
-        set_color(const float c);
+    void set_color(const float c);
 
-        void
-        set_color(const RGBColor& c);
+    void set_color(const RGBColor& c);
 
-        void
-        set_color(const float r, const float g, const float b);
+    void set_color(const float r, const float g, const float b);
 
-        virtual Vector3D
-        get_direction(ShadeRec& s) override;
+    virtual Vector3D get_direction(ShadeRec& s) override;
 
-        virtual RGBColor
-        L(ShadeRec& s) override;
+    virtual RGBColor L(ShadeRec& s) override;
 
-    private:
+private:
 
-        float       ls          = 1.0f;
-        RGBColor    color       = RGBColor::white;
+    float ls = 1.0f;
+    RGBColor color = RGBColor::white;
 };
 
+inline void Ambient::scale_radiance(const float b) { ls = b; }
 
-
-
-
-inline void
-Ambient::scale_radiance(const float b) {
-    ls = b;
+inline void Ambient::set_color(const float c) {
+    color.r = c;
+    color.g = c;
+    color.b = c;
 }
 
+inline void Ambient::set_color(const RGBColor& c) { color = c; }
 
-inline void
-Ambient::set_color(const float c) {
-    color.r = c; color.g = c; color.b = c;
+inline void Ambient::set_color(const float r, const float g, const float b) {
+    color.r = r;
+    color.g = g;
+    color.b = b;
 }
-
-
-
-inline void
-Ambient::set_color(const RGBColor& c) {
-    color = c;
-}
-
-
-
-inline void
-Ambient::set_color(const float r, const float g, const float b) {
-    color.r = r; color.g = g; color.b = b;
-}
-
 
 #endif

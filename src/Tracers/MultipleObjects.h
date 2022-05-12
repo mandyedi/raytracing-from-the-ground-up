@@ -15,23 +15,22 @@
 
 #include "Tracer.h"
 
-class MultipleObjects: public Tracer {
-    public:
+class MultipleObjects : public Tracer {
+public:
 
-        MultipleObjects(void) = delete;
+    MultipleObjects(void) = delete;
 
-        explicit MultipleObjects(World *_world_ptr);
+    explicit MultipleObjects(World* _world_ptr);
 
-        ~MultipleObjects(void) = default;
+    ~MultipleObjects(void) = default;
 
-        // For the sake of simplicity I prevent copy and move
-        MultipleObjects(const MultipleObjects& mo) = delete;
-        MultipleObjects(MultipleObjects&& mo) = delete;
-        MultipleObjects& operator= (const MultipleObjects& mo) = delete;
-        MultipleObjects& operator= (MultipleObjects&& mo) = delete;
+    // For the sake of simplicity I prevent copy and move
+    MultipleObjects(const MultipleObjects& mo) = delete;
+    MultipleObjects(MultipleObjects&& mo) = delete;
+    MultipleObjects& operator=(const MultipleObjects& mo) = delete;
+    MultipleObjects& operator=(MultipleObjects&& mo) = delete;
 
-        RGBColor
-        trace_ray(const Ray& ray) const override;
+    RGBColor trace_ray(const Ray& ray) const override;
 };
 
 #endif

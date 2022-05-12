@@ -13,70 +13,50 @@
 #ifndef __LIGHT__
 #define __LIGHT__
 
-#include "../Utilities/Vector3D.h"
 #include "../Utilities/RGBColor.h"
 #include "../Utilities/Ray.h"
+#include "../Utilities/Vector3D.h"
 
 class ShadeRec;
 
-
-
 class Light {
-    public:
+public:
 
-        Light(void) = default;
+    Light(void) = default;
 
-        virtual
-        ~Light(void);
+    virtual ~Light(void);
 
-        Light(const Light& ls);
+    Light(const Light& ls);
 
-        Light(Light&& ls) noexcept;
+    Light(Light&& ls) noexcept;
 
-        Light&
-        operator= (const Light& rhs);
+    Light& operator=(const Light& rhs);
 
-        Light&
-        operator= (Light&& rhs) noexcept;
+    Light& operator=(Light&& rhs) noexcept;
 
-        virtual Light*
-        clone(void) const = 0;
+    virtual Light* clone(void) const = 0;
 
-        virtual Vector3D
-        get_direction(ShadeRec& sr) = 0;
+    virtual Vector3D get_direction(ShadeRec& sr) = 0;
 
-        virtual RGBColor
-        L(ShadeRec& sr);
+    virtual RGBColor L(ShadeRec& sr);
 
-        virtual bool
-        in_shadow(const Ray& ray, const ShadeRec& sr) const;
+    virtual bool in_shadow(const Ray& ray, const ShadeRec& sr) const;
 
-        virtual float
-        G(const ShadeRec& sr) const;
+    virtual float G(const ShadeRec& sr) const;
 
-        virtual float
-        pdf(const ShadeRec &sr) const;
+    virtual float pdf(const ShadeRec& sr) const;
 
-        void
-        set_shadows(bool _shadows);
+    void set_shadows(bool _shadows);
 
+    bool casts_shadows();
 
-        bool
-        casts_shadows();
+protected:
 
-    protected:
-
-        bool shadows = false;
+    bool shadows = false;
 };
 
-inline void
-Light::set_shadows(bool _shadows) {
-    shadows = _shadows;
-}
+inline void Light::set_shadows(bool _shadows) { shadows = _shadows; }
 
-inline bool
-Light::casts_shadows() {
-    return shadows;
-}
+inline bool Light::casts_shadows() { return shadows; }
 
 #endif

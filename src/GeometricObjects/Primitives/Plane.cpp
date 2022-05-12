@@ -10,47 +10,22 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#include <utility>
 #include "Plane.h"
+
+#include <utility>
 
 const float Plane::kEpsilon = 0.001f;
 
+Plane::Plane(const Point3D& point, const Normal& normal) : GeometricObject(), a(point), n(normal) { n.normalize(); }
 
+Plane::~Plane(void) {}
 
-Plane::Plane(const Point3D& point, const Normal& normal)
-    :   GeometricObject(),
-        a(point),
-        n(normal)
-{
-        n.normalize();
-}
+Plane::Plane(const Plane& p) : GeometricObject(p), a(p.a), n(p.n) {}
 
+Plane::Plane(Plane&& p) noexcept : GeometricObject(std::move(p)), a(std::move(p.a)), n(std::move(p.n)) {}
 
-
-Plane::~Plane(void)
-{}
-
-
-
-Plane::Plane(const Plane& p)
-    :   GeometricObject(p),
-        a(p.a),
-        n(p.n)
-{}
-
-
-
-Plane::Plane(Plane&& p) noexcept
-    :   GeometricObject(std::move(p)),
-        a(std::move(p.a)),
-        n(std::move(p.n))
-{}
-
-
-
-Plane&
-Plane::operator= (const Plane& p)   {
-    GeometricObject::operator= (p);
+Plane& Plane::operator=(const Plane& p) {
+    GeometricObject::operator=(p);
 
     a = p.a;
     n = p.n;
@@ -58,11 +33,8 @@ Plane::operator= (const Plane& p)   {
     return (*this);
 }
 
-
-
-Plane&
-Plane::operator= (Plane&& p) noexcept {
-    GeometricObject::operator= (std::move(p));
+Plane& Plane::operator=(Plane&& p) noexcept {
+    GeometricObject::operator=(std::move(p));
 
     a = std::move(p.a);
     n = std::move(p.n);
@@ -70,17 +42,9 @@ Plane::operator= (Plane&& p) noexcept {
     return (*this);
 }
 
+Plane* Plane::clone(void) const { return (new Plane(*this)); }
 
-
-Plane*
-Plane::clone(void) const {
-    return (new Plane(*this));
-}
-
-
-
-bool
-Plane::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
+bool Plane::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float t = (a - ray.o) * n / (ray.d * n);
 
     if (t > kEpsilon) {
@@ -94,8 +58,7 @@ Plane::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     return false;
 }
 
-bool
-Plane::shadow_hit(const Ray& ray, float& tmin) const {
+bool Plane::shadow_hit(const Ray& ray, float& tmin) const {
     if (!shadows) {
         return false;
     }
@@ -108,5 +71,4 @@ Plane::shadow_hit(const Ray& ray, float& tmin) const {
     }
 
     return false;
-
 }

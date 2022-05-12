@@ -13,112 +13,76 @@
 #ifndef __POINTLIGHT__
 #define __POINTLIGHT__
 
-#include "Light.h"
-#include "../Utilities/Vector3D.h"
 #include "../Utilities/Point3D.h"
 #include "../Utilities/RGBColor.h"
-
-#include "../World/World.h"         // you will need this later on for shadows
 #include "../Utilities/ShadeRec.h"
+#include "../Utilities/Vector3D.h"
+#include "../World/World.h"  // you will need this later on for shadows
+#include "Light.h"
 
+class PointLight : public Light {
+public:
 
-class PointLight: public Light {
-    public:
+    PointLight(void) = default;
 
-        PointLight(void) = default;
+    ~PointLight(void);
 
-        ~PointLight(void);
+    PointLight(const PointLight& pl);
 
-        PointLight(const PointLight& pl);
+    PointLight(PointLight&& pl) noexcept;
 
-        PointLight(PointLight&& pl) noexcept;
+    PointLight& operator=(const PointLight& pl);
 
-        PointLight&
-        operator= (const PointLight& pl);
+    PointLight& operator=(PointLight&& pl) noexcept;
 
-        PointLight&
-        operator= (PointLight&& pl) noexcept;
+    virtual Light* clone(void) const override;
 
-        virtual Light*
-        clone(void) const override;
+    void scale_radiance(const float b);
 
-        void
-        scale_radiance(const float b);
+    void set_color(const float c);
 
-        void
-        set_color(const float c);
+    void set_color(const RGBColor& c);
 
-        void
-        set_color(const RGBColor& c);
+    void set_color(const float r, const float g, const float b);
 
-        void
-        set_color(const float r, const float g, const float b);
+    void set_location(const Point3D& p);
 
-        void
-        set_location(const Point3D& p);
+    void set_location(float x, float y, float z);
 
-        void
-        set_location(float x, float y, float z);
+    void set_direction(float dx, float dy, float dz);
 
-        void
-        set_direction(float dx, float dy, float dz);
+    virtual Vector3D get_direction(ShadeRec& sr) override;
 
-        virtual Vector3D
-        get_direction(ShadeRec& sr) override;
+    virtual RGBColor L(ShadeRec& sr) override;
 
-        virtual RGBColor
-        L(ShadeRec& sr) override;
+    virtual bool in_shadow(const Ray& ray, const ShadeRec& sr) const;
 
-        virtual bool
-        in_shadow(const Ray& ray, const ShadeRec& sr) const;
+private:
 
-    private:
-
-        float       ls          = 1.0f;
-        RGBColor    color       = RGBColor::white;
-        Point3D     location    = Point3D(0.0f);
+    float ls = 1.0f;
+    RGBColor color = RGBColor::white;
+    Point3D location = Point3D(0.0f);
 };
 
+inline void PointLight::scale_radiance(const float b) { ls = b; }
 
-
-
-
-inline void
-PointLight::scale_radiance(const float b) {
-    ls = b;
+inline void PointLight::set_color(const float c) {
+    color.r = c;
+    color.g = c;
+    color.b = c;
 }
 
+inline void PointLight::set_color(const RGBColor& c) { color = c; }
 
-inline void
-PointLight::set_color(const float c) {
-    color.r = c; color.g = c; color.b = c;
+inline void PointLight::set_color(const float r, const float g, const float b) {
+    color.r = r;
+    color.g = g;
+    color.b = b;
 }
 
+inline void PointLight::set_location(const Point3D& p) { location = p; }
 
-
-inline void
-PointLight::set_color(const RGBColor& c) {
-    color = c;
-}
-
-
-
-inline void
-PointLight::set_color(const float r, const float g, const float b) {
-    color.r = r; color.g = g; color.b = b;
-}
-
-
-
-inline void
-PointLight::set_location(const Point3D& p) {
-    location = p;
-}
-
-
-
-inline void
-PointLight::set_location(float x, float y, float z) {
+inline void PointLight::set_location(float x, float y, float z) {
     location.x = x;
     location.y = y;
     location.z = z;

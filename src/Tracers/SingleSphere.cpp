@@ -11,28 +11,22 @@
 //  See the file COPYING.txt for the full license.
 
 #include "SingleSphere.h"
-#include "../World/World.h"
-#include "../Utilities/ShadeRec.h"
+
 #include "../GeometricObjects/GeometricObject.h"
+#include "../Utilities/ShadeRec.h"
+#include "../World/World.h"
 
+SingleSphere::SingleSphere(World* _worldPtr) : Tracer(_worldPtr) {}
 
-SingleSphere::SingleSphere(World* _worldPtr)
-    : Tracer(_worldPtr)
-{}
-
-
-
-RGBColor
-SingleSphere::trace_ray(const Ray& ray) const {
-    ShadeRec    sr(*world_ptr);     // not used
-    float      t;                  // not used
+RGBColor SingleSphere::trace_ray(const Ray& ray) const {
+    ShadeRec sr(*world_ptr);  // not used
+    float t;                  // not used
 
     // This assumes that only one Sphere object is in World::objects vector.
     // TODO: add assert
     if (world_ptr->objects[0]->hit(ray, t, sr)) {
         return (RGBColor::red);
-    }
-    else {
+    } else {
         return (RGBColor::black);
     }
 }

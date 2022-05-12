@@ -15,25 +15,22 @@
 
 #include "Tracer.h"
 
-class SingleSphere: public Tracer {
-    public:
+class SingleSphere : public Tracer {
+public:
 
-        SingleSphere(void) = delete;
+    SingleSphere(void) = delete;
 
-        explicit SingleSphere(World* _worldPtr);
+    explicit SingleSphere(World* _worldPtr);
 
-        ~SingleSphere(void) = default;
+    ~SingleSphere(void) = default;
 
-        // For the sake of simplicity I prevent copy and move
-        SingleSphere(const SingleSphere& ss) = delete;
-        SingleSphere(SingleSphere&& ss) = delete;
-        SingleSphere& operator= (const SingleSphere& ss) = delete;
-        SingleSphere& operator= (SingleSphere&& ss) = delete;
+    // For the sake of simplicity I prevent copy and move
+    SingleSphere(const SingleSphere& ss) = delete;
+    SingleSphere(SingleSphere&& ss) = delete;
+    SingleSphere& operator=(const SingleSphere& ss) = delete;
+    SingleSphere& operator=(SingleSphere&& ss) = delete;
 
-
-
-        RGBColor
-        trace_ray(const Ray& ray) const override;
+    RGBColor trace_ray(const Ray& ray) const override;
 };
 
 #endif

@@ -13,31 +13,27 @@
 #ifndef __TEXTURE__
 #define __TEXTURE__
 
-#include "../Utilities/ShadeRec.h"
 #include "../Utilities/RGBColor.h"
+#include "../Utilities/ShadeRec.h"
 
 class Texture {
-  public:
-      Texture(void) = default;
+public:
 
-      virtual
-      ~Texture(void);
+    Texture(void) = default;
 
-      Texture(const Texture& t);
+    virtual ~Texture(void);
 
-      Texture(Texture&& t) noexcept;
+    Texture(const Texture& t);
 
-      Texture&
-      operator= (const Texture& t);
+    Texture(Texture&& t) noexcept;
 
-      Texture&
-      operator= (Texture&& t) noexcept;
+    Texture& operator=(const Texture& t);
 
-      virtual Texture*
-      clone(void) const = 0;
+    Texture& operator=(Texture&& t) noexcept;
 
-      virtual RGBColor
-      get_color(const ShadeRec& sr) const = 0;
+    virtual Texture* clone(void) const = 0;
+
+    virtual RGBColor get_color(const ShadeRec& sr) const = 0;
 };
 
 #endif

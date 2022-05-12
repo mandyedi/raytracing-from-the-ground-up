@@ -11,12 +11,12 @@
 //  See the file COPYING.txt for the full license.
 
 #include "EnvironmentLight.h"
+
+#include "../GeometricObjects/GeometricObject.h"
+#include "../Materials/Material.h"
 #include "../Samplers/Sampler.h"
 #include "../Utilities/ShadeRec.h"
-#include "../Materials/Material.h"
 #include "../World/World.h"
-#include "../GeometricObjects/GeometricObject.h"
-
 
 EnvironmentLight::~EnvironmentLight(void) {
     if (sampler_ptr != nullptr) {
@@ -30,32 +30,19 @@ EnvironmentLight::~EnvironmentLight(void) {
     }
 }
 
-EnvironmentLight::EnvironmentLight(const EnvironmentLight& el)
-    :   Light(el),
-        u(el.u),
-        v(el.v),
-        w(el.w),
-        wi(el.wi)
-{
+EnvironmentLight::EnvironmentLight(const EnvironmentLight& el) : Light(el), u(el.u), v(el.v), w(el.w), wi(el.wi) {
     sampler_ptr = el.sampler_ptr->clone();
     material_ptr = el.material_ptr->clone();
 }
 
-EnvironmentLight::EnvironmentLight(EnvironmentLight&& el) noexcept
-    :   Light(std::move(el)),
-        u(std::move(el.u)),
-        v(std::move(el.v)),
-        w(std::move(el.w)),
-        wi(std::move(el.wi))
-{
+EnvironmentLight::EnvironmentLight(EnvironmentLight&& el) noexcept : Light(std::move(el)), u(std::move(el.u)), v(std::move(el.v)), w(std::move(el.w)), wi(std::move(el.wi)) {
     sampler_ptr = el.sampler_ptr;
     el.sampler_ptr = nullptr;
     material_ptr = el.material_ptr;
     el.material_ptr = nullptr;
 }
 
-EnvironmentLight&
-EnvironmentLight::operator= (const EnvironmentLight& el) {
+EnvironmentLight& EnvironmentLight::operator=(const EnvironmentLight& el) {
     Light::operator=(el);
 
     if (sampler_ptr != nullptr) {
@@ -76,8 +63,7 @@ EnvironmentLight::operator= (const EnvironmentLight& el) {
     return *this;
 }
 
-EnvironmentLight&
-EnvironmentLight::operator= (EnvironmentLight&& el) noexcept {
+EnvironmentLight& EnvironmentLight::operator=(EnvironmentLight&& el) noexcept {
     Light::operator=(std::move(el));
 
     if (sampler_ptr != nullptr) {
@@ -100,14 +86,9 @@ EnvironmentLight::operator= (EnvironmentLight&& el) noexcept {
     return *this;
 }
 
+Light* EnvironmentLight::clone(void) const { return (new EnvironmentLight(*this)); }
 
-Light*
-EnvironmentLight::clone(void) const {
-    return (new EnvironmentLight(*this));
-}
-
-void
-EnvironmentLight::set_sampler(Sampler* s_ptr) {
+void EnvironmentLight::set_sampler(Sampler* s_ptr) {
     if (sampler_ptr) {
         delete sampler_ptr;
         sampler_ptr = nullptr;
@@ -117,8 +98,7 @@ EnvironmentLight::set_sampler(Sampler* s_ptr) {
     sampler_ptr->map_samples_to_hemisphere(1);
 }
 
-void
-EnvironmentLight::set_material(Material* m_ptr) {
+void EnvironmentLight::set_material(Material* m_ptr) {
     if (material_ptr) {
         delete material_ptr;
         material_ptr = nullptr;
@@ -127,8 +107,7 @@ EnvironmentLight::set_material(Material* m_ptr) {
     material_ptr = m_ptr;
 }
 
-Vector3D
-EnvironmentLight::get_direction(ShadeRec& sr) {
+Vector3D EnvironmentLight::get_direction(ShadeRec& sr) {
     w = sr.normal;
     v = Vector3D(0.0034, 1, 0.0071) ^ w;
     v.normalize();
@@ -139,15 +118,11 @@ EnvironmentLight::get_direction(ShadeRec& sr) {
     return (wi);
 }
 
-RGBColor
-EnvironmentLight::L(ShadeRec& sr) {
-    return (material_ptr->get_Le(sr));
-}
+RGBColor EnvironmentLight::L(ShadeRec& sr) { return (material_ptr->get_Le(sr)); }
 
-bool
-EnvironmentLight::in_shadow(const Ray& ray, const ShadeRec& sr) const {
-    float   t;
-    int     num_objects = sr.w.objects.size();
+bool EnvironmentLight::in_shadow(const Ray& ray, const ShadeRec& sr) const {
+    float t;
+    int num_objects = sr.w.objects.size();
 
     for (int j = 0; j < num_objects; j++) {
         if (sr.w.objects[j]->shadow_hit(ray, t)) {
@@ -161,7 +136,4 @@ EnvironmentLight::in_shadow(const Ray& ray, const ShadeRec& sr) const {
 // The following function is not in the book.
 // It uses Equation 18.6
 
-float
-EnvironmentLight::pdf(const ShadeRec& sr) const {
-    return (sr.normal * wi * invPI);
-}
+float EnvironmentLight::pdf(const ShadeRec& sr) const { return (sr.normal * wi * invPI); }

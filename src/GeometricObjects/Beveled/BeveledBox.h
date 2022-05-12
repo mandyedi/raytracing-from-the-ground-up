@@ -13,45 +13,39 @@
 #ifndef __BEVELED_BOX__
 #define __BEVELED_BOX__
 
-#include "../Compound/Compound.h"
 #include "../../Utilities/BBox.h"
 #include "../../Utilities/Point3D.h"
+#include "../Compound/Compound.h"
 
-class BeveledBox: public Compound {
-    public:
+class BeveledBox : public Compound {
+public:
 
-        BeveledBox(void);
+    BeveledBox(void);
 
-        BeveledBox(const Point3D& min_corner, const Point3D& max_corner, const float bevel_radius);
+    BeveledBox(const Point3D& min_corner, const Point3D& max_corner, const float bevel_radius);
 
-        ~BeveledBox(void);
+    ~BeveledBox(void);
 
-        BeveledBox(const BeveledBox& bb);
+    BeveledBox(const BeveledBox& bb);
 
-        BeveledBox(BeveledBox&& bb) noexcept;
+    BeveledBox(BeveledBox&& bb) noexcept;
 
-        BeveledBox&
-        operator= (const BeveledBox& bb);
+    BeveledBox& operator=(const BeveledBox& bb);
 
-        BeveledBox&
-        operator= (BeveledBox&& bb) noexcept;
+    BeveledBox& operator=(BeveledBox&& bb) noexcept;
 
-        BeveledBox*
-        clone(void) const override;
+    BeveledBox* clone(void) const override;
 
-        bool
-        shadow_hit(const Ray& ray, float& tmin) const override;
+    bool shadow_hit(const Ray& ray, float& tmin) const override;
 
-        bool
-        hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
+    bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 
-    private:
+private:
 
-        Point3D     p0;
-        Point3D     p1;
-        float       rb;
-        BBox        bbox;
+    Point3D p0;
+    Point3D p1;
+    float rb;
+    BBox bbox;
 };
 
 #endif
-

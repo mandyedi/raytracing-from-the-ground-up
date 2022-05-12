@@ -1,7 +1,6 @@
 #ifndef __HAMMERSLEY__
 #define __HAMMERSLEY__
 
-
 //  Copyright (C) Kevin Suffern 2000-2007.
 //  This C++ code is for non-commercial purposes only.
 //  This C++ code is licensed under the GNU General Public License Version 2.
@@ -16,36 +15,30 @@
 
 #include "Sampler.h"
 
-class Hammersley: public Sampler {
-    public:
+class Hammersley : public Sampler {
+public:
 
-        Hammersley(void) = delete;
+    Hammersley(void) = delete;
 
-        explicit Hammersley(const int num);
+    explicit Hammersley(const int num);
 
-        ~Hammersley(void) = default;
+    ~Hammersley(void) = default;
 
-        Hammersley(const Hammersley& r)  = default;
+    Hammersley(const Hammersley& r) = default;
 
-        Hammersley(Hammersley&& r) = default;
+    Hammersley(Hammersley&& r) = default;
 
-        Hammersley&
-        operator= (const Hammersley& rhs) = default;
+    Hammersley& operator=(const Hammersley& rhs) = default;
 
-        Hammersley&
-        operator= (Hammersley&& rhs) = default;
+    Hammersley& operator=(Hammersley&& rhs) = default;
 
-        virtual Hammersley*
-        clone(void) const override;
+    virtual Hammersley* clone(void) const override;
 
-        float
-        phi(int j);
+    float phi(int j);
 
-    private:
+private:
 
-        virtual void
-        generate_samples(void) override;
+    virtual void generate_samples(void) override;
 };
 
 #endif
-

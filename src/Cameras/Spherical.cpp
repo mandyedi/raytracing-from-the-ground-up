@@ -11,37 +11,23 @@
 //  See the file COPYING.txt for the full license.
 
 #include "Spherical.h"
-#include "../World/World.h"
-#include "../Utilities/RGBColor.h"
-#include "../Utilities/Point3D.h"
-#include "../Utilities/Vector3D.h"
-#include "../Utilities/Maths.h"
+
 #include "../Samplers/Sampler.h"
 #include "../Tracers/Tracer.h"
+#include "../Utilities/Maths.h"
+#include "../Utilities/Point3D.h"
+#include "../Utilities/RGBColor.h"
+#include "../Utilities/Vector3D.h"
+#include "../World/World.h"
 
 Spherical::~Spherical(void) {}
 
+Spherical::Spherical(const Spherical& s) : Camera(s), lambda_max(s.lambda_max), psi_max(s.psi_max) {}
 
+Spherical::Spherical(Spherical&& s) noexcept : Camera(std::move(s)), lambda_max(std::exchange(s.lambda_max, 0.0f)), psi_max(std::exchange(s.psi_max, 0.0f)) {}
 
-Spherical::Spherical(const Spherical& s)
-    :   Camera(s),
-        lambda_max(s.lambda_max),
-        psi_max(s.psi_max)
-{}
-
-
-
-Spherical::Spherical(Spherical&& s) noexcept
-    :   Camera(std::move(s)),
-        lambda_max(std::exchange(s.lambda_max, 0.0f)),
-        psi_max(std::exchange(s.psi_max, 0.0f))
-{}
-
-
-
-Spherical&
-Spherical::operator= (const Spherical& s) {
-    Camera::operator= (s);
+Spherical& Spherical::operator=(const Spherical& s) {
+    Camera::operator=(s);
 
     lambda_max = s.lambda_max;
     psi_max = s.psi_max;
@@ -49,11 +35,8 @@ Spherical::operator= (const Spherical& s) {
     return (*this);
 }
 
-
-
-Spherical&
-Spherical::operator= (Spherical&& s) noexcept {
-    Camera::operator= (std::move(s));
+Spherical& Spherical::operator=(Spherical&& s) noexcept {
+    Camera::operator=(std::move(s));
 
     lambda_max = std::exchange(s.lambda_max, 0.0f);
     psi_max = std::exchange(s.psi_max, 0.0f);
@@ -61,21 +44,9 @@ Spherical::operator= (Spherical&& s) noexcept {
     return (*this);
 }
 
+Camera* Spherical::clone(void) const { return (new Spherical(*this)); }
 
-
-Camera*
-Spherical::clone(void) const {
-    return (new Spherical(*this));
-}
-
-
-
-Vector3D
-Spherical::ray_direction(const Point2D&  pp,
-                         const int       hres,
-                         const int       vres,
-                         const float     s) const {
-
+Vector3D Spherical::ray_direction(const Point2D& pp, const int hres, const int vres, const float s) const {
     // compute the normalized device coordinates
 
     Point2D pn(2.0f / (s * static_cast<float>(hres)) * pp.x, 2.0f / (s * static_cast<float>(vres)) * pp.y);
@@ -83,15 +54,15 @@ Spherical::ray_direction(const Point2D&  pp,
     // compute the angles lambda and psi in radians
 
     float lambda = pn.x * degreeToRadian(lambda_max);
-    float psi    = pn.y * degreeToRadian(psi_max);
+    float psi = pn.y * degreeToRadian(psi_max);
 
     // compute the sherical azimuth and polar angles
 
-    float phi   = PI - lambda;
+    float phi = PI - lambda;
     float theta = 0.5f * PI - psi;
 
-    float sin_phi   = sinf(phi);
-    float cos_phi   = cosf(phi);
+    float sin_phi = sinf(phi);
+    float cos_phi = cosf(phi);
     float sin_theta = sinf(theta);
     float cos_theta = cosf(theta);
 
@@ -100,22 +71,21 @@ Spherical::ray_direction(const Point2D&  pp,
     return dir;
 }
 
-void
-Spherical::render_scene(const World& wr, float x /*= 0*/, int offset /*= 0*/) {
-    RGBColor    L;
-    int         hres        = wr.vp.hres;
-    int         vres        = wr.vp.vres;
-    float       s           = wr.vp.s;
-    Ray         ray;
-    int         depth       = 0;
-    Point2D     sp;                     // sample point in [0, 1] X [0, 1]
-    Point2D     pp;                     // sample point on the pixel
+void Spherical::render_scene(const World& wr, float x /*= 0*/, int offset /*= 0*/) {
+    RGBColor L;
+    int hres = wr.vp.hres;
+    int vres = wr.vp.vres;
+    float s = wr.vp.s;
+    Ray ray;
+    int depth = 0;
+    Point2D sp;  // sample point in [0, 1] X [0, 1]
+    Point2D pp;  // sample point on the pixel
 
     ray.o = eye;
     float inv_num_samples = 1.0f / static_cast<float>(wr.vp.num_samples);
 
-    for (int r = 0; r < vres; r++)      // up
-        for (int c = 0; c < hres; c++) {    // across
+    for (int r = 0; r < vres; r++)        // up
+        for (int c = 0; c < hres; c++) {  // across
             L = RGBColor::black;
 
             for (int j = 0; j < wr.vp.num_samples; j++) {
@@ -131,7 +101,6 @@ Spherical::render_scene(const World& wr, float x /*= 0*/, int offset /*= 0*/) {
             L *= exposure_time;
             wr.display_pixel(r, c + offset, L);
         }
-
 
     wr.save_to_ppm();
 }

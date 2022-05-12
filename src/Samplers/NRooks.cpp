@@ -11,32 +11,16 @@
 //  See the file COPYING.txt for the full license.
 
 #include "NRooks.h"
+
 #include "../Utilities/Random.h"
 
+NRooks::NRooks(const int num_samples) : Sampler(num_samples) { generate_samples(); }
 
-NRooks::NRooks(const int num_samples)
-    :   Sampler(num_samples) {
-    generate_samples();
-}
+NRooks::NRooks(const int num_samples, const int m) : Sampler(num_samples, m) { generate_samples(); }
 
+NRooks* NRooks::clone(void) const { return (new NRooks(*this)); }
 
-
-NRooks::NRooks(const int num_samples, const int m)
-    :   Sampler(num_samples, m) {
-    generate_samples();
-}
-
-
-
-NRooks*
-NRooks::clone(void) const {
-    return (new NRooks(*this));
-}
-
-
-
-void
-NRooks::generate_samples(void) {
+void NRooks::generate_samples(void) {
     for (int p = 0; p < num_sets; p++) {
         for (int j = 0; j < num_samples; j++) {
             Point2D sp((j + rand_float()) / num_samples, (j + rand_float()) / num_samples);
@@ -47,7 +31,3 @@ NRooks::generate_samples(void) {
     shuffle_x_coordinates();
     shuffle_y_coordinates();
 }
-
-
-
-

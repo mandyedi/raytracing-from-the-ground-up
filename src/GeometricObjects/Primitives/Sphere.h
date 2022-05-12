@@ -13,73 +13,53 @@
 #ifndef __SPHERE__
 #define __SPHERE__
 
-
 #include "../GeometricObject.h"
 
+class Sphere : public GeometricObject {
+public:
 
-class Sphere: public GeometricObject {
+    Sphere(void) = default;
 
-    public:
+    explicit Sphere(const Point3D& center, float r);
 
-        Sphere(void) = default;
+    ~Sphere(void);
 
-        explicit Sphere(const Point3D& center, float r);
+    Sphere(const Sphere& s);
 
-        ~Sphere(void);
+    Sphere(Sphere&& s) noexcept;
 
-        Sphere(const Sphere &s);
+    Sphere& operator=(const Sphere& s);
 
-        Sphere(Sphere &&s) noexcept;
+    Sphere& operator=(Sphere&& s) noexcept;
 
-        Sphere&
-        operator= (const Sphere& s);
+    Sphere* clone(void) const override;
 
-        Sphere&
-        operator= (Sphere&& s) noexcept;
+    void set_center(const Point3D& c);
 
-        Sphere*
-        clone(void) const override;
+    void set_center(const float x, const float y, const float z);
 
-        void
-        set_center(const Point3D& c);
+    void set_radius(const float r);
 
-        void
-        set_center(const float x, const float y, const float z);
+    bool hit(const Ray& ray, float& t, ShadeRec& s) const override;
 
-        void
-        set_radius(const float r);
+    bool shadow_hit(const Ray& ray, float& tmin) const override;
 
-        bool
-        hit(const Ray& ray, float& t, ShadeRec& s) const override;
+private:
 
-        bool
-        shadow_hit(const Ray &ray, float &tmin) const override;
+    Point3D center = Point3D(0.0f);
+    float radius = 1.0f;
 
-    private:
-
-        Point3D     center = Point3D(0.0f);
-        float      radius = 1.0f;
-
-        static const float kEpsilon;   // for shadows and secondary rays
+    static const float kEpsilon;  // for shadows and secondary rays
 };
 
+inline void Sphere::set_center(const Point3D& c) { center = c; }
 
-
-inline void
-Sphere::set_center(const Point3D& c) {
-    center = c;
-}
-
-inline void
-Sphere::set_center(const float x, const float y, const float z) {
+inline void Sphere::set_center(const float x, const float y, const float z) {
     center.x = x;
     center.y = y;
     center.z = z;
 }
 
-inline void
-Sphere::set_radius(const float r) {
-    radius = r;
-}
+inline void Sphere::set_radius(const float r) { radius = r; }
 
 #endif

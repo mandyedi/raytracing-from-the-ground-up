@@ -18,54 +18,46 @@
 // Making the normals public simplifies the code in the Grid::tessellate_smooth_sphere. This is currently
 // the only function that uses this class. The only figure that uses it is Figure 23.3
 
-#include "../GeometricObject.h"
-#include "../../Utilities/Point3D.h"
 #include "../../Utilities/Normal.h"
+#include "../../Utilities/Point3D.h"
+#include "../GeometricObject.h"
 
-class SmoothTriangle: public GeometricObject {
+class SmoothTriangle : public GeometricObject {
+public:
 
-    public:
+    Normal n0 = Normal(0.0f, 1.0f, 0.0f);  // normals at each vertex
+    Normal n1 = Normal(0.0f, 1.0f, 0.0f);
+    Normal n2 = Normal(0.0f, 1.0f, 0.0f);
 
-        Normal n0 = Normal(0.0f, 1.0f, 0.0f);           // normals at each vertex
-        Normal n1 = Normal(0.0f, 1.0f, 0.0f);
-        Normal n2 = Normal(0.0f, 1.0f, 0.0f);
+    SmoothTriangle(void) = default;
 
-        SmoothTriangle (void) = default;
+    explicit SmoothTriangle(const Point3D& a, const Point3D& b, const Point3D& c);
 
-        explicit SmoothTriangle (const Point3D& a, const Point3D& b, const Point3D& c);
+    ~SmoothTriangle(void) = default;
 
-        ~SmoothTriangle(void) = default;
+    SmoothTriangle(const SmoothTriangle& st);
 
-        SmoothTriangle(const SmoothTriangle& st);
+    SmoothTriangle(SmoothTriangle&& st) noexcept;
 
-        SmoothTriangle(SmoothTriangle&& st) noexcept;
+    SmoothTriangle& operator=(const SmoothTriangle& rhs);
 
-        SmoothTriangle&
-        operator= (const SmoothTriangle& rhs);
+    SmoothTriangle& operator=(SmoothTriangle&& rhs) noexcept;
 
-        SmoothTriangle&
-        operator= (SmoothTriangle&& rhs) noexcept;
+    SmoothTriangle* clone(void) const override;
 
-        SmoothTriangle*
-        clone(void) const override;
+    BBox get_bounding_box(void);
 
-        BBox
-        get_bounding_box(void);
+    bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 
-        bool
-        hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
+    bool shadow_hit(const Ray& ray, float& tmin) const override;
 
-        bool
-        shadow_hit(const Ray& ray, float& tmin) const override;
+private:
 
-    private:
+    Point3D v0 = Point3D(0.0f);  // vertices
+    Point3D v1 = Point3D(0.0f, 0.0f, 1.0f);
+    Point3D v2 = Point3D(1.0f, 0.0f, 0.0f);
 
-        Point3D v0 = Point3D(0.0f);                     // vertices
-        Point3D v1 = Point3D(0.0f, 0.0f, 1.0f);
-        Point3D v2 = Point3D(1.0f, 0.0f, 0.0f);
-
-        Normal
-        interpolate_normal(const float beta, const float gamma) const;
+    Normal interpolate_normal(const float beta, const float gamma) const;
 };
 
 #endif

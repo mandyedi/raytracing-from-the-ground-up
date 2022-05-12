@@ -10,13 +10,12 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#include "../World/World.h"
 #include "../GeometricObjects/Primitives/Sphere.h"
 #include "../Tracers/MultipleObjects.h"
 #include "../Utilities/RGBColor.h"
+#include "../World/World.h"
 
-void
-World::build_ch_03_page_one_image() {
+void World::build_ch_03_page_one_image() {
     vp.set_hres(400);
     vp.set_vres(400);
     vp.set_pixel_size(0.5f);

@@ -13,53 +13,47 @@
 #ifndef __BOX__
 #define __BOX__
 
-#include "../GeometricObject.h"
-#include "../../Utilities/Ray.h"
 #include "../../Utilities/Point3D.h"
+#include "../../Utilities/Ray.h"
+#include "../GeometricObject.h"
 
 class ShadeRec;
 
 class Box : public GeometricObject {
-    public:
-        float x0 = -1.0f;
-        float x1 = 1.0f;
-        float y0 = -1.0f;
-        float y1 = 1.0f;
-        float z0 = -1.0f;
-        float z1 = 1.0f;
+public:
 
-        Box(void) = default;
+    float x0 = -1.0f;
+    float x1 = 1.0f;
+    float y0 = -1.0f;
+    float y1 = 1.0f;
+    float z0 = -1.0f;
+    float z1 = 1.0f;
 
-        explicit Box(   const float x0, const float x1,
-                const float y0, const float y1,
-                const float z0, const float z1);
+    Box(void) = default;
 
-        explicit Box(const Point3D p0, const Point3D p1);
+    explicit Box(const float x0, const float x1, const float y0, const float y1, const float z0, const float z1);
 
-        ~Box(void) = default;
+    explicit Box(const Point3D p0, const Point3D p1);
 
-        Box(const Box& box);
+    ~Box(void) = default;
 
-        Box(Box&& box) noexcept;
+    Box(const Box& box);
 
-        Box&
-        operator= (const Box& box);
+    Box(Box&& box) noexcept;
 
-        Box &
-        operator= (Box&& box) noexcept;
+    Box& operator=(const Box& box);
 
-        Box*
-        clone(void) const override;
+    Box& operator=(Box&& box) noexcept;
 
-        bool
-        hit(const Ray& ray, float& tmin, ShadeRec& sr) const;
+    Box* clone(void) const override;
 
-        bool
-        inside(const Point3D& point) const;
+    bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const;
 
-    private:
-        Normal
-        get_normal(const int face_hit) const;
+    bool inside(const Point3D& point) const;
+
+private:
+
+    Normal get_normal(const int face_hit) const;
 };
 
 #endif

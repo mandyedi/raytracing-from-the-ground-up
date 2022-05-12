@@ -10,13 +10,12 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#include "../World/World.h"
-#include "../Tracers/MultipleObjects.h"
-#include "../GeometricObjects/Primitives/Sphere.h"
 #include "../GeometricObjects/Primitives/Plane.h"
+#include "../GeometricObjects/Primitives/Sphere.h"
+#include "../Tracers/MultipleObjects.h"
+#include "../World/World.h"
 
-void
-World::build_figure_03_20(void) {
+void World::build_figure_03_20(void) {
     vp.set_hres(200);
     vp.set_vres(200);
 

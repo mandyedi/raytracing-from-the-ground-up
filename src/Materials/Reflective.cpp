@@ -11,8 +11,8 @@
 //  See the file COPYING.txt for the full license.
 
 #include "Reflective.h"
-#include "../Tracers/Tracer.h"
 
+#include "../Tracers/Tracer.h"
 
 Reflective::~Reflective(void) {
     if (reflective_brdf != nullptr) {
@@ -21,25 +21,14 @@ Reflective::~Reflective(void) {
     }
 }
 
+Reflective::Reflective(const Reflective& r) : Phong(r) { reflective_brdf = r.reflective_brdf->clone(); }
 
-
-Reflective::Reflective(const Reflective& r)
-    :     Phong(r) {
-        reflective_brdf = r.reflective_brdf->clone();
-}
-
-
-
-Reflective::Reflective(Reflective&& r) noexcept
-    :     Phong(std::move(r)) {
+Reflective::Reflective(Reflective&& r) noexcept : Phong(std::move(r)) {
     reflective_brdf = r.reflective_brdf->clone();
     r.reflective_brdf = nullptr;
 }
 
-
-
-Reflective&
-Reflective::operator= (const Reflective& r) {
+Reflective& Reflective::operator=(const Reflective& r) {
     Phong::operator=(r);
 
     if (reflective_brdf != nullptr) {
@@ -51,10 +40,7 @@ Reflective::operator= (const Reflective& r) {
     return (*this);
 }
 
-
-
-Reflective&
-Reflective::operator= (Reflective&& r) noexcept {
+Reflective& Reflective::operator=(Reflective&& r) noexcept {
     Phong::operator=(std::move(r));
 
     if (reflective_brdf != nullptr) {
@@ -66,17 +52,9 @@ Reflective::operator= (Reflective&& r) noexcept {
     return (*this);
 }
 
+Reflective* Reflective::clone(void) const { return (new Reflective(*this)); }
 
-
-Reflective*
-Reflective::clone(void) const {
-    return (new Reflective(*this));
-}
-
-
-
-RGBColor
-Reflective::shade(ShadeRec& sr) {
+RGBColor Reflective::shade(ShadeRec& sr) {
     RGBColor L(Phong::shade(sr));  // direct illumination
 
     Vector3D wo = -sr.ray.d;
@@ -89,33 +67,26 @@ Reflective::shade(ShadeRec& sr) {
     return (L);
 }
 
-
-
-RGBColor
-Reflective::path_shade(ShadeRec& sr) {
-    Vector3D    wo = -sr.ray.d;
-    Vector3D    wi;
-    float       pdf;
-    RGBColor    fr = reflective_brdf->sample_f(sr, wo, wi, pdf);
-    Ray         reflected_ray(sr.hit_point, wi);
+RGBColor Reflective::path_shade(ShadeRec& sr) {
+    Vector3D wo = -sr.ray.d;
+    Vector3D wi;
+    float pdf;
+    RGBColor fr = reflective_brdf->sample_f(sr, wo, wi, pdf);
+    Ray reflected_ray(sr.hit_point, wi);
 
     return (fr * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * (sr.normal * wi) / pdf);
 }
 
-
-
-RGBColor
-Reflective::global_shade(ShadeRec& sr) {
-    Vector3D    wo = -sr.ray.d;
-    Vector3D    wi;
-    float       pdf;
-    RGBColor    fr = reflective_brdf->sample_f(sr, wo, wi, pdf);
-    Ray         reflected_ray(sr.hit_point, wi);
+RGBColor Reflective::global_shade(ShadeRec& sr) {
+    Vector3D wo = -sr.ray.d;
+    Vector3D wi;
+    float pdf;
+    RGBColor fr = reflective_brdf->sample_f(sr, wo, wi, pdf);
+    Ray reflected_ray(sr.hit_point, wi);
 
     if (sr.depth == 0) {
         return (fr * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 2) * (sr.normal * wi) / pdf);
-    }
-    else {
+    } else {
         return (fr * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * (sr.normal * wi) / pdf);
     }
 }

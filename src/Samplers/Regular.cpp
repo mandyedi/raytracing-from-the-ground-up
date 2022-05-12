@@ -12,27 +12,12 @@
 
 #include "Regular.h"
 
+Regular::Regular(const int num) : Sampler(num) { generate_samples(); }
 
+Regular* Regular::clone(void) const { return (new Regular(*this)); }
 
-
-Regular::Regular(const int num)
-    :   Sampler(num) 
-{
-    generate_samples();
-}
-
-
-
-Regular*
-Regular::clone(void) const {
-    return (new Regular(*this));
-}
-
-
-
-void
-Regular::generate_samples(void) {
-    int n = (int) sqrt((float)num_samples);
+void Regular::generate_samples(void) {
+    int n = (int)sqrt((float)num_samples);
 
     for (int j = 0; j < num_sets; j++) {
         for (int p = 0; p < n; p++) {

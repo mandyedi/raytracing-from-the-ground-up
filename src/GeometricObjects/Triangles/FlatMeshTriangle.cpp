@@ -10,31 +10,15 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-
-
-#include <limits>
 #include "FlatMeshTriangle.h"
 
+#include <limits>
 
+FlatMeshTriangle::FlatMeshTriangle(Mesh* _mesh_ptr, const int i0, const int i1, const int i2) : MeshTriangle(_mesh_ptr, i0, i1, i2) {}
 
+FlatMeshTriangle* FlatMeshTriangle::clone(void) const { return (new FlatMeshTriangle(*this)); }
 
-FlatMeshTriangle::FlatMeshTriangle (Mesh* _mesh_ptr, const int i0, const int i1, const int i2)
-    :     MeshTriangle(_mesh_ptr, i0, i1, i2)
-{}
-
-
-
-
-FlatMeshTriangle*
-FlatMeshTriangle::clone(void) const {
-    return (new FlatMeshTriangle(*this));
-}
-
-
-
-
-bool
-FlatMeshTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
+bool FlatMeshTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     Point3D v0(mesh_ptr->vertices[index0]);
     Point3D v1(mesh_ptr->vertices[index1]);
     Point3D v2(mesh_ptr->vertices[index2]);
@@ -46,13 +30,13 @@ FlatMeshTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float m = f * k - g * j, n = h * k - g * l, p = f * l - h * j;
     float q = g * i - e * k, s = e * j - f * i;
 
-    float inv_denom  = 1.0f / (a * m + b * q + c * s);
+    float inv_denom = 1.0f / (a * m + b * q + c * s);
 
     float e1 = d * m - b * n - c * p;
     float beta = e1 * inv_denom;
 
     if (beta < 0.0f) {
-         return (false);
+        return (false);
     }
 
     float r = e * l - h * i;
@@ -60,7 +44,7 @@ FlatMeshTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float gamma = e2 * inv_denom;
 
     if (gamma < 0.0f) {
-         return (false);
+        return (false);
     }
 
     if (beta + gamma > 1.0f) {
@@ -74,9 +58,9 @@ FlatMeshTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
         return (false);
     }
 
-    tmin                  = t;
-    sr.normal             = normal;                  // for flat shading
-    sr.local_hit_point    = ray.o + t * ray.d;
+    tmin = t;
+    sr.normal = normal;  // for flat shading
+    sr.local_hit_point = ray.o + t * ray.d;
 
     return (true);
 }

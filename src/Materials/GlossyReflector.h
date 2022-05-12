@@ -16,61 +16,44 @@
 #include "../BRDFs/GlossySpecular.h"
 #include "Phong.h"
 
-class GlossyReflector: public Phong {
+class GlossyReflector : public Phong {
+public:
 
-    public:
+    GlossyReflector() = default;
 
-        GlossyReflector() = default;
+    ~GlossyReflector();
 
-        ~GlossyReflector();
+    GlossyReflector(const GlossyReflector& gr);
 
-        GlossyReflector(const GlossyReflector& gr);
+    GlossyReflector(GlossyReflector&& gr) noexcept;
 
-        GlossyReflector(GlossyReflector&& gr) noexcept;
+    GlossyReflector& operator=(const GlossyReflector& gr);
 
-        GlossyReflector&
-        operator= (const GlossyReflector& gr);
+    GlossyReflector& operator=(GlossyReflector&& gr) noexcept;
 
-        GlossyReflector&
-        operator= (GlossyReflector&& gr) noexcept;
+    GlossyReflector* clone(void) const override;
 
-        GlossyReflector*
-        clone(void) const override;
+    void set_samples(const int num_samples, const float exp);
 
-        void
-        set_samples(const int num_samples, const float exp);
+    void set_kr(const float k);
 
-        void
-        set_kr(const float k);
+    void set_exponent(const float exp);
 
-        void
-        set_exponent(const float exp);
+    // TODO: ???
+    // virtual RGBColor
+    // shade(ShadeRec &sr) override;
 
-        // TODO: ???
-        // virtual RGBColor
-        // shade(ShadeRec &sr) override;
+    virtual RGBColor area_light_shade(ShadeRec& sr) override;
 
-        virtual RGBColor
-        area_light_shade(ShadeRec& sr) override;
+private:
 
-    private:
-
-        GlossySpecular* glossy_specular_brdf = new GlossySpecular;
+    GlossySpecular* glossy_specular_brdf = new GlossySpecular;
 };
 
-inline void
-GlossyReflector::set_samples(const int num_samples, const float exp) {
-    glossy_specular_brdf->set_samples(num_samples, exp);
-}
+inline void GlossyReflector::set_samples(const int num_samples, const float exp) { glossy_specular_brdf->set_samples(num_samples, exp); }
 
-inline void
-GlossyReflector::set_kr(const float k) {
-    glossy_specular_brdf->set_ks(k);
-}
+inline void GlossyReflector::set_kr(const float k) { glossy_specular_brdf->set_ks(k); }
 
-inline void
-GlossyReflector::set_exponent(const float exp) {
-    glossy_specular_brdf->set_exp(exp);
-}
+inline void GlossyReflector::set_exponent(const float exp) { glossy_specular_brdf->set_exp(exp); }
 
 #endif

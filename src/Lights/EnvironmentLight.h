@@ -18,52 +18,43 @@
 class Sampler;
 class Material;
 
-class EnvironmentLight: public Light {
-    public:
+class EnvironmentLight : public Light {
+public:
 
-        EnvironmentLight(void) = default;
+    EnvironmentLight(void) = default;
 
-        ~EnvironmentLight(void);
+    ~EnvironmentLight(void);
 
-        EnvironmentLight(const EnvironmentLight& el);
+    EnvironmentLight(const EnvironmentLight& el);
 
-        EnvironmentLight(EnvironmentLight&& el) noexcept;
+    EnvironmentLight(EnvironmentLight&& el) noexcept;
 
-        EnvironmentLight&
-        operator= (const EnvironmentLight& el);
+    EnvironmentLight& operator=(const EnvironmentLight& el);
 
-        EnvironmentLight&
-        operator= (EnvironmentLight&& el) noexcept;
+    EnvironmentLight& operator=(EnvironmentLight&& el) noexcept;
 
-        Light*
-        clone(void) const override;
+    Light* clone(void) const override;
 
-        void
-        set_sampler(Sampler* sampler);
+    void set_sampler(Sampler* sampler);
 
-        void
-        set_material(Material* material);
+    void set_material(Material* material);
 
-        Vector3D
-        get_direction(ShadeRec& s);
+    Vector3D get_direction(ShadeRec& s);
 
-        RGBColor
-        L(ShadeRec& sr);
+    RGBColor L(ShadeRec& sr);
 
-        bool
-        in_shadow(const Ray& ray, const ShadeRec& sr) const;
+    bool in_shadow(const Ray& ray, const ShadeRec& sr) const;
 
-        float
-        pdf(const ShadeRec& sr) const;
+    float pdf(const ShadeRec& sr) const;
 
-    private:
+private:
 
-        Sampler*    sampler_ptr     = nullptr;
-        Material*   material_ptr    = nullptr;
-        Vector3D    u               = Vector3D(1.0f, 0.0f, 0.0f);
-        Vector3D    v               = Vector3D(0.0f, 1.0f, 0.0f);
-        Vector3D    w               = Vector3D(0.0f, 0.0f, 1.0f);
-        Vector3D    wi              = Vector3D(0.0f, 0.0f, 0.0f);
+    Sampler* sampler_ptr = nullptr;
+    Material* material_ptr = nullptr;
+    Vector3D u = Vector3D(1.0f, 0.0f, 0.0f);
+    Vector3D v = Vector3D(0.0f, 1.0f, 0.0f);
+    Vector3D w = Vector3D(0.0f, 0.0f, 1.0f);
+    Vector3D wi = Vector3D(0.0f, 0.0f, 0.0f);
 };
 
 #endif

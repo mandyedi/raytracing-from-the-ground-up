@@ -18,12 +18,6 @@ Texture::Texture(const Texture& t) {}
 
 Texture::Texture(Texture&& t) noexcept {}
 
-Texture&
-Texture::operator= (const Texture& t) {
-    return *this;
-}
+Texture& Texture::operator=(const Texture& t) { return *this; }
 
-Texture&
-Texture::operator= (Texture&& t) noexcept {
-    return *this;
-}
+Texture& Texture::operator=(Texture&& t) noexcept { return *this; }

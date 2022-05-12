@@ -17,63 +17,53 @@
 
 class Sampler;
 
-class Rectangle: public GeometricObject {
-    public:
+class Rectangle : public GeometricObject {
+public:
 
-        Rectangle(void) = default;
+    Rectangle(void) = default;
 
-        explicit Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b);
+    explicit Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b);
 
-        explicit Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b, const Normal& n);
+    explicit Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b, const Normal& n);
 
-        ~Rectangle(void);
+    ~Rectangle(void);
 
-        Rectangle(const Rectangle& r);
+    Rectangle(const Rectangle& r);
 
-        Rectangle(Rectangle&& r) noexcept;
+    Rectangle(Rectangle&& r) noexcept;
 
-        Rectangle&
-        operator= (const Rectangle& rhs);
+    Rectangle& operator=(const Rectangle& rhs);
 
-        Rectangle&
-        operator= (Rectangle&& rhs) noexcept;
+    Rectangle& operator=(Rectangle&& rhs) noexcept;
 
-        Rectangle*
-        clone(void) const override;
+    Rectangle* clone(void) const override;
 
-        BBox
-        get_bounding_box(void) const override;
+    BBox get_bounding_box(void) const override;
 
-        bool
-        hit(const Ray& ray, float& t, ShadeRec& s) const override;
+    bool hit(const Ray& ray, float& t, ShadeRec& s) const override;
 
+    // the following functions are used when the rectangle is a light source
 
-        // the following functions are used when the rectangle is a light source
+    Point3D sample(void) override;
 
+    Normal get_normal(const Point3D& p) override;
 
-        Point3D
-        sample(void) override;
+    float pdf(const ShadeRec& sr) override;
 
-        Normal
-        get_normal(const Point3D& p) override;
+private:
 
-        float
-        pdf(const ShadeRec& sr) override;
+    Point3D p0 = Point3D(-1.0f, 0.0f, -1.0f);  // corner vertex
+    Vector3D a = Vector3D(0.0f, 0.0f, 2.0f);   // side
+    Vector3D b = Vector3D(2.0f, 0.0f, 0.0f);   // side
+    float a_len_squared = 4.0f;                // square of the length of side a
+    float b_len_squared = 4.0f;                // square of the length of side b
+    Normal normal = Normal(0.0f, 1.0f, 0.0f);
 
-    private:
+    float area = 4.0f;               // for rectangular lights
+    float inv_area = 0.25f;          // for rectangular lights
+    Sampler* sampler_ptr = nullptr;  // for rectangular lights
 
-        Point3D     p0              = Point3D(-1.0f, 0.0f, -1.0f);     // corner vertex
-        Vector3D    a               = Vector3D(0.0f, 0.0f, 2.0f);      // side
-        Vector3D    b               = Vector3D(2.0f, 0.0f, 0.0f);      // side
-        float      a_len_squared   = 4.0f;                          // square of the length of side a
-        float      b_len_squared   = 4.0f;                          // square of the length of side b
-        Normal      normal          = Normal(0.0f, 1.0f, 0.0f);
-
-        float       area            = 4.0f;                         // for rectangular lights
-        float       inv_area        = 0.25f;                        // for rectangular lights
-        Sampler*    sampler_ptr     = nullptr;                      // for rectangular lights
-
-        static const float kEpsilon;
+    static const float kEpsilon;
 };
 
 #endif

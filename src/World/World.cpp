@@ -10,31 +10,29 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#include <fstream>
-#include <ctime>
-#include <iomanip>
-#include <sstream>
-#include <limits>
-
 #include "World.h"
-#include "../Tracers/Tracer.h"
-#include "../Lights/Light.h"
+
+#include <ctime>
+#include <fstream>
+#include <iomanip>
+#include <limits>
+#include <sstream>
+
 #include "../Cameras/Camera.h"
 #include "../GeometricObjects/GeometricObject.h"
+#include "../Lights/Light.h"
+#include "../Tracers/Tracer.h"
 
 World::~World(void) {
-
     if (tracer_ptr) {
         delete tracer_ptr;
         tracer_ptr = NULL;
     }
 
-
     if (ambient_ptr) {
         delete ambient_ptr;
         ambient_ptr = NULL;
     }
-
 
     if (camera_ptr) {
         delete camera_ptr;
@@ -45,30 +43,27 @@ World::~World(void) {
     delete_lights();
 }
 
-void
-World::build(void) {
+void World::build(void) {
     // build_ch_03_page_one_image();
     // build_figure_03_18();
     // build_figure_03_20();
     build_figure_04_04();
 }
 
-
-void
-World::render_scene(void) const {
-    RGBColor    pixel_color;
-    Ray         ray;
-    int         hres    = vp.hres;
-    int         vres    = vp.vres;
-    float       s       = vp.s;
-    float       zw      = 100.0f;
-    float       x       = 0.0f;
-    float       y       = 0.0f;
+void World::render_scene(void) const {
+    RGBColor pixel_color;
+    Ray ray;
+    int hres = vp.hres;
+    int vres = vp.vres;
+    float s = vp.s;
+    float zw = 100.0f;
+    float x = 0.0f;
+    float y = 0.0f;
 
     ray.d = Vector3D(0.0f, 0.0f, -1.0f);
 
-    for (int r = 0; r < vres; r++) {                    // up
-        for (int c = 0; c < hres; c++) {                // across
+    for (int r = 0; r < vres; r++) {      // up
+        for (int c = 0; c < hres; c++) {  // across
             x = vp.s * (static_cast<float>(c) - 0.5f * (static_cast<float>(vp.hres) - 1.0f));
             y = vp.s * (static_cast<float>(r) - 0.5f * (static_cast<float>(vp.vres) - 1.0f));
             ray.o = Point3D(x, y, zw);
@@ -80,24 +75,22 @@ World::render_scene(void) const {
     save_to_ppm();
 }
 
-ShadeRec
-World::hit_objects(const Ray& ray) {
-
-    ShadeRec    sr(*this);
-    float       t;
-    Normal      normal;
-    Point3D     local_hit_point;
-    float       tmin            = std::numeric_limits<float>::max();
-    size_t      num_objects     = objects.size();
+ShadeRec World::hit_objects(const Ray& ray) {
+    ShadeRec sr(*this);
+    float t;
+    Normal normal;
+    Point3D local_hit_point;
+    float tmin = std::numeric_limits<float>::max();
+    size_t num_objects = objects.size();
 
     for (size_t j = 0; j < num_objects; j++) {
         if (objects[j]->hit(ray, t, sr) && (t < tmin)) {
-            sr.hit_an_object    = true;
-            tmin                = t;
-            sr.material_ptr     = objects[j]->get_material();
-            sr.hit_point        = ray.o + t * ray.d;
-            normal              = sr.normal;
-            local_hit_point     = sr.local_hit_point;
+            sr.hit_an_object = true;
+            tmin = t;
+            sr.material_ptr = objects[j]->get_material();
+            sr.hit_point = ray.o + t * ray.d;
+            normal = sr.normal;
+            local_hit_point = sr.local_hit_point;
         }
     }
 
@@ -107,25 +100,24 @@ World::hit_objects(const Ray& ray) {
         sr.local_hit_point = local_hit_point;
     }
 
-    return(sr);
+    return (sr);
 }
 
-ShadeRec
-World::hit_bare_bones_objects(const Ray &ray) {
-    ShadeRec    sr(*this);
-    float       t;
-    float       tmin = std::numeric_limits<float>::max();
-    size_t      num_objects = objects.size();
+ShadeRec World::hit_bare_bones_objects(const Ray& ray) {
+    ShadeRec sr(*this);
+    float t;
+    float tmin = std::numeric_limits<float>::max();
+    size_t num_objects = objects.size();
 
-    for ( size_t j = 0; j < num_objects; j++ ) {
-        if ( objects[j]->hit(ray, t, sr) && (t < tmin) ) {
+    for (size_t j = 0; j < num_objects; j++) {
+        if (objects[j]->hit(ray, t, sr) && (t < tmin)) {
             sr.hit_an_object = true;
             tmin = t;
             sr.color = objects[j]->get_color();
         }
     }
 
-    return(sr);
+    return (sr);
 }
 
 // raw_color is the pixel color computed by the ray tracer
@@ -137,15 +129,12 @@ World::hit_bare_bones_objects(const Ray &ray) {
 // the system-dependent code is in the function convert_to_display_color
 // the function SetCPixel is a Mac OS function
 
-
-void
-World::display_pixel([[maybe_unused]] const int row, [[maybe_unused]] const int column, const RGBColor& raw_color) const {
+void World::display_pixel([[maybe_unused]] const int row, [[maybe_unused]] const int column, const RGBColor& raw_color) const {
     RGBColor mapped_color;
 
     if (vp.show_out_of_gamut) {
         mapped_color = clamp_to_color(raw_color);
-    }
-    else {
+    } else {
         mapped_color = max_to_one(raw_color);
     }
 
@@ -158,8 +147,7 @@ World::display_pixel([[maybe_unused]] const int row, [[maybe_unused]] const int 
     pixels.push_back((int)(mapped_color.b * 255));
 }
 
-void
-World::save_to_ppm(void) const {
+void World::save_to_ppm(void) const {
     std::time_t t = std::time(nullptr);
     std::tm tm = *std::localtime(&t);
     std::stringstream imageFile;
@@ -172,10 +160,8 @@ World::save_to_ppm(void) const {
     // The view plane's origin is on the bottom left
     // PPM image format goes from top to bottom
     int numberOfPixels = pixels.size();
-    for (int rowIndex = 1; rowIndex <= vp.vres; rowIndex++)
-    {
-        for (int columnIndex = 0; columnIndex < vp.hres * 3; columnIndex++)
-        {
+    for (int rowIndex = 1; rowIndex <= vp.vres; rowIndex++) {
+        for (int columnIndex = 0; columnIndex < vp.hres * 3; columnIndex++) {
             int pixel = pixels[numberOfPixels - (vp.hres * 3 * rowIndex) + columnIndex];
             ofs << static_cast<unsigned char>(pixel);
         }
@@ -188,28 +174,25 @@ World::save_to_ppm(void) const {
     ofs.close();
 }
 
-
-RGBColor
-World::max_to_one(const RGBColor& c) const  {
+RGBColor World::max_to_one(const RGBColor& c) const {
     float max_value = max(c.r, max(c.g, c.b));
 
     if (max_value > 1.0f) {
         return (c / max_value);
-    }
-    else {
+    } else {
         return (c);
     }
 }
 
-
 // Set color to red if any component is greater than one
 
-RGBColor
-World::clamp_to_color(const RGBColor& raw_color) const {
+RGBColor World::clamp_to_color(const RGBColor& raw_color) const {
     RGBColor c(raw_color);
 
     if (raw_color.r > 1.0f || raw_color.g > 1.0f || raw_color.b > 1.0f) {
-        c.r = 1.0f; c.g = 0.0f; c.b = 0.0f;
+        c.r = 1.0f;
+        c.g = 0.0f;
+        c.b = 0.0f;
     }
 
     return (c);
@@ -218,21 +201,18 @@ World::clamp_to_color(const RGBColor& raw_color) const {
 // Deletes the objects in the objects array, and erases the array.
 // The objects array still exists, because it's an automatic variable, but it's empty
 
-void
-World::delete_objects(void) {
+void World::delete_objects(void) {
     size_t num_objects = objects.size();
 
-    for ( size_t j = 0; j < num_objects; j++) {
+    for (size_t j = 0; j < num_objects; j++) {
         delete objects[j];
         objects[j] = NULL;
     }
 
-    objects.erase (objects.begin(), objects.end());
+    objects.erase(objects.begin(), objects.end());
 }
 
-
-void
-World::delete_lights(void) {
+void World::delete_lights(void) {
     size_t num_lights = lights.size();
 
     for (size_t j = 0; j < num_lights; j++) {
@@ -240,5 +220,5 @@ World::delete_lights(void) {
         lights[j] = NULL;
     }
 
-    lights.erase (lights.begin(), lights.end());
+    lights.erase(lights.begin(), lights.end());
 }

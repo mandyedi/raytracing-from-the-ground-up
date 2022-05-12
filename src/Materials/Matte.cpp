@@ -11,20 +11,13 @@
 //  See the file COPYING.txt for the full license.
 
 #include "Matte.h"
+
 #include "../Lights/Light.h"
 #include "../Tracers/Tracer.h"
 
-
-Matte::Matte (void)
-    :   Material(),
-        ambient_brdf(new Lambertian),
-        diffuse_brdf(new Lambertian)
-{}
-
-
+Matte::Matte(void) : Material(), ambient_brdf(new Lambertian), diffuse_brdf(new Lambertian) {}
 
 Matte::~Matte(void) {
-
     if (ambient_brdf != nullptr) {
         delete ambient_brdf;
         ambient_brdf = nullptr;
@@ -36,30 +29,19 @@ Matte::~Matte(void) {
     }
 }
 
-
-
-Matte::Matte(const Matte& m)
-    :   Material(m)
-{
+Matte::Matte(const Matte& m) : Material(m) {
     ambient_brdf = m.ambient_brdf->clone();
     diffuse_brdf = m.diffuse_brdf->clone();
 }
 
-
-
-Matte::Matte(Matte&& m) noexcept
-    :   Material(std::move(m))
-{
+Matte::Matte(Matte&& m) noexcept : Material(std::move(m)) {
     ambient_brdf = m.ambient_brdf;
     m.ambient_brdf = nullptr;
     diffuse_brdf = m.diffuse_brdf;
     m.diffuse_brdf = nullptr;
 }
 
-
-
-Matte&
-Matte::operator= (const Matte& m) {
+Matte& Matte::operator=(const Matte& m) {
     Material::operator=(m);
 
     if (ambient_brdf != nullptr) {
@@ -75,10 +57,7 @@ Matte::operator= (const Matte& m) {
     return (*this);
 }
 
-
-
-Matte&
-Matte::operator= (Matte&& m) noexcept {
+Matte& Matte::operator=(Matte&& m) noexcept {
     Material::operator=(std::move(m));
 
     if (ambient_brdf != nullptr) {
@@ -96,21 +75,12 @@ Matte::operator= (Matte&& m) noexcept {
     return (*this);
 }
 
+Material* Matte::clone(void) const { return (new Matte(*this)); }
 
-
-Material*
-Matte::clone(void) const {
-    return (new Matte(*this));
-}
-
-
-
-
-RGBColor
-Matte::shade(ShadeRec& sr) {
-    Vector3D    wo          = -sr.ray.d;
-    RGBColor    L           = ambient_brdf->rho(sr, wo) * sr.w.ambient_ptr->L(sr);
-    size_t      num_lights  = sr.w.lights.size();
+RGBColor Matte::shade(ShadeRec& sr) {
+    Vector3D wo = -sr.ray.d;
+    RGBColor L = ambient_brdf->rho(sr, wo) * sr.w.ambient_ptr->L(sr);
+    size_t num_lights = sr.w.lights.size();
 
     for (size_t j = 0; j < num_lights; j++) {
         Vector3D wi = sr.w.lights[j]->get_direction(sr);
@@ -133,53 +103,44 @@ Matte::shade(ShadeRec& sr) {
     return (L);
 }
 
-
-
-RGBColor
-Matte::path_shade(ShadeRec& sr) {
-    Vector3D    wo = -sr.ray.d;
-    Vector3D    wi;
-    float       pdf;
-    RGBColor    f = diffuse_brdf->sample_f(sr, wo, wi, pdf);
-    float       ndotwi = sr.normal * wi;
-    Ray         reflected_ray(sr.hit_point, wi);
+RGBColor Matte::path_shade(ShadeRec& sr) {
+    Vector3D wo = -sr.ray.d;
+    Vector3D wi;
+    float pdf;
+    RGBColor f = diffuse_brdf->sample_f(sr, wo, wi, pdf);
+    float ndotwi = sr.normal * wi;
+    Ray reflected_ray(sr.hit_point, wi);
 
     return (f * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * ndotwi / pdf);
 }
 
-
-
-RGBColor
-Matte::global_shade(ShadeRec& sr) {
+RGBColor Matte::global_shade(ShadeRec& sr) {
     RGBColor L;
 
     if (sr.depth == 0) {
         L = area_light_shade(sr);
     }
 
-    Vector3D    wi;
-    Vector3D    wo         = -sr.ray.d;
-    float       pdf;
-    RGBColor    f          = diffuse_brdf->sample_f(sr, wo, wi, pdf);
-    float       ndotwi     = sr.normal * wi;
-    Ray         reflected_ray(sr.hit_point, wi);
+    Vector3D wi;
+    Vector3D wo = -sr.ray.d;
+    float pdf;
+    RGBColor f = diffuse_brdf->sample_f(sr, wo, wi, pdf);
+    float ndotwi = sr.normal * wi;
+    Ray reflected_ray(sr.hit_point, wi);
 
     L += f * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * ndotwi / pdf;
 
     return (L);
 }
 
-
-
-RGBColor
-Matte::area_light_shade(ShadeRec& sr) {
-    Vector3D    wo          = -sr.ray.d;
-    RGBColor    L           = ambient_brdf->rho(sr, wo) * sr.w.ambient_ptr->L(sr);
-    int         num_lights  = sr.w.lights.size();
+RGBColor Matte::area_light_shade(ShadeRec& sr) {
+    Vector3D wo = -sr.ray.d;
+    RGBColor L = ambient_brdf->rho(sr, wo) * sr.w.ambient_ptr->L(sr);
+    int num_lights = sr.w.lights.size();
 
     for (int j = 0; j < num_lights; j++) {
-        Vector3D    wi      = sr.w.lights[j]->get_direction(sr);
-        float       ndotwi  = sr.normal * wi;
+        Vector3D wi = sr.w.lights[j]->get_direction(sr);
+        float ndotwi = sr.normal * wi;
 
         if (ndotwi > 0.0f) {
             bool in_shadow = false;

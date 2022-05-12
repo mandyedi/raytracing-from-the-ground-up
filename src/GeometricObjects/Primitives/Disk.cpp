@@ -10,90 +10,55 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#include <utility>
 #include "Disk.h"
+
+#include <utility>
 
 const float Disk::kEpsilon = 0.001f;
 
+Disk::Disk(const Point3D& p, const Normal& n, float r) : GeometricObject(), center(p), normal(n), r_squared(r * r) {}
 
+Disk::Disk(const Disk& d) : GeometricObject(d), center(d.center), normal(d.normal), r_squared(d.r_squared) {}
 
-Disk::Disk(const Point3D& p, const Normal& n, float r)
-    : GeometricObject(),
-      center(p),
-      normal(n),
-      r_squared(r * r)
-{}
+Disk::Disk(Disk&& d) noexcept : GeometricObject(std::move(d)), center(std::move(d.center)), normal(std::move(d.normal)), r_squared(std::exchange(d.r_squared, 1.0f)) {}
 
+Disk& Disk::operator=(const Disk& d) {
+    GeometricObject::operator=(d);
 
+    center = d.center;
+    normal = d.normal;
+    r_squared = d.r_squared;
 
-Disk::Disk (const Disk& d)
-  : GeometricObject(d),
-    center(d.center),
-    normal(d.normal),
-    r_squared(d.r_squared)
-{}
-
-
-
-Disk::Disk (Disk&& d) noexcept
-  : GeometricObject(std::move(d)),
-    center(std::move(d.center)),
-    normal(std::move(d.normal)),
-    r_squared(std::exchange(d.r_squared, 1.0f))
-{}
-
-
-
-Disk&
-Disk::operator= (const Disk& d) {
-  GeometricObject::operator=(d);
-
-  center        = d.center;
-  normal        = d.normal;
-  r_squared     = d.r_squared;
-
-  return (*this);
+    return (*this);
 }
 
+Disk& Disk::operator=(Disk&& d) noexcept {
+    GeometricObject::operator=(std::move(d));
 
+    center = std::move(d.center);
+    normal = std::move(d.normal);
+    r_squared = std::exchange(d.r_squared, 1.0f);
 
-Disk&
-Disk::operator= (Disk&& d) noexcept {
-  GeometricObject::operator=(std::move(d));
-
-  center        = std::move(d.center);
-  normal        = std::move(d.normal);
-  r_squared     = std::exchange(d.r_squared, 1.0f);
-
-  return (*this);
+    return (*this);
 }
 
+Disk* Disk::clone(void) const { return (new Disk(*this)); }
 
+bool Disk::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
+    float t = (center - ray.o) * normal / (ray.d * normal);
 
-Disk*
-Disk::clone(void) const {
-  return (new Disk(*this));
-}
+    if (t <= kEpsilon) {
+        return (false);
+    }
 
+    Point3D p = ray.o + t * ray.d;
 
-
-bool
-Disk::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
-  float t = (center - ray.o) * normal / (ray.d * normal);
-
-  if (t <= kEpsilon) {
-    return (false);
-  }
-
-  Point3D p = ray.o + t * ray.d;
-
-  if (center.d_squared(p) < r_squared) {
-    tmin        = t;
-    sr.normal       = normal;
-    sr.local_hit_point  = p;
-    return (true);
-  }
-  else {
-    return (false);
-  }
+    if (center.d_squared(p) < r_squared) {
+        tmin = t;
+        sr.normal = normal;
+        sr.local_hit_point = p;
+        return (true);
+    } else {
+        return (false);
+    }
 }

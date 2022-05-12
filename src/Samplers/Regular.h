@@ -1,7 +1,6 @@
 #ifndef __REGULAR__
 #define __REGULAR__
 
-
 //  Copyright (C) Kevin Suffern 2000-2007.
 //  This C++ code is for non-commercial purposes only.
 //  This C++ code is licensed under the GNU General Public License Version 2.
@@ -16,33 +15,28 @@
 
 #include "Sampler.h"
 
-class Regular: public Sampler {
-    public:
+class Regular : public Sampler {
+public:
 
-        Regular(void) = delete;
+    Regular(void) = delete;
 
-        explicit Regular(const int num);
+    explicit Regular(const int num);
 
-        ~Regular(void) = default;
+    ~Regular(void) = default;
 
-        Regular(const Regular& r)  = default;
+    Regular(const Regular& r) = default;
 
-        Regular(Regular&& r) = default;
+    Regular(Regular&& r) = default;
 
-        Regular&
-        operator= (const Regular& rhs) = default;
+    Regular& operator=(const Regular& rhs) = default;
 
-        Regular&
-        operator= (Regular&& rhs) = default;
+    Regular& operator=(Regular&& rhs) = default;
 
-        virtual Regular*
-        clone(void) const override;
+    virtual Regular* clone(void) const override;
 
-    private:
+private:
 
-        virtual void
-        generate_samples(void) override;
+    virtual void generate_samples(void) override;
 };
 
 #endif
-

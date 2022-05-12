@@ -15,8 +15,7 @@
 
 #include "../GeometricObject.h"
 
-class Torus: public GeometricObject {
-
+class Torus : public GeometricObject {
 public:
 
     Torus();
@@ -29,23 +28,19 @@ public:
 
     Torus(Torus&& t) noexcept;
 
-    Torus&
-    operator= (const Torus& t);
+    Torus& operator=(const Torus& t);
 
-    Torus&
-    operator= (Torus&& t) noexcept;
+    Torus& operator=(Torus&& t) noexcept;
 
-    Normal
-    compute_normal(const Point3D& p) const;
+    Normal compute_normal(const Point3D& p) const;
 
-    bool
-    hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
+    bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 
 private:
 
     float a;
     float b;
-    BBox   bbox;
+    BBox bbox;
 };
 
 #endif

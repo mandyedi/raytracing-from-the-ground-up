@@ -15,42 +15,35 @@
 
 #include "../GeometricObject.h"
 
+class Plane : public GeometricObject {
+public:
 
-class Plane: public GeometricObject {
+    Plane(void) = default;
 
-    public:
+    explicit Plane(const Point3D& point, const Normal& normal);
 
-        Plane(void) = default;
+    ~Plane(void);
 
-        explicit Plane(const Point3D& point, const Normal& normal);
+    Plane(const Plane& p);
 
-        ~Plane(void);
+    Plane(Plane&& p) noexcept;
 
-        Plane(const Plane& p);
+    Plane& operator=(const Plane& p);
 
-        Plane(Plane&& p) noexcept;
+    Plane& operator=(Plane&& p) noexcept;
 
-        Plane&
-        operator= (const Plane& p);
+    Plane* clone(void) const override;
 
-        Plane&
-        operator= (Plane&& p) noexcept;
+    bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 
-        Plane*
-        clone(void) const override;
+    bool shadow_hit(const Ray& ray, float& tmin) const override;
 
-        bool
-        hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
+private:
 
-        bool
-        shadow_hit(const Ray &ray, float &tmin) const override;
+    Point3D a = Point3D(0.0f);            // point through which plane passes
+    Normal n = Normal(0.0f, 1.0f, 0.0f);  // normal to the plane
 
-    private:
-
-        Point3D     a = Point3D(0.0f);           // point through which plane passes
-        Normal      n = Normal(0.0f, 1.0f, 0.0f);  // normal to the plane
-
-        static const float kEpsilon;   // for shadows and secondary rays
+    static const float kEpsilon;  // for shadows and secondary rays
 };
 
 #endif

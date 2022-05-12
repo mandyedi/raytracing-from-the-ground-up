@@ -15,17 +15,16 @@
 
 #include "Tracer.h"
 
-class Whitted: public Tracer {
-    public:
+class Whitted : public Tracer {
+public:
 
-        Whitted(void) = delete;
+    Whitted(void) = delete;
 
-        explicit Whitted(World* _worldPtr);
+    explicit Whitted(World* _worldPtr);
 
-        ~Whitted(void) = default;
+    ~Whitted(void) = default;
 
-        RGBColor
-        trace_ray(const Ray& ray, const int depth) const override;
+    RGBColor trace_ray(const Ray& ray, const int depth) const override;
 };
 
 #endif

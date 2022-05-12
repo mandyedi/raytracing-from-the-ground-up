@@ -11,24 +11,17 @@
 //  See the file COPYING.txt for the full license.
 
 #include "MultipleObjects.h"
+
 #include "../World/World.h"
 
+MultipleObjects::MultipleObjects(World* _worldPtr) : Tracer(_worldPtr) {}
 
-
-MultipleObjects::MultipleObjects(World* _worldPtr)
-    : Tracer(_worldPtr)
-{}
-
-
-
-RGBColor
-MultipleObjects::trace_ray(const Ray& ray) const {
+RGBColor MultipleObjects::trace_ray(const Ray& ray) const {
     ShadeRec sr(world_ptr->hit_bare_bones_objects(ray));
 
     if (sr.hit_an_object) {
         return (sr.color);
-    }
-    else {
+    } else {
         return (world_ptr->background_color);
     }
 }

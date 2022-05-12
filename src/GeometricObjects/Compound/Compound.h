@@ -14,58 +14,45 @@
 #define __COMPOUND__
 
 #include <vector>
+
 #include "../GeometricObject.h"
 
-class Compound: public GeometricObject {
-    public:
+class Compound : public GeometricObject {
+public:
 
-        Compound(void) = default;
+    Compound(void) = default;
 
-        virtual
-        ~Compound (void);
+    virtual ~Compound(void);
 
-        Compound(const Compound& c);
+    Compound(const Compound& c);
 
-        Compound(Compound&& c) noexcept;
+    Compound(Compound&& c) noexcept;
 
-        Compound&
-        operator= (const Compound& c);
+    Compound& operator=(const Compound& c);
 
-        Compound&
-        operator= (Compound&& c) noexcept;
+    Compound& operator=(Compound&& c) noexcept;
 
-        Compound*
-        clone(void) const override;
+    Compound* clone(void) const override;
 
-        void
-        set_material(Material* material_ptr);
+    void set_material(Material* material_ptr);
 
-        void
-        add_object(GeometricObject* object_ptr) override;
+    void add_object(GeometricObject* object_ptr) override;
 
-        int
-        get_num_objects(void);
+    int get_num_objects(void);
 
-        virtual bool
-        hit(const Ray& ray, float& tmin, ShadeRec& s) const override;
+    virtual bool hit(const Ray& ray, float& tmin, ShadeRec& s) const override;
 
-    protected:
+protected:
 
-        std::vector<GeometricObject*> objects;
+    std::vector<GeometricObject*> objects;
 
-    private:
+private:
 
-        void
-        delete_objects(void);
+    void delete_objects(void);
 
-        void
-        copy_objects(const std::vector<GeometricObject*>& rhs_objects);
-
+    void copy_objects(const std::vector<GeometricObject*>& rhs_objects);
 };
 
-inline int
-Compound::get_num_objects(void) {
-    return (objects.size());
-}
+inline int Compound::get_num_objects(void) { return (objects.size()); }
 
 #endif

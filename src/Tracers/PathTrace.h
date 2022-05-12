@@ -15,26 +15,24 @@
 
 #include "Tracer.h"
 
-class PathTrace: public Tracer {
-    public:
+class PathTrace : public Tracer {
+public:
 
-        PathTrace(void) = delete;
+    PathTrace(void) = delete;
 
-        explicit PathTrace(World* _worldPtr);
+    explicit PathTrace(World* _worldPtr);
 
-        ~PathTrace(void) = default;
+    ~PathTrace(void) = default;
 
-        // For the sake of simplicity I prevent copy and move
-        PathTrace(const PathTrace& pt) = delete;
-        PathTrace(PathTrace&& pt) = delete;
-        PathTrace& operator= (const PathTrace& pt) = delete;
-        PathTrace& operator= (PathTrace&& pt) = delete;
+    // For the sake of simplicity I prevent copy and move
+    PathTrace(const PathTrace& pt) = delete;
+    PathTrace(PathTrace&& pt) = delete;
+    PathTrace& operator=(const PathTrace& pt) = delete;
+    PathTrace& operator=(PathTrace&& pt) = delete;
 
-        RGBColor
-        trace_ray(const Ray& ray, const int depth) const override;
+    RGBColor trace_ray(const Ray& ray, const int depth) const override;
 
-        RGBColor
-        trace_ray(const Ray ray, float& tmin, const int depth) const override;
+    RGBColor trace_ray(const Ray ray, float& tmin, const int depth) const override;
 };
 
 #endif

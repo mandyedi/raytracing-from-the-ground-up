@@ -13,112 +13,80 @@
 #ifndef __DIRECTIONAL__
 #define __DIRECTIONAL__
 
-#include "Light.h"
-#include "../Utilities/Vector3D.h"
 #include "../Utilities/RGBColor.h"
-
-#include "../World/World.h"         // you will need this later on for shadows
 #include "../Utilities/ShadeRec.h"
+#include "../Utilities/Vector3D.h"
+#include "../World/World.h"  // you will need this later on for shadows
+#include "Light.h"
 
+class Directional : public Light {
+public:
 
-class Directional: public Light {
-    public:
+    Directional(void) = default;
 
-        Directional(void) = default;
+    ~Directional(void);
 
-        ~Directional(void);
+    Directional(const Directional& d);
 
-        Directional(const Directional& d);
+    Directional(Directional&& d) noexcept;
 
-        Directional(Directional&& d) noexcept;
+    Directional& operator=(const Directional& d);
 
-        Directional&
-        operator= (const Directional& d);
+    Directional& operator=(Directional&& d) noexcept;
 
-        Directional&
-        operator= (Directional&& d) noexcept;
+    virtual Light* clone(void) const override;
 
-        virtual Light*
-        clone(void) const override;
+    void scale_radiance(const float b);
 
-        void
-        scale_radiance(const float b);
+    void set_color(const float c);
 
-        void
-        set_color(const float c);
+    void set_color(const RGBColor& c);
 
-        void
-        set_color(const RGBColor& c);
+    void set_color(const float r, const float g, const float b);
 
-        void
-        set_color(const float r, const float g, const float b);
+    void set_direction(const Vector3D& d);
 
-        void
-        set_direction(const Vector3D& d);
+    void set_direction(float dx, float dy, float dz);
 
-        void
-        set_direction(float dx, float dy, float dz);
+    virtual Vector3D get_direction(ShadeRec& sr) override;
 
-        virtual Vector3D
-        get_direction(ShadeRec& sr) override;
+    virtual RGBColor L(ShadeRec& sr) override;
 
-        virtual RGBColor
-        L(ShadeRec& sr) override;
+    virtual bool in_shadow(const Ray& ray, const ShadeRec& sr) const;
 
-        virtual bool
-        in_shadow(const Ray& ray, const ShadeRec& sr) const;
+private:
 
-    private:
-
-        float       ls      = 1.0f;
-        RGBColor    color   = RGBColor::white;
-        Vector3D    dir     = Vector3D(0.0f, 1.0f, 0.0f);      // direction the light comes from
+    float ls = 1.0f;
+    RGBColor color = RGBColor::white;
+    Vector3D dir = Vector3D(0.0f, 1.0f, 0.0f);  // direction the light comes from
 };
 
+inline void Directional::scale_radiance(const float b) { ls = b; }
 
-
-
-
-inline void
-Directional::scale_radiance(const float b) {
-    ls = b;
+inline void Directional::set_color(const float c) {
+    color.r = c;
+    color.g = c;
+    color.b = c;
 }
 
+inline void Directional::set_color(const RGBColor& c) { color = c; }
 
-inline void
-Directional::set_color(const float c) {
-    color.r = c; color.g = c; color.b = c;
+inline void Directional::set_color(const float r, const float g, const float b) {
+    color.r = r;
+    color.g = g;
+    color.b = b;
 }
 
-
-
-inline void
-Directional::set_color(const RGBColor& c) {
-    color = c;
-}
-
-
-
-inline void
-Directional::set_color(const float r, const float g, const float b) {
-    color.r = r; color.g = g; color.b = b;
-}
-
-
-
-inline void
-Directional::set_direction(const Vector3D& d) {
+inline void Directional::set_direction(const Vector3D& d) {
     dir = d;
     dir.normalize();
 }
 
-
-
-inline void
-Directional::set_direction(float dx, float dy, float dz) {
-    dir.x = dx; dir.y = dy; dir.z = dz;
+inline void Directional::set_direction(float dx, float dy, float dz) {
+    dir.x = dx;
+    dir.y = dy;
+    dir.z = dz;
     dir.normalize();
 }
-
 
 #endif

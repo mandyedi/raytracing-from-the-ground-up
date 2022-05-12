@@ -10,43 +10,20 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#include <utility>
-#include <cmath>
 #include "Instance.h"
+
+#include <cmath>
+#include <utility>
+
 #include "../Utilities/Constants.h"
 
 // initialise the static transformation matrix
 
-Matrix
-Instance::forward_matrix;
+Matrix Instance::forward_matrix;
 
+Instance::Instance(void) : GeometricObject(), object_ptr(nullptr), inv_matrix(), bbox(), transform_the_texture(true) { forward_matrix.set_identity(); }
 
-
-
-Instance::Instance(void)
-    :   GeometricObject(),
-        object_ptr(nullptr),
-        inv_matrix(),
-        bbox(),
-        transform_the_texture(true)
-{
-    forward_matrix.set_identity();
-}
-
-
-
-
-Instance::Instance(GeometricObject* obj_ptr)
-    :   GeometricObject(),
-        object_ptr(obj_ptr),
-        inv_matrix(),
-        bbox(),
-        transform_the_texture(true)
-{
-    forward_matrix.set_identity();
-}
-
-
+Instance::Instance(GeometricObject* obj_ptr) : GeometricObject(), object_ptr(obj_ptr), inv_matrix(), bbox(), transform_the_texture(true) { forward_matrix.set_identity(); }
 
 Instance::~Instance(void) {
     if (object_ptr) {
@@ -55,51 +32,32 @@ Instance::~Instance(void) {
     }
 }
 
-
-
-
-Instance::Instance (const Instance& instance)
-    :   GeometricObject(instance),
-        inv_matrix(instance.inv_matrix),
-        transform_the_texture(instance.transform_the_texture)
-{
+Instance::Instance(const Instance& instance) : GeometricObject(instance), inv_matrix(instance.inv_matrix), transform_the_texture(instance.transform_the_texture) {
     object_ptr = instance.object_ptr->clone();
 }
 
-
-
-Instance::Instance (Instance&& instance) noexcept
-    :   GeometricObject(std::move(instance)),
-        inv_matrix(std::move(instance.inv_matrix)),
-        bbox(std::move(instance.bbox)),
-        transform_the_texture(std::exchange(instance.transform_the_texture, true))
-{
+Instance::Instance(Instance&& instance) noexcept
+    : GeometricObject(std::move(instance)), inv_matrix(std::move(instance.inv_matrix)), bbox(std::move(instance.bbox)), transform_the_texture(std::exchange(instance.transform_the_texture, true)) {
     object_ptr = instance.object_ptr;
     instance.object_ptr = nullptr;
 }
 
-
-
-Instance&
-Instance::operator= (const Instance& instance) {
+Instance& Instance::operator=(const Instance& instance) {
     GeometricObject::operator=(instance);
 
-    if(object_ptr != nullptr) {
+    if (object_ptr != nullptr) {
         delete object_ptr;
     }
     object_ptr = instance.object_ptr->clone();
 
-    inv_matrix              = instance.inv_matrix;
-    bbox                    = instance.bbox;
-    transform_the_texture   = instance.transform_the_texture;
+    inv_matrix = instance.inv_matrix;
+    bbox = instance.bbox;
+    transform_the_texture = instance.transform_the_texture;
 
     return (*this);
 }
 
-
-
-Instance&
-Instance::operator= (Instance&& instance) noexcept {
+Instance& Instance::operator=(Instance&& instance) noexcept {
     GeometricObject::operator=(std::move(instance));
 
     if (object_ptr != nullptr) {
@@ -108,38 +66,22 @@ Instance::operator= (Instance&& instance) noexcept {
     object_ptr = instance.object_ptr;
     instance.object_ptr = nullptr;
 
-    inv_matrix              = std::move(instance.inv_matrix);
-    bbox                    = std::move(instance.bbox);
-    transform_the_texture   = std::exchange(instance.transform_the_texture, true);
+    inv_matrix = std::move(instance.inv_matrix);
+    bbox = std::move(instance.bbox);
+    transform_the_texture = std::exchange(instance.transform_the_texture, true);
 
     return (*this);
 }
 
+Instance* Instance::clone(void) const { return (new Instance(*this)); }
 
-
-Instance*
-Instance::clone(void) const {
-    return (new Instance(*this));
-}
-
-
-
-
-void
-Instance::set_object(GeometricObject* obj_ptr) {
-    object_ptr = obj_ptr;
-}
-
-
+void Instance::set_object(GeometricObject* obj_ptr) { object_ptr = obj_ptr; }
 
 // This function is only called when the instance is to be placed in a grid
 // It will always be called from a build function
-void
-Instance::compute_bounding_box(void) {
-
+void Instance::compute_bounding_box(void) {
     // First get the object's untransformed BBox
     BBox object_bbox = object_ptr->get_bounding_box();
-
 
     // Now apply the affine transformations to the box.
     // We must apply the transformations to all 8 vertices of the orginal box
@@ -149,16 +91,31 @@ Instance::compute_bounding_box(void) {
 
     Point3D v[8];
 
-    v[0].x = object_bbox.x0; v[0].y = object_bbox.y0; v[0].z = object_bbox.z0;
-    v[1].x = object_bbox.x1; v[1].y = object_bbox.y0; v[1].z = object_bbox.z0;
-    v[2].x = object_bbox.x1; v[2].y = object_bbox.y1; v[2].z = object_bbox.z0;
-    v[3].x = object_bbox.x0; v[3].y = object_bbox.y1; v[3].z = object_bbox.z0;
+    v[0].x = object_bbox.x0;
+    v[0].y = object_bbox.y0;
+    v[0].z = object_bbox.z0;
+    v[1].x = object_bbox.x1;
+    v[1].y = object_bbox.y0;
+    v[1].z = object_bbox.z0;
+    v[2].x = object_bbox.x1;
+    v[2].y = object_bbox.y1;
+    v[2].z = object_bbox.z0;
+    v[3].x = object_bbox.x0;
+    v[3].y = object_bbox.y1;
+    v[3].z = object_bbox.z0;
 
-    v[4].x = object_bbox.x0; v[4].y = object_bbox.y0; v[4].z = object_bbox.z1;
-    v[5].x = object_bbox.x1; v[5].y = object_bbox.y0; v[5].z = object_bbox.z1;
-    v[6].x = object_bbox.x1; v[6].y = object_bbox.y1; v[6].z = object_bbox.z1;
-    v[7].x = object_bbox.x0; v[7].y = object_bbox.y1; v[7].z = object_bbox.z1;
-
+    v[4].x = object_bbox.x0;
+    v[4].y = object_bbox.y0;
+    v[4].z = object_bbox.z1;
+    v[5].x = object_bbox.x1;
+    v[5].y = object_bbox.y0;
+    v[5].z = object_bbox.z1;
+    v[6].x = object_bbox.x1;
+    v[6].y = object_bbox.y1;
+    v[6].z = object_bbox.z1;
+    v[7].x = object_bbox.x0;
+    v[7].y = object_bbox.y1;
+    v[7].z = object_bbox.z1;
 
     // Transform these using the forward matrix
 
@@ -171,12 +128,10 @@ Instance::compute_bounding_box(void) {
     v[6] = forward_matrix * v[6];
     v[7] = forward_matrix * v[7];
 
-
     // Since forward_matrix is a static variable, we must now set it to the unit matrix
     // This sets it up correctly for the next instance object
 
     forward_matrix.set_identity();
-
 
     // Compute the minimum values
 
@@ -184,7 +139,7 @@ Instance::compute_bounding_box(void) {
     float y0 = kHugeValue;
     float z0 = kHugeValue;
 
-    for (int j = 0; j <= 7; j++)  {
+    for (int j = 0; j <= 7; j++) {
         if (v[j].x < x0) {
             x0 = v[j].x;
         }
@@ -236,36 +191,15 @@ Instance::compute_bounding_box(void) {
     bbox.z1 = z1;
 }
 
+BBox Instance::get_bounding_box(void) { return (bbox); }
 
-
-
-BBox
-Instance::get_bounding_box(void) {
-    return (bbox);
-}
-
-
-
-Material*
-Instance::get_material(void) const {
-    return (material_ptr);
-}
-
-
+Material* Instance::get_material(void) const { return (material_ptr); }
 
 // Here, material_ptr is GeometricObject::material_ptr
 
-void
-Instance::set_material(Material* m_ptr) {
-    material_ptr = m_ptr;
-}
+void Instance::set_material(Material* m_ptr) { material_ptr = m_ptr; }
 
-
-
-
-
-bool
-Instance::hit(const Ray& ray, float& t, ShadeRec& sr) const {
+bool Instance::hit(const Ray& ray, float& t, ShadeRec& sr) const {
     Ray inv_ray(ray);
     inv_ray.o = inv_matrix * inv_ray.o;
     inv_ray.d = inv_matrix * inv_ray.d;
@@ -288,13 +222,8 @@ Instance::hit(const Ray& ray, float& t, ShadeRec& sr) const {
     return (false);
 }
 
-
-
-
-void
-Instance::scale(const Vector3D& s) {
-
-    Matrix  inv_scaling_matrix;
+void Instance::scale(const Vector3D& s) {
+    Matrix inv_scaling_matrix;
 
     inv_scaling_matrix.m[0][0] = 1.0f / s.x;
     inv_scaling_matrix.m[1][1] = 1.0f / s.y;
@@ -302,7 +231,7 @@ Instance::scale(const Vector3D& s) {
 
     inv_matrix = inv_matrix * inv_scaling_matrix;
 
-    Matrix  scaling_matrix;
+    Matrix scaling_matrix;
 
     scaling_matrix.m[0][0] = s.x;
     scaling_matrix.m[1][1] = s.y;
@@ -311,12 +240,7 @@ Instance::scale(const Vector3D& s) {
     forward_matrix = scaling_matrix * forward_matrix;
 }
 
-
-
-
-void
-Instance::scale(const float a, const float b, const float c) {
-
+void Instance::scale(const float a, const float b, const float c) {
     Matrix inv_scaling_matrix;
 
     inv_scaling_matrix.m[0][0] = 1.0f / a;
@@ -334,12 +258,7 @@ Instance::scale(const float a, const float b, const float c) {
     forward_matrix = scaling_matrix * forward_matrix;
 }
 
-
-
-
-void
-Instance::translate(const Vector3D& trans) {
-
+void Instance::translate(const Vector3D& trans) {
     Matrix inv_translation_matrix;
 
     inv_translation_matrix.m[0][3] = -trans.x;
@@ -357,12 +276,7 @@ Instance::translate(const Vector3D& trans) {
     forward_matrix = translation_matrix * forward_matrix;
 }
 
-
-
-
-void
-Instance::translate(const float dx, const float dy, const float dz) {
-
+void Instance::translate(const float dx, const float dy, const float dz) {
     Matrix inv_translation_matrix;
 
     inv_translation_matrix.m[0][3] = -dx;
@@ -380,13 +294,7 @@ Instance::translate(const float dx, const float dy, const float dz) {
     forward_matrix = translation_matrix * forward_matrix;
 }
 
-
-
-
-
-void
-Instance::rotate_x(const float theta) {
-
+void Instance::rotate_x(const float theta) {
     float sin_theta = sin(theta * PI_ON_180);
     float cos_theta = cos(theta * PI_ON_180);
 
@@ -409,12 +317,7 @@ Instance::rotate_x(const float theta) {
     forward_matrix = x_rotation_matrix * forward_matrix;
 }
 
-
-
-
-void
-Instance::rotate_y(const float theta) {
-
+void Instance::rotate_y(const float theta) {
     float sin_theta = sin(theta * PI / 180.0f);
     float cos_theta = cos(theta * PI / 180.0f);
 
@@ -437,12 +340,7 @@ Instance::rotate_y(const float theta) {
     forward_matrix = y_rotation_matrix * forward_matrix;
 }
 
-
-
-
-
-void
-Instance::rotate_z(const float theta) {
+void Instance::rotate_z(const float theta) {
     float sin_theta = sin(theta * PI / 180.0f);
     float cos_theta = cos(theta * PI / 180.0f);
 
@@ -465,18 +363,12 @@ Instance::rotate_z(const float theta) {
     forward_matrix = z_rotation_matrix * forward_matrix;
 }
 
-
-
-
-void
-Instance::shear(const Matrix& s) {
-
+void Instance::shear(const Matrix& s) {
     Matrix inverse_shearing_matrix;
 
     // discriminant
 
-    float d = 1.0f  - s.m[1][0] * s.m[0][1] - s.m[2][0] * s.m[0][2]  - s.m[2][1] * s.m[1][2]
-                    + s.m[1][0] * s.m[2][1] * s.m[0][2] + s.m[2][0] * s.m[0][1] * s.m[2][1];
+    float d = 1.0f - s.m[1][0] * s.m[0][1] - s.m[2][0] * s.m[0][2] - s.m[2][1] * s.m[1][2] + s.m[1][0] * s.m[2][1] * s.m[0][2] + s.m[2][0] * s.m[0][1] * s.m[2][1];
 
     // diagonals
 

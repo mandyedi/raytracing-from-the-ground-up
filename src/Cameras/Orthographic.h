@@ -13,38 +13,33 @@
 #ifndef __ORTHOGRAPHIC__
 #define __ORTHOGRAPHIC__
 
-#include "Camera.h"
 #include "../Utilities/Point3D.h"
+#include "Camera.h"
 
 class World;
 
+class Orthographic : public Camera {
+public:
 
-class Orthographic: public Camera {
-    public:
+    Orthographic() = default;
 
-        Orthographic() = default;
+    ~Orthographic();
 
-        ~Orthographic();
+    Orthographic(const Orthographic& p);
 
-        Orthographic(const Orthographic& p);
+    Orthographic(Orthographic&& p) noexcept;
 
-        Orthographic(Orthographic&& p) noexcept;
+    Orthographic& operator=(const Orthographic& p);
 
-        Orthographic&
-        operator= (const Orthographic& p);
+    Orthographic& operator=(Orthographic&& p) noexcept;
 
-        Orthographic&
-        operator= (Orthographic&& p) noexcept;
+    Camera* clone(void) const override;
 
-        Camera*
-        clone(void) const override;
+    void render_scene(const World& w, float x = 0.0f, int offset = 0) override;
 
-        void
-        render_scene(const World& w, float x = 0.0f, int offset = 0) override;
+private:
 
-    private:
-
-        Point3D eye = Point3D(0.0f);
+    Point3D eye = Point3D(0.0f);
 };
 
 #endif

@@ -10,16 +10,11 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#include <utility>
-
 #include "Tracer.h"
 
+#include <utility>
 
-
-Tracer::Tracer(World* _worldPtr)
-    : world_ptr(_worldPtr)
-{}
-
+Tracer::Tracer(World* _worldPtr) : world_ptr(_worldPtr) {}
 
 Tracer::~Tracer(void) {
     if (world_ptr) {
@@ -27,24 +22,8 @@ Tracer::~Tracer(void) {
     }
 }
 
+RGBColor Tracer::trace_ray([[maybe_unused]] const Ray& ray) const { return (RGBColor::black); }
 
+RGBColor Tracer::trace_ray([[maybe_unused]] const Ray& ray, [[maybe_unused]] const int depth) const { return (RGBColor::black); }
 
-
-RGBColor
-Tracer::trace_ray([[maybe_unused]] const Ray& ray) const {
-    return (RGBColor::black);
-}
-
-
-
-RGBColor
-Tracer::trace_ray([[maybe_unused]] const Ray& ray, [[maybe_unused]] const int depth) const {
-    return (RGBColor::black);
-}
-
-
-
-RGBColor
-Tracer::trace_ray(const Ray ray, float& tmin, const int depth) const {
-    return (RGBColor::black);
-}
+RGBColor Tracer::trace_ray(const Ray ray, float& tmin, const int depth) const { return (RGBColor::black); }

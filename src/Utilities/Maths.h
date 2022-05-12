@@ -26,40 +26,22 @@
 #define EQN_EPS 1e-90
 #define IsZero(x) ((x) > -EQN_EPS && (x) < EQN_EPS)
 
-inline double
-max(double x0, double x1);
+inline double max(double x0, double x1);
 
-inline double
-max(double x0, double x1) {
-    return((x0 > x1) ? x0 : x1);
-}
+inline double max(double x0, double x1) { return ((x0 > x1) ? x0 : x1); }
 
-inline float
-max(float x0, float x1);
+inline float max(float x0, float x1);
 
-inline float
-max(float x0, float x1) {
-    return((x0 > x1) ? x0 : x1);
-}
+inline float max(float x0, float x1) { return ((x0 > x1) ? x0 : x1); }
 
-inline float
-degreeToRadian(float degree) {
-    return degree * PI_ON_180;
-}
+inline float degreeToRadian(float degree) { return degree * PI_ON_180; }
 
-inline float
-radianToDegree(float radian) {
-    return radian * (180.0f * invPI);
+inline float radianToDegree(float radian) { return radian * (180.0f * invPI); }
 
-}
+int SolveQuadric(float c[3], float s[2]);
 
-int
-SolveQuadric(float c[3], float s[2]);
+int SolveCubic(float c[4], float s[3]);
 
-int
-SolveCubic(float c[4], float s[3]);
-
-int
-SolveQuartic(float c[5], float s[4]);
+int SolveQuartic(float c[5], float s[4]);
 
 #endif

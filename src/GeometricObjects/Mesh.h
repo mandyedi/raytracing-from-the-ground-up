@@ -25,28 +25,29 @@
 // The Mesh class does not inherit from GeometricObject
 
 #include <vector>
-#include "../Utilities/Point3D.h"
+
 #include "../Utilities/Normal.h"
+#include "../Utilities/Point3D.h"
 
 class Mesh {
-    public:
+public:
 
-        std::vector<Point3D>             vertices;                   // mesh vertices
-        std::vector<Normal>              normals;                    // average normal at each vertex;
-        std::vector<float>               u;                          // u texture coordinate at each vertex
-        std::vector<float>               v;                          // v texture coordinate at each vertex
-        std::vector<std::vector<int> >        vertex_faces;               // the triangles shared by each vertex
-        int                         num_vertices;               // number of vertices
-        int                         num_triangles;              // number of triangles
+    std::vector<Point3D> vertices;                // mesh vertices
+    std::vector<Normal> normals;                  // average normal at each vertex;
+    std::vector<float> u;                         // u texture coordinate at each vertex
+    std::vector<float> v;                         // v texture coordinate at each vertex
+    std::vector<std::vector<int> > vertex_faces;  // the triangles shared by each vertex
+    int num_vertices;                             // number of vertices
+    int num_triangles;                            // number of triangles
 
-        Mesh();
+    Mesh();
 
-        ~Mesh() = default;
+    ~Mesh() = default;
 
-        Mesh(const Mesh& mesh) = default;
-        Mesh(Mesh&& mesh) = default;
-        Mesh& operator= (const Mesh& mesh) = default;
-        Mesh& operator= (Mesh&& mesh) = default;
+    Mesh(const Mesh& mesh) = default;
+    Mesh(Mesh&& mesh) = default;
+    Mesh& operator=(const Mesh& mesh) = default;
+    Mesh& operator=(Mesh&& mesh) = default;
 };
 
 #endif

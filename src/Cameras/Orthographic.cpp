@@ -10,72 +10,52 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#include <math.h>
 #include "Orthographic.h"
-#include "../World/World.h"
-#include "../Utilities/RGBColor.h"
-#include "../Utilities/Point3D.h"
-#include "../Utilities/Vector3D.h"
+
+#include <math.h>
+
 #include "../Samplers/Sampler.h"
 #include "../Tracers/Tracer.h"
+#include "../Utilities/Point3D.h"
+#include "../Utilities/RGBColor.h"
+#include "../Utilities/Vector3D.h"
+#include "../World/World.h"
 
 Orthographic::~Orthographic(void) {}
 
+Orthographic::Orthographic(const Orthographic& p) : Camera(p) {}
 
+Orthographic::Orthographic(Orthographic&& p) noexcept : Camera(std::move(p)) {}
 
-Orthographic::Orthographic(const Orthographic& p)
-    :   Camera(p)
-{}
-
-
-
-Orthographic::Orthographic(Orthographic&& p) noexcept
-    :   Camera(std::move(p))
-{}
-
-
-
-Orthographic&
-Orthographic::operator= (const Orthographic& p) {
-    Camera::operator= (p);
+Orthographic& Orthographic::operator=(const Orthographic& p) {
+    Camera::operator=(p);
 
     return (*this);
 }
 
-
-
-Orthographic&
-Orthographic::operator= (Orthographic&& p) noexcept {
-    Camera::operator= (std::move(p));
+Orthographic& Orthographic::operator=(Orthographic&& p) noexcept {
+    Camera::operator=(std::move(p));
 
     return (*this);
 }
 
+Camera* Orthographic::clone(void) const { return (new Orthographic(*this)); }
 
-
-Camera*
-Orthographic::clone(void) const {
-    return (new Orthographic(*this));
-}
-
-
-
-void
-Orthographic::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) {
-    RGBColor    L;
-    Ray         ray;
-    int         depth = 0;
-    Point2D     sp;     // sample point in [0, 1] x [0, 1]
-    Point2D     pp;     // sample point on a pixel
-    float       zw = 100.0f;
-    float       s = w.vp.s;
+void Orthographic::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) {
+    RGBColor L;
+    Ray ray;
+    int depth = 0;
+    Point2D sp;  // sample point in [0, 1] x [0, 1]
+    Point2D pp;  // sample point on a pixel
+    float zw = 100.0f;
+    float s = w.vp.s;
 
     ray.d = -(this->w);
 
     float inv_num_samples = 1.0f / static_cast<float>(w.vp.num_samples);
 
-    for (int row = 0; row < w.vp.vres; row++) {                     // up
-        for (int column = 0; column < w.vp.hres; column++) {        // across
+    for (int row = 0; row < w.vp.vres; row++) {               // up
+        for (int column = 0; column < w.vp.hres; column++) {  // across
             L = RGBColor::black;
 
             for (int j = 0; j < w.vp.num_samples; j++) {

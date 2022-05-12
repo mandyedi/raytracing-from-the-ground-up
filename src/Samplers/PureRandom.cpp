@@ -11,31 +11,17 @@
 //  See the file COPYING.txt for the full license.
 
 #include "PureRandom.h"
+
 #include "../Utilities/Random.h"
 
+PureRandom::PureRandom(const int num) : Sampler(num) { generate_samples(); }
 
+PureRandom* PureRandom::clone(void) const { return (new PureRandom(*this)); }
 
-PureRandom::PureRandom(const int num)
-    : Sampler(num) {
-    generate_samples();
-}
-
-
-
-PureRandom*
-PureRandom::clone(void) const {
-    return (new PureRandom(*this));
-}
-
-
-
-void
-PureRandom::generate_samples(void) {
+void PureRandom::generate_samples(void) {
     for (int p = 0; p < num_sets; p++) {
         for (int q = 0; q < num_samples; q++) {
             samples.push_back(Point2D(rand_float(), rand_float()));
         }
     }
 }
-
-

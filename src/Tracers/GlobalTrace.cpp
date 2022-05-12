@@ -11,21 +11,14 @@
 //  See the file COPYING.txt for the full license.
 
 #include "GlobalTrace.h"
-#include "../World/World.h"
-#include "../Utilities/ShadeRec.h"
+
 #include "../Materials/Material.h"
+#include "../Utilities/ShadeRec.h"
+#include "../World/World.h"
 
+GlobalTrace::GlobalTrace(World* _worldPtr) : Tracer(_worldPtr) {}
 
-
-GlobalTrace::GlobalTrace(World* _worldPtr)
-    : Tracer(_worldPtr)
-{}
-
-
-
-
-RGBColor
-GlobalTrace::trace_ray(const Ray& ray, const int depth) const {
+RGBColor GlobalTrace::trace_ray(const Ray& ray, const int depth) const {
     if (depth > world_ptr->vp.max_depth)
         return RGBColor::black;
     else {
@@ -36,32 +29,27 @@ GlobalTrace::trace_ray(const Ray& ray, const int depth) const {
             sr.ray = ray;
 
             return (sr.material_ptr->global_shade(sr));
-        }
-        else {
+        } else {
             return (world_ptr->background_color);
         }
     }
 }
 
-
-
 // this version has tmin as an argument, and is used only with the Dielectric material
 // for color filtering
 
-RGBColor
-GlobalTrace::trace_ray(const Ray ray, float& tmin, const int depth) const {
+RGBColor GlobalTrace::trace_ray(const Ray ray, float& tmin, const int depth) const {
     if (depth > world_ptr->vp.max_depth)
         return RGBColor::black;
     else {
         ShadeRec sr(world_ptr->hit_objects(ray));
 
         if (sr.hit_an_object) {
-            sr.depth     = depth;
-            sr.ray       = ray;
-            tmin         = sr.t;     // required for colored transparency
+            sr.depth = depth;
+            sr.ray = ray;
+            tmin = sr.t;  // required for colored transparency
             return (sr.material_ptr->global_shade(sr));
-        }
-        else {
+        } else {
             tmin = kHugeValue;
             return (world_ptr->background_color);
         }

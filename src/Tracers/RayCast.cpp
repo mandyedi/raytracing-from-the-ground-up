@@ -11,43 +11,33 @@
 //  See the file COPYING.txt for the full license.
 
 #include "RayCast.h"
-#include "../World/World.h"
-#include "../Utilities/ShadeRec.h"
+
 #include "../Materials/Material.h"
+#include "../Utilities/ShadeRec.h"
+#include "../World/World.h"
 
+RayCast::RayCast(World* _worldPtr) : Tracer(_worldPtr) {}
 
-
-RayCast::RayCast(World* _worldPtr)
-    : Tracer(_worldPtr)
-{}
-
-
-
-RGBColor
-RayCast::trace_ray(const Ray& ray) const {
+RGBColor RayCast::trace_ray(const Ray& ray) const {
     ShadeRec sr(world_ptr->hit_objects(ray));
 
     if (sr.hit_an_object) {
-        sr.ray = ray;           // used for specular shading
+        sr.ray = ray;  // used for specular shading
         return (sr.material_ptr->shade(sr));
-    }
-    else {
+    } else {
         return (world_ptr->background_color);
     }
 }
 
-
 // this ignores the depth argument
 
-RGBColor
-RayCast::trace_ray(const Ray& ray, [[maybe_unused]] const int depth) const {
+RGBColor RayCast::trace_ray(const Ray& ray, [[maybe_unused]] const int depth) const {
     ShadeRec sr(world_ptr->hit_objects(ray));
 
     if (sr.hit_an_object) {
-        sr.ray = ray;           // used for specular shading
+        sr.ray = ray;  // used for specular shading
         return (sr.material_ptr->shade(sr));
-    }
-    else {
+    } else {
         return (world_ptr->background_color);
     }
 }

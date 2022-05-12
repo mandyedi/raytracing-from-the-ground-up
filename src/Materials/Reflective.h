@@ -13,82 +13,51 @@
 #ifndef __REFLECTIVE__
 #define __REFLECTIVE__
 
-#include "Phong.h"
 #include "../BRDFs/PerfectSpecular.h"
+#include "Phong.h"
 
-class Reflective: public Phong {
-    public:
+class Reflective : public Phong {
+public:
 
-        Reflective(void) = default;
+    Reflective(void) = default;
 
-        ~Reflective(void);
+    ~Reflective(void);
 
-        Reflective(const Reflective& rm);
+    Reflective(const Reflective& rm);
 
-        Reflective(Reflective&& rm) noexcept;
+    Reflective(Reflective&& rm) noexcept;
 
-        Reflective&
-        operator= (const Reflective& rhs);
+    Reflective& operator=(const Reflective& rhs);
 
-        Reflective&
-        operator= (Reflective&& rhs) noexcept;
+    Reflective& operator=(Reflective&& rhs) noexcept;
 
-        Reflective*
-        clone(void) const override;
+    Reflective* clone(void) const override;
 
-        void
-        set_kr(const float k);
+    void set_kr(const float k);
 
-        void
-        set_cr(const RGBColor& c);
+    void set_cr(const RGBColor& c);
 
-        void
-        set_cr(const float r, const float g, const float b);
+    void set_cr(const float r, const float g, const float b);
 
-        void
-        set_cr(const float c);
+    void set_cr(const float c);
 
-        RGBColor
-        shade(ShadeRec& s) override;
+    RGBColor shade(ShadeRec& s) override;
 
-        RGBColor
-        path_shade(ShadeRec& sr) override;
+    RGBColor path_shade(ShadeRec& sr) override;
 
-        RGBColor
-        global_shade(ShadeRec& sr);
+    RGBColor global_shade(ShadeRec& sr);
 
-    private:
+private:
 
-        PerfectSpecular* reflective_brdf = new PerfectSpecular;
+    PerfectSpecular* reflective_brdf = new PerfectSpecular;
 };
 
+inline void Reflective::set_kr(const float k) { reflective_brdf->set_kr(k); }
 
+inline void Reflective::set_cr(const RGBColor& c) { reflective_brdf->set_cr(c); }
 
-inline void
-Reflective::set_kr(const float k) {
-    reflective_brdf->set_kr(k);
-}
+inline void Reflective::set_cr(const float r, const float g, const float b) { reflective_brdf->set_cr(r, g, b); }
 
-
-
-inline void
-Reflective::set_cr(const RGBColor& c) {
-    reflective_brdf->set_cr(c);
-
-}
-
-
-
-inline void
-Reflective::set_cr(const float r, const float g, const float b) {
-    reflective_brdf->set_cr(r, g, b);
-}
-
-
-
-inline void
-Reflective::set_cr(const float c) {
-    reflective_brdf->set_cr(c);
-}
+inline void Reflective::set_cr(const float c) { reflective_brdf->set_cr(c); }
 
 #endif

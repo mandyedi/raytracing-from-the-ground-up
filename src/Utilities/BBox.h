@@ -13,44 +13,38 @@
 #ifndef __BBOX__
 #define __BBOX__
 
-
-#include "Ray.h"
 #include "Point3D.h"
+#include "Ray.h"
 
 class BBox {
-    public:
-        float x0 = -1.0f;
-        float x1 = 1.0f;
-        float y0 = -1.0f;
-        float y1 = 1.0f;
-        float z0 = -1.0f;
-        float z1 = 1.0f;
+public:
 
-        BBox(void) = default;
+    float x0 = -1.0f;
+    float x1 = 1.0f;
+    float y0 = -1.0f;
+    float y1 = 1.0f;
+    float z0 = -1.0f;
+    float z1 = 1.0f;
 
-        explicit BBox(  const float x0, const float x1,
-                const float y0, const float y1,
-                const float z0, const float z1);
+    BBox(void) = default;
 
-        explicit BBox(const Point3D p0, const Point3D p1);
+    explicit BBox(const float x0, const float x1, const float y0, const float y1, const float z0, const float z1);
 
-        ~BBox(void) = default;
+    explicit BBox(const Point3D p0, const Point3D p1);
 
-        BBox(const BBox& bbox);
+    ~BBox(void) = default;
 
-        BBox(BBox&& bbox) noexcept;
+    BBox(const BBox& bbox);
 
-        BBox&
-        operator= (const BBox& rhs);
+    BBox(BBox&& bbox) noexcept;
 
-        BBox &
-        operator= (BBox&& rhs) noexcept;
+    BBox& operator=(const BBox& rhs);
 
-        bool
-        hit(const Ray& ray) const;
+    BBox& operator=(BBox&& rhs) noexcept;
 
-        bool
-        inside(const Point3D& p) const;
+    bool hit(const Ray& ray) const;
+
+    bool inside(const Point3D& p) const;
 };
 
 #endif

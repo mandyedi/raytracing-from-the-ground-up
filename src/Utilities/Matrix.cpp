@@ -12,12 +12,8 @@
 
 #include "Matrix.h"
 
-
-
-
-Matrix
-Matrix::operator* (const Matrix& mat) const {
-    Matrix  product;
+Matrix Matrix::operator*(const Matrix& mat) const {
+    Matrix product;
 
     for (int y = 0; y < 4; y++) {
         for (int x = 0; x < 4; x++) {
@@ -34,9 +30,7 @@ Matrix::operator* (const Matrix& mat) const {
     return (product);
 }
 
-
-Matrix
-Matrix::operator/ (const float d) {
+Matrix Matrix::operator/(const float d) {
     for (int x = 0; x < 4; x++) {
         for (int y = 0; y < 4; y++) {
             m[x][y] = m[x][y] / d;
@@ -46,24 +40,14 @@ Matrix::operator/ (const float d) {
     return (*this);
 }
 
-
-
-void
-Matrix::set_identity(void) {
+void Matrix::set_identity(void) {
     for (int x = 0; x < 4; x++) {
         for (int y = 0; y < 4; y++) {
             if (x == y) {
                 m[x][y] = 1.0f;
-            }
-            else {
+            } else {
                 m[x][y] = 0.0f;
             }
         }
     }
 }
-
-
-
-
-
-

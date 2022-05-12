@@ -15,9 +15,9 @@
 
 #include "Compound.h"
 
-class CompoundSolidCylinder : public Compound
-{
+class CompoundSolidCylinder : public Compound {
 public:
+
     CompoundSolidCylinder();
 
     CompoundSolidCylinder(const float bottom, const float top, const float radius);
@@ -28,24 +28,19 @@ public:
 
     CompoundSolidCylinder(CompoundSolidCylinder&& sc) noexcept;
 
-    CompoundSolidCylinder&
-    operator= (const CompoundSolidCylinder &sc);
+    CompoundSolidCylinder& operator=(const CompoundSolidCylinder& sc);
 
-    CompoundSolidCylinder&
-    operator= (CompoundSolidCylinder&& sc) noexcept;
+    CompoundSolidCylinder& operator=(CompoundSolidCylinder&& sc) noexcept;
 
-    virtual CompoundSolidCylinder*
-    clone() const;
+    virtual CompoundSolidCylinder* clone() const;
 
-    virtual bool
-    hit(const Ray& ray, float& tmin, ShadeRec& s) const;
+    virtual bool hit(const Ray& ray, float& tmin, ShadeRec& s) const;
 
-    virtual bool
-    shadow_hit(const Ray& ray, float& tmin) const;
+    virtual bool shadow_hit(const Ray& ray, float& tmin) const;
 
 private:
-    BBox bbox;
 
+    BBox bbox;
 };
 
 #endif

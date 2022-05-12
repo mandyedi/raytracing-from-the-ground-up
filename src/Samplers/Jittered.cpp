@@ -11,38 +11,17 @@
 //  See the file COPYING.txt for the full license.
 
 #include "Jittered.h"
+
 #include "../Utilities/Random.h"
 
+Jittered::Jittered(const int num_samples) : Sampler(num_samples) { generate_samples(); }
 
+Jittered::Jittered(const int num_samples, const int m) : Sampler(num_samples, m) { generate_samples(); }
 
+Jittered* Jittered::clone(void) const { return (new Jittered(*this)); }
 
-Jittered::Jittered(const int num_samples)
-    : Sampler(num_samples) {
-    generate_samples();
-}
-
-
-
-
-Jittered::Jittered(const int num_samples, const int m)
-    : Sampler(num_samples, m) {
-    generate_samples();
-}
-
-
-
-
-Jittered*
-Jittered::clone(void) const {
-    return (new Jittered(*this));
-}
-
-
-
-
-void
-Jittered::generate_samples(void) {
-    int n = (int) sqrt((float)num_samples);
+void Jittered::generate_samples(void) {
+    int n = (int)sqrt((float)num_samples);
 
     for (int p = 0; p < num_sets; p++) {
         for (int j = 0; j < n; j++) {
@@ -53,4 +32,3 @@ Jittered::generate_samples(void) {
         }
     }
 }
-

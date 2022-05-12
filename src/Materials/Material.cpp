@@ -12,64 +12,28 @@
 
 #include "../Materials/Material.h"
 
+Material::Material(const Material& material) : shadows(material.shadows) {}
 
+Material::Material(Material&& material) noexcept : shadows(std::exchange(material.shadows, true)) {}
 
-
-Material::Material(const Material& material)
-    : shadows(material.shadows)
-{}
-
-
-
-Material::Material(Material&& material) noexcept
-    : shadows(std::exchange(material.shadows, true))
-{}
-
-
-
-Material&
-Material::operator= (const Material& material) {
+Material& Material::operator=(const Material& material) {
     shadows = material.shadows;
     return (*this);
 }
 
-
-
-Material&
-Material::operator= (Material&& material) noexcept {
+Material& Material::operator=(Material&& material) noexcept {
     shadows = std::exchange(material.shadows, true);
     return (*this);
 }
 
+Material::~Material(void) {}
 
+RGBColor Material::shade([[maybe_unused]] ShadeRec& sr) { return (RGBColor::black); }
 
-Material::~Material(void)
-{}
+RGBColor Material::path_shade(ShadeRec& sr) { return shade(sr); }
 
+RGBColor Material::global_shade(ShadeRec& sr) { return shade(sr); }
 
+RGBColor Material::area_light_shade(ShadeRec& sr) { return shade(sr); }
 
-RGBColor
-Material::shade([[maybe_unused]] ShadeRec& sr) {
-    return (RGBColor::black);
-}
-
-RGBColor
-Material::path_shade(ShadeRec &sr) {
-    return shade(sr);
-}
-
-RGBColor
-Material::global_shade(ShadeRec &sr) {
-    return shade(sr);
-}
-
-RGBColor
-Material::area_light_shade(ShadeRec &sr) {
-    return shade(sr);
-}
-
-
-RGBColor
-Material::get_Le(ShadeRec &sr) const {
-    return RGBColor::black;
-}
+RGBColor Material::get_Le(ShadeRec& sr) const { return RGBColor::black; }

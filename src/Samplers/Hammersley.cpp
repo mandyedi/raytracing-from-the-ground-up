@@ -11,33 +11,19 @@
 //  See the file COPYING.txt for the full license.
 
 #include "Hammersley.h"
+
 #include "../Utilities/Maths.h"
 
+Hammersley::Hammersley(const int num) : Sampler(num) { generate_samples(); }
 
+Hammersley* Hammersley::clone(void) const { return (new Hammersley(*this)); }
 
-
-Hammersley::Hammersley(const int num)
-    :   Sampler(num) {
-    generate_samples();
-}
-
-
-
-Hammersley*
-Hammersley::clone(void) const {
-    return (new Hammersley(*this));
-}
-
-
-
-
-float
-Hammersley::phi(int j) {
+float Hammersley::phi(int j) {
     float x = 0.0f;
     float f = 0.5f;
 
     while (j) {
-        x += f * (float) (j % 2);
+        x += f * (float)(j % 2);
         j /= 2;
         f *= 0.5;
     }
@@ -45,17 +31,11 @@ Hammersley::phi(int j) {
     return (x);
 }
 
-
-
-
-void
-Hammersley::generate_samples(void) {
+void Hammersley::generate_samples(void) {
     for (int p = 0; p < num_sets; p++) {
         for (int j = 0; j < num_samples; j++) {
-            Point2D pv((float) j / (float) num_samples, (float) phi(j));
+            Point2D pv((float)j / (float)num_samples, (float)phi(j));
             samples.push_back(pv);
         }
     }
 }
-
-
