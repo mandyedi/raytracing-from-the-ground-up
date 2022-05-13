@@ -28,9 +28,9 @@ RGBColor GlobalTrace::trace_ray(const Ray& ray, const int depth) const {
             sr.depth = depth;
             sr.ray = ray;
 
-            return (sr.material_ptr->global_shade(sr));
+            return sr.material_ptr->global_shade(sr);
         } else {
-            return (world_ptr->background_color);
+            return world_ptr->background_color;
         }
     }
 }
@@ -48,10 +48,10 @@ RGBColor GlobalTrace::trace_ray(const Ray ray, float& tmin, const int depth) con
             sr.depth = depth;
             sr.ray = ray;
             tmin = sr.t;  // required for colored transparency
-            return (sr.material_ptr->global_shade(sr));
+            return sr.material_ptr->global_shade(sr);
         } else {
             tmin = kHugeValue;
-            return (world_ptr->background_color);
+            return world_ptr->background_color;
         }
     }
 }

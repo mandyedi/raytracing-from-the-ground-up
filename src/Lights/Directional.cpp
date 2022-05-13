@@ -12,6 +12,8 @@
 
 #include "Directional.h"
 
+#include <utility>
+
 #include "../GeometricObjects/GeometricObject.h"
 
 Directional::Directional(const Directional& dl) : Light(dl), ls(dl.ls), color(dl.color), dir(dl.dir) {}
@@ -25,7 +27,7 @@ Directional& Directional::operator=(const Directional& dl) {
     color = dl.color;
     dir = dl.dir;
 
-    return (*this);
+    return *this;
 }
 
 Directional& Directional::operator=(Directional&& dl) noexcept {
@@ -35,16 +37,16 @@ Directional& Directional::operator=(Directional&& dl) noexcept {
     color = std::move(dl.color);
     dir = std::move(dl.dir);
 
-    return (*this);
+    return *this;
 }
 
-Light* Directional::clone(void) const { return (new Directional(*this)); }
+Light* Directional::clone() const { return new Directional(*this); }
 
-Directional::~Directional(void) {}
+Directional::~Directional() {}
 
-Vector3D Directional::get_direction([[maybe_unused]] ShadeRec& sr) { return (dir); }
+Vector3D Directional::get_direction([[maybe_unused]] ShadeRec& sr) { return dir; }
 
-RGBColor Directional::L([[maybe_unused]] ShadeRec& s) { return (ls * color); }
+RGBColor Directional::L([[maybe_unused]] ShadeRec& s) { return ls * color; }
 
 bool Directional::in_shadow(const Ray& ray, const ShadeRec& sr) const {
     float t;

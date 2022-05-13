@@ -12,6 +12,8 @@
 
 #include "../BRDFs/Lambertian.h"
 
+#include <utility>
+
 #include "../Utilities/Constants.h"
 
 Lambertian::Lambertian(const Lambertian& l) : BRDF(l), kd(l.kd), cd(l.cd) {}
@@ -24,7 +26,7 @@ Lambertian& Lambertian::operator=(const Lambertian& l) {
     kd = l.kd;
     cd = l.cd;
 
-    return (*this);
+    return *this;
 }
 
 Lambertian& Lambertian::operator=(Lambertian&& l) noexcept {
@@ -33,12 +35,12 @@ Lambertian& Lambertian::operator=(Lambertian&& l) noexcept {
     kd = std::exchange(l.kd, 0.0f);
     cd = std::move(l.cd);
 
-    return (*this);
+    return *this;
 }
 
-Lambertian* Lambertian::clone(void) const { return (new Lambertian(*this)); }
+Lambertian* Lambertian::clone() const { return new Lambertian(*this); }
 
-RGBColor Lambertian::f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo, [[maybe_unused]] const Vector3D& wi) const { return (kd * cd * invPI); }
+RGBColor Lambertian::f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo, [[maybe_unused]] const Vector3D& wi) const { return kd * cd * invPI; }
 
 // this generates a direction by sampling the hemisphere with a cosine distribution
 // this is called in path_shade for any material with a diffuse shading component
@@ -56,7 +58,7 @@ RGBColor Lambertian::sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& 
 
     pdf = sr.normal * wi * invPI;
 
-    return (kd * cd * invPI);
+    return kd * cd * invPI;
 }
 
-RGBColor Lambertian::rho([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo) const { return (kd * cd); }
+RGBColor Lambertian::rho([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo) const { return kd * cd; }

@@ -58,7 +58,7 @@ ConvexPartCylinder& ConvexPartCylinder::operator=(ConvexPartCylinder&& c) noexce
     return *this;
 }
 
-ConvexPartCylinder* ConvexPartCylinder::clone() const { return (new ConvexPartCylinder(*this)); }
+ConvexPartCylinder* ConvexPartCylinder::clone() const { return new ConvexPartCylinder(*this); }
 
 bool ConvexPartCylinder::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float t;

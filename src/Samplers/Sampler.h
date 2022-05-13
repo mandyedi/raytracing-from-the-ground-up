@@ -24,13 +24,13 @@
 class Sampler {
 public:
 
-    Sampler(void);
+    Sampler();
 
     Sampler(const int num);
 
     Sampler(const int num, const int num_sets);
 
-    virtual ~Sampler(void);
+    virtual ~Sampler();
 
     Sampler(const Sampler& s);
 
@@ -40,44 +40,44 @@ public:
 
     Sampler& operator=(Sampler&& s) noexcept;
 
-    virtual Sampler* clone(void) const = 0;
+    virtual Sampler* clone() const = 0;
 
     void set_num_sets(const int np);
 
     virtual void  // generate sample patterns in a unit square
-    generate_samples(void) = 0;
+    generate_samples() = 0;
 
-    int get_num_samples(void);
+    int get_num_samples();
 
-    void shuffle_x_coordinates(void);
+    void shuffle_x_coordinates();
 
-    void shuffle_y_coordinates(void);
+    void shuffle_y_coordinates();
 
-    void setup_shuffled_indices(void);
+    void setup_shuffled_indices();
 
-    void map_samples_to_unit_disk(void);
+    void map_samples_to_unit_disk();
 
     void map_samples_to_hemisphere(const float p);
 
-    void map_samples_to_sphere(void);
+    void map_samples_to_sphere();
 
     // the following functions are not const because they change count and jump
 
     Point2D  // get next sample on unit square
-    sample_unit_square(void);
+    sample_unit_square();
 
     Point2D  // get next sample on unit disk
-    sample_unit_disk(void);
+    sample_unit_disk();
 
     Point3D  // get next sample on unit hemisphere
-    sample_hemisphere(void);
+    sample_hemisphere();
 
     Point3D  // get next sample on unit sphere
-    sample_sphere(void);
+    sample_sphere();
 
-    Point2D                // only used to set up a vector noise table
-    sample_one_set(void);  // this is not discussed in the book, but see the
-                           // file LatticeNoise.cpp in Chapter 31
+    Point2D            // only used to set up a vector noise table
+    sample_one_set();  // this is not discussed in the book, but see the
+                       // file LatticeNoise.cpp in Chapter 31
 
 protected:
 

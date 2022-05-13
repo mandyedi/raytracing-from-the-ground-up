@@ -51,11 +51,11 @@ CompoundSolidCylinder& CompoundSolidCylinder::operator=(CompoundSolidCylinder&& 
     return *this;
 }
 
-CompoundSolidCylinder* CompoundSolidCylinder::clone() const { return (new CompoundSolidCylinder(*this)); }
+CompoundSolidCylinder* CompoundSolidCylinder::clone() const { return new CompoundSolidCylinder(*this); }
 
 bool CompoundSolidCylinder::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     if (bbox.hit(ray)) {
-        return (Compound::hit(ray, tmin, sr));
+        return Compound::hit(ray, tmin, sr);
     } else {
         return false;
     }

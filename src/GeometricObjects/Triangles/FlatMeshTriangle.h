@@ -21,18 +21,18 @@
 class FlatMeshTriangle : public MeshTriangle {
 public:
 
-    FlatMeshTriangle(void) = default;
+    FlatMeshTriangle() = default;
 
     explicit FlatMeshTriangle(Mesh* _meshPtr, const int i0, const int i1, const int i2);
 
-    ~FlatMeshTriangle(void) = default;
+    ~FlatMeshTriangle() = default;
 
     FlatMeshTriangle(const FlatMeshTriangle& fmt) = default;
     FlatMeshTriangle(FlatMeshTriangle&& fmt) = default;
     FlatMeshTriangle& operator=(const FlatMeshTriangle& rhs) = default;
     FlatMeshTriangle& operator=(FlatMeshTriangle&& rhs) = default;
 
-    FlatMeshTriangle* clone(void) const override;
+    FlatMeshTriangle* clone() const override;
 
     bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 };

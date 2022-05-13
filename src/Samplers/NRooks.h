@@ -18,13 +18,13 @@
 class NRooks : public Sampler {
 public:
 
-    NRooks(void) = delete;
+    NRooks() = delete;
 
     explicit NRooks(const int num_samples);
 
     explicit NRooks(const int num_samples, const int m);
 
-    ~NRooks(void) = default;
+    ~NRooks() = default;
 
     NRooks(const NRooks& r) = default;
 
@@ -34,11 +34,11 @@ public:
 
     NRooks& operator=(NRooks&& rhs) = default;
 
-    virtual NRooks* clone(void) const override;
+    virtual NRooks* clone() const override;
 
 private:
 
-    virtual void generate_samples(void) override;
+    virtual void generate_samples() override;
 };
 
 #endif

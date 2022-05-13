@@ -26,9 +26,9 @@
 class PerfectSpecular : public BRDF {
 public:
 
-    PerfectSpecular(void) = default;
+    PerfectSpecular() = default;
 
-    ~PerfectSpecular(void) = default;
+    ~PerfectSpecular() = default;
 
     PerfectSpecular(const PerfectSpecular& l);
 
@@ -38,7 +38,7 @@ public:
 
     PerfectSpecular& operator=(PerfectSpecular&& l) noexcept;
 
-    virtual PerfectSpecular* clone(void) const;
+    virtual PerfectSpecular* clone() const;
 
     void set_kr(const float k);
 

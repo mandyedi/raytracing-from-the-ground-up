@@ -12,9 +12,11 @@
 
 #include "../BRDFs/GlossySpecular.h"
 
+#include <utility>
+
 #include "../Samplers/MultiJittered.h"
 
-GlossySpecular::~GlossySpecular(void) {
+GlossySpecular::~GlossySpecular() {
     if (sampler_ptr != nullptr) {
         delete sampler_ptr;
         sampler_ptr = nullptr;
@@ -56,7 +58,7 @@ GlossySpecular& GlossySpecular::operator=(GlossySpecular&& gs) noexcept {
     return *this;
 }
 
-GlossySpecular* GlossySpecular::clone(void) const { return (new GlossySpecular(*this)); }
+GlossySpecular* GlossySpecular::clone() const { return new GlossySpecular(*this); }
 
 void GlossySpecular::set_sampler(Sampler* sp, const float exp) {
     sampler_ptr = sp;
@@ -80,7 +82,7 @@ RGBColor GlossySpecular::f(const ShadeRec& sr, const Vector3D& wo, const Vector3
         L = ks * cs * pow(rdotwo, exp);
     }
 
-    return (L);
+    return L;
 }
 
 // this is used for indirect illumination
@@ -103,7 +105,7 @@ RGBColor GlossySpecular::sample_f(const ShadeRec& sr, const Vector3D& wo, Vector
     float phong_lobe = pow(r * wi, exp);
     pdf = phong_lobe * (sr.normal * wi);
 
-    return (ks * cs * phong_lobe);
+    return ks * cs * phong_lobe;
 }
 
-RGBColor GlossySpecular::rho(const ShadeRec& sr, const Vector3D& wo) const { return (RGBColor::black); }
+RGBColor GlossySpecular::rho(const ShadeRec& sr, const Vector3D& wo) const { return RGBColor::black; }

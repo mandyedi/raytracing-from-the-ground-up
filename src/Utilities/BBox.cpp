@@ -37,7 +37,7 @@ BBox& BBox::operator=(const BBox& bbox) {
     z0 = bbox.z0;
     z1 = bbox.z1;
 
-    return (*this);
+    return *this;
 }
 
 BBox& BBox::operator=(BBox&& bbox) noexcept {
@@ -48,7 +48,7 @@ BBox& BBox::operator=(BBox&& bbox) noexcept {
     z0 = std::exchange(bbox.z0, -1.0f);
     z1 = std::exchange(bbox.z1, 1.0f);
 
-    return (*this);
+    return *this;
 }
 
 bool BBox::hit(const Ray& ray) const {
@@ -109,8 +109,8 @@ bool BBox::hit(const Ray& ray) const {
 
     if (tz_max < t1) t1 = tz_max;
 
-    return (t0 < t1 && t1 > std::numeric_limits<float>::epsilon());
+    return t0 < t1 && t1 > std::numeric_limits<float>::epsilon();
 }
 
 // used to test if a ray starts inside a grid
-bool BBox::inside(const Point3D& p) const { return ((p.x > x0 && p.x < x1) && (p.y > y0 && p.y < y1) && (p.z > z0 && p.z < z1)); };
+bool BBox::inside(const Point3D& p) const { return (p.x > x0 && p.x < x1) && (p.y > y0 && p.y < y1) && (p.z > z0 && p.z < z1); };

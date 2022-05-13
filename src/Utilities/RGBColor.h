@@ -20,7 +20,7 @@ public:
     float g = 0.0f;
     float b = 0.0f;
 
-    RGBColor(void) = default;
+    RGBColor() = default;
     explicit RGBColor(float c);
     explicit RGBColor(float _r, float _g, float _b);
 
@@ -42,7 +42,7 @@ public:
 
     RGBColor powc(float p) const;
 
-    float average(void) const;
+    float average() const;
 
     /*static*/ static const RGBColor black;
     /*static*/ static const RGBColor white;
@@ -59,41 +59,41 @@ public:
     /*static*/ static const RGBColor grey;
 };
 
-inline RGBColor RGBColor::operator+(const RGBColor& c) const { return (RGBColor(r + c.r, g + c.g, b + c.b)); }
+inline RGBColor RGBColor::operator+(const RGBColor& c) const { return RGBColor(r + c.r, g + c.g, b + c.b); }
 
 inline RGBColor& RGBColor::operator+=(const RGBColor& c) {
     r += c.r;
     g += c.g;
     b += c.b;
-    return (*this);
+    return *this;
 }
 
-inline RGBColor RGBColor::operator*(const float a) const { return (RGBColor(r * a, g * a, b * a)); }
+inline RGBColor RGBColor::operator*(const float a) const { return RGBColor(r * a, g * a, b * a); }
 
 inline RGBColor& RGBColor::operator*=(const float a) {
     r *= a;
     g *= a;
     b *= a;
-    return (*this);
+    return *this;
 }
 
-inline RGBColor RGBColor::operator/(const float a) const { return (RGBColor(r / a, g / a, b / a)); }
+inline RGBColor RGBColor::operator/(const float a) const { return RGBColor(r / a, g / a, b / a); }
 
 inline RGBColor& RGBColor::operator/=(const float a) {
     r /= a;
     g /= a;
     b /= a;
-    return (*this);
+    return *this;
 }
 
-inline RGBColor RGBColor::operator*(const RGBColor& c) const { return (RGBColor(r * c.r, g * c.g, b * c.b)); }
+inline RGBColor RGBColor::operator*(const RGBColor& c) const { return RGBColor(r * c.r, g * c.g, b * c.b); }
 
-inline bool RGBColor::operator==(const RGBColor& c) const { return (r == c.r && g == c.g && b == c.b); }
+inline bool RGBColor::operator==(const RGBColor& c) const { return r == c.r && g == c.g && b == c.b; }
 
-inline float RGBColor::average(void) const { return (0.333333333333f * (r + g + b)); }
+inline float RGBColor::average() const { return 0.333333333333f * (r + g + b); }
 
 RGBColor operator*(const float a, const RGBColor& c);
 
-inline RGBColor operator*(const float a, const RGBColor& c) { return (RGBColor(a * c.r, a * c.g, a * c.b)); }
+inline RGBColor operator*(const float a, const RGBColor& c) { return RGBColor(a * c.r, a * c.g, a * c.b); }
 
 #endif

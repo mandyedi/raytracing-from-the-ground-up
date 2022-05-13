@@ -29,11 +29,11 @@ public:
     Normal n1 = Normal(0.0f, 1.0f, 0.0f);
     Normal n2 = Normal(0.0f, 1.0f, 0.0f);
 
-    SmoothTriangle(void) = default;
+    SmoothTriangle() = default;
 
     explicit SmoothTriangle(const Point3D& a, const Point3D& b, const Point3D& c);
 
-    ~SmoothTriangle(void) = default;
+    ~SmoothTriangle() = default;
 
     SmoothTriangle(const SmoothTriangle& st);
 
@@ -43,9 +43,9 @@ public:
 
     SmoothTriangle& operator=(SmoothTriangle&& rhs) noexcept;
 
-    SmoothTriangle* clone(void) const override;
+    SmoothTriangle* clone() const override;
 
-    BBox get_bounding_box(void);
+    BBox get_bounding_box();
 
     bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 

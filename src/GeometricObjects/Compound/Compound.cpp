@@ -14,7 +14,7 @@
 
 #include <limits>
 
-Compound::~Compound(void) { delete_objects(); }
+Compound::~Compound() { delete_objects(); }
 
 Compound::Compound(const Compound& c) : GeometricObject(c) { copy_objects(c.objects); }
 
@@ -25,7 +25,7 @@ Compound& Compound::operator=(const Compound& c) {
 
     copy_objects(c.objects);
 
-    return (*this);
+    return *this;
 }
 
 Compound& Compound::operator=(Compound&& c) noexcept {
@@ -33,10 +33,10 @@ Compound& Compound::operator=(Compound&& c) noexcept {
 
     objects = std::move(c.objects);
 
-    return (*this);
+    return *this;
 }
 
-Compound* Compound::clone(void) const { return (new Compound(*this)); }
+Compound* Compound::clone() const { return new Compound(*this); }
 
 void Compound::set_material(Material* material_ptr) {
     int num_objects = objects.size();
@@ -70,10 +70,10 @@ bool Compound::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
         sr.local_hit_point = local_hit_point;
     }
 
-    return (hit);
+    return hit;
 }
 
-void Compound::delete_objects(void) {
+void Compound::delete_objects() {
     int num_objects = objects.size();
 
     for (int j = 0; j < num_objects; j++) {

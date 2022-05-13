@@ -27,7 +27,7 @@ public:
 
 public:
 
-    Vector3D(void) = default;
+    Vector3D() = default;
     explicit Vector3D(float a);
     explicit Vector3D(float _x, float _y, float _z);
 
@@ -38,11 +38,11 @@ public:
 
     Vector3D& operator=(const Point3D& rhs);
 
-    Vector3D operator-(void) const;
+    Vector3D operator-() const;
 
-    float length(void);
+    float length();
 
-    float len_squared(void);
+    float len_squared();
 
     Vector3D operator*(const float a) const;
 
@@ -58,37 +58,37 @@ public:
 
     Vector3D operator^(const Vector3D& v) const;
 
-    void normalize(void);
+    void normalize();
 
-    Vector3D& hat(void);
+    Vector3D& hat();
 };
 
-inline Vector3D Vector3D::operator-(void) const { return (Vector3D(-x, -y, -z)); }
+inline Vector3D Vector3D::operator-() const { return Vector3D(-x, -y, -z); }
 
-inline float Vector3D::len_squared(void) { return (x * x + y * y + z * z); }
+inline float Vector3D::len_squared() { return x * x + y * y + z * z; }
 
-inline Vector3D Vector3D::operator*(const float a) const { return (Vector3D(x * a, y * a, z * a)); }
+inline Vector3D Vector3D::operator*(const float a) const { return Vector3D(x * a, y * a, z * a); }
 
-inline Vector3D Vector3D::operator/(const float a) const { return (Vector3D(x / a, y / a, z / a)); }
+inline Vector3D Vector3D::operator/(const float a) const { return Vector3D(x / a, y / a, z / a); }
 
-inline Vector3D Vector3D::operator+(const Vector3D& v) const { return (Vector3D(x + v.x, y + v.y, z + v.z)); }
+inline Vector3D Vector3D::operator+(const Vector3D& v) const { return Vector3D(x + v.x, y + v.y, z + v.z); }
 
-inline Vector3D Vector3D::operator-(const Vector3D& v) const { return (Vector3D(x - v.x, y - v.y, z - v.z)); }
+inline Vector3D Vector3D::operator-(const Vector3D& v) const { return Vector3D(x - v.x, y - v.y, z - v.z); }
 
-inline float Vector3D::operator*(const Vector3D& v) const { return (x * v.x + y * v.y + z * v.z); }
+inline float Vector3D::operator*(const Vector3D& v) const { return x * v.x + y * v.y + z * v.z; }
 
-inline Vector3D Vector3D::operator^(const Vector3D& v) const { return (Vector3D(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x)); }
+inline Vector3D Vector3D::operator^(const Vector3D& v) const { return Vector3D(y * v.z - z * v.y, z * v.x - x * v.z, x * v.y - y * v.x); }
 
 inline Vector3D& Vector3D::operator+=(const Vector3D& v) {
     x += v.x;
     y += v.y;
     z += v.z;
-    return (*this);
+    return *this;
 }
 
 Vector3D operator*(const float a, const Vector3D& v);
 
-inline Vector3D operator*(const float a, const Vector3D& v) { return (Vector3D(a * v.x, a * v.y, a * v.z)); }
+inline Vector3D operator*(const float a, const Vector3D& v) { return Vector3D(a * v.x, a * v.y, a * v.z); }
 
 Vector3D operator*(const Matrix& mat, const Vector3D& v);
 

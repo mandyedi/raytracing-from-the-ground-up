@@ -33,7 +33,7 @@ public:
 
     Pinhole& operator=(Pinhole&& p) noexcept;
 
-    Camera* clone(void) const override;
+    Camera* clone() const override;
 
     void set_view_distance(const float vpd);
 

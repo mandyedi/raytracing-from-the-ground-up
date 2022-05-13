@@ -38,11 +38,11 @@ class Mesh;
 class Grid : public Compound {
 public:
 
-    Grid(void);
+    Grid();
 
     Grid(Mesh* _mesh_ptr);
 
-    ~Grid(void);
+    ~Grid();
 
     // Yes, I was lazy at this point
     Grid(const Grid& grid) = delete;
@@ -50,7 +50,7 @@ public:
     Grid& operator=(const Grid& grid) = delete;
     Grid& operator=(Grid&& grid) = delete;
 
-    void setup_cells(void);
+    void setup_cells();
 
     bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 
@@ -62,7 +62,7 @@ public:
 
     void tessellate_smooth_sphere(const int horizontal_steps, const int vertical_steps);
 
-    void reverse_mesh_normals(void);
+    void reverse_mesh_normals();
 
     void store_material(Material* material, const int index);
 
@@ -74,20 +74,20 @@ private:
     Mesh* mesh_ptr;
     bool reverse_normal;  // some PLY files have normals that point inwards
 
-    Point3D find_min_bounds(void);
+    Point3D find_min_bounds();
 
-    Point3D find_max_bounds(void);
+    Point3D find_max_bounds();
 
     void read_ply_file(char* file_name, const int triangle_type);
 
-    void compute_mesh_normals(void);
+    void compute_mesh_normals();
 
-    BBox get_bounding_box(void);
+    BBox get_bounding_box();
 
-    void delete_cells(void);
+    void delete_cells();
 };
 
-inline void Grid::reverse_mesh_normals(void) { reverse_normal = true; }
+inline void Grid::reverse_mesh_normals() { reverse_normal = true; }
 
 // stores the material in the specified object
 // this is called from the Rosette and Archway classes, which inherit from Grid

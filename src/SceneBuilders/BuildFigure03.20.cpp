@@ -15,7 +15,7 @@
 #include "../Tracers/MultipleObjects.h"
 #include "../World/World.h"
 
-void World::build_figure_03_20(void) {
+void World::build_figure_03_20() {
     vp.set_hres(200);
     vp.set_vres(200);
 

@@ -12,9 +12,11 @@
 
 #include "BRDF.h"
 
+#include <utility>
+
 #include "../Utilities/RGBColor.h"
 
-BRDF::~BRDF(void) {
+BRDF::~BRDF() {
     if (sampler_ptr != nullptr) {
         delete sampler_ptr;
         sampler_ptr = nullptr;
@@ -31,7 +33,7 @@ BRDF& BRDF::operator=(const BRDF& b) {
     }
     sampler_ptr = b.sampler_ptr->clone();
 
-    return (*this);
+    return *this;
 }
 
 BRDF& BRDF::operator=(BRDF&& b) noexcept {
@@ -41,7 +43,7 @@ BRDF& BRDF::operator=(BRDF&& b) noexcept {
     sampler_ptr = b.sampler_ptr;
     b.sampler_ptr = nullptr;
 
-    return (*this);
+    return *this;
 }
 
 void BRDF::set_sampler(Sampler* sPtr) {
@@ -49,10 +51,10 @@ void BRDF::set_sampler(Sampler* sPtr) {
     sampler_ptr->map_samples_to_hemisphere(1);  // for perfect diffuse
 }
 
-RGBColor BRDF::f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo, [[maybe_unused]] const Vector3D& wi) const { return (RGBColor::black); }
+RGBColor BRDF::f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo, [[maybe_unused]] const Vector3D& wi) const { return RGBColor::black; }
 
-RGBColor BRDF::sample_f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo, [[maybe_unused]] Vector3D& wi) const { return (RGBColor::black); }
+RGBColor BRDF::sample_f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo, [[maybe_unused]] Vector3D& wi) const { return RGBColor::black; }
 
-RGBColor BRDF::sample_f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo, [[maybe_unused]] Vector3D& wi, [[maybe_unused]] float& pdf) const { return (RGBColor::black); }
+RGBColor BRDF::sample_f([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo, [[maybe_unused]] Vector3D& wi, [[maybe_unused]] float& pdf) const { return RGBColor::black; }
 
-RGBColor BRDF::rho([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo) const { return (RGBColor::black); }
+RGBColor BRDF::rho([[maybe_unused]] const ShadeRec& sr, [[maybe_unused]] const Vector3D& wo) const { return RGBColor::black; }

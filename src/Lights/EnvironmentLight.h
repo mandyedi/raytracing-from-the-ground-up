@@ -21,9 +21,9 @@ class Material;
 class EnvironmentLight : public Light {
 public:
 
-    EnvironmentLight(void) = default;
+    EnvironmentLight() = default;
 
-    ~EnvironmentLight(void);
+    ~EnvironmentLight();
 
     EnvironmentLight(const EnvironmentLight& el);
 
@@ -33,7 +33,7 @@ public:
 
     EnvironmentLight& operator=(EnvironmentLight&& el) noexcept;
 
-    Light* clone(void) const override;
+    Light* clone() const override;
 
     void set_sampler(Sampler* sampler);
 

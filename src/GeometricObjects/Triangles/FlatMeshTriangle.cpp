@@ -16,7 +16,7 @@
 
 FlatMeshTriangle::FlatMeshTriangle(Mesh* _mesh_ptr, const int i0, const int i1, const int i2) : MeshTriangle(_mesh_ptr, i0, i1, i2) {}
 
-FlatMeshTriangle* FlatMeshTriangle::clone(void) const { return (new FlatMeshTriangle(*this)); }
+FlatMeshTriangle* FlatMeshTriangle::clone() const { return new FlatMeshTriangle(*this); }
 
 bool FlatMeshTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     Point3D v0(mesh_ptr->vertices[index0]);
@@ -36,7 +36,7 @@ bool FlatMeshTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float beta = e1 * inv_denom;
 
     if (beta < 0.0f) {
-        return (false);
+        return false;
     }
 
     float r = e * l - h * i;
@@ -44,23 +44,23 @@ bool FlatMeshTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float gamma = e2 * inv_denom;
 
     if (gamma < 0.0f) {
-        return (false);
+        return false;
     }
 
     if (beta + gamma > 1.0f) {
-        return (false);
+        return false;
     }
 
     float e3 = a * p - b * r + d * s;
     float t = e3 * inv_denom;
 
     if (t < std::numeric_limits<float>::epsilon()) {
-        return (false);
+        return false;
     }
 
     tmin = t;
     sr.normal = normal;  // for flat shading
     sr.local_hit_point = ray.o + t * ray.d;
 
-    return (true);
+    return true;
 }

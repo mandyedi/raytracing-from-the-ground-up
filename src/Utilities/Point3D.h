@@ -27,7 +27,7 @@ public:
     explicit Point3D(const float a);
     explicit Point3D(const float a, const float b, const float c);
 
-    Point3D operator-(void) const;
+    Point3D operator-() const;
 
     Vector3D operator-(const Point3D& p) const;
 
@@ -42,21 +42,21 @@ public:
     float distance(const Point3D& p) const;
 };
 
-inline Point3D Point3D::operator-(void) const { return (Point3D(-x, -y, -z)); }
+inline Point3D Point3D::operator-() const { return Point3D(-x, -y, -z); }
 
-inline Vector3D Point3D::operator-(const Point3D& p) const { return (Vector3D(x - p.x, y - p.y, z - p.z)); }
+inline Vector3D Point3D::operator-(const Point3D& p) const { return Vector3D(x - p.x, y - p.y, z - p.z); }
 
-inline Point3D Point3D::operator+(const Vector3D& v) const { return (Point3D(x + v.x, y + v.y, z + v.z)); }
+inline Point3D Point3D::operator+(const Vector3D& v) const { return Point3D(x + v.x, y + v.y, z + v.z); }
 
-inline Point3D Point3D::operator-(const Vector3D& v) const { return (Point3D(x - v.x, y - v.y, z - v.z)); }
+inline Point3D Point3D::operator-(const Vector3D& v) const { return Point3D(x - v.x, y - v.y, z - v.z); }
 
-inline Point3D Point3D::operator*(const float a) const { return (Point3D(x * a, y * a, z * a)); }
+inline Point3D Point3D::operator*(const float a) const { return Point3D(x * a, y * a, z * a); }
 
-inline float Point3D::d_squared(const Point3D& p) const { return ((x - p.x) * (x - p.x) + (y - p.y) * (y - p.y) + (z - p.z) * (z - p.z)); }
+inline float Point3D::d_squared(const Point3D& p) const { return (x - p.x) * (x - p.x) + (y - p.y) * (y - p.y) + (z - p.z) * (z - p.z); }
 
 Point3D operator*(float a, const Point3D& p);
 
-inline Point3D operator*(float a, const Point3D& p) { return (Point3D(a * p.x, a * p.y, a * p.z)); }
+inline Point3D operator*(float a, const Point3D& p) { return Point3D(a * p.x, a * p.y, a * p.z); }
 
 Point3D operator*(const Matrix& mat, const Point3D& p);
 

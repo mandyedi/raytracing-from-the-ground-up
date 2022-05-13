@@ -25,8 +25,8 @@ RGBColor SingleSphere::trace_ray(const Ray& ray) const {
     // This assumes that only one Sphere object is in World::objects vector.
     // TODO: add assert
     if (world_ptr->objects[0]->hit(ray, t, sr)) {
-        return (RGBColor::red);
+        return RGBColor::red;
     } else {
-        return (RGBColor::black);
+        return RGBColor::black;
     }
 }

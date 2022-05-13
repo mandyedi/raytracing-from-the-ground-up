@@ -12,11 +12,13 @@
 
 #include "ThinLens.h"
 
+#include <utility>
+
 #include "../Samplers/Sampler.h"
 #include "../Tracers/Tracer.h"
 #include "../World/World.h"
 
-ThinLens::~ThinLens(void) {
+ThinLens::~ThinLens() {
     if (sampler_ptr != nullptr) {
         delete sampler_ptr;
         sampler_ptr = nullptr;
@@ -46,7 +48,7 @@ ThinLens& ThinLens::operator=(const ThinLens& tl) {
     }
     sampler_ptr = tl.sampler_ptr->clone();
 
-    return (*this);
+    return *this;
 }
 
 ThinLens& ThinLens::operator=(ThinLens&& tl) noexcept {
@@ -63,15 +65,15 @@ ThinLens& ThinLens::operator=(ThinLens&& tl) noexcept {
     sampler_ptr = tl.sampler_ptr;
     tl.sampler_ptr = nullptr;
 
-    return (*this);
+    return *this;
 }
 
-Camera* ThinLens::clone(void) const { return (new ThinLens(*this)); }
+Camera* ThinLens::clone() const { return new ThinLens(*this); }
 
 void ThinLens::set_sampler(Sampler* sp) {
     if (sampler_ptr) {
         delete sampler_ptr;
-        sampler_ptr = NULL;
+        sampler_ptr = nullptr;
     }
 
     sampler_ptr = sp;
@@ -83,7 +85,7 @@ Vector3D ThinLens::ray_direction(const Point2D& pixel_point, const Point2D& lens
     Vector3D dir = (p.x - lens_point.x) * u + (p.y - lens_point.y) * v - f * w;
     dir.normalize();
 
-    return (dir);
+    return dir;
 }
 
 void ThinLens::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) {

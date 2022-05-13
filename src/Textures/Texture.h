@@ -19,9 +19,9 @@
 class Texture {
 public:
 
-    Texture(void) = default;
+    Texture() = default;
 
-    virtual ~Texture(void);
+    virtual ~Texture();
 
     Texture(const Texture& t);
 
@@ -31,7 +31,7 @@ public:
 
     Texture& operator=(Texture&& t) noexcept;
 
-    virtual Texture* clone(void) const = 0;
+    virtual Texture* clone() const = 0;
 
     virtual RGBColor get_color(const ShadeRec& sr) const = 0;
 };

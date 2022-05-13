@@ -32,7 +32,7 @@ OpenCylinder& OpenCylinder::operator=(const OpenCylinder& oc) {
     radius = oc.radius, 1.0f;
     inv_radius = oc.inv_radius, 1.0f;
 
-    return (*this);
+    return *this;
 }
 
 OpenCylinder& OpenCylinder::operator=(OpenCylinder&& oc) noexcept {
@@ -43,10 +43,10 @@ OpenCylinder& OpenCylinder::operator=(OpenCylinder&& oc) noexcept {
     radius = std::exchange(oc.radius, 1.0f);
     inv_radius = std::exchange(oc.inv_radius, 1.0f);
 
-    return (*this);
+    return *this;
 }
 
-OpenCylinder* OpenCylinder::clone(void) const { return (new OpenCylinder(*this)); }
+OpenCylinder* OpenCylinder::clone() const { return new OpenCylinder(*this); }
 
 bool OpenCylinder::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float t;
@@ -63,7 +63,7 @@ bool OpenCylinder::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float disc = b * b - 4.0 * a * c;
 
     if (disc < 0.0f) {
-        return (false);
+        return false;
     } else {
         float e = sqrt(disc);
         float denom = 2.0 * a;
@@ -84,7 +84,7 @@ bool OpenCylinder::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
 
                 sr.local_hit_point = ray.o + tmin * ray.d;
 
-                return (true);
+                return true;
             }
         }
 
@@ -105,10 +105,10 @@ bool OpenCylinder::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
 
                 sr.local_hit_point = ray.o + tmin * ray.d;
 
-                return (true);
+                return true;
             }
         }
     }
 
-    return (false);
+    return false;
 }

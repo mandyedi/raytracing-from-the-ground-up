@@ -24,9 +24,9 @@
 class AreaLight : public Light {
 public:
 
-    AreaLight(void) = default;
+    AreaLight() = default;
 
-    ~AreaLight(void);
+    ~AreaLight();
 
     AreaLight(const AreaLight& al);
 
@@ -36,7 +36,7 @@ public:
 
     AreaLight& operator=(AreaLight&& al) noexcept;
 
-    AreaLight* clone(void) const override;
+    AreaLight* clone() const override;
 
     void set_object(GeometricObject* obj_ptr);
 

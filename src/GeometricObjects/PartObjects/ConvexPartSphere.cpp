@@ -97,7 +97,7 @@ bool ConvexPartSphere::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float disc = b * b - 4.0 * a * c;
 
     if (disc < 0.0f) {
-        return (false);
+        return false;
     } else {
         float e = sqrt(disc);
         float denom = 2.0 * a;

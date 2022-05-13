@@ -14,9 +14,9 @@
 
 Regular::Regular(const int num) : Sampler(num) { generate_samples(); }
 
-Regular* Regular::clone(void) const { return (new Regular(*this)); }
+Regular* Regular::clone() const { return new Regular(*this); }
 
-void Regular::generate_samples(void) {
+void Regular::generate_samples() {
     int n = (int)sqrt((float)num_samples);
 
     for (int j = 0; j < num_sets; j++) {

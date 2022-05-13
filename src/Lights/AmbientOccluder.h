@@ -25,9 +25,9 @@ class Sampler;
 class AmbientOccluder : public Light {
 public:
 
-    AmbientOccluder(void) = default;
+    AmbientOccluder() = default;
 
-    virtual ~AmbientOccluder(void);
+    virtual ~AmbientOccluder();
 
     AmbientOccluder(const AmbientOccluder& a);
 
@@ -37,7 +37,7 @@ public:
 
     AmbientOccluder& operator=(AmbientOccluder&& a) noexcept;
 
-    virtual Light* clone(void) const override;
+    virtual Light* clone() const override;
 
     void set_sampler(Sampler* s_ptr);
 

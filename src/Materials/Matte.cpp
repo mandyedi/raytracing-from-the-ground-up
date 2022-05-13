@@ -15,9 +15,9 @@
 #include "../Lights/Light.h"
 #include "../Tracers/Tracer.h"
 
-Matte::Matte(void) : Material(), ambient_brdf(new Lambertian), diffuse_brdf(new Lambertian) {}
+Matte::Matte() : Material(), ambient_brdf(new Lambertian), diffuse_brdf(new Lambertian) {}
 
-Matte::~Matte(void) {
+Matte::~Matte() {
     if (ambient_brdf != nullptr) {
         delete ambient_brdf;
         ambient_brdf = nullptr;
@@ -54,7 +54,7 @@ Matte& Matte::operator=(const Matte& m) {
     }
     diffuse_brdf = m.diffuse_brdf->clone();
 
-    return (*this);
+    return *this;
 }
 
 Matte& Matte::operator=(Matte&& m) noexcept {
@@ -72,10 +72,10 @@ Matte& Matte::operator=(Matte&& m) noexcept {
     diffuse_brdf = m.diffuse_brdf;
     m.diffuse_brdf = nullptr;
 
-    return (*this);
+    return *this;
 }
 
-Material* Matte::clone(void) const { return (new Matte(*this)); }
+Material* Matte::clone() const { return new Matte(*this); }
 
 RGBColor Matte::shade(ShadeRec& sr) {
     Vector3D wo = -sr.ray.d;
@@ -100,7 +100,7 @@ RGBColor Matte::shade(ShadeRec& sr) {
         }
     }
 
-    return (L);
+    return L;
 }
 
 RGBColor Matte::path_shade(ShadeRec& sr) {
@@ -111,7 +111,7 @@ RGBColor Matte::path_shade(ShadeRec& sr) {
     float ndotwi = sr.normal * wi;
     Ray reflected_ray(sr.hit_point, wi);
 
-    return (f * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * ndotwi / pdf);
+    return f * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * ndotwi / pdf;
 }
 
 RGBColor Matte::global_shade(ShadeRec& sr) {
@@ -130,7 +130,7 @@ RGBColor Matte::global_shade(ShadeRec& sr) {
 
     L += f * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * ndotwi / pdf;
 
-    return (L);
+    return L;
 }
 
 RGBColor Matte::area_light_shade(ShadeRec& sr) {
@@ -156,5 +156,5 @@ RGBColor Matte::area_light_shade(ShadeRec& sr) {
         }
     }
 
-    return (L);
+    return L;
 }

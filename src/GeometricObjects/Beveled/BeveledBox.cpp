@@ -12,6 +12,8 @@
 
 #include "BeveledBox.h"
 
+#include <utility>
+
 #include "../../Utilities/Normal.h"
 #include "../../Utilities/Vector3D.h"
 #include "../Instance.h"
@@ -19,7 +21,7 @@
 #include "../Primitives/Rectangle.h"
 #include "../Primitives/Sphere.h"
 
-BeveledBox::BeveledBox(void) : Compound(), p0(-1.0f), p1(1.0f), rb(0.1f), bbox(p0, p1) {
+BeveledBox::BeveledBox() : Compound(), p0(-1.0f), p1(1.0f), rb(0.1f), bbox(p0, p1) {
     // edges
     // since the cylinders have to be defined initially in the vertical direction, it's easiest to use -(...)/2, +(...)/2 for
     // y0 and y1 in the constructors, and then rotate them about their centers.
@@ -381,7 +383,7 @@ BeveledBox::BeveledBox(const Point3D& min_corner, const Point3D& max_corner, con
     objects.push_back(right_face);
 }
 
-BeveledBox::~BeveledBox(void) {}
+BeveledBox::~BeveledBox() {}
 
 BeveledBox::BeveledBox(const BeveledBox& bb) : Compound(bb), p0(bb.p0), p1(bb.p1), rb(bb.rb), bbox(bb.bbox) {}
 
@@ -395,7 +397,7 @@ BeveledBox& BeveledBox::operator=(const BeveledBox& bb) {
     rb = bb.rb;
     bbox = bb.bbox;
 
-    return (*this);
+    return *this;
 }
 
 BeveledBox& BeveledBox::operator=(BeveledBox&& bb) noexcept {
@@ -406,23 +408,23 @@ BeveledBox& BeveledBox::operator=(BeveledBox&& bb) noexcept {
     rb = std::exchange(bb.rb, 0.1f);
     bbox = std::move(bb.bbox);
 
-    return (*this);
+    return *this;
 }
 
-BeveledBox* BeveledBox::clone(void) const { return (new BeveledBox(*this)); }
+BeveledBox* BeveledBox::clone() const { return new BeveledBox(*this); }
 
 bool BeveledBox::shadow_hit(const Ray& ray, float& tmin) const {
     if (bbox.hit(ray)) {
-        return (Compound::shadow_hit(ray, tmin));
+        return Compound::shadow_hit(ray, tmin);
     } else {
-        return (false);
+        return false;
     }
 }
 
 bool BeveledBox::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     if (bbox.hit(ray)) {
-        return (Compound::hit(ray, tmin, sr));
+        return Compound::hit(ray, tmin, sr);
     } else {
-        return (false);
+        return false;
     }
 }

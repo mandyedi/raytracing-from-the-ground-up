@@ -32,11 +32,11 @@
 class MeshTriangle : public GeometricObject {
 public:
 
-    MeshTriangle(void) = default;
+    MeshTriangle() = default;
 
     explicit MeshTriangle(Mesh* _mesh_ptr, const int i1, const int i2, const int i3);
 
-    virtual ~MeshTriangle(void);
+    virtual ~MeshTriangle();
 
     MeshTriangle(const MeshTriangle& mt);
 
@@ -46,7 +46,7 @@ public:
 
     MeshTriangle& operator=(MeshTriangle&& rhs) noexcept;
 
-    virtual MeshTriangle* clone(void) const = 0;
+    virtual MeshTriangle* clone() const = 0;
 
     virtual bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const = 0;
 
@@ -54,9 +54,9 @@ public:
 
     void compute_normal(const bool reverse_normal);
 
-    virtual Normal get_normal(void) const override;
+    virtual Normal get_normal() const override;
 
-    virtual BBox get_bounding_box(void);
+    virtual BBox get_bounding_box();
 
 protected:
 

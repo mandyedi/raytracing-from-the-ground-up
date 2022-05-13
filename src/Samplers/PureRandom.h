@@ -18,11 +18,11 @@
 class PureRandom : public Sampler {
 public:
 
-    PureRandom(void) = delete;
+    PureRandom() = delete;
 
     explicit PureRandom(const int num);
 
-    ~PureRandom(void) = default;
+    ~PureRandom() = default;
 
     PureRandom(const PureRandom& r) = default;
 
@@ -32,11 +32,11 @@ public:
 
     PureRandom& operator=(PureRandom&& rhs) = default;
 
-    virtual PureRandom* clone(void) const override;
+    virtual PureRandom* clone() const override;
 
 private:
 
-    virtual void generate_samples(void) override;
+    virtual void generate_samples() override;
 };
 
 #endif

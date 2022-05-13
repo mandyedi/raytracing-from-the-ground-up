@@ -74,11 +74,11 @@ ConvexPartTorus& ConvexPartTorus::operator=(ConvexPartTorus&& c) noexcept {
     return *this;
 }
 
-ConvexPartTorus* ConvexPartTorus::clone() const { return (new ConvexPartTorus(*this)); }
+ConvexPartTorus* ConvexPartTorus::clone() const { return new ConvexPartTorus(*this); }
 
 bool ConvexPartTorus::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     if (!bbox.hit(ray)) {
-        return (false);
+        return false;
     }
 
     float x1 = ray.o.x;
@@ -118,7 +118,7 @@ bool ConvexPartTorus::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float theta;
 
     if (num_real_roots == 0) {  // ray misses the torus
-        return (false);
+        return false;
     }
 
     // find the smallest root greater than epsilon, if any
@@ -149,7 +149,7 @@ bool ConvexPartTorus::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     }
 
     if (!intersected) {
-        return (false);
+        return false;
     }
 
     tmin = t;
@@ -159,7 +159,7 @@ bool ConvexPartTorus::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     sr.normal = -sr.normal;
 #endif  // 0
 
-    return (true);
+    return true;
 }
 
 Normal ConvexPartTorus::compute_normal(const Point3D& p) const {
@@ -176,5 +176,5 @@ Normal ConvexPartTorus::compute_normal(const Point3D& p) const {
     normal.z = 4.0 * z * (sum_squared - param_squared);
     normal.normalize();
 
-    return (normal);
+    return normal;
 }

@@ -14,6 +14,8 @@
 
 #include <math.h>
 
+#include <utility>
+
 #include "../Samplers/Sampler.h"
 #include "../Tracers/Tracer.h"
 #include "../Utilities/Point3D.h"
@@ -21,7 +23,7 @@
 #include "../Utilities/Vector3D.h"
 #include "../World/World.h"
 
-Pinhole::~Pinhole(void) {}
+Pinhole::~Pinhole() {}
 
 Pinhole::Pinhole(const Pinhole& p) : Camera(p), d(p.d), zoom(p.zoom) {}
 
@@ -33,7 +35,7 @@ Pinhole& Pinhole::operator=(const Pinhole& p) {
     d = p.d;
     zoom = p.zoom;
 
-    return (*this);
+    return *this;
 }
 
 Pinhole& Pinhole::operator=(Pinhole&& p) noexcept {
@@ -42,16 +44,16 @@ Pinhole& Pinhole::operator=(Pinhole&& p) noexcept {
     d = std::exchange(p.d, 0.0f);
     zoom = std::exchange(p.zoom, 0.0f);
 
-    return (*this);
+    return *this;
 }
 
-Camera* Pinhole::clone(void) const { return (new Pinhole(*this)); }
+Camera* Pinhole::clone() const { return new Pinhole(*this); }
 
 Vector3D Pinhole::get_direction(const Point2D& p) const {
     Vector3D dir = p.x * u + p.y * v - d * w;
     dir.normalize();
 
-    return (dir);
+    return dir;
 }
 
 void Pinhole::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) {

@@ -384,12 +384,12 @@ BeveledWedge::BeveledWedge(const BeveledWedge& bw) : Compound(bw), y0(bw.y0), y1
 
 // ------------------------------------------------------------------------------ clone
 
-BeveledWedge* BeveledWedge::clone(void) const { return (new BeveledWedge(*this)); }
+BeveledWedge* BeveledWedge::clone() const { return new BeveledWedge(*this); }
 
 // ------------------------------------------------------------------------------ assignment operator
 
 BeveledWedge& BeveledWedge::operator=(const BeveledWedge& rhs) {
-    if (this == &rhs) return (*this);
+    if (this == &rhs) return *this;
 
     Compound::operator=(rhs);
 
@@ -402,22 +402,22 @@ BeveledWedge& BeveledWedge::operator=(const BeveledWedge& rhs) {
     phi1 = rhs.phi1;
     bbox = rhs.bbox;
 
-    return (*this);
+    return *this;
 }
 
 // ------------------------------------------------------------------------------ destructor
 
-BeveledWedge::~BeveledWedge(void) {}
+BeveledWedge::~BeveledWedge() {}
 
 // ------------------------------------------------------------------------------ get_bounding_box
 
-BBox BeveledWedge::get_bounding_box(void) { return (bbox); }
+BBox BeveledWedge::get_bounding_box() { return bbox; }
 
 // ------------------------------------------------------------------------------ hit
 
 bool BeveledWedge::hit(const Ray& ray, double& tmin, ShadeRec& sr) const {
     if (bbox.hit(ray))
-        return (Compound::hit(ray, tmin, sr));
+        return Compound::hit(ray, tmin, sr);
     else
-        return (false);
+        return false;
 }

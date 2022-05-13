@@ -13,16 +13,17 @@
 #include "StereoCamera.h"
 
 #include <cmath>
+#include <utility>
 
 #include "../Utilities/Maths.h"
 #include "../World/World.h"
 #include "Pinhole.h"
 
-StereoCamera::StereoCamera(void) : Camera(), left_camera_ptr(new Pinhole), right_camera_ptr(new Pinhole) {}
+StereoCamera::StereoCamera() : Camera(), left_camera_ptr(new Pinhole), right_camera_ptr(new Pinhole) {}
 
 StereoCamera::StereoCamera(Camera* left_camera, Camera* right_camera) : Camera(), left_camera_ptr(left_camera), right_camera_ptr(right_camera) {}
 
-StereoCamera::~StereoCamera(void) {
+StereoCamera::~StereoCamera() {
     if (left_camera_ptr != nullptr) {
         delete left_camera_ptr;
         left_camera_ptr = nullptr;
@@ -64,7 +65,7 @@ StereoCamera& StereoCamera::operator=(const StereoCamera& sc) {
     }
     right_camera_ptr = sc.right_camera_ptr->clone();
 
-    return (*this);
+    return *this;
 }
 
 StereoCamera& StereoCamera::operator=(StereoCamera&& sc) noexcept {
@@ -82,9 +83,9 @@ StereoCamera& StereoCamera::operator=(StereoCamera&& sc) noexcept {
     return *this;
 }
 
-Camera* StereoCamera::clone(void) const { return (new StereoCamera(*this)); }
+Camera* StereoCamera::clone() const { return new StereoCamera(*this); }
 
-void StereoCamera::setup_cameras(void) {
+void StereoCamera::setup_cameras() {
     float r = eye.distance(lookat);
     float x = r * tanf(0.5f * degreeToRadian(beta));  //  half the camera separation distance
 

@@ -18,7 +18,7 @@ const float Plane::kEpsilon = 0.001f;
 
 Plane::Plane(const Point3D& point, const Normal& normal) : GeometricObject(), a(point), n(normal) { n.normalize(); }
 
-Plane::~Plane(void) {}
+Plane::~Plane() {}
 
 Plane::Plane(const Plane& p) : GeometricObject(p), a(p.a), n(p.n) {}
 
@@ -30,7 +30,7 @@ Plane& Plane::operator=(const Plane& p) {
     a = p.a;
     n = p.n;
 
-    return (*this);
+    return *this;
 }
 
 Plane& Plane::operator=(Plane&& p) noexcept {
@@ -39,10 +39,10 @@ Plane& Plane::operator=(Plane&& p) noexcept {
     a = std::move(p.a);
     n = std::move(p.n);
 
-    return (*this);
+    return *this;
 }
 
-Plane* Plane::clone(void) const { return (new Plane(*this)); }
+Plane* Plane::clone() const { return new Plane(*this); }
 
 bool Plane::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float t = (a - ray.o) * n / (ray.d * n);

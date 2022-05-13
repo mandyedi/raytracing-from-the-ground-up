@@ -19,9 +19,9 @@
 class Reflective : public Phong {
 public:
 
-    Reflective(void) = default;
+    Reflective() = default;
 
-    ~Reflective(void);
+    ~Reflective();
 
     Reflective(const Reflective& rm);
 
@@ -31,7 +31,7 @@ public:
 
     Reflective& operator=(Reflective&& rhs) noexcept;
 
-    Reflective* clone(void) const override;
+    Reflective* clone() const override;
 
     void set_kr(const float k);
 

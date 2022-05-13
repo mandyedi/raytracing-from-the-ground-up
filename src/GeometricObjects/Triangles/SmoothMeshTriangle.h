@@ -20,17 +20,17 @@
 class SmoothMeshTriangle : public MeshTriangle {
 public:
 
-    SmoothMeshTriangle(void) = default;
+    SmoothMeshTriangle() = default;
 
     explicit SmoothMeshTriangle(Mesh* _meshPtr, const int i0, const int i1, const int i2);
 
-    ~SmoothMeshTriangle(void) = default;
+    ~SmoothMeshTriangle() = default;
     SmoothMeshTriangle(const SmoothMeshTriangle& fmt) = default;
     SmoothMeshTriangle(SmoothMeshTriangle&& fmt) = default;
     SmoothMeshTriangle& operator=(const SmoothMeshTriangle& rhs) = default;
     SmoothMeshTriangle& operator=(SmoothMeshTriangle&& rhs) = default;
 
-    virtual SmoothMeshTriangle* clone(void) const override;
+    virtual SmoothMeshTriangle* clone() const override;
 
     virtual bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 

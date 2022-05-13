@@ -19,9 +19,9 @@
 class Matte : public Material {
 public:
 
-    Matte(void);
+    Matte();
 
-    ~Matte(void);
+    ~Matte();
 
     Matte(const Matte& m);
 
@@ -31,7 +31,7 @@ public:
 
     Matte& operator=(Matte&& m) noexcept;
 
-    Material* clone(void) const override;
+    Material* clone() const override;
 
     void set_ka(const float k);
 

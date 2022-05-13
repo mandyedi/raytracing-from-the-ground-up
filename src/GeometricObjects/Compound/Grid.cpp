@@ -37,18 +37,18 @@
 // TODO: use enum class
 typedef enum { flat, smooth } TriangleType;
 
-Grid::Grid(void) : Compound(), nx(0), ny(0), nz(0), mesh_ptr(new Mesh), reverse_normal(false) {}
+Grid::Grid() : Compound(), nx(0), ny(0), nz(0), mesh_ptr(new Mesh), reverse_normal(false) {}
 
 Grid::Grid(Mesh* _mesh_ptr) : Compound(), nx(0), ny(0), nz(0), mesh_ptr(_mesh_ptr), reverse_normal(false) {}
 
-Grid::~Grid(void) {
+Grid::~Grid() {
     delete_cells();
 
     delete mesh_ptr;
     mesh_ptr = nullptr;
 }
 
-void Grid::setup_cells(void) {
+void Grid::setup_cells() {
     // find the minimum and maximum coordinates of the grid
 
     Point3D p0 = find_min_bounds();
@@ -255,7 +255,7 @@ bool Grid::hit(const Ray& ray, float& t, ShadeRec& sr) const {
     }
 
     if (t0 > t1) {
-        return (false);
+        return false;
     }
 
     // initial cell coordinates
@@ -343,39 +343,39 @@ bool Grid::hit(const Ray& ray, float& t, ShadeRec& sr) const {
         if (tx_next < ty_next && tx_next < tz_next) {
             if (object_ptr && object_ptr->hit(ray, t, sr) && t < tx_next) {
                 material_ptr = object_ptr->get_material();
-                return (true);
+                return true;
             }
 
             tx_next += dtx;
             ix += ix_step;
 
             if (ix == ix_stop) {
-                return (false);
+                return false;
             }
         } else {
             if (ty_next < tz_next) {
                 if (object_ptr && object_ptr->hit(ray, t, sr) && t < ty_next) {
                     material_ptr = object_ptr->get_material();
-                    return (true);
+                    return true;
                 }
 
                 ty_next += dty;
                 iy += iy_step;
 
                 if (iy == iy_stop) {
-                    return (false);
+                    return false;
                 }
             } else {
                 if (object_ptr && object_ptr->hit(ray, t, sr) && t < tz_next) {
                     material_ptr = object_ptr->get_material();
-                    return (true);
+                    return true;
                 }
 
                 tz_next += dtz;
                 iz += iz_step;
 
                 if (iz == iz_stop) {
-                    return (false);
+                    return false;
                 }
             }
         }
@@ -571,7 +571,7 @@ void Grid::tessellate_smooth_sphere(const int horizontal_steps, const int vertic
 }
 
 // find the minimum grid coordinates, based on the bounding boxes of all the objects
-Point3D Grid::find_min_bounds(void) {
+Point3D Grid::find_min_bounds() {
     BBox object_box;
     Point3D p0(std::numeric_limits<float>::max());
 
@@ -595,12 +595,12 @@ Point3D Grid::find_min_bounds(void) {
     p0.y -= std::numeric_limits<float>::epsilon();
     p0.z -= std::numeric_limits<float>::epsilon();
 
-    return (p0);
+    return p0;
 }
 
 // find the maximum grid coordinates, based on the bounding boxes of the objects
 
-Point3D Grid::find_max_bounds(void) {
+Point3D Grid::find_max_bounds() {
     BBox object_box;
     Point3D p1(-std::numeric_limits<float>::max());
 
@@ -624,7 +624,7 @@ Point3D Grid::find_max_bounds(void) {
     p1.y += std::numeric_limits<float>::epsilon();
     p1.z += std::numeric_limits<float>::epsilon();
 
-    return (p1);
+    return p1;
 }
 
 // Most of this function was written by Greg Turk and is released under the licence agreement
@@ -822,7 +822,7 @@ void Grid::read_ply_file(char* file_name, const int triangle_type) {
 // the calculation is of order(num_vertices)
 // some triangles in ply files are not defined properly
 // TODO:: review this function for int float casts and precision
-void Grid::compute_mesh_normals(void) {
+void Grid::compute_mesh_normals() {
     mesh_ptr->normals.reserve(mesh_ptr->num_vertices);
 
     for (int index = 0; index < mesh_ptr->num_vertices; index++) {  // for each vertex
@@ -856,9 +856,9 @@ void Grid::compute_mesh_normals(void) {
     std::cout << "finished constructing normals" << std::endl;
 }
 
-BBox Grid::get_bounding_box() { return (bbox); }
+BBox Grid::get_bounding_box() { return bbox; }
 
-void Grid::delete_cells(void) {
+void Grid::delete_cells() {
     int num_cells = cells.size();
 
     for (int j = 0; j < num_cells; j++) {

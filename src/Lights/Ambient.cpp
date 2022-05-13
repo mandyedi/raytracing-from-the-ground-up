@@ -24,7 +24,7 @@ Ambient& Ambient::operator=(const Ambient& a) {
     ls = a.ls;
     color = a.color;
 
-    return (*this);
+    return *this;
 }
 
 Ambient& Ambient::operator=(Ambient&& a) noexcept {
@@ -33,13 +33,13 @@ Ambient& Ambient::operator=(Ambient&& a) noexcept {
     ls = std::exchange(a.ls, 1.0f);
     color = std::move(a.color);
 
-    return (*this);
+    return *this;
 }
 
-Light* Ambient::clone(void) const { return (new Ambient(*this)); }
+Light* Ambient::clone() const { return new Ambient(*this); }
 
-Ambient::~Ambient(void) {}
+Ambient::~Ambient() {}
 
-Vector3D Ambient::get_direction([[maybe_unused]] ShadeRec& s) { return (Vector3D(0.0f)); }
+Vector3D Ambient::get_direction([[maybe_unused]] ShadeRec& s) { return Vector3D(0.0f); }
 
-RGBColor Ambient::L([[maybe_unused]] ShadeRec& sr) { return (ls * color); }
+RGBColor Ambient::L([[maybe_unused]] ShadeRec& sr) { return ls * color; }

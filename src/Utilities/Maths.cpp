@@ -143,7 +143,7 @@ int SolveQuartic(float c[5], float s[4]) {
         coeffs[2] = -1.0 / 2 * p;
         coeffs[3] = 1;
 
-        (void)SolveCubic(coeffs, s);
+        SolveCubic(coeffs, s);
 
         /* ... and take the one real solution ... */
 

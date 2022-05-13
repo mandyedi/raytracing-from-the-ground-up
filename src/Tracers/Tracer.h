@@ -27,11 +27,11 @@ class World;
 class Tracer {
 public:
 
-    Tracer(void) = delete;
+    Tracer() = delete;
 
     explicit Tracer(World* _world_ptr);
 
-    virtual ~Tracer(void);
+    virtual ~Tracer();
 
     // For the sake of simplicity I prevent copy and move
     Tracer(const Tracer& t) = delete;

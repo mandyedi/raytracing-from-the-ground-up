@@ -20,11 +20,11 @@
 class BeveledBox : public Compound {
 public:
 
-    BeveledBox(void);
+    BeveledBox();
 
     BeveledBox(const Point3D& min_corner, const Point3D& max_corner, const float bevel_radius);
 
-    ~BeveledBox(void);
+    ~BeveledBox();
 
     BeveledBox(const BeveledBox& bb);
 
@@ -34,7 +34,7 @@ public:
 
     BeveledBox& operator=(BeveledBox&& bb) noexcept;
 
-    BeveledBox* clone(void) const override;
+    BeveledBox* clone() const override;
 
     bool shadow_hit(const Ray& ray, float& tmin) const override;
 

@@ -12,6 +12,8 @@
 
 #include "PerfectSpecular.h"
 
+#include <utility>
+
 PerfectSpecular::PerfectSpecular(const PerfectSpecular& ps) : BRDF(ps), kr(ps.kr), cr(ps.cr) {}
 
 PerfectSpecular::PerfectSpecular(PerfectSpecular&& ps) noexcept : BRDF(std::move(ps)), kr(std::exchange(ps.kr, 0.0f)), cr(std::move(ps.cr)) {}
@@ -22,7 +24,7 @@ PerfectSpecular& PerfectSpecular::operator=(const PerfectSpecular& ps) {
     kr = ps.kr;
     cr = ps.cr;
 
-    return (*this);
+    return *this;
 }
 
 PerfectSpecular& PerfectSpecular::operator=(PerfectSpecular&& ps) noexcept {
@@ -31,10 +33,10 @@ PerfectSpecular& PerfectSpecular::operator=(PerfectSpecular&& ps) noexcept {
     kr = std::exchange(ps.kr, 0.0f);
     cr = std::move(ps.cr);
 
-    return (*this);
+    return *this;
 }
 
-PerfectSpecular* PerfectSpecular::clone(void) const { return (new PerfectSpecular(*this)); }
+PerfectSpecular* PerfectSpecular::clone() const { return new PerfectSpecular(*this); }
 
 RGBColor PerfectSpecular::f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const { return RGBColor::black; }
 
@@ -45,7 +47,7 @@ RGBColor PerfectSpecular::f(const ShadeRec& sr, const Vector3D& wo, const Vector
 RGBColor PerfectSpecular::sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wi) const {
     float ndotwo = sr.normal * wo;
     wi = -wo + 2.0 * sr.normal * ndotwo;
-    return (kr * cr / fabs(sr.normal * wi));  // why is this fabs? // kr would be a Fresnel term in a Fresnel reflector
+    return kr * cr / fabs(sr.normal * wi);  // why is this fabs? // kr would be a Fresnel term in a Fresnel reflector
 }  // for transparency when ray hits inside surface?, if so it should go in Chapter 24
 
 // this version of sample_f is used with path tracing
@@ -55,7 +57,7 @@ RGBColor PerfectSpecular::sample_f(const ShadeRec& sr, const Vector3D& wo, Vecto
     float ndotwo = sr.normal * wo;
     wi = -wo + 2.0 * sr.normal * ndotwo;
     pdf = fabs(sr.normal * wi);
-    return (kr * cr);
+    return kr * cr;
 }
 
 RGBColor PerfectSpecular::rho(const ShadeRec& sr, const Vector3D& wo) const { return RGBColor::black; }

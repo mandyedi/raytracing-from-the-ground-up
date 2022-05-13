@@ -18,11 +18,11 @@
 class Whitted : public Tracer {
 public:
 
-    Whitted(void) = delete;
+    Whitted() = delete;
 
     explicit Whitted(World* _worldPtr);
 
-    ~Whitted(void) = default;
+    ~Whitted() = default;
 
     RGBColor trace_ray(const Ray& ray, const int depth) const override;
 };

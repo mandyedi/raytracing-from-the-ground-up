@@ -16,7 +16,7 @@
 
 SmoothMeshTriangle::SmoothMeshTriangle(Mesh* _mesh_ptr, const int i0, const int i1, const int i2) : MeshTriangle(_mesh_ptr, i0, i1, i2) {}
 
-SmoothMeshTriangle* SmoothMeshTriangle::clone(void) const { return (new SmoothMeshTriangle(*this)); }
+SmoothMeshTriangle* SmoothMeshTriangle::clone() const { return new SmoothMeshTriangle(*this); }
 
 bool SmoothMeshTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     Point3D v0(mesh_ptr->vertices[index0]);
@@ -36,7 +36,7 @@ bool SmoothMeshTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float beta = e1 * inv_denom;
 
     if (beta < 0.0f) {
-        return (false);
+        return false;
     }
 
     float r = e * l - h * i;
@@ -44,30 +44,30 @@ bool SmoothMeshTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float gamma = e2 * inv_denom;
 
     if (gamma < 0.0) {
-        return (false);
+        return false;
     }
 
     if (beta + gamma > 1.0f) {
-        return (false);
+        return false;
     }
 
     float e3 = a * p - b * r + d * s;
     float t = e3 * inv_denom;
 
     if (t < std::numeric_limits<float>::epsilon()) {
-        return (false);
+        return false;
     }
 
     tmin = t;
     sr.normal = interpolate_normal(beta, gamma);  // for smooth shading
     sr.local_hit_point = ray.o + t * ray.d;
 
-    return (true);
+    return true;
 }
 
 Normal SmoothMeshTriangle::interpolate_normal(const float beta, const float gamma) const {
     Normal normal((1 - beta - gamma) * mesh_ptr->normals[index0] + beta * mesh_ptr->normals[index1] + gamma * mesh_ptr->normals[index2]);
     normal.normalize();
 
-    return (normal);
+    return normal;
 }

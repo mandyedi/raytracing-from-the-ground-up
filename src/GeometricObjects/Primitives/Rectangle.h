@@ -20,13 +20,13 @@ class Sampler;
 class Rectangle : public GeometricObject {
 public:
 
-    Rectangle(void) = default;
+    Rectangle() = default;
 
     explicit Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b);
 
     explicit Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b, const Normal& n);
 
-    ~Rectangle(void);
+    ~Rectangle();
 
     Rectangle(const Rectangle& r);
 
@@ -36,15 +36,15 @@ public:
 
     Rectangle& operator=(Rectangle&& rhs) noexcept;
 
-    Rectangle* clone(void) const override;
+    Rectangle* clone() const override;
 
-    BBox get_bounding_box(void) const override;
+    BBox get_bounding_box() const override;
 
     bool hit(const Ray& ray, float& t, ShadeRec& s) const override;
 
     // the following functions are used when the rectangle is a light source
 
-    Point3D sample(void) override;
+    Point3D sample() override;
 
     Normal get_normal(const Point3D& p) override;
 

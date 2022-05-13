@@ -18,9 +18,9 @@
 class Emissive : public Material {
 public:
 
-    Emissive(void) = default;
+    Emissive() = default;
 
-    ~Emissive(void);
+    ~Emissive();
 
     Emissive(const Emissive& e);
 
@@ -30,7 +30,7 @@ public:
 
     Emissive& operator=(Emissive&& e) noexcept;
 
-    Material* clone(void) const override;
+    Material* clone() const override;
 
     RGBColor shade(ShadeRec& sr) override;
 

@@ -22,9 +22,9 @@
 class Directional : public Light {
 public:
 
-    Directional(void) = default;
+    Directional() = default;
 
-    ~Directional(void);
+    ~Directional();
 
     Directional(const Directional& d);
 
@@ -34,7 +34,7 @@ public:
 
     Directional& operator=(Directional&& d) noexcept;
 
-    virtual Light* clone(void) const override;
+    virtual Light* clone() const override;
 
     void scale_radiance(const float b);
 

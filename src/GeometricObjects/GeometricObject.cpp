@@ -12,11 +12,13 @@
 
 #include "../GeometricObjects/GeometricObject.h"
 
+#include <utility>
+
 #include "../Materials/Material.h"
 #include "../Samplers/Sampler.h"
 #include "../Utilities/Constants.h"
 
-GeometricObject::~GeometricObject(void) {
+GeometricObject::~GeometricObject() {
     if (material_ptr != nullptr) {
         delete material_ptr;
         material_ptr = nullptr;
@@ -50,7 +52,7 @@ GeometricObject& GeometricObject::operator=(const GeometricObject& go) {
     }
     sampler_ptr = go.sampler_ptr->clone();
 
-    return (*this);
+    return *this;
 }
 
 GeometricObject& GeometricObject::operator=(GeometricObject&& go) noexcept {
@@ -69,7 +71,7 @@ GeometricObject& GeometricObject::operator=(GeometricObject&& go) noexcept {
     sampler_ptr = go.sampler_ptr;
     go.sampler_ptr = nullptr;
 
-    return (*this);
+    return *this;
 }
 
 bool GeometricObject::shadow_hit(const Ray& ray, float& tmin) const { return false; }
@@ -85,9 +87,9 @@ BBox GeometricObject::get_bounding_box() const { return BBox(); }
 
 void GeometricObject::add_object(GeometricObject* object_ptr) {}
 
-Point3D GeometricObject::sample(void) { return Point3D(); }
+Point3D GeometricObject::sample() { return Point3D(); }
 
-Normal GeometricObject::get_normal(void) const { return Normal(); }
+Normal GeometricObject::get_normal() const { return Normal(); }
 
 Normal GeometricObject::get_normal(const Point3D& p) { return Normal(); }
 

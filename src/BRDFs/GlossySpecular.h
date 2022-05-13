@@ -18,9 +18,9 @@
 class GlossySpecular : public BRDF {
 public:
 
-    GlossySpecular(void) = default;
+    GlossySpecular() = default;
 
-    ~GlossySpecular(void);
+    ~GlossySpecular();
 
     GlossySpecular(const GlossySpecular& gs);
 
@@ -30,7 +30,7 @@ public:
 
     GlossySpecular& operator=(GlossySpecular&& gs) noexcept;
 
-    GlossySpecular* clone(void) const override;
+    GlossySpecular* clone() const override;
 
     RGBColor f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const override;
 

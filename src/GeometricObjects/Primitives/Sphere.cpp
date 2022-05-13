@@ -21,7 +21,7 @@ const float Sphere::kEpsilon = 0.001f;
 
 Sphere::Sphere(const Point3D& c, float r) : GeometricObject(), center(c), radius(r) {}
 
-Sphere::~Sphere(void) {}
+Sphere::~Sphere() {}
 
 Sphere::Sphere(const Sphere& s) : GeometricObject(s), center(s.center), radius(s.radius) {}
 
@@ -33,7 +33,7 @@ Sphere& Sphere::operator=(const Sphere& s) {
     center = s.center;
     radius = s.radius;
 
-    return (*this);
+    return *this;
 }
 
 Sphere& Sphere::operator=(Sphere&& s) noexcept {
@@ -42,10 +42,10 @@ Sphere& Sphere::operator=(Sphere&& s) noexcept {
     center = std::move(s.center);
     radius = std::exchange(s.radius, 1.0f);
 
-    return (*this);
+    return *this;
 }
 
-Sphere* Sphere::clone(void) const { return (new Sphere(*this)); }
+Sphere* Sphere::clone() const { return new Sphere(*this); }
 
 bool Sphere::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     Vector3D temp = ray.o - center;
@@ -55,7 +55,7 @@ bool Sphere::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float disc = b * b - 4.0 * a * c;
 
     if (disc < 0.0f) {
-        return (false);
+        return false;
     } else {
         float t;
         float e = sqrt(disc);
@@ -66,7 +66,7 @@ bool Sphere::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
             tmin = t;
             sr.normal = (temp + t * ray.d) / radius;
             sr.local_hit_point = ray.o + t * ray.d;
-            return (true);
+            return true;
         }
 
         t = (-b + e) / denom;  // larger root
@@ -75,11 +75,11 @@ bool Sphere::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
             tmin = t;
             sr.normal = (temp + t * ray.d) / radius;
             sr.local_hit_point = ray.o + t * ray.d;
-            return (true);
+            return true;
         }
     }
 
-    return (false);
+    return false;
 }
 
 bool Sphere::shadow_hit(const Ray& ray, float& tmin) const {
@@ -94,7 +94,7 @@ bool Sphere::shadow_hit(const Ray& ray, float& tmin) const {
     float disc = b * b - 4.0 * a * c;
 
     if (disc < 0.0f) {
-        return (false);
+        return false;
     } else {
         float t;
         float e = sqrt(disc);
@@ -103,16 +103,16 @@ bool Sphere::shadow_hit(const Ray& ray, float& tmin) const {
 
         if (t > kEpsilon) {
             tmin = t;
-            return (true);
+            return true;
         }
 
         t = (-b + e) / denom;  // larger root
 
         if (t > kEpsilon) {
             tmin = t;
-            return (true);
+            return true;
         }
     }
 
-    return (false);
+    return false;
 }

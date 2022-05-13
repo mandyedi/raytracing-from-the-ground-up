@@ -16,7 +16,7 @@
 #include "../Samplers/Regular.h"
 #include "../Samplers/Sampler.h"
 
-ViewPlane::~ViewPlane(void) {
+ViewPlane::~ViewPlane() {
     if (sampler_ptr) {
         delete sampler_ptr;
         sampler_ptr = nullptr;

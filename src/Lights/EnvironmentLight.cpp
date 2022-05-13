@@ -18,7 +18,7 @@
 #include "../Utilities/ShadeRec.h"
 #include "../World/World.h"
 
-EnvironmentLight::~EnvironmentLight(void) {
+EnvironmentLight::~EnvironmentLight() {
     if (sampler_ptr != nullptr) {
         delete sampler_ptr;
         sampler_ptr = nullptr;
@@ -86,7 +86,7 @@ EnvironmentLight& EnvironmentLight::operator=(EnvironmentLight&& el) noexcept {
     return *this;
 }
 
-Light* EnvironmentLight::clone(void) const { return (new EnvironmentLight(*this)); }
+Light* EnvironmentLight::clone() const { return new EnvironmentLight(*this); }
 
 void EnvironmentLight::set_sampler(Sampler* s_ptr) {
     if (sampler_ptr) {
@@ -115,10 +115,10 @@ Vector3D EnvironmentLight::get_direction(ShadeRec& sr) {
     Point3D sp = sampler_ptr->sample_hemisphere();
     wi = sp.x * u + sp.y * v + sp.z * w;
 
-    return (wi);
+    return wi;
 }
 
-RGBColor EnvironmentLight::L(ShadeRec& sr) { return (material_ptr->get_Le(sr)); }
+RGBColor EnvironmentLight::L(ShadeRec& sr) { return material_ptr->get_Le(sr); }
 
 bool EnvironmentLight::in_shadow(const Ray& ray, const ShadeRec& sr) const {
     float t;
@@ -136,4 +136,4 @@ bool EnvironmentLight::in_shadow(const Ray& ray, const ShadeRec& sr) const {
 // The following function is not in the book.
 // It uses Equation 18.6
 
-float EnvironmentLight::pdf(const ShadeRec& sr) const { return (sr.normal * wi * invPI); }
+float EnvironmentLight::pdf(const ShadeRec& sr) const { return sr.normal * wi * invPI; }

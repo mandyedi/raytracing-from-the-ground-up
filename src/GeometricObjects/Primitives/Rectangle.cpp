@@ -12,6 +12,8 @@
 
 #include "Rectangle.h"
 
+#include <utility>
+
 #include "../../Samplers/Sampler.h"
 
 const float Rectangle::kEpsilon = 0.001f;
@@ -27,7 +29,7 @@ Rectangle::Rectangle(const Point3D& _p0, const Vector3D& _a, const Vector3D& _b,
     normal.normalize();
 }
 
-Rectangle::~Rectangle(void) {
+Rectangle::~Rectangle() {
     if (sampler_ptr != nullptr) {
         delete sampler_ptr;
         sampler_ptr = nullptr;
@@ -70,7 +72,7 @@ Rectangle& Rectangle::operator=(const Rectangle& r) {
     }
     sampler_ptr = r.sampler_ptr->clone();
 
-    return (*this);
+    return *this;
 }
 
 Rectangle& Rectangle::operator=(Rectangle&& r) noexcept {
@@ -91,46 +93,52 @@ Rectangle& Rectangle::operator=(Rectangle&& r) noexcept {
     sampler_ptr = r.sampler_ptr;
     r.sampler_ptr = nullptr;
 
-    return (*this);
+    return *this;
 }
 
-Rectangle* Rectangle::clone(void) const { return (new Rectangle(*this)); }
+Rectangle* Rectangle::clone() const { return new Rectangle(*this); }
 
 BBox Rectangle::get_bounding_box() const {
     float delta = 0.0001;
 
-    return (BBox(std::min(p0.x, p0.x + a.x + b.x) - delta, std::max(p0.x, p0.x + a.x + b.x) + delta, std::min(p0.y, p0.y + a.y + b.y) - delta, std::max(p0.y, p0.y + a.y + b.y) + delta,
-                 std::min(p0.z, p0.z + a.z + b.z) - delta, std::max(p0.z, p0.z + a.z + b.z) + delta));
+    return BBox(std::min(p0.x, p0.x + a.x + b.x) - delta, std::max(p0.x, p0.x + a.x + b.x) + delta, std::min(p0.y, p0.y + a.y + b.y) - delta, std::max(p0.y, p0.y + a.y + b.y) + delta,
+                std::min(p0.z, p0.z + a.z + b.z) - delta, std::max(p0.z, p0.z + a.z + b.z) + delta);
 }
 
 bool Rectangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float t = (p0 - ray.o) * normal / (ray.d * normal);
 
-    if (t <= kEpsilon) return (false);
+    if (t <= kEpsilon) {
+        return false;
+    }
 
     Point3D p = ray.o + t * ray.d;
     Vector3D d = p - p0;
 
     float ddota = d * a;
 
-    if (ddota < 0.0f || ddota > a_len_squared) return (false);
+    if (ddota < 0.0f || ddota > a_len_squared) {
+        return false;
+    }
 
     float ddotb = d * b;
 
-    if (ddotb < 0.0f || ddotb > b_len_squared) return (false);
+    if (ddotb < 0.0f || ddotb > b_len_squared) {
+        return false;
+    }
 
     tmin = t;
     sr.normal = normal;
     sr.local_hit_point = p;
 
-    return (true);
+    return true;
 }
 
-Point3D Rectangle::sample(void) {
+Point3D Rectangle::sample() {
     Point2D sample_point = sampler_ptr->sample_unit_square();
-    return (p0 + sample_point.x * a + sample_point.y * b);
+    return p0 + sample_point.x * a + sample_point.y * b;
 }
 
-Normal Rectangle::get_normal(const Point3D& p) { return (normal); }
+Normal Rectangle::get_normal(const Point3D& p) { return normal; }
 
-float Rectangle::pdf(const ShadeRec& sr) { return (inv_area); }
+float Rectangle::pdf(const ShadeRec& sr) { return inv_area; }

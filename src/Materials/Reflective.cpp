@@ -14,7 +14,7 @@
 
 #include "../Tracers/Tracer.h"
 
-Reflective::~Reflective(void) {
+Reflective::~Reflective() {
     if (reflective_brdf != nullptr) {
         delete reflective_brdf;
         reflective_brdf = nullptr;
@@ -37,7 +37,7 @@ Reflective& Reflective::operator=(const Reflective& r) {
 
     reflective_brdf = r.reflective_brdf->clone();
 
-    return (*this);
+    return *this;
 }
 
 Reflective& Reflective::operator=(Reflective&& r) noexcept {
@@ -49,10 +49,10 @@ Reflective& Reflective::operator=(Reflective&& r) noexcept {
     reflective_brdf = r.reflective_brdf;
     r.reflective_brdf = nullptr;
 
-    return (*this);
+    return *this;
 }
 
-Reflective* Reflective::clone(void) const { return (new Reflective(*this)); }
+Reflective* Reflective::clone() const { return new Reflective(*this); }
 
 RGBColor Reflective::shade(ShadeRec& sr) {
     RGBColor L(Phong::shade(sr));  // direct illumination
@@ -64,7 +64,7 @@ RGBColor Reflective::shade(ShadeRec& sr) {
 
     L += fr * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * (sr.normal * wi);
 
-    return (L);
+    return L;
 }
 
 RGBColor Reflective::path_shade(ShadeRec& sr) {
@@ -74,7 +74,7 @@ RGBColor Reflective::path_shade(ShadeRec& sr) {
     RGBColor fr = reflective_brdf->sample_f(sr, wo, wi, pdf);
     Ray reflected_ray(sr.hit_point, wi);
 
-    return (fr * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * (sr.normal * wi) / pdf);
+    return fr * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * (sr.normal * wi) / pdf;
 }
 
 RGBColor Reflective::global_shade(ShadeRec& sr) {
@@ -85,8 +85,8 @@ RGBColor Reflective::global_shade(ShadeRec& sr) {
     Ray reflected_ray(sr.hit_point, wi);
 
     if (sr.depth == 0) {
-        return (fr * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 2) * (sr.normal * wi) / pdf);
+        return fr * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 2) * (sr.normal * wi) / pdf;
     } else {
-        return (fr * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * (sr.normal * wi) / pdf);
+        return fr * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * (sr.normal * wi) / pdf;
     }
 }

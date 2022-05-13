@@ -18,11 +18,11 @@
 class Plane : public GeometricObject {
 public:
 
-    Plane(void) = default;
+    Plane() = default;
 
     explicit Plane(const Point3D& point, const Normal& normal);
 
-    ~Plane(void);
+    ~Plane();
 
     Plane(const Plane& p);
 
@@ -32,7 +32,7 @@ public:
 
     Plane& operator=(Plane&& p) noexcept;
 
-    Plane* clone(void) const override;
+    Plane* clone() const override;
 
     bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 

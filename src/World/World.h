@@ -38,9 +38,9 @@ using namespace std;
 class World {
 public:
 
-    // tracer_ptr is set to NULL because the build functions will always construct the appropriate tracer
+    // tracer_ptr is set to nullptr because the build functions will always construct the appropriate tracer
     // ambient_ptr is set to a default ambient light because this will do for most scenes
-    // camera_ptr is set to NULL because the build functions will always have to construct a camera
+    // camera_ptr is set to nullptr because the build functions will always have to construct a camera
     // and set its parameters
     // todo: Fix this, reference: C.41: A constructor should create a fully initialized object.
 
@@ -52,7 +52,7 @@ public:
     vector<GeometricObject*> objects;
     vector<Light*> lights;
 
-    World(void) = default;
+    World() = default;
 
     // For the sake of simplicity I prevent copy and move
     World(const World& w) = delete;
@@ -70,11 +70,11 @@ public:
 
     void set_camera(Camera* c_ptr);
 
-    void build(void);
+    void build();
 
     // Chapter 3.6, Render single sphere
     // Chapter 3.9, Render multiple objects
-    void render_scene(void) const;
+    void render_scene() const;
 
     ShadeRec hit_objects(const Ray& ray);
 
@@ -82,7 +82,7 @@ public:
 
     void display_pixel(const int row, const int column, const RGBColor& pixel_color) const;
 
-    void save_to_ppm(void) const;
+    void save_to_ppm() const;
 
 private:
 
@@ -97,9 +97,9 @@ private:
 
     RGBColor clamp_to_color(const RGBColor& c) const;
 
-    void delete_objects(void);
+    void delete_objects();
 
-    void delete_lights(void);
+    void delete_lights();
 };
 
 inline void World::add_object(GeometricObject* object_ptr) { objects.push_back(object_ptr); }

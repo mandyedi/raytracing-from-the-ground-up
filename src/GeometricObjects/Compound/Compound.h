@@ -20,9 +20,9 @@
 class Compound : public GeometricObject {
 public:
 
-    Compound(void) = default;
+    Compound() = default;
 
-    virtual ~Compound(void);
+    virtual ~Compound();
 
     Compound(const Compound& c);
 
@@ -32,13 +32,13 @@ public:
 
     Compound& operator=(Compound&& c) noexcept;
 
-    Compound* clone(void) const override;
+    Compound* clone() const override;
 
     void set_material(Material* material_ptr);
 
     void add_object(GeometricObject* object_ptr) override;
 
-    int get_num_objects(void);
+    int get_num_objects();
 
     virtual bool hit(const Ray& ray, float& tmin, ShadeRec& s) const override;
 
@@ -48,11 +48,11 @@ protected:
 
 private:
 
-    void delete_objects(void);
+    void delete_objects();
 
     void copy_objects(const std::vector<GeometricObject*>& rhs_objects);
 };
 
-inline int Compound::get_num_objects(void) { return (objects.size()); }
+inline int Compound::get_num_objects() { return objects.size(); }
 
 #endif

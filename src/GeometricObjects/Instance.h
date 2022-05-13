@@ -19,11 +19,11 @@
 class Instance : public GeometricObject {
 public:
 
-    Instance(void);
+    Instance();
 
     Instance(GeometricObject* obj_ptr);
 
-    virtual ~Instance(void);
+    virtual ~Instance();
 
     Instance(const Instance& instance);
 
@@ -33,17 +33,17 @@ public:
 
     Instance& operator=(Instance&& instance) noexcept;
 
-    virtual Instance* clone(void) const;
+    virtual Instance* clone() const;
 
     void set_object(GeometricObject* obj_ptr);
 
     void transform_texture(const bool transform);
 
-    virtual void compute_bounding_box(void);
+    virtual void compute_bounding_box();
 
-    virtual BBox get_bounding_box(void);
+    virtual BBox get_bounding_box();
 
-    virtual Material* get_material(void) const;
+    virtual Material* get_material() const;
 
     virtual void set_material(Material* materialPtr);
 

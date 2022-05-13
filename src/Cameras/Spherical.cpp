@@ -12,6 +12,8 @@
 
 #include "Spherical.h"
 
+#include <utility>
+
 #include "../Samplers/Sampler.h"
 #include "../Tracers/Tracer.h"
 #include "../Utilities/Maths.h"
@@ -20,7 +22,7 @@
 #include "../Utilities/Vector3D.h"
 #include "../World/World.h"
 
-Spherical::~Spherical(void) {}
+Spherical::~Spherical() {}
 
 Spherical::Spherical(const Spherical& s) : Camera(s), lambda_max(s.lambda_max), psi_max(s.psi_max) {}
 
@@ -32,7 +34,7 @@ Spherical& Spherical::operator=(const Spherical& s) {
     lambda_max = s.lambda_max;
     psi_max = s.psi_max;
 
-    return (*this);
+    return *this;
 }
 
 Spherical& Spherical::operator=(Spherical&& s) noexcept {
@@ -41,10 +43,10 @@ Spherical& Spherical::operator=(Spherical&& s) noexcept {
     lambda_max = std::exchange(s.lambda_max, 0.0f);
     psi_max = std::exchange(s.psi_max, 0.0f);
 
-    return (*this);
+    return *this;
 }
 
-Camera* Spherical::clone(void) const { return (new Spherical(*this)); }
+Camera* Spherical::clone() const { return new Spherical(*this); }
 
 Vector3D Spherical::ray_direction(const Point2D& pp, const int hres, const int vres, const float s) const {
     // compute the normalized device coordinates

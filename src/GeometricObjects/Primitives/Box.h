@@ -29,13 +29,13 @@ public:
     float z0 = -1.0f;
     float z1 = 1.0f;
 
-    Box(void) = default;
+    Box() = default;
 
     explicit Box(const float x0, const float x1, const float y0, const float y1, const float z0, const float z1);
 
     explicit Box(const Point3D p0, const Point3D p1);
 
-    ~Box(void) = default;
+    ~Box() = default;
 
     Box(const Box& box);
 
@@ -45,7 +45,7 @@ public:
 
     Box& operator=(Box&& box) noexcept;
 
-    Box* clone(void) const override;
+    Box* clone() const override;
 
     bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const;
 

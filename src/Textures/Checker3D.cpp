@@ -4,7 +4,7 @@
 //  See the file COPYING.txt for the full license.
 
 //  Copyright notice for changes since the originally published version:
-//  Copyright (C) Edu·rd M·ndy 2019-2021
+//  Copyright (C) Edu√°rd M√°ndy 2019-2021
 //  Though this C++ code was change in a large measure it still has the original copyright notice.
 //  This C++ code is for non-commercial purposes only.
 //  This C++ code is licensed under the GNU General Public License Version 2.
@@ -18,7 +18,7 @@
 #include "../Utilities/Constants.h"
 #include "../Utilities/RGBColor.h"
 
-Checker3D::~Checker3D(void) {}
+Checker3D::~Checker3D() {}
 
 Checker3D::Checker3D(const Checker3D& c) : Texture(c), color1(c.color1), color2(c.color2), size(c.size) {}
 
@@ -31,7 +31,7 @@ Checker3D& Checker3D::operator=(const Checker3D& c) {
     color2 = c.color2;
     size = c.size;
 
-    return (*this);
+    return *this;
 }
 
 Checker3D& Checker3D::operator=(Checker3D&& c) noexcept {
@@ -41,10 +41,10 @@ Checker3D& Checker3D::operator=(Checker3D&& c) noexcept {
     color2 = std::move(c.color2);
     size = std::exchange(c.size, 0);
 
-    return (*this);
+    return *this;
 }
 
-Checker3D* Checker3D::clone(void) const { return (new Checker3D(*this)); }
+Checker3D* Checker3D::clone() const { return new Checker3D(*this); }
 
 RGBColor Checker3D::get_color(const ShadeRec& sr) const {
     float eps = -0.000187453738;  // small random number
@@ -53,8 +53,8 @@ RGBColor Checker3D::get_color(const ShadeRec& sr) const {
     float z = sr.local_hit_point.z + eps;
 
     if (((int)floor(x / size) + (int)floor(y / size) + (int)floor(z / size)) % 2 == 0) {
-        return (color1);
+        return color1;
     } else {
-        return (color2);
+        return color2;
     }
 }

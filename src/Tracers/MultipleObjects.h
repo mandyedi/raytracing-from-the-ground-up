@@ -18,11 +18,11 @@
 class MultipleObjects : public Tracer {
 public:
 
-    MultipleObjects(void) = delete;
+    MultipleObjects() = delete;
 
     explicit MultipleObjects(World* _world_ptr);
 
-    ~MultipleObjects(void) = default;
+    ~MultipleObjects() = default;
 
     // For the sake of simplicity I prevent copy and move
     MultipleObjects(const MultipleObjects& mo) = delete;

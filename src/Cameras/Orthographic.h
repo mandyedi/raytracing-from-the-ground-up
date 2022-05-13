@@ -33,7 +33,7 @@ public:
 
     Orthographic& operator=(Orthographic&& p) noexcept;
 
-    Camera* clone(void) const override;
+    Camera* clone() const override;
 
     void render_scene(const World& w, float x = 0.0f, int offset = 0) override;
 

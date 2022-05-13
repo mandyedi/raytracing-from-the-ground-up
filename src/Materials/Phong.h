@@ -20,9 +20,9 @@
 class Phong : public Material {
 public:
 
-    Phong(void);
+    Phong();
 
-    ~Phong(void);
+    ~Phong();
 
     Phong(const Phong& p);
 
@@ -32,7 +32,7 @@ public:
 
     Phong& operator=(Phong&& p) noexcept;
 
-    virtual Material* clone(void) const override;
+    virtual Material* clone() const override;
 
     void set_ka(const float k);
 

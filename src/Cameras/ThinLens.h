@@ -34,7 +34,7 @@ public:
 
     ThinLens& operator=(ThinLens&& tl) noexcept;
 
-    Camera* clone(void) const override;
+    Camera* clone() const override;
 
     void set_sampler(Sampler* sp);
 

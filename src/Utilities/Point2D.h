@@ -19,13 +19,13 @@ public:
     float x = 0.0f;
     float y = 0.0f;
 
-    Point2D(void) = default;
+    Point2D() = default;
     explicit Point2D(float arg);
     explicit Point2D(float x1, float y1);
 
     Point2D operator*(float a);
 };
 
-inline Point2D Point2D::operator*(float a) { return (Point2D(a * x, a * y)); }
+inline Point2D Point2D::operator*(float a) { return Point2D(a * x, a * y); }
 
 #endif

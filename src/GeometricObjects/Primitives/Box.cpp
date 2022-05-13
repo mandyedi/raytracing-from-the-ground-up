@@ -41,7 +41,7 @@ Box& Box::operator=(const Box& box) {
     z0 = box.z0;
     z1 = box.z1;
 
-    return (*this);
+    return *this;
 }
 
 Box& Box::operator=(Box&& box) noexcept {
@@ -53,10 +53,10 @@ Box& Box::operator=(Box&& box) noexcept {
     z0 = std::exchange(box.z0, -1.0f);
     z1 = std::exchange(box.z1, 1.0f);
 
-    return (*this);
+    return *this;
 }
 
-Box* Box::clone(void) const { return (new Box(*this)); }
+Box* Box::clone() const { return new Box(*this); }
 
 bool Box::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     // this is the same as Listing 19.1 down to the statement float t0, t1;
@@ -142,30 +142,30 @@ bool Box::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
         }
 
         sr.local_hit_point = ray.o + tmin * ray.d;
-        return (true);
+        return true;
     } else {
-        return (false);
+        return false;
     }
 }
 
 // used to test if a ray starts inside a grid
-bool Box::inside(const Point3D& point) const { return ((point.x > x0 && point.x < x1) && (point.y > y0 && point.y < y1) && (point.z > z0 && point.z < z1)); };
+bool Box::inside(const Point3D& point) const { return (point.x > x0 && point.x < x1) && (point.y > y0 && point.y < y1) && (point.z > z0 && point.z < z1); };
 
 // todo: refactor, hardcode the Normals into the hit function
 Normal Box::get_normal(const int face_hit) const {
     switch (face_hit) {
         case 0:
-            return (Normal(-1, 0, 0));  // -x face
+            return Normal(-1, 0, 0);  // -x face
         case 1:
-            return (Normal(0, -1, 0));  // -y face
+            return Normal(0, -1, 0);  // -y face
         case 2:
-            return (Normal(0, 0, -1));  // -z face
+            return Normal(0, 0, -1);  // -z face
         case 3:
-            return (Normal(1, 0, 0));  // +x face
+            return Normal(1, 0, 0);  // +x face
         case 4:
-            return (Normal(0, 1, 0));  // +y face
+            return Normal(0, 1, 0);  // +y face
         case 5:
-            return (Normal(0, 0, 1));  // +z face
+            return Normal(0, 0, 1);  // +z face
         default:
             return Normal(1.0f, 1.0f, 1.0f);
     }

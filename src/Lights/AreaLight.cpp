@@ -12,7 +12,7 @@
 
 #include "AreaLight.h"
 
-AreaLight::~AreaLight(void) {
+AreaLight::~AreaLight() {
     if (object_ptr != nullptr) {
         delete object_ptr;
         object_ptr = nullptr;
@@ -59,7 +59,7 @@ AreaLight& AreaLight::operator=(const AreaLight& al) {
     light_normal = al.light_normal;
     wi = al.wi;
 
-    return (*this);
+    return *this;
 }
 
 AreaLight& AreaLight::operator=(AreaLight&& al) noexcept {
@@ -83,10 +83,10 @@ AreaLight& AreaLight::operator=(AreaLight&& al) noexcept {
     light_normal = std::move(al.light_normal);
     wi = std::move(al.wi);
 
-    return (*this);
+    return *this;
 }
 
-AreaLight* AreaLight::clone(void) const { return (new AreaLight(*this)); }
+AreaLight* AreaLight::clone() const { return new AreaLight(*this); }
 
 Vector3D AreaLight::get_direction(ShadeRec& sr) {
     sample_point = object_ptr->sample();  // used in the G function
@@ -94,14 +94,14 @@ Vector3D AreaLight::get_direction(ShadeRec& sr) {
     wi = sample_point - sr.hit_point;  // used in the G function
     wi.normalize();
 
-    return (wi);
+    return wi;
 }
 
 RGBColor AreaLight::L(ShadeRec& sr) {
     float ndotd = -light_normal * wi;
 
     if (ndotd > 0.0f) {
-        return (material_ptr->get_Le(sr));
+        return material_ptr->get_Le(sr);
     } else {
         return RGBColor::black;
     }
@@ -114,11 +114,11 @@ bool AreaLight::in_shadow(const Ray& ray, const ShadeRec& sr) const {
 
     for (int j = 0; j < num_objects; j++) {
         if (sr.w.objects[j]->shadow_hit(ray, t) && t < ts) {
-            return (true);
+            return true;
         }
     }
 
-    return (false);
+    return false;
 }
 
 // G is part of the geometric factor
@@ -127,7 +127,7 @@ float AreaLight::G(const ShadeRec& sr) const {
     float ndotd = -light_normal * wi;
     float d2 = sample_point.d_squared(sr.hit_point);
 
-    return (ndotd / d2);
+    return ndotd / d2;
 }
 
-float AreaLight::pdf(const ShadeRec& sr) const { return (object_ptr->pdf(sr)); }
+float AreaLight::pdf(const ShadeRec& sr) const { return object_ptr->pdf(sr); }

@@ -33,7 +33,7 @@ public:
 
     FishEye& operator=(FishEye&& fe) noexcept;
 
-    Camera* clone(void) const override;
+    Camera* clone() const override;
 
     Vector3D ray_direction(const Point2D& pp, const int hres, const int vres, const float s, float& r_squared) const;
 

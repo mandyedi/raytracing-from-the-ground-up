@@ -18,9 +18,9 @@
 class Ambient : public Light {
 public:
 
-    Ambient(void) = default;
+    Ambient() = default;
 
-    ~Ambient(void);
+    ~Ambient();
 
     Ambient(const Ambient& a);
 
@@ -30,7 +30,7 @@ public:
 
     Ambient& operator=(Ambient&& a) noexcept;
 
-    Light* clone(void) const override;
+    Light* clone() const override;
 
     void scale_radiance(const float b);
 

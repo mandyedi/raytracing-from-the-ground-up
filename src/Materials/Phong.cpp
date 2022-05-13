@@ -14,9 +14,9 @@
 
 #include "../Lights/Light.h"
 
-Phong::Phong(void) : Material(), ambient_brdf(new Lambertian), diffuse_brdf(new Lambertian), specular_brdf(new GlossySpecular) {}
+Phong::Phong() : Material(), ambient_brdf(new Lambertian), diffuse_brdf(new Lambertian), specular_brdf(new GlossySpecular) {}
 
-Phong::~Phong(void) {
+Phong::~Phong() {
     if (ambient_brdf != nullptr) {
         delete ambient_brdf;
         ambient_brdf = nullptr;
@@ -66,7 +66,7 @@ Phong& Phong::operator=(const Phong& p) {
     }
     specular_brdf = p.specular_brdf->clone();
 
-    return (*this);
+    return *this;
 }
 
 Phong& Phong::operator=(Phong&& p) noexcept {
@@ -90,10 +90,10 @@ Phong& Phong::operator=(Phong&& p) noexcept {
     specular_brdf = p.specular_brdf;
     p.specular_brdf = nullptr;
 
-    return (*this);
+    return *this;
 }
 
-Material* Phong::clone(void) const { return (new Phong(*this)); }
+Material* Phong::clone() const { return new Phong(*this); }
 
 RGBColor Phong::shade(ShadeRec& sr) {
     Vector3D wo = -sr.ray.d;
@@ -118,7 +118,7 @@ RGBColor Phong::shade(ShadeRec& sr) {
         }
     }
 
-    return (L);
+    return L;
 }
 
 RGBColor Phong::area_light_shade(ShadeRec& sr) {
@@ -144,5 +144,5 @@ RGBColor Phong::area_light_shade(ShadeRec& sr) {
         }
     }
 
-    return (L);
+    return L;
 }

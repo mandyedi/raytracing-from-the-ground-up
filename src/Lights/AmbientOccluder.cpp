@@ -12,10 +12,12 @@
 
 #include "AmbientOccluder.h"
 
+#include <utility>
+
 #include "../GeometricObjects/GeometricObject.h"
 #include "../Samplers/Sampler.h"
 
-AmbientOccluder::~AmbientOccluder(void) {
+AmbientOccluder::~AmbientOccluder() {
     if (sampler_ptr != nullptr) {
         delete sampler_ptr;
         sampler_ptr = nullptr;
@@ -67,7 +69,7 @@ AmbientOccluder& AmbientOccluder::operator=(AmbientOccluder&& a) noexcept {
     return *this;
 }
 
-Light* AmbientOccluder::clone(void) const { return (new AmbientOccluder(*this)); }
+Light* AmbientOccluder::clone() const { return new AmbientOccluder(*this); }
 
 void AmbientOccluder::set_sampler(Sampler* s_ptr) {
     if (sampler_ptr) {
@@ -81,7 +83,7 @@ void AmbientOccluder::set_sampler(Sampler* s_ptr) {
 
 Vector3D AmbientOccluder::get_direction(ShadeRec& sr) {
     Point3D sp = sampler_ptr->sample_hemisphere();
-    return (sp.x * u + sp.y * v + sp.z * w);
+    return sp.x * u + sp.y * v + sp.z * w;
 }
 
 bool AmbientOccluder::in_shadow(const Ray& ray, const ShadeRec& sr) const {
@@ -108,8 +110,8 @@ RGBColor AmbientOccluder::L(ShadeRec& sr) {
     shadow_ray.d = get_direction(sr);
 
     if (in_shadow(shadow_ray, sr)) {
-        return (min_amount * ls * color);
+        return min_amount * ls * color;
     } else {
-        return (ls * color);
+        return ls * color;
     }
 }

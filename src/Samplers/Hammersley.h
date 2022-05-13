@@ -18,11 +18,11 @@
 class Hammersley : public Sampler {
 public:
 
-    Hammersley(void) = delete;
+    Hammersley() = delete;
 
     explicit Hammersley(const int num);
 
-    ~Hammersley(void) = default;
+    ~Hammersley() = default;
 
     Hammersley(const Hammersley& r) = default;
 
@@ -32,13 +32,13 @@ public:
 
     Hammersley& operator=(Hammersley&& rhs) = default;
 
-    virtual Hammersley* clone(void) const override;
+    virtual Hammersley* clone() const override;
 
     float phi(int j);
 
 private:
 
-    virtual void generate_samples(void) override;
+    virtual void generate_samples() override;
 };
 
 #endif

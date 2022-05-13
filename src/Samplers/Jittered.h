@@ -18,7 +18,7 @@
 class Jittered : public Sampler {
 public:
 
-    Jittered(void) = delete;
+    Jittered() = delete;
 
     explicit Jittered(const int num_samples);
 
@@ -32,13 +32,13 @@ public:
 
     Jittered& operator=(Jittered&& rhs) = default;
 
-    virtual ~Jittered(void);
+    virtual ~Jittered();
 
-    virtual Jittered* clone(void) const override;
+    virtual Jittered* clone() const override;
 
 private:
 
-    virtual void generate_samples(void) override;
+    virtual void generate_samples() override;
 };
 
 #endif

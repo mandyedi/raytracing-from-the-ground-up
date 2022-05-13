@@ -18,11 +18,11 @@
 class SingleSphere : public Tracer {
 public:
 
-    SingleSphere(void) = delete;
+    SingleSphere() = delete;
 
     explicit SingleSphere(World* _worldPtr);
 
-    ~SingleSphere(void) = default;
+    ~SingleSphere() = default;
 
     // For the sake of simplicity I prevent copy and move
     SingleSphere(const SingleSphere& ss) = delete;

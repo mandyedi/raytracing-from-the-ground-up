@@ -18,11 +18,11 @@
 class Sphere : public GeometricObject {
 public:
 
-    Sphere(void) = default;
+    Sphere() = default;
 
     explicit Sphere(const Point3D& center, float r);
 
-    ~Sphere(void);
+    ~Sphere();
 
     Sphere(const Sphere& s);
 
@@ -32,7 +32,7 @@ public:
 
     Sphere& operator=(Sphere&& s) noexcept;
 
-    Sphere* clone(void) const override;
+    Sphere* clone() const override;
 
     void set_center(const Point3D& c);
 

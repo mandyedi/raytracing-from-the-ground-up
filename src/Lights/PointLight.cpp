@@ -12,9 +12,11 @@
 
 #include "PointLight.h"
 
+#include <utility>
+
 #include "../GeometricObjects/GeometricObject.h"
 
-PointLight::~PointLight(void) {}
+PointLight::~PointLight() {}
 
 PointLight::PointLight(const PointLight& pl) : Light(pl), ls(pl.ls), color(pl.color), location(pl.location) {}
 
@@ -27,7 +29,7 @@ PointLight& PointLight::operator=(const PointLight& pl) {
     color = pl.color;
     location = pl.location;
 
-    return (*this);
+    return *this;
 }
 
 PointLight& PointLight::operator=(PointLight&& pl) noexcept {
@@ -37,14 +39,14 @@ PointLight& PointLight::operator=(PointLight&& pl) noexcept {
     color = std::move(pl.color);
     location = std::move(pl.location);
 
-    return (*this);
+    return *this;
 }
 
-Light* PointLight::clone(void) const { return (new PointLight(*this)); }
+Light* PointLight::clone() const { return new PointLight(*this); }
 
 Vector3D PointLight::get_direction(ShadeRec& sr) { return (location - sr.hit_point).hat(); }
 
-RGBColor PointLight::L([[maybe_unused]] ShadeRec& s) { return (ls * color); }
+RGBColor PointLight::L([[maybe_unused]] ShadeRec& s) { return ls * color; }
 
 bool PointLight::in_shadow(const Ray& ray, const ShadeRec& sr) const {
     float t;

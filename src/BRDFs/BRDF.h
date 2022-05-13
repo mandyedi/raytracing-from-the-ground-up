@@ -23,9 +23,9 @@
 class BRDF {
 public:
 
-    BRDF(void) = default;
+    BRDF() = default;
 
-    virtual ~BRDF(void);
+    virtual ~BRDF();
 
     BRDF(const BRDF& b);
 
@@ -35,7 +35,7 @@ public:
 
     BRDF& operator=(BRDF&& b) noexcept;
 
-    virtual BRDF* clone(void) const = 0;
+    virtual BRDF* clone() const = 0;
 
     void set_sampler(Sampler* sPtr);
 

@@ -12,4 +12,4 @@
 
 #include "Mesh.h"
 
-Mesh::Mesh(void) : num_vertices(0), num_triangles(0) {}
+Mesh::Mesh() : num_vertices(0), num_triangles(0) {}

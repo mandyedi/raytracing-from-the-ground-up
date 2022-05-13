@@ -18,11 +18,11 @@
 class Triangle : public GeometricObject {
 public:
 
-    Triangle(void) = default;
+    Triangle() = default;
 
     explicit Triangle(const Point3D& a, const Point3D& b, const Point3D& c);
 
-    ~Triangle(void) = default;
+    ~Triangle() = default;
 
     Triangle(const Triangle& triangle);
 
@@ -32,11 +32,11 @@ public:
 
     Triangle& operator=(Triangle&& triangle) noexcept;
 
-    Triangle* clone(void) const override;
+    Triangle* clone() const override;
 
-    BBox get_bounding_box(void);
+    BBox get_bounding_box();
 
-    void compute_normal(void);
+    void compute_normal();
 
     bool hit(const Ray& ray, float& tmin, ShadeRec& sr) const override;
 

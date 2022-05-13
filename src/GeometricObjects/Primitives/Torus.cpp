@@ -19,7 +19,7 @@
 
 #include "../../Utilities/Maths.h"
 
-Torus::Torus(void) : GeometricObject(), a(2.0f), b(0.5f), bbox(-a - b, a + b, -b, b, -a - b, a + b) {}
+Torus::Torus() : GeometricObject(), a(2.0f), b(0.5f), bbox(-a - b, a + b, -b, b, -a - b, a + b) {}
 
 Torus::Torus(const float _a, const float _b) : GeometricObject(), a(_a), b(_b), bbox(-a - b, a + b, -b, b, -a - b, a + b) {}
 
@@ -61,12 +61,12 @@ Normal Torus::compute_normal(const Point3D& p) const {
     normal.z = 4.0f * z * (sum_squared - param_squared);
     normal.normalize();
 
-    return (normal);
+    return normal;
 }
 
 bool Torus::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     if (!bbox.hit(ray)) {
-        return (false);
+        return false;
     }
 
     float x1 = ray.o.x;
@@ -101,7 +101,7 @@ bool Torus::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
 
     if (num_real_roots == 0)  // ray misses the torus
     {
-        return (false);
+        return false;
     }
 
     // find the smallest root greater than epsilon, if any
@@ -116,12 +116,12 @@ bool Torus::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
         }
 
     if (!intersected) {
-        return (false);
+        return false;
     }
 
     tmin = t;
     sr.local_hit_point = ray.o + t * ray.d;
     sr.normal = compute_normal(sr.local_hit_point);
 
-    return (true);
+    return true;
 }

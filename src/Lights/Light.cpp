@@ -16,7 +16,7 @@
 
 #include "../Utilities/RGBColor.h"
 
-Light::~Light(void) {}
+Light::~Light() {}
 
 Light::Light(const Light& l) : shadows(l.shadows) {}
 
@@ -25,16 +25,16 @@ Light::Light(Light&& l) noexcept : shadows(std::exchange(l.shadows, false)) {}
 Light& Light::operator=(const Light& l) {
     shadows = l.shadows;
 
-    return (*this);
+    return *this;
 }
 
 Light& Light::operator=(Light&& l) noexcept {
     shadows = std::exchange(l.shadows, false);
 
-    return (*this);
+    return *this;
 }
 
-RGBColor Light::L([[maybe_unused]] ShadeRec& s) { return (RGBColor::black); }
+RGBColor Light::L([[maybe_unused]] ShadeRec& s) { return RGBColor::black; }
 
 bool Light::in_shadow(const Ray& ray, const ShadeRec& sr) const { return false; }
 

@@ -25,9 +25,9 @@ class Sampler;
 class GeometricObject {
 public:
 
-    GeometricObject(void) = default;
+    GeometricObject() = default;
 
-    virtual ~GeometricObject(void);
+    virtual ~GeometricObject();
 
     GeometricObject(const GeometricObject& go);
 
@@ -37,13 +37,13 @@ public:
 
     GeometricObject& operator=(GeometricObject&& go) noexcept;
 
-    virtual GeometricObject* clone(void) const = 0;
+    virtual GeometricObject* clone() const = 0;
 
     virtual bool hit(const Ray& ray, float& t, ShadeRec& s) const = 0;
 
     virtual bool shadow_hit(const Ray& ray, float& tmin) const;
 
-    Material* get_material(void) const;
+    Material* get_material() const;
 
     void set_material(Material* mPtr);
 
@@ -51,7 +51,7 @@ public:
 
     void set_color(const float r, const float g, const float b);
 
-    RGBColor get_color(void);
+    RGBColor get_color();
 
     virtual BBox get_bounding_box() const;
 
@@ -65,9 +65,9 @@ public:
 
     virtual void set_sampler(Sampler* sampler);
 
-    virtual Point3D sample(void);
+    virtual Point3D sample();
 
-    virtual Normal get_normal(void) const;
+    virtual Normal get_normal() const;
 
     virtual Normal get_normal(const Point3D& p);
 
@@ -88,7 +88,7 @@ protected:
     Sampler* sampler_ptr = nullptr;
 };
 
-inline Material* GeometricObject::get_material(void) const { return (material_ptr); }
+inline Material* GeometricObject::get_material() const { return material_ptr; }
 
 inline void GeometricObject::set_color(const RGBColor& c) { color = c; }
 
@@ -98,7 +98,7 @@ inline void GeometricObject::set_color(const float r, const float g, const float
     color.g = g;
 }
 
-inline RGBColor GeometricObject::get_color(void) { return (color); }
+inline RGBColor GeometricObject::get_color() { return color; }
 
 inline void GeometricObject::set_shadows(bool _shadows) { shadows = _shadows; }
 

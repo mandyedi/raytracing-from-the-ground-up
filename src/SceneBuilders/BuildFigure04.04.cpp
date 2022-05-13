@@ -19,7 +19,7 @@
 #include "../Tracers/RayCast.h"
 #include "../World/World.h"
 
-void World::build_figure_04_04(void) {
+void World::build_figure_04_04() {
     int num_samples = 1;  // use 1 for 4.4(a) and 16 for 4.4(b)
 
     Regular* uniform_ptr = new Regular(num_samples);

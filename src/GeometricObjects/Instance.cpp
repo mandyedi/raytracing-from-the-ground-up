@@ -21,11 +21,11 @@
 
 Matrix Instance::forward_matrix;
 
-Instance::Instance(void) : GeometricObject(), object_ptr(nullptr), inv_matrix(), bbox(), transform_the_texture(true) { forward_matrix.set_identity(); }
+Instance::Instance() : GeometricObject(), object_ptr(nullptr), inv_matrix(), bbox(), transform_the_texture(true) { forward_matrix.set_identity(); }
 
 Instance::Instance(GeometricObject* obj_ptr) : GeometricObject(), object_ptr(obj_ptr), inv_matrix(), bbox(), transform_the_texture(true) { forward_matrix.set_identity(); }
 
-Instance::~Instance(void) {
+Instance::~Instance() {
     if (object_ptr) {
         delete object_ptr;
         object_ptr = nullptr;
@@ -54,7 +54,7 @@ Instance& Instance::operator=(const Instance& instance) {
     bbox = instance.bbox;
     transform_the_texture = instance.transform_the_texture;
 
-    return (*this);
+    return *this;
 }
 
 Instance& Instance::operator=(Instance&& instance) noexcept {
@@ -70,16 +70,16 @@ Instance& Instance::operator=(Instance&& instance) noexcept {
     bbox = std::move(instance.bbox);
     transform_the_texture = std::exchange(instance.transform_the_texture, true);
 
-    return (*this);
+    return *this;
 }
 
-Instance* Instance::clone(void) const { return (new Instance(*this)); }
+Instance* Instance::clone() const { return new Instance(*this); }
 
 void Instance::set_object(GeometricObject* obj_ptr) { object_ptr = obj_ptr; }
 
 // This function is only called when the instance is to be placed in a grid
 // It will always be called from a build function
-void Instance::compute_bounding_box(void) {
+void Instance::compute_bounding_box() {
     // First get the object's untransformed BBox
     BBox object_bbox = object_ptr->get_bounding_box();
 
@@ -191,9 +191,9 @@ void Instance::compute_bounding_box(void) {
     bbox.z1 = z1;
 }
 
-BBox Instance::get_bounding_box(void) { return (bbox); }
+BBox Instance::get_bounding_box() { return bbox; }
 
-Material* Instance::get_material(void) const { return (material_ptr); }
+Material* Instance::get_material() const { return material_ptr; }
 
 // Here, material_ptr is GeometricObject::material_ptr
 
@@ -216,10 +216,10 @@ bool Instance::hit(const Ray& ray, float& t, ShadeRec& sr) const {
             sr.local_hit_point = ray.o + t * ray.d;
         }
 
-        return (true);
+        return true;
     }
 
-    return (false);
+    return false;
 }
 
 void Instance::scale(const Vector3D& s) {

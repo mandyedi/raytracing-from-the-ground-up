@@ -32,7 +32,7 @@ SmoothTriangle& SmoothTriangle::operator=(const SmoothTriangle& st) {
     n1 = st.n1;
     n2 = st.n2;
 
-    return (*this);
+    return *this;
 }
 
 SmoothTriangle& SmoothTriangle::operator=(SmoothTriangle&& st) noexcept {
@@ -44,23 +44,23 @@ SmoothTriangle& SmoothTriangle::operator=(SmoothTriangle&& st) noexcept {
     n1 = std::move(st.n1);
     n2 = std::move(st.n2);
 
-    return (*this);
+    return *this;
 }
 
-SmoothTriangle* SmoothTriangle::clone(void) const { return (new SmoothTriangle(*this)); }
+SmoothTriangle* SmoothTriangle::clone() const { return new SmoothTriangle(*this); }
 
 Normal SmoothTriangle::interpolate_normal(const float beta, const float gamma) const {
     Normal normal((1 - beta - gamma) * n0 + beta * n1 + gamma * n2);
     normal.normalize();
 
-    return (normal);
+    return normal;
 }
 
-BBox SmoothTriangle::get_bounding_box(void) {
+BBox SmoothTriangle::get_bounding_box() {
     constexpr float delta = std::numeric_limits<float>::epsilon();
 
-    return (BBox(std::min(std::min(v0.x, v1.x), v2.x) - delta, std::max(std::max(v0.x, v1.x), v2.x) + delta, std::min(std::min(v0.y, v1.y), v2.y) - delta, std::max(std::max(v0.y, v1.y), v2.y) + delta,
-                 std::min(std::min(v0.z, v1.z), v2.z) - delta, std::max(std::max(v0.z, v1.z), v2.z) + delta));
+    return BBox(std::min(std::min(v0.x, v1.x), v2.x) - delta, std::max(std::max(v0.x, v1.x), v2.x) + delta, std::min(std::min(v0.y, v1.y), v2.y) - delta, std::max(std::max(v0.y, v1.y), v2.y) + delta,
+                std::min(std::min(v0.z, v1.z), v2.z) - delta, std::max(std::max(v0.z, v1.z), v2.z) + delta);
 }
 
 bool SmoothTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
@@ -77,7 +77,7 @@ bool SmoothTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float beta = e1 * inv_denom;
 
     if (beta < 0.0f) {
-        return (false);
+        return false;
     }
 
     float r = r = e * l - h * i;
@@ -85,25 +85,25 @@ bool SmoothTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float gamma = e2 * inv_denom;
 
     if (gamma < 0.0f) {
-        return (false);
+        return false;
     }
 
     if (beta + gamma > 1.0f) {
-        return (false);
+        return false;
     }
 
     float e3 = a * p - b * r + d * s;
     float t = e3 * inv_denom;
 
     if (t < std::numeric_limits<float>::epsilon()) {
-        return (false);
+        return false;
     }
 
     tmin = t;
     sr.normal = interpolate_normal(beta, gamma);
     sr.local_hit_point = ray.o + t * ray.d;
 
-    return (true);
+    return true;
 }
 
 bool SmoothTriangle::shadow_hit(const Ray& ray, float& tmin) const {
@@ -120,7 +120,7 @@ bool SmoothTriangle::shadow_hit(const Ray& ray, float& tmin) const {
     float beta = e1 * inv_denom;
 
     if (beta < 0.0f) {
-        return (false);
+        return false;
     }
 
     float r = e * l - h * i;
@@ -128,21 +128,21 @@ bool SmoothTriangle::shadow_hit(const Ray& ray, float& tmin) const {
     float gamma = e2 * inv_denom;
 
     if (gamma < 0.0f) {
-        return (false);
+        return false;
     }
 
     if (beta + gamma > 1.0f) {
-        return (false);
+        return false;
     }
 
     float e3 = a * p - b * r + d * s;
     float t = e3 * inv_denom;
 
     if (t < std::numeric_limits<float>::epsilon()) {
-        return (false);
+        return false;
     }
 
     tmin = t;
 
-    return (true);
+    return true;
 }

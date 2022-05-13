@@ -21,7 +21,7 @@
 #include "../Utilities/Vector3D.h"
 #include "../World/World.h"
 
-Orthographic::~Orthographic(void) {}
+Orthographic::~Orthographic() {}
 
 Orthographic::Orthographic(const Orthographic& p) : Camera(p) {}
 
@@ -30,16 +30,16 @@ Orthographic::Orthographic(Orthographic&& p) noexcept : Camera(std::move(p)) {}
 Orthographic& Orthographic::operator=(const Orthographic& p) {
     Camera::operator=(p);
 
-    return (*this);
+    return *this;
 }
 
 Orthographic& Orthographic::operator=(Orthographic&& p) noexcept {
     Camera::operator=(std::move(p));
 
-    return (*this);
+    return *this;
 }
 
-Camera* Orthographic::clone(void) const { return (new Orthographic(*this)); }
+Camera* Orthographic::clone() const { return new Orthographic(*this); }
 
 void Orthographic::render_scene(const World& w, float x /*= 0*/, int offset /*= 0*/) {
     RGBColor L;

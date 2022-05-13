@@ -18,13 +18,13 @@
 class MultiJittered : public Sampler {
 public:
 
-    MultiJittered(void) = default;
+    MultiJittered() = default;
 
     explicit MultiJittered(const int num_samples);
 
     explicit MultiJittered(const int num_samples, const int m);
 
-    ~MultiJittered(void) = default;
+    ~MultiJittered() = default;
 
     MultiJittered(const MultiJittered& r) = default;
 
@@ -34,11 +34,11 @@ public:
 
     MultiJittered& operator=(MultiJittered&& rhs) = default;
 
-    virtual MultiJittered* clone(void) const override;
+    virtual MultiJittered* clone() const override;
 
 private:
 
-    virtual void generate_samples(void) override;
+    virtual void generate_samples() override;
 };
 
 #endif

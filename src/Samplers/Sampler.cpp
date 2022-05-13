@@ -19,7 +19,7 @@
 #include "../Utilities/Constants.h"
 #include "../Utilities/Random.h"
 
-Sampler::Sampler(void) : num_samples(1), num_sets(83), count(0), jump(0) {
+Sampler::Sampler() : num_samples(1), num_sets(83), count(0), jump(0) {
     samples.reserve(num_samples * num_sets);
     setup_shuffled_indices();
 }
@@ -34,7 +34,7 @@ Sampler::Sampler(const int ns, const int n_sets) : num_samples(ns), num_sets(n_s
     setup_shuffled_indices();
 }
 
-Sampler::~Sampler(void) {}
+Sampler::~Sampler() {}
 
 Sampler::Sampler(const Sampler& s)
     : num_samples(s.num_samples),
@@ -69,7 +69,7 @@ Sampler& Sampler::operator=(const Sampler& s) {
     count = s.count;
     jump = s.jump;
 
-    return (*this);
+    return *this;
 }
 
 Sampler& Sampler::operator=(Sampler&& s) noexcept {
@@ -83,16 +83,16 @@ Sampler& Sampler::operator=(Sampler&& s) noexcept {
     count = std::exchange(s.count, 0);
     jump = std::exchange(s.jump, 0);
 
-    return (*this);
+    return *this;
 }
 
 void Sampler::set_num_sets(const int np) { num_sets = np; }
 
-int Sampler::get_num_samples(void) { return (num_samples); }
+int Sampler::get_num_samples() { return num_samples; }
 
 // shuffle the x coordinates of the points within each set
 
-void Sampler::shuffle_x_coordinates(void) {
+void Sampler::shuffle_x_coordinates() {
     for (int p = 0; p < num_sets; p++) {
         for (int i = 0; i < num_samples - 1; i++) {
             int target = rand_int() % num_samples + p * num_samples;
@@ -105,7 +105,7 @@ void Sampler::shuffle_x_coordinates(void) {
 
 // shuffle the y coordinates of the points within set
 
-void Sampler::shuffle_y_coordinates(void) {
+void Sampler::shuffle_y_coordinates() {
     for (int p = 0; p < num_sets; p++) {
         for (int i = 0; i < num_samples - 1; i++) {
             int target = rand_int() % num_samples + p * num_samples;
@@ -118,7 +118,7 @@ void Sampler::shuffle_y_coordinates(void) {
 
 // sets up randomly shuffled indices for the samples array
 
-void Sampler::setup_shuffled_indices(void) {
+void Sampler::setup_shuffled_indices() {
     shuffled_indices.reserve(num_samples * num_sets);
     std::vector<int> indices;
     std::random_device rd;
@@ -140,7 +140,7 @@ void Sampler::setup_shuffled_indices(void) {
 // Maps the 2D sample points in the square [-1,1] X [-1,1] to a unit disk, using Peter Shirley's
 // concentric map function
 
-void Sampler::map_samples_to_unit_disk(void) {
+void Sampler::map_samples_to_unit_disk() {
     size_t size = samples.size();
     float r, phi;  // polar coordinates
     Point2D sp;    // sample point on unit disk
@@ -207,7 +207,7 @@ void Sampler::map_samples_to_hemisphere(const float exp) {
 // distribution over the surface
 // this is used for modelling a spherical light
 
-void Sampler::map_samples_to_sphere(void) {
+void Sampler::map_samples_to_sphere() {
     sphere_samples.reserve(num_samples * num_sets);
 
     for (int j = 0; j < num_samples * num_sets; j++) {
@@ -224,12 +224,12 @@ void Sampler::map_samples_to_sphere(void) {
 
 // the final version in Listing 5.13
 
-Point2D Sampler::sample_unit_square(void) {
+Point2D Sampler::sample_unit_square() {
     if (count % num_samples == 0) {                    // start of a new pixel
         jump = (rand_int() % num_sets) * num_samples;  // random index jump initialised to zero in constructor
     }
 
-    return (samples[jump + shuffled_indices[jump + count++ % num_samples]]);
+    return samples[jump + shuffled_indices[jump + count++ % num_samples]];
 }
 
 /*
@@ -237,11 +237,11 @@ Point2D Sampler::sample_unit_square(void) {
 // the first revised version in Listing in Listing 5.8
 
 Point2D
-Sampler::sample_unit_square(void) {
+Sampler::sample_unit_square() {
     if (count % num_samples == 0)                                   // start of a new pixel
         jump = (rand_int() % num_sets) * num_samples;               // random index jump initialised to zero in constructor
 
-    return (samples[jump + count++ % num_samples]);
+    return samples[jump + count++ % num_samples];
 }
 
 */
@@ -251,37 +251,37 @@ Sampler::sample_unit_square(void) {
 // the original version in Listing 5.7
 
 Point2D
-Sampler::sample_unit_square(void) {
-    return (samples[count++ % (num_samples * num_sets)]);
+Sampler::sample_unit_square() {
+    return samples[count++ % (num_samples * num_sets)];
 }
 
 */
 
-Point2D Sampler::sample_unit_disk(void) {
+Point2D Sampler::sample_unit_disk() {
     if (count % num_samples == 0) {  // start of a new pixel
         jump = (rand_int() % num_sets) * num_samples;
     }
 
-    return (disk_samples[jump + shuffled_indices[jump + count++ % num_samples]]);
+    return disk_samples[jump + shuffled_indices[jump + count++ % num_samples]];
 }
 
-Point3D Sampler::sample_hemisphere(void) {
+Point3D Sampler::sample_hemisphere() {
     if (count % num_samples == 0) {  // start of a new pixel
         jump = (rand_int() % num_sets) * num_samples;
     }
 
-    return (hemisphere_samples[jump + shuffled_indices[jump + count++ % num_samples]]);
+    return hemisphere_samples[jump + shuffled_indices[jump + count++ % num_samples]];
 }
 
-Point3D Sampler::sample_sphere(void) {
+Point3D Sampler::sample_sphere() {
     if (count % num_samples == 0) {  // start of a new pixel
         jump = (rand_int() % num_sets) * num_samples;
     }
 
-    return (sphere_samples[jump + shuffled_indices[jump + count++ % num_samples]]);
+    return sphere_samples[jump + shuffled_indices[jump + count++ % num_samples]];
 }
 
 // This is a specialised function called in LatticeNoise::init_vector_table
 // It doesn't shuffle the indices
 
-Point2D Sampler::sample_one_set(void) { return (samples[count++ % num_samples]); }
+Point2D Sampler::sample_one_set() { return samples[count++ % num_samples]; }

@@ -35,7 +35,7 @@ public:
 
     Camera& operator=(Camera&& c) noexcept;
 
-    virtual Camera* clone(void) const = 0;
+    virtual Camera* clone() const = 0;
 
     // In chapter 12.5 Implementation (Stereoscopy) there is a separate function called
     // Pinhole::render_stereo(World& w, float, int offset)
@@ -58,7 +58,7 @@ public:
 
     void set_exposure_time(const float exposure);
 
-    void compute_uvw(void);
+    void compute_uvw();
 
 protected:
 

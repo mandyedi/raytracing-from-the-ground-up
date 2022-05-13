@@ -20,9 +20,9 @@
 class Material {
 public:
 
-    Material(void) = default;
+    Material() = default;
 
-    virtual ~Material(void);
+    virtual ~Material();
 
     Material(const Material& material);
 
@@ -32,7 +32,7 @@ public:
 
     Material& operator=(Material&& material) noexcept;
 
-    virtual Material* clone(void) const = 0;
+    virtual Material* clone() const = 0;
 
     virtual RGBColor shade(ShadeRec& sr);
 

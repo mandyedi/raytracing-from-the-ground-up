@@ -29,7 +29,7 @@ Disk& Disk::operator=(const Disk& d) {
     normal = d.normal;
     r_squared = d.r_squared;
 
-    return (*this);
+    return *this;
 }
 
 Disk& Disk::operator=(Disk&& d) noexcept {
@@ -39,16 +39,16 @@ Disk& Disk::operator=(Disk&& d) noexcept {
     normal = std::move(d.normal);
     r_squared = std::exchange(d.r_squared, 1.0f);
 
-    return (*this);
+    return *this;
 }
 
-Disk* Disk::clone(void) const { return (new Disk(*this)); }
+Disk* Disk::clone() const { return new Disk(*this); }
 
 bool Disk::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float t = (center - ray.o) * normal / (ray.d * normal);
 
     if (t <= kEpsilon) {
-        return (false);
+        return false;
     }
 
     Point3D p = ray.o + t * ray.d;
@@ -57,8 +57,8 @@ bool Disk::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
         tmin = t;
         sr.normal = normal;
         sr.local_hit_point = p;
-        return (true);
+        return true;
     } else {
-        return (false);
+        return false;
     }
 }

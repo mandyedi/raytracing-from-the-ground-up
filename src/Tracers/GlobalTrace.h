@@ -18,11 +18,11 @@
 class GlobalTrace : public Tracer {
 public:
 
-    GlobalTrace(void) = delete;
+    GlobalTrace() = delete;
 
     explicit GlobalTrace(World* _worldPtr);
 
-    ~GlobalTrace(void) = default;
+    ~GlobalTrace() = default;
 
     // For the sake of simplicity I prevent copy and move
     GlobalTrace(const GlobalTrace& pt) = delete;

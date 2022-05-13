@@ -27,7 +27,7 @@ Matrix Matrix::operator*(const Matrix& mat) const {
         }
     }
 
-    return (product);
+    return product;
 }
 
 Matrix Matrix::operator/(const float d) {
@@ -37,10 +37,10 @@ Matrix Matrix::operator/(const float d) {
         }
     }
 
-    return (*this);
+    return *this;
 }
 
-void Matrix::set_identity(void) {
+void Matrix::set_identity() {
     for (int x = 0; x < 4; x++) {
         for (int y = 0; y < 4; y++) {
             if (x == y) {

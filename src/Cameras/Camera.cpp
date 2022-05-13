@@ -14,7 +14,7 @@
 
 #include <utility>
 
-Camera::~Camera(void) {}
+Camera::~Camera() {}
 
 Camera::Camera(const Camera& c) : eye(c.eye), lookat(c.lookat), ra(c.ra), up(c.up), u(c.u), v(c.v), w(c.w), exposure_time(c.exposure_time) {}
 
@@ -38,7 +38,7 @@ Camera& Camera::operator=(const Camera& c) {
     w = c.w;
     exposure_time = c.exposure_time;
 
-    return (*this);
+    return *this;
 }
 
 Camera& Camera::operator=(Camera&& c) noexcept {
@@ -51,12 +51,12 @@ Camera& Camera::operator=(Camera&& c) noexcept {
     w = std::move(c.w);
     exposure_time = std::exchange(c.exposure_time, 0.0f);
 
-    return (*this);
+    return *this;
 }
 
 // This computes an orthornormal basis given the view point, lookat point, and up vector
 // TODO: call it everytime eye or lookat is updated
-void Camera::compute_uvw(void) {
+void Camera::compute_uvw() {
     w = eye - lookat;
     w.normalize();
     u = up ^ w;

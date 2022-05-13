@@ -45,13 +45,13 @@ public:
 
     BeveledWedge(const BeveledWedge& bw);
 
-    virtual BeveledWedge* clone(void) const;
+    virtual BeveledWedge* clone() const;
 
     virtual BeveledWedge& operator=(const BeveledWedge& rhs);
 
-    virtual ~BeveledWedge(void);
+    virtual ~BeveledWedge();
 
-    virtual BBox get_bounding_box(void);
+    virtual BBox get_bounding_box();
 
     virtual bool hit(const Ray& ray, double& tmin, ShadeRec& sr) const;
 

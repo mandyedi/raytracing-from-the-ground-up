@@ -31,7 +31,7 @@ public:
 
     GlossyReflector& operator=(GlossyReflector&& gr) noexcept;
 
-    GlossyReflector* clone(void) const override;
+    GlossyReflector* clone() const override;
 
     void set_samples(const int num_samples, const float exp);
 

@@ -12,6 +12,8 @@
 
 #include "FishEye.h"
 
+#include <utility>
+
 #include "../Samplers/Sampler.h"
 #include "../Tracers/Tracer.h"
 #include "../Utilities/Point3D.h"
@@ -19,7 +21,7 @@
 #include "../Utilities/Vector3D.h"
 #include "../World/World.h"
 
-FishEye::~FishEye(void) {}
+FishEye::~FishEye() {}
 
 FishEye::FishEye(const FishEye& fe) : Camera(fe), psi_max(fe.psi_max) {}
 
@@ -30,7 +32,7 @@ FishEye& FishEye::operator=(const FishEye& fe) {
 
     psi_max = fe.psi_max;
 
-    return (*this);
+    return *this;
 }
 
 FishEye& FishEye::operator=(FishEye&& fe) noexcept {
@@ -38,10 +40,10 @@ FishEye& FishEye::operator=(FishEye&& fe) noexcept {
 
     psi_max = std::exchange(fe.psi_max, 0.0f);
 
-    return (*this);
+    return *this;
 }
 
-Camera* FishEye::clone(void) const { return (new FishEye(*this)); }
+Camera* FishEye::clone() const { return new FishEye(*this); }
 
 Vector3D FishEye::ray_direction(const Point2D& pp, const int hres, const int vres, const float s, float& r_squared) const {
     // compute the normalized device coordinates
@@ -58,9 +60,9 @@ Vector3D FishEye::ray_direction(const Point2D& pp, const int hres, const int vre
         float cos_alpha = pn.x / r;
         Vector3D dir = sin_psi * cos_alpha * u + sin_psi * sin_alpha * v - cos_psi * w;
 
-        return (dir);
+        return dir;
     } else
-        return (Vector3D(0.0f));
+        return Vector3D(0.0f);
 }
 
 void FishEye::render_scene(const World& wr, float x /*= 0*/, int offset /*= 0*/) {

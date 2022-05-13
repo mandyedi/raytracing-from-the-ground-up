@@ -23,34 +23,34 @@
 #include "../Lights/Light.h"
 #include "../Tracers/Tracer.h"
 
-World::~World(void) {
+World::~World() {
     if (tracer_ptr) {
         delete tracer_ptr;
-        tracer_ptr = NULL;
+        tracer_ptr = nullptr;
     }
 
     if (ambient_ptr) {
         delete ambient_ptr;
-        ambient_ptr = NULL;
+        ambient_ptr = nullptr;
     }
 
     if (camera_ptr) {
         delete camera_ptr;
-        camera_ptr = NULL;
+        camera_ptr = nullptr;
     }
 
     delete_objects();
     delete_lights();
 }
 
-void World::build(void) {
+void World::build() {
     // build_ch_03_page_one_image();
     // build_figure_03_18();
     // build_figure_03_20();
     build_figure_04_04();
 }
 
-void World::render_scene(void) const {
+void World::render_scene() const {
     RGBColor pixel_color;
     Ray ray;
     int hres = vp.hres;
@@ -100,7 +100,7 @@ ShadeRec World::hit_objects(const Ray& ray) {
         sr.local_hit_point = local_hit_point;
     }
 
-    return (sr);
+    return sr;
 }
 
 ShadeRec World::hit_bare_bones_objects(const Ray& ray) {
@@ -117,7 +117,7 @@ ShadeRec World::hit_bare_bones_objects(const Ray& ray) {
         }
     }
 
-    return (sr);
+    return sr;
 }
 
 // raw_color is the pixel color computed by the ray tracer
@@ -147,7 +147,7 @@ void World::display_pixel([[maybe_unused]] const int row, [[maybe_unused]] const
     pixels.push_back((int)(mapped_color.b * 255));
 }
 
-void World::save_to_ppm(void) const {
+void World::save_to_ppm() const {
     std::time_t t = std::time(nullptr);
     std::tm tm = *std::localtime(&t);
     std::stringstream imageFile;
@@ -178,9 +178,9 @@ RGBColor World::max_to_one(const RGBColor& c) const {
     float max_value = max(c.r, max(c.g, c.b));
 
     if (max_value > 1.0f) {
-        return (c / max_value);
+        return c / max_value;
     } else {
-        return (c);
+        return c;
     }
 }
 
@@ -195,29 +195,29 @@ RGBColor World::clamp_to_color(const RGBColor& raw_color) const {
         c.b = 0.0f;
     }
 
-    return (c);
+    return c;
 }
 
 // Deletes the objects in the objects array, and erases the array.
 // The objects array still exists, because it's an automatic variable, but it's empty
 
-void World::delete_objects(void) {
+void World::delete_objects() {
     size_t num_objects = objects.size();
 
     for (size_t j = 0; j < num_objects; j++) {
         delete objects[j];
-        objects[j] = NULL;
+        objects[j] = nullptr;
     }
 
     objects.erase(objects.begin(), objects.end());
 }
 
-void World::delete_lights(void) {
+void World::delete_lights() {
     size_t num_lights = lights.size();
 
     for (size_t j = 0; j < num_lights; j++) {
         delete lights[j];
-        lights[j] = NULL;
+        lights[j] = nullptr;
     }
 
     lights.erase(lights.begin(), lights.end());

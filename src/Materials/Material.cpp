@@ -12,23 +12,25 @@
 
 #include "../Materials/Material.h"
 
+#include <utility>
+
 Material::Material(const Material& material) : shadows(material.shadows) {}
 
 Material::Material(Material&& material) noexcept : shadows(std::exchange(material.shadows, true)) {}
 
 Material& Material::operator=(const Material& material) {
     shadows = material.shadows;
-    return (*this);
+    return *this;
 }
 
 Material& Material::operator=(Material&& material) noexcept {
     shadows = std::exchange(material.shadows, true);
-    return (*this);
+    return *this;
 }
 
-Material::~Material(void) {}
+Material::~Material() {}
 
-RGBColor Material::shade([[maybe_unused]] ShadeRec& sr) { return (RGBColor::black); }
+RGBColor Material::shade([[maybe_unused]] ShadeRec& sr) { return RGBColor::black; }
 
 RGBColor Material::path_shade(ShadeRec& sr) { return shade(sr); }
 

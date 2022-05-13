@@ -19,7 +19,7 @@
 
 MeshTriangle::MeshTriangle(Mesh* _mesh_ptr, const int i0, const int i1, const int i2) : GeometricObject(), mesh_ptr(_mesh_ptr), index0(i0), index1(i1), index2(i2) {}
 
-MeshTriangle::~MeshTriangle(void) {
+MeshTriangle::~MeshTriangle() {
     if (mesh_ptr != nullptr) {
         delete mesh_ptr;
         mesh_ptr = nullptr;
@@ -51,7 +51,7 @@ MeshTriangle& MeshTriangle::operator=(const MeshTriangle& mt) {
     index2 = mt.index2;
     normal = mt.normal;
 
-    return (*this);
+    return *this;
 }
 
 MeshTriangle& MeshTriangle::operator=(MeshTriangle&& mt) noexcept {
@@ -69,7 +69,7 @@ MeshTriangle& MeshTriangle::operator=(MeshTriangle&& mt) noexcept {
     mesh_ptr = mt.mesh_ptr;
     mt.mesh_ptr = nullptr;
 
-    return (*this);
+    return *this;
 }
 
 void MeshTriangle::compute_normal(const bool reverse_normal) {
@@ -83,17 +83,17 @@ void MeshTriangle::compute_normal(const bool reverse_normal) {
 
 // this is called in Grid::compute_mesh_normals
 
-Normal MeshTriangle::get_normal(void) const { return (normal); }
+Normal MeshTriangle::get_normal() const { return normal; }
 
-BBox MeshTriangle::get_bounding_box(void) {
+BBox MeshTriangle::get_bounding_box() {
     constexpr float delta = std::numeric_limits<float>::epsilon();  // to avoid degenerate bounding boxes
 
     Point3D v1(mesh_ptr->vertices[index0]);
     Point3D v2(mesh_ptr->vertices[index1]);
     Point3D v3(mesh_ptr->vertices[index2]);
 
-    return (BBox(std::min(std::min(v1.x, v2.x), v3.x) - delta, std::max(std::max(v1.x, v2.x), v3.x) + delta, std::min(std::min(v1.y, v2.y), v3.y) - delta, std::max(std::max(v1.y, v2.y), v3.y) + delta,
-                 std::min(std::min(v1.z, v2.z), v3.z) - delta, std::max(std::max(v1.z, v2.z), v3.z) + delta));
+    return BBox(std::min(std::min(v1.x, v2.x), v3.x) - delta, std::max(std::max(v1.x, v2.x), v3.x) + delta, std::min(std::min(v1.y, v2.y), v3.y) - delta, std::max(std::max(v1.y, v2.y), v3.y) + delta,
+                std::min(std::min(v1.z, v2.z), v3.z) - delta, std::max(std::max(v1.z, v2.z), v3.z) + delta);
 }
 
 // this function is independent of the derived triangle type:
@@ -117,7 +117,7 @@ bool MeshTriangle::shadow_hit(const Ray& ray, float& tmin) const {
     float beta = e1 * inv_denom;
 
     if (beta < 0.0f) {
-        return (false);
+        return false;
     }
 
     float r = r = e * l - h * i;
@@ -125,29 +125,29 @@ bool MeshTriangle::shadow_hit(const Ray& ray, float& tmin) const {
     float gamma = e2 * inv_denom;
 
     if (gamma < 0.0f) {
-        return (false);
+        return false;
     }
 
     if (beta + gamma > 1.0f) {
-        return (false);
+        return false;
     }
 
     float e3 = a * p - b * r + d * s;
     float t = e3 * inv_denom;
 
     if (t < std::numeric_limits<float>::epsilon()) {
-        return (false);
+        return false;
     }
 
     tmin = t;
 
-    return (true);
+    return true;
 }
 
 // this is used for texture mapping in Chapter 29
 
-float MeshTriangle::interpolate_u(const float beta, const float gamma) const { return ((1.0f - beta - gamma) * mesh_ptr->u[index0] + beta * mesh_ptr->u[index1] + gamma * mesh_ptr->u[index2]); }
+float MeshTriangle::interpolate_u(const float beta, const float gamma) const { return (1.0f - beta - gamma) * mesh_ptr->u[index0] + beta * mesh_ptr->u[index1] + gamma * mesh_ptr->u[index2]; }
 
 // this is used for texture mapping in Chapter 29
 
-float MeshTriangle::interpolate_v(const float beta, const float gamma) const { return ((1.0f - beta - gamma) * mesh_ptr->v[index0] + beta * mesh_ptr->v[index1] + gamma * mesh_ptr->v[index2]); }
+float MeshTriangle::interpolate_v(const float beta, const float gamma) const { return (1.0f - beta - gamma) * mesh_ptr->v[index0] + beta * mesh_ptr->v[index1] + gamma * mesh_ptr->v[index2]; }

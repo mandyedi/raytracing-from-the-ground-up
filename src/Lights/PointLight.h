@@ -23,9 +23,9 @@
 class PointLight : public Light {
 public:
 
-    PointLight(void) = default;
+    PointLight() = default;
 
-    ~PointLight(void);
+    ~PointLight();
 
     PointLight(const PointLight& pl);
 
@@ -35,7 +35,7 @@ public:
 
     PointLight& operator=(PointLight&& pl) noexcept;
 
-    virtual Light* clone(void) const override;
+    virtual Light* clone() const override;
 
     void scale_radiance(const float b);
 

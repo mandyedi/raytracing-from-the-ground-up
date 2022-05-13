@@ -31,7 +31,7 @@ Triangle& Triangle::operator=(const Triangle& triangle) {
     v2 = triangle.v2;
     normal = triangle.normal;
 
-    return (*this);
+    return *this;
 }
 
 Triangle& Triangle::operator=(Triangle&& triangle) noexcept {
@@ -42,21 +42,21 @@ Triangle& Triangle::operator=(Triangle&& triangle) noexcept {
     v2 = std::move(triangle.v2);
     normal = std::move(triangle.normal);
 
-    return (*this);
+    return *this;
 }
 
-Triangle* Triangle::clone(void) const { return (new Triangle(*this)); }
+Triangle* Triangle::clone() const { return new Triangle(*this); }
 
-void Triangle::compute_normal(void) {
+void Triangle::compute_normal() {
     normal = (v1 - v0) ^ (v2 - v0);
     normal.normalize();
 }
 
-BBox Triangle::get_bounding_box(void) {
+BBox Triangle::get_bounding_box() {
     constexpr float delta = std::numeric_limits<float>::epsilon();
 
-    return (BBox(std::min(std::min(v0.x, v1.x), v2.x) - delta, std::max(std::max(v0.x, v1.x), v2.x) + delta, std::min(std::min(v0.y, v1.y), v2.y) - delta, std::max(std::max(v0.y, v1.y), v2.y) + delta,
-                 std::min(std::min(v0.z, v1.z), v2.z) - delta, std::max(std::max(v0.z, v1.z), v2.z) + delta));
+    return BBox(std::min(std::min(v0.x, v1.x), v2.x) - delta, std::max(std::max(v0.x, v1.x), v2.x) + delta, std::min(std::min(v0.y, v1.y), v2.y) - delta, std::max(std::max(v0.y, v1.y), v2.y) + delta,
+                std::min(std::min(v0.z, v1.z), v2.z) - delta, std::max(std::max(v0.z, v1.z), v2.z) + delta);
 }
 
 bool Triangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
@@ -73,7 +73,7 @@ bool Triangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float beta = e1 * inv_denom;
 
     if (beta < 0.0f) {
-        return (false);
+        return false;
     }
 
     float r = r = e * l - h * i;
@@ -81,25 +81,25 @@ bool Triangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     float gamma = e2 * inv_denom;
 
     if (gamma < 0.0f) {
-        return (false);
+        return false;
     }
 
     if (beta + gamma > 1.0f) {
-        return (false);
+        return false;
     }
 
     float e3 = a * p - b * r + d * s;
     float t = e3 * inv_denom;
 
     if (t < std::numeric_limits<float>::epsilon()) {
-        return (false);
+        return false;
     }
 
     tmin = t;
     sr.normal = normal;
     sr.local_hit_point = ray.o + t * ray.d;
 
-    return (true);
+    return true;
 }
 
 bool Triangle::shadow_hit(const Ray& ray, float& tmin) const {
@@ -116,7 +116,7 @@ bool Triangle::shadow_hit(const Ray& ray, float& tmin) const {
     float beta = e1 * inv_denom;
 
     if (beta < 0.0f) {
-        return (false);
+        return false;
     }
 
     float r = e * l - h * i;
@@ -124,21 +124,21 @@ bool Triangle::shadow_hit(const Ray& ray, float& tmin) const {
     float gamma = e2 * inv_denom;
 
     if (gamma < 0.0f) {
-        return (false);
+        return false;
     }
 
     if (beta + gamma > 1.0f) {
-        return (false);
+        return false;
     }
 
     float e3 = a * p - b * r + d * s;
     float t = e3 * inv_denom;
 
     if (t < std::numeric_limits<float>::epsilon()) {
-        return (false);
+        return false;
     }
 
     tmin = t;
 
-    return (true);
+    return true;
 }

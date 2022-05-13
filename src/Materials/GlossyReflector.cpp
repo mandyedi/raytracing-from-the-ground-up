@@ -14,7 +14,7 @@
 
 #include "../Tracers/Tracer.h"
 
-GlossyReflector::~GlossyReflector(void) {
+GlossyReflector::~GlossyReflector() {
     if (glossy_specular_brdf != nullptr) {
         delete glossy_specular_brdf;
         glossy_specular_brdf = nullptr;
@@ -37,7 +37,7 @@ GlossyReflector& GlossyReflector::operator=(const GlossyReflector& gr) {
 
     glossy_specular_brdf = gr.glossy_specular_brdf->clone();
 
-    return (*this);
+    return *this;
 }
 
 GlossyReflector& GlossyReflector::operator=(GlossyReflector&& gr) noexcept {
@@ -49,10 +49,10 @@ GlossyReflector& GlossyReflector::operator=(GlossyReflector&& gr) noexcept {
     glossy_specular_brdf = gr.glossy_specular_brdf;
     gr.glossy_specular_brdf = nullptr;
 
-    return (*this);
+    return *this;
 }
 
-GlossyReflector* GlossyReflector::clone(void) const { return (new GlossyReflector(*this)); }
+GlossyReflector* GlossyReflector::clone() const { return new GlossyReflector(*this); }
 
 RGBColor GlossyReflector::area_light_shade(ShadeRec& sr) {
     RGBColor L(Phong::area_light_shade(sr));  // direct illumination
@@ -64,5 +64,5 @@ RGBColor GlossyReflector::area_light_shade(ShadeRec& sr) {
 
     L += fr * sr.w.tracer_ptr->trace_ray(reflected_ray, sr.depth + 1) * (sr.normal * wi) / pdf;
 
-    return (L);
+    return L;
 }

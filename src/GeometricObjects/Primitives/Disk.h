@@ -18,11 +18,11 @@
 class Disk : public GeometricObject {
 public:
 
-    Disk(void) = default;
+    Disk() = default;
 
     explicit Disk(const Point3D& p, const Normal& n, float r);
 
-    ~Disk(void) = default;
+    ~Disk() = default;
 
     Disk(const Disk& r);
 
@@ -32,7 +32,7 @@ public:
 
     Disk& operator=(Disk&& rhs) noexcept;
 
-    Disk* clone(void) const override;
+    Disk* clone() const override;
 
     bool hit(const Ray& ray, float& t, ShadeRec& s) const;
 

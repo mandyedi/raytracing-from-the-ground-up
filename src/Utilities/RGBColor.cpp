@@ -19,7 +19,7 @@ RGBColor::RGBColor(float c) : r(c), g(c), b(c) {}
 RGBColor::RGBColor(float _r, float _g, float _b) : r(_r), g(_g), b(_b) {}
 
 // used for color filtering in Chapter 28
-RGBColor RGBColor::powc(float p) const { return (RGBColor(powf(r, p), powf(g, p), powf(b, p))); }
+RGBColor RGBColor::powc(float p) const { return RGBColor(powf(r, p), powf(g, p), powf(b, p)); }
 
 const RGBColor RGBColor::black = RGBColor(0.0f);
 const RGBColor RGBColor::white = RGBColor(1.0f);

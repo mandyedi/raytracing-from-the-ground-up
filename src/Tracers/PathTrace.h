@@ -18,11 +18,11 @@
 class PathTrace : public Tracer {
 public:
 
-    PathTrace(void) = delete;
+    PathTrace() = delete;
 
     explicit PathTrace(World* _worldPtr);
 
-    ~PathTrace(void) = default;
+    ~PathTrace() = default;
 
     // For the sake of simplicity I prevent copy and move
     PathTrace(const PathTrace& pt) = delete;

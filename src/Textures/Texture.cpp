@@ -12,7 +12,7 @@
 
 #include "Texture.h"
 
-Texture::~Texture(void) {}
+Texture::~Texture() {}
 
 Texture::Texture(const Texture& t) {}
 

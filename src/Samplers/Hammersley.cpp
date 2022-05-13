@@ -16,7 +16,7 @@
 
 Hammersley::Hammersley(const int num) : Sampler(num) { generate_samples(); }
 
-Hammersley* Hammersley::clone(void) const { return (new Hammersley(*this)); }
+Hammersley* Hammersley::clone() const { return new Hammersley(*this); }
 
 float Hammersley::phi(int j) {
     float x = 0.0f;
@@ -28,10 +28,10 @@ float Hammersley::phi(int j) {
         f *= 0.5;
     }
 
-    return (x);
+    return x;
 }
 
-void Hammersley::generate_samples(void) {
+void Hammersley::generate_samples() {
     for (int p = 0; p < num_sets; p++) {
         for (int j = 0; j < num_samples; j++) {
             Point2D pv((float)j / (float)num_samples, (float)phi(j));

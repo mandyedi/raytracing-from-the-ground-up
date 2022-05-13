@@ -18,11 +18,11 @@
 class OpenCylinder : public GeometricObject {
 public:
 
-    OpenCylinder(void) = default;
+    OpenCylinder() = default;
 
     explicit OpenCylinder(float bottom, float top, float radius);
 
-    ~OpenCylinder(void) = default;
+    ~OpenCylinder() = default;
 
     OpenCylinder(const OpenCylinder& oc);
 
@@ -32,7 +32,7 @@ public:
 
     OpenCylinder& operator=(OpenCylinder&& oc) noexcept;
 
-    OpenCylinder* clone(void) const override;
+    OpenCylinder* clone() const override;
 
     bool hit(const Ray& ray, float& t, ShadeRec& s) const;
 

@@ -12,7 +12,9 @@
 
 #include "Emissive.h"
 
-Emissive::~Emissive(void) {}
+#include <utility>
+
+Emissive::~Emissive() {}
 
 Emissive::Emissive(const Emissive& m) : Material(m), ls(m.ls), ce(m.ce) {}
 
@@ -24,7 +26,7 @@ Emissive& Emissive::operator=(const Emissive& e) {
     ls = e.ls;
     ce = e.ce;
 
-    return (*this);
+    return *this;
 }
 
 Emissive& Emissive::operator=(Emissive&& e) noexcept {
@@ -33,10 +35,10 @@ Emissive& Emissive::operator=(Emissive&& e) noexcept {
     ls = std::exchange(e.ls, 1.0f);
     ce = std::move(e.ce);
 
-    return (*this);
+    return *this;
 }
 
-Material* Emissive::clone(void) const { return (new Emissive(*this)); }
+Material* Emissive::clone() const { return new Emissive(*this); }
 
 RGBColor Emissive::shade(ShadeRec& sr) {
     // TODO: implementation?
@@ -49,7 +51,7 @@ RGBColor Emissive::global_shade(ShadeRec& sr) {
     }
 
     if (-sr.normal * sr.ray.d > 0.0) {
-        return (ls * ce);
+        return ls * ce;
     } else {
         return RGBColor::black;
     }
@@ -57,8 +59,8 @@ RGBColor Emissive::global_shade(ShadeRec& sr) {
 
 RGBColor Emissive::area_light_shade(ShadeRec& sr) {
     if (-sr.normal * sr.ray.d > 0.0f) {
-        return (ls * ce);
+        return ls * ce;
     } else {
-        return (RGBColor::black);
+        return RGBColor::black;
     }
 }

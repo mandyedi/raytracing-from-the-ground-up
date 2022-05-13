@@ -26,13 +26,13 @@ public:
     float z0 = -1.0f;
     float z1 = 1.0f;
 
-    BBox(void) = default;
+    BBox() = default;
 
     explicit BBox(const float x0, const float x1, const float y0, const float y1, const float z0, const float z1);
 
     explicit BBox(const Point3D p0, const Point3D p1);
 
-    ~BBox(void) = default;
+    ~BBox() = default;
 
     BBox(const BBox& bbox);
 

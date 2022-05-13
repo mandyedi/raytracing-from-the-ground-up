@@ -18,14 +18,14 @@ MultiJittered::MultiJittered(const int num_samples) : Sampler(num_samples) { gen
 
 MultiJittered::MultiJittered(const int num_samples, const int m) : Sampler(num_samples, m) { generate_samples(); }
 
-MultiJittered* MultiJittered::clone(void) const { return (new MultiJittered(*this)); }
+MultiJittered* MultiJittered::clone() const { return new MultiJittered(*this); }
 
 // This is based on code in Chui et al. (1994), cited in the references
 // The overloaded functions rand_int and rand_float (called from rand_int), which take arguments,
 // are defined in Maths.h
 // They should be defined here, as this is the only place they are usedm but I couldn't get them to compile
 
-void MultiJittered::generate_samples(void) {
+void MultiJittered::generate_samples() {
     // num_samples needs to be a perfect square
 
     int n = (int)sqrt((float)num_samples);
