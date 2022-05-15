@@ -26,6 +26,13 @@ set (SOURCE_BRDFS
   src/BRDFs/PerfectSpecular.h
 )
 
+set (SOURCE_BTDFS
+  src/BTDFs/BTDF.cpp
+  src/BTDFs/BTDF.h
+  src/BTDFs/PerfectTransmitter.cpp
+  src/BTDFs/PerfectTransmitter.h
+)
+
 set (SOURCE_CAMERAS
   src/Cameras/Camera.cpp
   src/Cameras/Camera.h
@@ -135,6 +142,8 @@ set (SOURCE_MATERIALS
   src/Materials/Phong.h
   src/Materials/Reflective.cpp
   src/Materials/Reflective.h
+  src/Materials/Transparent.cpp
+  src/Materials/Transparent.h
 )
 
 set (SOURCE_SAMPLERS
@@ -220,6 +229,7 @@ set (SOURCE_WORLD
 )
 
 source_group ("src/BRDFs" FILES ${SOURCE_BRDFS})
+source_group ("src/BTDFs" FILES ${SOURCE_BTDFS})
 source_group ("src/Cameras" FILES ${SOURCE_CAMERAS})
 source_group ("src/GeometricObjects" FILES ${SOURCE_GEOMETRICOBJECTS})
 source_group ("src/GeometricObjects/Beveled" FILES ${SOURCE_BEVELED})
@@ -238,6 +248,7 @@ source_group ("src/World" FILES ${SOURCE_WORLD})
 
 add_library (libRTF STATIC
   ${SOURCE_BRDFS}
+  ${SOURCE_BTDFS}
   ${SOURCE_CAMERAS}
   ${SOURCE_GEOMETRICOBJECTS}
   ${SOURCE_BEVELED}

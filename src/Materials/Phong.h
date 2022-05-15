@@ -22,7 +22,7 @@ public:
 
     Phong();
 
-    ~Phong();
+    virtual ~Phong();
 
     Phong(const Phong& p);
 
