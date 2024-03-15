@@ -18,6 +18,8 @@ endif ()
 set (SOURCE_BRDFS
   src/BRDFs/BRDF.cpp
   src/BRDFs/BRDF.h
+  src/BRDFs/FresnelReflector.cpp
+  src/BRDFs/FresnelReflector.h
   src/BRDFs/GlossySpecular.cpp
   src/BRDFs/GlossySpecular.h
   src/BRDFs/Lambertian.cpp
@@ -29,6 +31,8 @@ set (SOURCE_BRDFS
 set (SOURCE_BTDFS
   src/BTDFs/BTDF.cpp
   src/BTDFs/BTDF.h
+  src/BTDFs/FresnelTransmitter.cpp
+  src/BTDFs/FresnelTransmitter.h
   src/BTDFs/PerfectTransmitter.cpp
   src/BTDFs/PerfectTransmitter.h
 )

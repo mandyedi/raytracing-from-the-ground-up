@@ -10,7 +10,7 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#include "PerfectTransmitter.h"
+#include "FresnelTransmitter.h"
 
 #include <utility>
 #include <cmath>
@@ -18,31 +18,31 @@
 #include "../Utilities/Vector3D.h"
 #include "../Utilities/ShadeRec.h"
 
-PerfectTransmitter::PerfectTransmitter(const PerfectTransmitter& pt) : BTDF(pt), kt(pt.kt), ior(pt.ior) {}
+FresnelTransmitter::FresnelTransmitter(const FresnelTransmitter& pt) : BTDF(pt), kt(pt.kt), ior(pt.ior) {}
 
-PerfectTransmitter::PerfectTransmitter(PerfectTransmitter&& pt) noexcept : BTDF(std::move(pt)), kt(std::exchange(pt.kt, 0.0f)), ior(std::exchange(pt.ior, 1.0f)) {}
+FresnelTransmitter::FresnelTransmitter(FresnelTransmitter&& pt) noexcept : BTDF(std::move(pt)), kt(std::exchange(pt.kt, 0.0f)), ior(std::exchange(pt.ior, 1.0f)) {}
 
-PerfectTransmitter& PerfectTransmitter::operator=(const PerfectTransmitter& pt) {
-    PerfectTransmitter::operator=(pt);
+FresnelTransmitter& FresnelTransmitter::operator=(const FresnelTransmitter& pt) {
+    FresnelTransmitter::operator=(pt);
     kt = pt.kt;
     ior = pt.ior;
 
     return *this;
 }
 
-PerfectTransmitter& PerfectTransmitter::operator=(PerfectTransmitter&& pt) noexcept {
-    PerfectTransmitter::operator=(pt);
+FresnelTransmitter& FresnelTransmitter::operator=(FresnelTransmitter&& pt) noexcept {
+    FresnelTransmitter::operator=(pt);
     kt = std::exchange(pt.kt, 0.0f);
     ior = std::exchange(pt.ior, 1.0f);
 
     return *this;
 }
 
-PerfectTransmitter* PerfectTransmitter::clone() const { return new PerfectTransmitter(*this); }
+FresnelTransmitter* FresnelTransmitter::clone() const { return new FresnelTransmitter(*this); }
 
 // tests for total internal reflection
 
-bool PerfectTransmitter::tir(const ShadeRec& sr) const {
+bool FresnelTransmitter::tir(const ShadeRec& sr) const {
     Vector3D wo(-sr.ray.d);
     float cos_thetai = sr.normal * wo;
     float eta = ior;
@@ -54,13 +54,13 @@ bool PerfectTransmitter::tir(const ShadeRec& sr) const {
     return 1.0f - (1.0f - cos_thetai * cos_thetai) / (eta * eta) < 0.0f;
 }
 
-RGBColor PerfectTransmitter::f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const { return RGBColor::black; }
+RGBColor FresnelTransmitter::f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const { return RGBColor::black; }
 
 // this computes the direction wt for perfect transmission
 // and returns the transmission coefficient
 // this is only called when there is no total internal reflection
 
-RGBColor PerfectTransmitter::sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wt) const {
+RGBColor FresnelTransmitter::sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wt) const {
     Normal n(sr.normal);
     float cos_thetai = n * wo;
     float eta = ior;
@@ -78,4 +78,4 @@ RGBColor PerfectTransmitter::sample_f(const ShadeRec& sr, const Vector3D& wo, Ve
     return kt / (eta * eta) * RGBColor::white / fabs(sr.normal * wt);
 }
 
-RGBColor PerfectTransmitter::rho(const ShadeRec& sr, const Vector3D& wo) const { return RGBColor::black; }
+RGBColor FresnelTransmitter::rho(const ShadeRec& sr, const Vector3D& wo) const { return RGBColor::black; }

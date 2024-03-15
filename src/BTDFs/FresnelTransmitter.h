@@ -10,48 +10,50 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#ifndef __PERFECT_TRANSMITTER__
-#define __PERFECT_TRANSMITTER__
+#ifndef __FRESNEL_TRANSMITTER__
+#define __FRESNEL_TRANSMITTER__
 
 #include "BTDF.h"
 
-class PerfectTransmitter : public BTDF {
+class FresnelTransmitter : public BTDF {
 public:
 
-    PerfectTransmitter() = default;
+    FresnelTransmitter() = default;
 
-    ~PerfectTransmitter() = default;
+    ~FresnelTransmitter() = default;
 
-    PerfectTransmitter(const PerfectTransmitter& pt);
+    FresnelTransmitter(const FresnelTransmitter& pt);
 
-    PerfectTransmitter(PerfectTransmitter&& pt) noexcept;
+    FresnelTransmitter(FresnelTransmitter&& pt) noexcept;
 
-    PerfectTransmitter& operator=(const PerfectTransmitter& rhs);
+    FresnelTransmitter& operator=(const FresnelTransmitter& rhs);
 
-    PerfectTransmitter& operator=(PerfectTransmitter&& rhs) noexcept;
+    FresnelTransmitter& operator=(FresnelTransmitter&& rhs) noexcept;
 
-    PerfectTransmitter* clone() const override;
+    FresnelTransmitter* clone() const override;
 
-    void set_kt(const float k);
+    void set_eta_in(const float eta);
 
-    void set_ior(const float eta);
+    void set_eta_out(const float eta);
 
     bool tir(const ShadeRec& sr) const;
 
     RGBColor f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const override;
 
     RGBColor sample_f(const ShadeRec& sr, const Vector3D& wo, Vector3D& wt) const override;
-
+    
     RGBColor rho(const ShadeRec& sr, const Vector3D& wo) const override;
 
 private:
 
-    float kt = 0.0f;   // transmission coefficient
-    float ior = 1.0f;  // index of refraction
+    float eta_in = 1.0f;
+    float eta_out = 1.0f;
+    float kt = 0.0f; // TODO: what is kt?
+    float ior = 0.0f; // TODO: what is ior?
 };
 
-inline void PerfectTransmitter::set_kt(const float k) { kt = k; }
+inline void FresnelTransmitter::set_eta_in(const float eta) { eta_in = eta; }
 
-inline void PerfectTransmitter::set_ior(const float eta) { ior = eta; }
+inline void FresnelTransmitter::set_eta_out(const float eta) { eta_out = eta; }
 
 #endif

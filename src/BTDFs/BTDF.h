@@ -33,7 +33,7 @@ public:
 
     BTDF& operator=(BTDF&& btdf) = default;
 
-    virtual BTDF* clone() = 0;
+    virtual BTDF* clone() const = 0;
 
     virtual RGBColor f(const ShadeRec& sr, const Vector3D& wo, const Vector3D& wi) const;
 
