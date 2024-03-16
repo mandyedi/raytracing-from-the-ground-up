@@ -32,16 +32,6 @@ public:
 
     explicit BBox(const Point3D p0, const Point3D p1);
 
-    ~BBox() = default;
-
-    BBox(const BBox& bbox);
-
-    BBox(BBox&& bbox) noexcept;
-
-    BBox& operator=(const BBox& rhs);
-
-    BBox& operator=(BBox&& rhs) noexcept;
-
     bool hit(const Ray& ray) const;
 
     bool inside(const Point3D& p) const;

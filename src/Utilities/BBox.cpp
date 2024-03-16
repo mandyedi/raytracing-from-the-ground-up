@@ -19,38 +19,6 @@ BBox::BBox(const float _x0, const float _x1, const float _y0, const float _y1, c
 
 BBox::BBox(const Point3D p0, const Point3D p1) : x0(p0.x), x1(p1.x), y0(p0.y), y1(p1.y), z0(p0.z), z1(p1.z) {}
 
-BBox::BBox(const BBox& bbox) : x0(bbox.x0), x1(bbox.x1), y0(bbox.y0), y1(bbox.y1), z0(bbox.z0), z1(bbox.z1) {}
-
-BBox::BBox(BBox&& bbox) noexcept
-    : x0(std::exchange(bbox.x0, -1.0f)),
-      x1(std::exchange(bbox.x1, 1.0f)),
-      y0(std::exchange(bbox.y0, -1.0f)),
-      y1(std::exchange(bbox.y1, 1.0f)),
-      z0(std::exchange(bbox.z0, -1.0f)),
-      z1(std::exchange(bbox.z1, 1.0f)) {}
-
-BBox& BBox::operator=(const BBox& bbox) {
-    x0 = bbox.x0;
-    x1 = bbox.x1;
-    y0 = bbox.y0;
-    y1 = bbox.y1;
-    z0 = bbox.z0;
-    z1 = bbox.z1;
-
-    return *this;
-}
-
-BBox& BBox::operator=(BBox&& bbox) noexcept {
-    x0 = std::exchange(bbox.x0, -1.0f);
-    x1 = std::exchange(bbox.x1, 1.0f);
-    y0 = std::exchange(bbox.y0, -1.0f);
-    y1 = std::exchange(bbox.y1, 1.0f);
-    z0 = std::exchange(bbox.z0, -1.0f);
-    z1 = std::exchange(bbox.z1, 1.0f);
-
-    return *this;
-}
-
 bool BBox::hit(const Ray& ray) const {
     float ox = ray.o.x;
     float oy = ray.o.y;
