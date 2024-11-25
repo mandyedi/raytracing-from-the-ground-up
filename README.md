@@ -26,5 +26,5 @@ Using CMake the test application is automatically added to the build environment
 
 ## Source code origin
 
-The source codes were downloaded from http://www.raytracegroundup.com. Unfortunately, the original website is gone, you'll find something else on this link.  
+The source codes were downloaded from www raytracegroundup com (Note that this domain has expired and someone else bought it and uploaded some irrelevant content). Unfortunately, the original website is gone, you'll find something else on this link.  
 I am keeping it here for reference in the **src_original** directory. The continued version can be found under the **src** directory.
