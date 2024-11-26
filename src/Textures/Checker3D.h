@@ -18,6 +18,8 @@
 class Checker3D : public Texture {
 public:
 
+    Checker3D *clone() const override;
+
     RGBColor get_color(const ShadeRec& sr) const override;
 
     void set_size(const float s);

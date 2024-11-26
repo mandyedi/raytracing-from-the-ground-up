@@ -12,6 +12,10 @@
 
 #include "ConstantColor.h"
 
+ConstantColor *ConstantColor::clone() const {
+    return new ConstantColor(*this);
+}
+
 RGBColor ConstantColor::get_color(const ShadeRec& sr) const {
     return color;
 }

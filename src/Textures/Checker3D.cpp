@@ -18,6 +18,10 @@
 #include "../Utilities/Constants.h"
 #include "../Utilities/RGBColor.h"
 
+Checker3D *Checker3D::clone() const {
+    return new Checker3D(*this);
+}
+
 RGBColor Checker3D::get_color(const ShadeRec& sr) const {
     float eps = -0.000187453738;  // small random number
     float x = sr.local_hit_point.x + eps;

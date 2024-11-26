@@ -19,6 +19,8 @@
 class ConstantColor : public Texture {
 public:
 
+    ConstantColor *clone() const override;
+
     void set_color(const RGBColor& c);
 
     RGBColor get_color(const ShadeRec& sr) const override;

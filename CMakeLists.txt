@@ -26,6 +26,8 @@ set (SOURCE_BRDFS
   src/BRDFs/Lambertian.h
   src/BRDFs/PerfectSpecular.cpp
   src/BRDFs/PerfectSpecular.h
+  src/BRDFs/SV_Lambertian.cpp
+  src/BRDFs/SV_Lambertian.h
 )
 
 set (SOURCE_BTDFS
