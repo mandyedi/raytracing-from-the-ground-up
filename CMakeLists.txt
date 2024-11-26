@@ -208,8 +208,6 @@ set (SOURCE_UTILITIES
   src/Utilities/Matrix.h
   src/Utilities/Normal.cpp
   src/Utilities/Normal.h
-  src/Utilities/ply.c
-  src/Utilities/ply.h
   src/Utilities/Point2D.cpp
   src/Utilities/Point2D.h
   src/Utilities/Point3D.cpp

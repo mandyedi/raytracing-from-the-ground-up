@@ -17,7 +17,7 @@
 #include <iostream>
 #include <limits>
 // TODO: review and uncomment
-#include "../../Utilities/ply.h"
+//#include "../../Utilities/ply.h"
 #include "../Mesh.h"
 #include "../Triangles/FlatMeshTriangle.h"
 #include "../Triangles/SmoothMeshTriangle.h"
@@ -654,7 +654,7 @@ void Grid::read_ply_file(char* file_name, const int triangle_type) {
 
     // list of property information for a vertex
     // this varies depending on what you are reading from the file
-
+/*
     PlyProperty vert_props[] = {{(char*)"x", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex, x), 0, 0, 0, 0},
                                 {(char*)"y", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex, y), 0, 0, 0, 0},
                                 {(char*)"z", PLY_FLOAT, PLY_FLOAT, offsetof(Vertex, z), 0, 0, 0, 0}};
@@ -816,6 +816,7 @@ void Grid::read_ply_file(char* file_name, const int triangle_type) {
     // close the ply file
 
     ply_close(ply);
+ */
 }
 
 // this computes the average normal at each vertex
