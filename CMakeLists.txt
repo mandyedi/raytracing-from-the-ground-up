@@ -177,6 +177,8 @@ set (SOURCE_SCENEBUILDERS
 set (SOURCE_TEXTURES
   src/Textures/Checker3D.cpp
   src/Textures/Checker3D.h
+  src/Textures/ConstantColor.cpp
+  src/Textures/ConstantColor.h
   src/Textures/Texture.cpp
   src/Textures/Texture.h
 )
