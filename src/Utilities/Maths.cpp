@@ -79,8 +79,8 @@ int SolveCubic(float c[4], float s[3]) {
         float t = 2 * sqrt(-p);
 
         s[0] = t * cos(phi);
-        s[1] = -t * cos(phi + M_PI / 3);
-        s[2] = -t * cos(phi - M_PI / 3);
+        s[1] = -t * cos(phi + PI / 3);
+        s[2] = -t * cos(phi - PI / 3);
         num = 3;
     } else { /* one real solution */
         float sqrt_D = sqrt(D);
