@@ -11,13 +11,3 @@
 //  See the file COPYING.txt for the full license.
 
 #include "Texture.h"
-
-Texture::~Texture() {}
-
-Texture::Texture(const Texture& t) {}
-
-Texture::Texture(Texture&& t) noexcept {}
-
-Texture& Texture::operator=(const Texture& t) { return *this; }
-
-Texture& Texture::operator=(Texture&& t) noexcept { return *this; }

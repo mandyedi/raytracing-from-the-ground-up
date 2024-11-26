@@ -18,34 +18,6 @@
 #include "../Utilities/Constants.h"
 #include "../Utilities/RGBColor.h"
 
-Checker3D::~Checker3D() {}
-
-Checker3D::Checker3D(const Checker3D& c) : Texture(c), color1(c.color1), color2(c.color2), size(c.size) {}
-
-Checker3D::Checker3D(Checker3D&& c) noexcept : Texture(std::move(c)), color1(std::move(c.color1)), color2(std::move(c.color2)), size(std::exchange(c.size, 0.0f)) {}
-
-Checker3D& Checker3D::operator=(const Checker3D& c) {
-    Texture::operator=(c);
-
-    color1 = c.color1;
-    color2 = c.color2;
-    size = c.size;
-
-    return *this;
-}
-
-Checker3D& Checker3D::operator=(Checker3D&& c) noexcept {
-    Texture::operator=(std::move(c));
-
-    color1 = std::move(c.color1);
-    color2 = std::move(c.color2);
-    size = std::exchange(c.size, 0);
-
-    return *this;
-}
-
-Checker3D* Checker3D::clone() const { return new Checker3D(*this); }
-
 RGBColor Checker3D::get_color(const ShadeRec& sr) const {
     float eps = -0.000187453738;  // small random number
     float x = sr.local_hit_point.x + eps;

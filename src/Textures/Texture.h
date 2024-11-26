@@ -18,21 +18,6 @@
 
 class Texture {
 public:
-
-    Texture() = default;
-
-    virtual ~Texture();
-
-    Texture(const Texture& t);
-
-    Texture(Texture&& t) noexcept;
-
-    Texture& operator=(const Texture& t);
-
-    Texture& operator=(Texture&& t) noexcept;
-
-    virtual Texture* clone() const = 0;
-
     virtual RGBColor get_color(const ShadeRec& sr) const = 0;
 };
 

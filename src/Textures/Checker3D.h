@@ -18,20 +18,6 @@
 class Checker3D : public Texture {
 public:
 
-    Checker3D() = default;
-
-    ~Checker3D();
-
-    Checker3D(const Checker3D& c);
-
-    Checker3D(Checker3D&& c) noexcept;
-
-    Checker3D& operator=(const Checker3D& c);
-
-    Checker3D& operator=(Checker3D&& c) noexcept;
-
-    Checker3D* clone() const override;
-
     RGBColor get_color(const ShadeRec& sr) const override;
 
     void set_size(const float s);
