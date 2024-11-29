@@ -135,6 +135,14 @@ set (SOURCE_LIGHTS
   src/Lights/PointLight.h
 )
 
+set (SOURCE_MAPPINGS
+  src/Mappings/Mapping.h
+  src/Mappings/LightProbe.cpp
+  src/Mappings/LightProbe.h
+  src/Mappings/SphericalMap.cpp
+  src/Mappings/SphericalMap.h
+)
+
 set (SOURCE_MATERIALS
   src/Materials/Emissive.cpp
   src/Materials/Emissive.h
@@ -181,6 +189,8 @@ set (SOURCE_TEXTURES
   src/Textures/Checker3D.h
   src/Textures/ConstantColor.cpp
   src/Textures/ConstantColor.h
+  src/Textures/ImageTexture.cpp
+  src/Textures/ImageTexture.h
   src/Textures/Texture.cpp
   src/Textures/Texture.h
 )
@@ -206,6 +216,8 @@ set (SOURCE_UTILITIES
   src/Utilities/BBox.cpp
   src/Utilities/BBox.h
   src/Utilities/Constants.h
+  src/Utilities/Image.cpp
+  src/Utilities/Image.h
   src/Utilities/Maths.h
   src/Utilities/Maths.cpp
   src/Utilities/Matrix.cpp
@@ -244,6 +256,7 @@ source_group ("src/GeometricObjects/PartObjects" FILES ${SOURCE_PARTOBJECTS})
 source_group ("src/GeometricObjects/Primitives" FILES ${SOURCE_PRIMITIVES})
 source_group ("src/GeometricObjects/Triangles" FILES ${SOURCE_TRIANGLES})
 source_group ("src/Lights" FILES ${SOURCE_LIGHTS})
+source_group ("src/Mappings" FILES ${SOURCE_MAPPINGS})
 source_group ("src/Materials" FILES ${SOURCE_MATERIALS})
 source_group ("src/Samplers" FILES ${SOURCE_SAMPLERS})
 source_group ("src/SceneBuilders" FILES ${SOURCE_SCENEBUILDERS})
@@ -263,6 +276,7 @@ add_library (libRTF STATIC
   ${SOURCE_PRIMITIVES}
   ${SOURCE_TRIANGLES}
   ${SOURCE_LIGHTS}
+  ${SOURCE_MAPPINGS}
   ${SOURCE_MATERIALS}
   ${SOURCE_SAMPLERS}
   ${SOURCE_SCENEBUILDERS}

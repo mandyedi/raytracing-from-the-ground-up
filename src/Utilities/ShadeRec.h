@@ -34,6 +34,8 @@ public:
     float t;    // ray parameter
     World& w;
     RGBColor color;
+    float u;    // texture coordinate
+    float v;    // texture coordinate
 
     ShadeRec() = delete;
 

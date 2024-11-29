@@ -4,23 +4,41 @@
 //  See the file COPYING.txt for the full license.
 
 //  Copyright notice for changes since the originally published version:
-//  Copyright (C) Edu√°rd M√°ndy 2019-2021
+//  Copyright (C) Edu·rd M·ndy 2019-2021
 //  Though this C++ code was change in a large measure it still has the original copyright notice.
 //  This C++ code is for non-commercial purposes only.
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#ifndef __TEXTURE__
-#define __TEXTURE__
+#ifndef __IMAGE__
+#define __IMAGE__
 
-#include "../Utilities/RGBColor.h"
-#include "../Utilities/ShadeRec.h"
+#include <vector>
+#include "RGBColor.h"
 
-class Texture {
+class Image {
 public:
-    virtual ~Texture() = 0;
-    virtual Texture *clone() const = 0;
-    virtual RGBColor get_color(const ShadeRec& sr) const = 0;
+
+    void read_ppm_file(const char *file_name);
+
+    int get_hres();
+
+    int get_vres();
+
+    RGBColor get_color(const int row, const int col) const;
+
+private:
+    int hres = 0;
+    int vres = 0;
+    std::vector<RGBColor> pixels;
 };
+
+inline int Image::get_hres() {
+    return hres;
+}
+
+inline int Image::get_vres() {
+    return vres;
+}
 
 #endif

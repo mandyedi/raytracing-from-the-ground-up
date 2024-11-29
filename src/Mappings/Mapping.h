@@ -4,23 +4,23 @@
 //  See the file COPYING.txt for the full license.
 
 //  Copyright notice for changes since the originally published version:
-//  Copyright (C) Edu√°rd M√°ndy 2019-2021
+//  Copyright (C) Edu·rd M·ndy 2019-2021
 //  Though this C++ code was change in a large measure it still has the original copyright notice.
 //  This C++ code is for non-commercial purposes only.
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#ifndef __TEXTURE__
-#define __TEXTURE__
+#ifndef __MAPPING__
+#define __MAPPING__
 
-#include "../Utilities/RGBColor.h"
-#include "../Utilities/ShadeRec.h"
+class Point3D;
 
-class Texture {
+class Mapping {
 public:
-    virtual ~Texture() = 0;
-    virtual Texture *clone() const = 0;
-    virtual RGBColor get_color(const ShadeRec& sr) const = 0;
+
+    virtual Mapping* clone(void) const = 0;
+
+    virtual void get_texel_coordinates(const Point3D& hit_point, const int hres, const int vres, int& row, int& column) const = 0;
 };
 
 #endif
