@@ -199,6 +199,10 @@ set (SOURCE_TEXTURES
   src/Textures/ConstantColor.h
   src/Textures/ImageTexture.cpp
   src/Textures/ImageTexture.h
+  src/Textures/PlaneChecker.cpp
+  src/Textures/PlaneChecker.h
+  src/Textures/SphereChecker.cpp
+  src/Textures/SphereChecker.h
   src/Textures/Texture.cpp
   src/Textures/Texture.h
 )
