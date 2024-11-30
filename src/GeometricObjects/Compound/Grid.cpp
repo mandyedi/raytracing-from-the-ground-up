@@ -387,9 +387,20 @@ bool Grid::hit(const Ray& ray, float& t, ShadeRec& sr) const {
 // They are just small wrapper functions that call the functions read_ply_file or read_uv_ply_file that
 // do the actual reading
 // These use the PLY code by Greg Turk to read the PLY file
-void Grid::read_flat_triangles(char* file_name) { read_ply_file(file_name, flat); }
+void Grid::read_flat_triangles(char* file_name) {
+    read_ply_file(file_name, flat);
+}
+
+void Grid::read_flat_uv_triangles(char *file_name) {
+    read_ply_file(file_name, flat);
+}
 
 void Grid::read_smooth_triangles(char* file_name) {
+    read_ply_file(file_name, smooth);
+    compute_mesh_normals();
+}
+
+void Grid::read_smooth_uv_triangles(char *file_name) {
     read_ply_file(file_name, smooth);
     compute_mesh_normals();
 }
@@ -817,6 +828,10 @@ void Grid::read_ply_file(char* file_name, const int triangle_type) {
 
     ply_close(ply);
  */
+}
+
+void Grid::read_uv_ply_file(char *file_name, const int triangle_type) {
+    // TODO: implement ply file reader for textured objects
 }
 
 // this computes the average normal at each vertex

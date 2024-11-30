@@ -108,12 +108,16 @@ set (SOURCE_PRIMITIVES
 set (SOURCE_TRIANGLES
   src/GeometricObjects/Triangles/FlatMeshTriangle.cpp
   src/GeometricObjects/Triangles/FlatMeshTriangle.h
+  src/GeometricObjects/Triangles/FlatUVMeshTriangle.cpp
+  src/GeometricObjects/Triangles/FlatUVMeshTriangle.h
   src/GeometricObjects/Triangles/Triangle.cpp
   src/GeometricObjects/Triangles/Triangle.h
   src/GeometricObjects/Triangles/MeshTriangle.cpp
   src/GeometricObjects/Triangles/MeshTriangle.h
   src/GeometricObjects/Triangles/SmoothMeshTriangle.cpp
   src/GeometricObjects/Triangles/SmoothMeshTriangle.h
+  src/GeometricObjects/Triangles/SmoothUVMeshTriangle.cpp
+  src/GeometricObjects/Triangles/SmoothUVMeshTriangle.h
   src/GeometricObjects/Triangles/SmoothTriangle.cpp
   src/GeometricObjects/Triangles/SmoothTriangle.h
 )

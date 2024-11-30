@@ -56,7 +56,11 @@ public:
 
     void read_flat_triangles(char* file_name);
 
+    void read_flat_uv_triangles(char *file_name);
+
     void read_smooth_triangles(char* file_name);
+
+    void read_smooth_uv_triangles(char *file_name);
 
     void tessellate_flat_sphere(const int horizontal_steps, const int vertical_steps);
 
@@ -79,6 +83,8 @@ private:
     Point3D find_max_bounds();
 
     void read_ply_file(char* file_name, const int triangle_type);
+
+    void read_uv_ply_file(char *file_name, const int triangle_type);
 
     void compute_mesh_normals();
 

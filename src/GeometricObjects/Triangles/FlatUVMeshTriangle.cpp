@@ -10,15 +10,15 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#include "SmoothMeshTriangle.h"
+#include "FlatUVMeshTriangle.h"
 
 #include <limits>
 
-SmoothMeshTriangle::SmoothMeshTriangle(Mesh* _mesh_ptr, const int i0, const int i1, const int i2) : MeshTriangle(_mesh_ptr, i0, i1, i2) {}
+FlatUVMeshTriangle::FlatUVMeshTriangle(Mesh* _mesh_ptr, const int i0, const int i1, const int i2) : MeshTriangle(_mesh_ptr, i0, i1, i2) {}
 
-SmoothMeshTriangle* SmoothMeshTriangle::clone() const { return new SmoothMeshTriangle(*this); }
+FlatUVMeshTriangle* FlatUVMeshTriangle::clone() const { return new FlatUVMeshTriangle(*this); }
 
-bool SmoothMeshTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
+bool FlatUVMeshTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     Point3D v0(mesh_ptr->vertices[index0]);
     Point3D v1(mesh_ptr->vertices[index1]);
     Point3D v2(mesh_ptr->vertices[index2]);
@@ -59,15 +59,13 @@ bool SmoothMeshTriangle::hit(const Ray& ray, float& tmin, ShadeRec& sr) const {
     }
 
     tmin = t;
-    sr.normal = interpolate_normal(beta, gamma);  // for smooth shading
-    sr.local_hit_point = ray.o + t * ray.d;
+    sr.u = interpolate_u(beta, gamma);
+    sr.v = interpolate_v(beta, gamma);
+
+    // From the book, chapter 29.6 Triangle Meshes, page 663
+    // Storing local hit point in ShadeRec object is not required here
+    // because the function ImageTexture::get_color in Listing 29.7
+    // doesn't use the local hit point when it uses u and v.
 
     return true;
-}
-
-Normal SmoothMeshTriangle::interpolate_normal(const float beta, const float gamma) const {
-    Normal normal((1 - beta - gamma) * mesh_ptr->normals[index0] + beta * mesh_ptr->normals[index1] + gamma * mesh_ptr->normals[index2]);
-    normal.normalize();
-
-    return normal;
 }
