@@ -10,17 +10,16 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#ifndef __SPHERICAL_MAPPING__
-#define __SPHERICAL_MAPPING__
+#include "RectangularMap.h"
+#include "../Utilities/Point3D.h"
 
-#include "Mapping.h"
+RectangularMap *RectangularMap::clone() const {
+    return new RectangularMap(*this);
+}
 
-class SphericalMap : public Mapping {
-public:
-
-    SphericalMap * clone() const override;
-
-    void get_texel_coordinates(const Point3D& hit_point, const int hres, const int vres, int& row, int& column) const override;
-};
-
-#endif
+void RectangularMap::get_texel_coordinates(const Point3D &local_hit_point, const int hres, const int vres, int &row, int &column) const {
+    float u = (local_hit_point.z + 1.0f) / 2.0f;
+    float v = (local_hit_point.x + 1.0f) / 2.0f;
+    column = static_cast<int>(static_cast<float>(hres - 1) * u);
+    row = static_cast<int>(static_cast<float>(vres - 1) * v);
+}

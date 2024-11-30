@@ -39,8 +39,8 @@ void LightProbe::get_texel_coordinates(const Point3D &local_hit_point, const int
     }
 
     float r = alpha * invPI;
-    float u = (1.0 + r * cos_beta) * 0.5;
-    float v = (1.0 + r * sin_beta) * 0.5;
+    float u = (1.0f + r * cos_beta) * 0.5f;
+    float v = (1.0f + r * sin_beta) * 0.5f;
     column = static_cast<int>(static_cast<float>(hres - 1) * u);
     row = static_cast<int>(static_cast<float>(vres - 1) * v);
 }

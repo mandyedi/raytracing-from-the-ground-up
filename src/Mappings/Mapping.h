@@ -18,7 +18,7 @@ class Point3D;
 class Mapping {
 public:
 
-    virtual Mapping* clone(void) const = 0;
+    virtual Mapping* clone() const = 0;
 
     virtual void get_texel_coordinates(const Point3D& hit_point, const int hres, const int vres, int& row, int& column) const = 0;
 };

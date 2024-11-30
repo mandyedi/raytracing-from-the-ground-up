@@ -12,23 +12,22 @@
 
 #include <cmath>
 
-#include "SphericalMap.h"
+#include "CylindricalMap.h"
 #include "../Utilities/Point3D.h"
 #include "../Utilities/Constants.h"
 
-SphericalMap* SphericalMap::clone() const {
-    return new SphericalMap(*this);
+CylindricalMap *CylindricalMap::clone() const {
+    return new CylindricalMap(*this);
 }
 
-void SphericalMap::get_texel_coordinates(const Point3D &local_hit_point, const int hres, const int vres, int &row, int &column) const {
-    float theta = acos(local_hit_point.y);
+void CylindricalMap::get_texel_coordinates(const Point3D &local_hit_point, const int hres, const int vres, int &row, int &column) const {
     float phi = atan2(local_hit_point.x, local_hit_point.z);
     if (phi < 0.0f) {
         phi += TWO_PI;
     }
 
     float u = phi * invTWO_PI;
-    float v = 1.0f - theta * invPI;
+    float v = (local_hit_point.y + 1.0f) / 2.0f;
 
     column = static_cast<int>(static_cast<float>(hres - 1) * u);
     row = static_cast<int>(static_cast<float>(vres - 1) * v);

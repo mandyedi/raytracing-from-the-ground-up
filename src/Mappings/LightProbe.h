@@ -18,7 +18,7 @@
 class LightProbe : public Mapping {
 public:
 
-    LightProbe * clone(void) const override;
+    LightProbe * clone() const override;
 
     void get_texel_coordinates(const Point3D& hit_point, const int hres, const int vres, int& row, int& column) const override;
 

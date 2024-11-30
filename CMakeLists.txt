@@ -136,9 +136,13 @@ set (SOURCE_LIGHTS
 )
 
 set (SOURCE_MAPPINGS
-  src/Mappings/Mapping.h
+  src/Mappings/CylindricalMap.cpp
+  src/Mappings/CylindricalMap.h
   src/Mappings/LightProbe.cpp
   src/Mappings/LightProbe.h
+  src/Mappings/Mapping.h
+  src/Mappings/RectangularMap.cpp
+  src/Mappings/RectangularMap.h
   src/Mappings/SphericalMap.cpp
   src/Mappings/SphericalMap.h
 )
