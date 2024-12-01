@@ -168,6 +168,15 @@ set (SOURCE_MATERIALS
   src/Materials/Transparent.h
 )
 
+set (SOURCE_NOISES
+  src/Noises/CubicNoise.cpp
+  src/Noises/CubicNoise.h
+  src/Noises/LatticeNoise.cpp
+  src/Noises/LatticeNoise.h
+  src/Noises/LinearNoise.cpp
+  src/Noises/LinearNoise.h
+)
+
 set (SOURCE_SAMPLERS
   src/Samplers/Hammersley.cpp
   src/Samplers/Hammersley.h
@@ -278,6 +287,7 @@ source_group ("src/GeometricObjects/Triangles" FILES ${SOURCE_TRIANGLES})
 source_group ("src/Lights" FILES ${SOURCE_LIGHTS})
 source_group ("src/Mappings" FILES ${SOURCE_MAPPINGS})
 source_group ("src/Materials" FILES ${SOURCE_MATERIALS})
+source_group ("src/Noises" FILES ${SOURCE_NOISES})
 source_group ("src/Samplers" FILES ${SOURCE_SAMPLERS})
 source_group ("src/SceneBuilders" FILES ${SOURCE_SCENEBUILDERS})
 source_group ("src/Textures" FILES ${SOURCE_TEXTURES})
@@ -298,6 +308,7 @@ add_library (libRTF STATIC
   ${SOURCE_LIGHTS}
   ${SOURCE_MAPPINGS}
   ${SOURCE_MATERIALS}
+  ${SOURCE_NOISES}
   ${SOURCE_SAMPLERS}
   ${SOURCE_SCENEBUILDERS}
   ${SOURCE_TEXTURES}
