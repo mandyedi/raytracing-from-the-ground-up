@@ -195,8 +195,14 @@ set (SOURCE_SCENEBUILDERS
 set (SOURCE_TEXTURES
   src/Textures/Checker3D.cpp
   src/Textures/Checker3D.h
+  src/Textures/ConeChecker.cpp
+  src/Textures/ConeChecker.h
   src/Textures/ConstantColor.cpp
   src/Textures/ConstantColor.h
+  src/Textures/CylinderChecker.cpp
+  src/Textures/CylinderChecker.h
+  src/Textures/DiskChecker.h
+  src/Textures/DiskChecker.cpp
   src/Textures/ImageTexture.cpp
   src/Textures/ImageTexture.h
   src/Textures/PlaneChecker.cpp
