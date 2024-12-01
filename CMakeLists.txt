@@ -212,6 +212,8 @@ set (SOURCE_TEXTURES
   src/Textures/CylinderChecker.h
   src/Textures/DiskChecker.h
   src/Textures/DiskChecker.cpp
+  src/Textures/FBmTexture.cpp
+  src/Textures/FBmTexture.h
   src/Textures/ImageTexture.cpp
   src/Textures/ImageTexture.h
   src/Textures/PlaneChecker.cpp
