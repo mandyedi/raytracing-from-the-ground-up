@@ -218,6 +218,8 @@ set (SOURCE_TEXTURES
   src/Textures/ImageTexture.h
   src/Textures/PlaneChecker.cpp
   src/Textures/PlaneChecker.h
+  src/Textures/RampFBmTexture.cpp
+  src/Textures/RampFBmTexture.h
   src/Textures/SphereChecker.cpp
   src/Textures/SphereChecker.h
   src/Textures/Texture.cpp
