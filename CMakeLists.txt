@@ -224,6 +224,10 @@ set (SOURCE_TEXTURES
   src/Textures/Texture.h
   src/Textures/TInstance.cpp
   src/Textures/TInstance.h
+  src/Textures/WrappedFBmTexture.cpp
+  src/Textures/WrappedFBmTexture.h
+  src/Textures/WrappedTwoColors.cpp
+  src/Textures/WrappedTwoColors.h
 )
 
 set (SOURCE_TRACERS
