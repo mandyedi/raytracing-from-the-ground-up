@@ -205,6 +205,8 @@ set (SOURCE_TEXTURES
   src/Textures/SphereChecker.h
   src/Textures/Texture.cpp
   src/Textures/Texture.h
+  src/Textures/TInstance.cpp
+  src/Textures/TInstance.h
 )
 
 set (SOURCE_TRACERS

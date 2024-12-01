@@ -19,7 +19,7 @@
 class Instance : public GeometricObject {
 public:
 
-    Instance();
+    Instance() = default;
 
     Instance(GeometricObject* obj_ptr);
 
@@ -66,12 +66,12 @@ public:
     void shear(const Matrix& m);
 
 private:
-
-    GeometricObject* object_ptr;  // object to be transformed
+    GeometricObject* object_ptr = nullptr;  // object to be transformed
     Matrix inv_matrix;
+    // TODO: static? check book
     static Matrix forward_matrix;  // transformation matrix
     BBox bbox;                     // transformed object's bounding box
-    bool transform_the_texture;
+    bool transform_the_texture = true;
 };
 
 inline void Instance::transform_texture(const bool transform) { transform_the_texture = transform; }

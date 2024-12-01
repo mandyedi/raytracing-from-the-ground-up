@@ -21,8 +21,6 @@
 
 Matrix Instance::forward_matrix;
 
-Instance::Instance() : GeometricObject(), object_ptr(nullptr), inv_matrix(), bbox(), transform_the_texture(true) { forward_matrix.set_identity(); }
-
 Instance::Instance(GeometricObject* obj_ptr) : GeometricObject(), object_ptr(obj_ptr), inv_matrix(), bbox(), transform_the_texture(true) { forward_matrix.set_identity(); }
 
 Instance::~Instance() {
