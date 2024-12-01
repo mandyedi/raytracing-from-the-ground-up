@@ -5,7 +5,8 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
-#pragma once
+#ifndef __CYLINDER_CHECKER__
+#define __CYLINDER_CHECKER__
 
 #include "Texture.h"
 #include "../Utilities/RGBColor.h"
@@ -69,3 +70,5 @@ inline void CylinderChecker::set_color2(const RGBColor &c) {
 inline void CylinderChecker::set_line_color(const RGBColor &c) {
     line_color.r = c.r; line_color.g = c.g; line_color.b = c.b;
 }
+
+#endif

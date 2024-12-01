@@ -10,6 +10,9 @@
 //  This C++ code is licensed under the GNU General Public License Version 2.
 //  See the file COPYING.txt for the full license.
 
+#ifndef __T_INSTANCE__
+#define __T_INSTANCE__
+
 #include "Texture.h"
 #include "../Utilities/Matrix.h"
 
@@ -43,3 +46,5 @@ private:
 inline void TInstance::set_texture(Texture *t_ptr) {
     texture_ptr = t_ptr;
 }
+
+#endif
